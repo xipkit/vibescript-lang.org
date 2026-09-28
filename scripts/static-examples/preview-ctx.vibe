@@ -1,0 +1,9 @@
+class ContextPreview
+  def user -> { id: string, role: string }
+    { id: "p-1", role: "coach" }
+  end
+end
+
+def ctx -> ContextPreview
+  ContextPreview.new
+end

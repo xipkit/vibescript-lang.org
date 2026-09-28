@@ -1,0 +1,9 @@
+class EventsPreview
+  def publish(channel: string, payload: { id: string, total: string }) -> { status: string, channel: string, payload: { id: string, total: string } }
+    { status: "preview", channel: channel, payload: payload }
+  end
+end
+
+def events -> EventsPreview
+  EventsPreview.new
+end

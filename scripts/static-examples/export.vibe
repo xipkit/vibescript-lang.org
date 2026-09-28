@@ -1,0 +1,23 @@
+# Mirror the Go site's display export, keeping arbitrary precision integers.
+def example_export(value: any) -> any
+  if value.is_type?(:array)
+    value.as(array<any>).map { |item| example_export(item) }
+  elsif value.is_type?(:hash)
+    value.as(hash<string, any>).transform_values { |item| example_export(item) }
+  elsif value.is_type?(:money)
+    value.to_s
+  elsif value.is_type?(:duration)
+    value.to_s
+  elsif value.is_type?(:time)
+    value.to_s
+  elsif value.is_type?(:symbol)
+    value.to_s
+  else
+    value
+  end
+end
+
+def example_output -> { value: any, display: string }
+  result = run
+  { value: example_export(result), display: "#{result}" }
+end
