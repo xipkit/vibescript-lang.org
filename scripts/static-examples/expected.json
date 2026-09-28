@@ -3376,17 +3376,17 @@
           "ends_at": "2023-11-21T22:53:20Z",
           "environment": "Production",
           "freeze_at": "2023-11-20T20:53:20Z",
-          "starts_at": "2023-11-21T15:53:20Z"
+          "starts_at": "2023-11-21T20:53:20Z"
         },
         "sandbox": {
           "duration": "PT20M",
           "ends_at": "2023-11-21T21:13:20Z",
           "environment": "Sandbox",
           "freeze_at": "2023-11-21T20:23:20Z",
-          "starts_at": "2023-11-21T15:53:20Z"
+          "starts_at": "2023-11-21T20:53:20Z"
         }
       },
-      "display": "{sandbox: {environment: Sandbox, starts_at: 2023-11-21T15:53:20Z, ends_at: 2023-11-21T21:13:20Z, freeze_at: 2023-11-21T20:23:20Z, duration: PT20M}, production: {environment: Production, starts_at: 2023-11-21T15:53:20Z, ends_at: 2023-11-21T22:53:20Z, freeze_at: 2023-11-20T20:53:20Z, duration: PT2H}}"
+      "display": "{sandbox: {environment: Sandbox, starts_at: 2023-11-21T20:53:20Z, ends_at: 2023-11-21T21:13:20Z, freeze_at: 2023-11-21T20:23:20Z, duration: PT20M}, production: {environment: Production, starts_at: 2023-11-21T20:53:20Z, ends_at: 2023-11-21T22:53:20Z, freeze_at: 2023-11-20T20:53:20Z, duration: PT2H}}"
     },
     "showcase/automation/retry_backoff.vibe": {
       "value": {
@@ -3851,7 +3851,7 @@
           "level": "Commander",
           "reminder_at": "2023-11-28T15:16:40Z",
           "service": "payments-api",
-          "starts_at": "2023-11-27T10:46:40Z",
+          "starts_at": "2023-11-27T15:46:40Z",
           "summary": "payments-api Commander handoff"
         },
         "primary": {
@@ -3859,11 +3859,11 @@
           "level": "Primary",
           "reminder_at": "2023-11-27T23:16:40Z",
           "service": "payments-api",
-          "starts_at": "2023-11-27T10:46:40Z",
+          "starts_at": "2023-11-27T15:46:40Z",
           "summary": "payments-api Primary handoff"
         }
       },
-      "display": "{primary: {service: payments-api, level: Primary, starts_at: 2023-11-27T10:46:40Z, ends_at: 2023-11-27T23:46:40Z, reminder_at: 2023-11-27T23:16:40Z, summary: payments-api Primary handoff}, commander: {service: payments-api, level: Commander, starts_at: 2023-11-27T10:46:40Z, ends_at: 2023-11-28T15:46:40Z, reminder_at: 2023-11-28T15:16:40Z, summary: payments-api Commander handoff}}"
+      "display": "{primary: {service: payments-api, level: Primary, starts_at: 2023-11-27T15:46:40Z, ends_at: 2023-11-27T23:46:40Z, reminder_at: 2023-11-27T23:16:40Z, summary: payments-api Primary handoff}, commander: {service: payments-api, level: Commander, starts_at: 2023-11-27T15:46:40Z, ends_at: 2023-11-28T15:46:40Z, reminder_at: 2023-11-28T15:16:40Z, summary: payments-api Commander handoff}}"
     },
     "showcase/policies/refund_decision.vibe": {
       "value": {
