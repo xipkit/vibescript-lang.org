@@ -1,0 +1,22 @@
+{{define "main"}}
+<div class="reference">
+  <aside class="reference-sidebar">
+    <nav class="reference-nav" aria-label="Reference sections" data-reference-nav>
+      <div class="reference-nav-group"><a class="reference-nav-title" href="/reference/">Language guide</a></div>
+      {{.TableOfContents}}
+      <div class="reference-nav-group"><span class="reference-nav-title">Guides</span><ul>
+      {{range where (where site.RegularPages "Type" "reference") "Params.guide" true}}<li><a href="{{.RelPermalink}}">{{.Title}}</a></li>{{end}}
+      </ul></div>
+    </nav>
+  </aside>
+  <article class="reference-prose">
+    <header class="reference-header">
+      <span class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Reference</span>
+      <h1>{{.Title}}</h1>
+      <p class="reference-lede">The Rust implementation, pinned to <code>{{substr hugo.Data.reference.revision 0 8}}</code>. <a href="/reference/prelude/">Every builtin signature</a>.</p>
+    </header>
+    {{if eq .RelPermalink "/reference/"}}<span id="app-services"></span><p>Connect your app through <a href="/reference/capabilities/">host capabilities</a>.</p>{{end}}
+    {{.Content}}
+  </article>
+</div>
+{{end}}

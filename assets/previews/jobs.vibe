@@ -1,0 +1,9 @@
+class JobsPreview
+  def enqueue(name: string, payload: { player_id: string }, *, delay: duration, key: string) -> { status: string, job: string, player_id: string, delay: string, key: string }
+    { status: "preview", job: name, player_id: payload["player_id"], delay: delay.to_s, key: key }
+  end
+end
+
+def jobs -> JobsPreview
+  JobsPreview.new
+end

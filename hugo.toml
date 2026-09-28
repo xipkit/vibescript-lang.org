@@ -1,0 +1,28 @@
+baseURL = 'https://vibescript-lang.org/'
+locale = 'en-us'
+title = 'Vibescript'
+disableKinds = ['taxonomy', 'term', 'RSS']
+enableRobotsTXT = true
+
+[params]
+  languageLabel = 'Rust edition'
+  upstreamRepo = 'https://github.com/xipkit/vibescript'
+
+[markup.highlight]
+  codeFences = false
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[[module.mounts]]
+  source = 'content'
+  target = 'content'
+[[module.mounts]]
+  source = 'assets'
+  target = 'assets'
+[[module.mounts]]
+  source = 'internal/catalog/content'
+  target = 'assets/examples'
+[[module.mounts]]
+  source = 'static'
+  target = 'static'

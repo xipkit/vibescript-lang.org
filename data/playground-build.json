@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "rust_commit": "1875d45b0e6f3a55a304299de03b865ef1017d32",
+  "dirty": false,
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "target": "wasm32-wasip1",
+  "file": "playground.wasm",
+  "sha256": "edcec1e410637ab3bfda7ce95d997ed1708547d7344bd11ff12dcac985bd7ffe",
+  "bytes": 3821319,
+  "profile": {
+    "opt_level": "z",
+    "panic": "abort",
+    "strip": true,
+    "debug": 0,
+    "lto": "thin",
+    "codegen_units": 1
+  },
+  "brotli_bytes": 904926
+}

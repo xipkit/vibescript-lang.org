@@ -1,0 +1,14 @@
+{
+  "programs": ["basics", "source-structure"],
+  "values-and-literals": ["literals", "numbers", "strings"],
+  "locals": ["variables"],
+  "functions": ["defining-functions", "parameters", "named-functions"],
+  "blocks": ["calls", "method-calls", "splats"],
+  "nil-and-optional-values": ["safe-navigation"],
+  "operators": ["operator-families", "comparison", "precedence"],
+  "control-flow": ["conditionals", "case-when", "loops", "guards"],
+  "classes-and-enums": ["classes", "enums"],
+  "modules-and-required-files": ["modules"],
+  "types": ["typing"],
+  "host-values": ["runtime", "builtins", "host-scheduling", "sandbox", "host-config"]
+}

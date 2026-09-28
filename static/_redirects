@@ -1,0 +1,4 @@
+# Example slugs and /reference are preserved. Pages normalizes directory URLs.
+/favicon.ico /static/favicon.ico 301
+# The old server exposed this liveness URL.
+/healthz / 301

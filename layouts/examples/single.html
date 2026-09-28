@@ -1,0 +1,38 @@
+{{define "main"}}
+<article class="detail-shell" data-playground data-function="{{.Params.function}}" data-previews="{{.Params.previews}}">
+  <header class="detail-header">
+    <div>
+      <span class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> {{.Params.category}}</span>
+      <h1>{{.Title}}</h1>
+      <p class="detail-summary">{{.Params.summary}}</p>
+      <div class="detail-meta">
+        <span class="meta-pill">{{.Params.difficulty}}</span>
+        {{with .Params.sourceurl}}<a class="meta-pill link-subtle" href="{{.}}">View source</a>{{end}}
+      </div>
+    </div>
+    <div class="runner-controls">
+      <button class="button run-button" type="button" data-run-button>Run example</button>
+      <button class="button-secondary" type="button" data-stop-button disabled>Stop</button>
+      <button class="button-secondary" type="button" data-format-button>Format</button>
+      <button class="button-secondary" type="button" data-reset-button>Reset</button>
+    </div>
+  </header>
+  <p class="editor-note" id="editor-help">Edit the source, then Run. Checks start after your first Run. Ctrl/⌘ + Enter runs; Tab indents. Preview services use sample data and never contact a real service.</p>
+  <noscript><p>Enable JavaScript to run or check code in your browser.</p></noscript>
+  <div class="detail-grid">
+    <div class="code-panel">
+      <div class="code-header"><label for="source"><strong>Source</strong></label><span>{{.Params.sourcepath}}</span></div>
+      <textarea id="source" class="source-editor" data-source spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="editor-help">{{.Params.sourcebody}}</textarea>
+    </div>
+    <div class="runner-panel">
+      <div class="runner-panel-header"><span>Output</span></div>
+      <pre class="runner-output" data-run-output role="status" aria-live="polite">Click Run example to see the result.</pre>
+    </div>
+  </div>
+  <section class="diagnostics-panel" aria-labelledby="diagnostics-title">
+    <h2 id="diagnostics-title">Code checks</h2>
+    <pre data-diagnostics role="status" aria-live="polite">Run once to load the checker. Your code stays in this browser.</pre>
+  </section>
+  <div class="detail-tags">{{range .Params.tags}}<a class="tag" href="/examples/?tag={{. | urlquery}}">{{.}}</a>{{end}}</div>
+</article>
+{{end}}

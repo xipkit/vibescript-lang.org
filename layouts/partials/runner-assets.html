@@ -1,0 +1,7 @@
+{{ $wasmURL := "" }}
+{{ with hugo.Data.playground }}{{ $wasmURL = .url }}{{ else }}{{ errorf "Missing playground manifest: run scripts/sync-playground.py" }}{{ end }}
+{{ $previews := dict }}
+{{ range resources.Match "previews/*.vibe" }}{{ $previews = merge $previews (dict (path.BaseName .Name) (.Content | string)) }}{{ end }}
+{{ $worker := resources.Get "runner-worker.js" | js.Build (dict "targetPath" "assets/runner-worker.js" "minify" true "defines" (dict "WASM_URL" ($wasmURL | jsonify) "PREVIEW_SOURCES" ($previews | jsonify))) | fingerprint }}
+{{ $runner := resources.Get "runner.js" | resources.ExecuteAsTemplate "assets/runner.js" (dict "worker" $worker.RelPermalink) | minify | fingerprint }}
+<script src="{{ $runner.RelPermalink }}" integrity="{{ $runner.Data.Integrity }}" defer></script>

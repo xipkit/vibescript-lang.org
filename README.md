@@ -1,27 +1,53 @@
 # vibescript-lang.org
 
-The Vibescript website. Browse examples, read their source, and run them from your browser. A Go server runs the scripts with the Vibescript interpreter.
+The Vibescript website, built with **Hugo 0.164.0 extended** and hosted as static
+files on Cloudflare Pages. Examples run in a Web Worker using the Rust WASI
+playground. Code never goes to a server. Visitors can edit, check, format, reset,
+and stop programs; SMS and email capabilities return previews without sending messages.
 
-## Run
-
-```bash
-just run
+```sh
+just build       # hugo --gc --minify
+just run         # preview the static output and Pages security headers on :8081
+just check       # build, preserved URLs, links, fragments, CSP markup
 ```
 
-The server listens on `0.0.0.0:8080` by default. Override it with `HOST`, `PORT`, and `SHUTDOWN_TIMEOUT`.
+The build needs only Hugo. The preview and maintenance scripts use Python 3.
+There is no Go server, npm build, API endpoint, database, or runtime CDN dependency.
 
-## Deploy
+## Content and assets
 
-Deployments are configured for Miren on Vultr. See [docs/deployment.md](docs/deployment.md).
+- `content/examples/_content.gotmpl` reads `.vibe` files at their existing
+  `internal/catalog/content/` paths through a Hugo asset mount. Metadata headers
+  drive titles, categories, difficulty, tags, and featured ordering. The old
+  path-based slugs are preserved. Add or change an example there; `hugo` picks it up.
+- `layouts/` and `assets/` retain the site's design. Fonts, logos, icons, Open Graph
+  images, and the optional sound module retain their `/static/` URLs.
+- `content/reference/` is a committed snapshot of the Rust language guide, its
+  supporting guides, and builtin signatures. See [reference updates](docs/reference.md).
+- `assets/runner-worker.js` owns WASI instantiation. `assets/runner.js` owns the
+  editor, debounce, cancellation, and wall-clock timers. The textarea requires no
+  editor package. Static code snippets retain the small existing highlighter.
+- `static/wasm/` contains the pinned playground module; `data/playground.json`
+  records its source revision and SHA-256. See [the runner](docs/browser-runner.md).
 
-## What's here
+## Browser verification
 
-- Hundreds of examples from [Vibescript](https://github.com/xipkit/vibescript), Rosetta Code, and common app tasks.
-- Source code and a Run button for each example.
-- A language reference at `/reference`.
+Use an installed Playwright package and Chromium, or install Playwright into an
+external tools directory. This is test tooling only, not part of the site build.
+With `just run` running:
 
-## Test
-
-```bash
-go test ./...
+```sh
+PLAYWRIGHT_MODULE=/path/to/node_modules/playwright/index.mjs \
+PLAYWRIGHT_CHROMIUM_EXECUTABLE=/path/to/chromium \
+node scripts/check-browser.mjs
 ```
+
+The test runs real WASM, checks editing and diagnostics, Format and Reset,
+Stop and deadline cancellation, preview capabilities, catalog filters, CSP,
+phone layout, and lazy loading. It writes screenshots and measured page weights
+to `test-results/`. After integrating the migrated examples, run
+`node scripts/check-catalog-browser.mjs` with the same Playwright environment to
+execute the entire catalog through the real browser runner.
+
+See [deployment](docs/deployment.md) for Cloudflare Pages configuration and the
+host redirects. Building or testing this repository does not deploy it.
