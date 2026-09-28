@@ -1,0 +1,5683 @@
+{
+  "engine": "Go v0.70.0",
+  "examples": {
+    "arrays/extras.vibe": {
+      "display": "{first_two: [2, 4], last_three: [7, 12, 15], numeric_sum: 44, double_sum: 88, push_and_pop: {array: [2, 4, 4, 7, 12, 15], popped: 20}, uniq_values: [2, 4, 7, 12, 15], concat_values: [1, 2, 3, 4], subtract_values: [2, 7, 12], shovel_value: [1, 2, 3], accumulate_with_shovel: [2, 4, 4, 7, 12, 15], intersect_values: [2, 4], include_value: true, first_match: 12, first_match_index: 4, count_value: 2, count_large: 3, predicate_snapshot: {any_large: true, all_positive: true, none_negative: true}, sort_values: [1, 2, 5, 9], sort_desc: [9, 5, 2, 1], sort_words_by_length: [fig, pear, kiwi, banana], partition_even: [[2, 4, 4, 12], [7, 15]], group_by_status: {active: [{name: Ada, status: active}, {name: Sol, status: active}], inactive: [{name: Lin, status: inactive}]}, tally_statuses: {active: 2, inactive: 1}, chunk_values: [[2, 4], [4, 7], [12, 15]], window_values: [[2, 4, 4], [4, 4, 7], [4, 7, 12], [7, 12, 15]], group_by_stable_status: [[active, [{name: Ada, status: active}, {name: Sol, status: active}]], [inactive, [{name: Lin, status: inactive}]]]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "arrays-extras",
+      "source_sha256": "ae8779c341bea1a6eadd6bcc296879010e8a4e3652dac6f34c62d5b01c278f21",
+      "value": {
+        "accumulate_with_shovel": [
+          2,
+          4,
+          4,
+          7,
+          12,
+          15
+        ],
+        "chunk_values": [
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            12,
+            15
+          ]
+        ],
+        "concat_values": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "count_large": 3,
+        "count_value": 2,
+        "double_sum": 88,
+        "first_match": 12,
+        "first_match_index": 4,
+        "first_two": [
+          2,
+          4
+        ],
+        "group_by_stable_status": [
+          [
+            "active",
+            [
+              {
+                "name": "Ada",
+                "status": "active"
+              },
+              {
+                "name": "Sol",
+                "status": "active"
+              }
+            ]
+          ],
+          [
+            "inactive",
+            [
+              {
+                "name": "Lin",
+                "status": "inactive"
+              }
+            ]
+          ]
+        ],
+        "group_by_status": {
+          "active": [
+            {
+              "name": "Ada",
+              "status": "active"
+            },
+            {
+              "name": "Sol",
+              "status": "active"
+            }
+          ],
+          "inactive": [
+            {
+              "name": "Lin",
+              "status": "inactive"
+            }
+          ]
+        },
+        "include_value": true,
+        "intersect_values": [
+          2,
+          4
+        ],
+        "last_three": [
+          7,
+          12,
+          15
+        ],
+        "numeric_sum": 44,
+        "partition_even": [
+          [
+            2,
+            4,
+            4,
+            12
+          ],
+          [
+            7,
+            15
+          ]
+        ],
+        "predicate_snapshot": {
+          "all_positive": true,
+          "any_large": true,
+          "none_negative": true
+        },
+        "push_and_pop": {
+          "array": [
+            2,
+            4,
+            4,
+            7,
+            12,
+            15
+          ],
+          "popped": 20
+        },
+        "shovel_value": [
+          1,
+          2,
+          3
+        ],
+        "sort_desc": [
+          9,
+          5,
+          2,
+          1
+        ],
+        "sort_values": [
+          1,
+          2,
+          5,
+          9
+        ],
+        "sort_words_by_length": [
+          "fig",
+          "pear",
+          "kiwi",
+          "banana"
+        ],
+        "subtract_values": [
+          2,
+          7,
+          12
+        ],
+        "tally_statuses": {
+          "active": 2,
+          "inactive": 1
+        },
+        "uniq_values": [
+          2,
+          4,
+          7,
+          12,
+          15
+        ],
+        "window_values": [
+          [
+            2,
+            4,
+            4
+          ],
+          [
+            4,
+            4,
+            7
+          ],
+          [
+            4,
+            7,
+            12
+          ],
+          [
+            7,
+            12,
+            15
+          ]
+        ]
+      }
+    },
+    "background/jobs_and_events.vibe": {
+      "display": "{note: This example requires jobs, events, and db capabilities which are injected by the host application., functions: [queue_recalc, publish_update, job_recalc_player_total]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "background-jobs-and-events",
+      "source_sha256": "03863e1e27ade809db187bd606474a897b69ca1bb9ebd3832d1156415b94ffd4",
+      "value": {
+        "functions": [
+          "queue_recalc",
+          "publish_update",
+          "job_recalc_player_total"
+        ],
+        "note": "This example requires jobs, events, and db capabilities which are injected by the host application."
+      }
+    },
+    "basics/functions_and_calls.vibe": {
+      "display": "{greet: hello vibescript, decorated: [hello vibescript], sum: 60, max: 42}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "basics-functions-and-calls",
+      "source_sha256": "3fb0230d4ea83f93854df400992948c92cf551cf1cfed0b0e1126feaa5e94a4a",
+      "value": {
+        "decorated": "[hello vibescript]",
+        "greet": "hello vibescript",
+        "max": 42,
+        "sum": 60
+      }
+    },
+    "basics/literals_and_operators.vibe": {
+      "display": "{add: 35, combine: hello world, negate: -7, truth: true, literals: {answer: 42, ratio: 3.75, quote: keep going, flags: [true, false, ]}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "basics-literals-and-operators",
+      "source_sha256": "cc093ad41699215107cd9424ee3ae1dbbd45cc295f9338cf43750ba0ee1729df",
+      "value": {
+        "add": 35,
+        "combine": "hello world",
+        "literals": {
+          "answer": 42,
+          "flags": [
+            true,
+            false,
+            null
+          ],
+          "quote": "keep going",
+          "ratio": 3.75
+        },
+        "negate": -7,
+        "truth": true
+      }
+    },
+    "basics/namespaces.vibe": {
+      "display": "{base: 80, with_bonus: 90}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "basics-namespaces",
+      "source_sha256": "a124ce1dfd95cff50c26eae0288a7c6099b7b19b47d1d4d8662045f9ea8c8028",
+      "value": {
+        "base": 80,
+        "with_bonus": 90
+      }
+    },
+    "blocks/advanced.vibe": {
+      "display": "{active_count: 3, max_score: 67, any_large: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "blocks-advanced",
+      "source_sha256": "2bba3ad85009473a933ccc5bda7dac80c430471a1a3351699316d48a996d25a0",
+      "value": {
+        "active_count": 3,
+        "any_large": true,
+        "max_score": 67
+      }
+    },
+    "blocks/enumerable_reports.vibe": {
+      "display": "{USD: 85.00 USD}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "blocks-enumerable-reports",
+      "source_sha256": "3a4b295a79d85223d83c16c942504d228989b76eb49b829a5cc9ad6dd5c18b41",
+      "value": {
+        "USD": "85.00 USD"
+      }
+    },
+    "blocks/transformations.vibe": {
+      "display": "{doubled: [20, 40, 60], total: 600}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "blocks-transformations",
+      "source_sha256": "e421089a73b6b976805f1cb6bd63ef343bf8024fd3c7301c850bf6e3161a91d8",
+      "value": {
+        "doubled": [
+          20,
+          40,
+          60
+        ],
+        "total": 600
+      }
+    },
+    "blocks/yield_patterns.vibe": {
+      "display": "{times: [0, 1, 2, 3, 4], tap: 42, transform_keys: {name: Alice, age: 30}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "blocks-yield-patterns",
+      "source_sha256": "55aed5ad3da34af17a436439e445052cc4a4312000bc940f6b85f6aa1b4a7721",
+      "value": {
+        "tap": 42,
+        "times": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "transform_keys": {
+          "age": 30,
+          "name": "Alice"
+        }
+      }
+    },
+    "capabilities/context_access.vibe": {
+      "display": "{note: This example requires the ctx capability which is injected by the host application., functions: [current_user_id, coach?]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "capabilities-context-access",
+      "source_sha256": "14562d22f884f70ea4f290cefe5f368e76a9c465172fd1af6c7b2e01613eb5ff",
+      "value": {
+        "functions": [
+          "current_user_id",
+          "coach?"
+        ],
+        "note": "This example requires the ctx capability which is injected by the host application."
+      }
+    },
+    "capabilities/database_queries.vibe": {
+      "display": "{note: This example requires the db capability which is injected by the host application., functions: [load_player, top_players, increment_total]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "capabilities-database-queries",
+      "source_sha256": "b94e82824edf396c949898b9671b57525aa02749dc029aadce7445a698340ea4",
+      "value": {
+        "functions": [
+          "load_player",
+          "top_players",
+          "increment_total"
+        ],
+        "note": "This example requires the db capability which is injected by the host application."
+      }
+    },
+    "capabilities/iteration.vibe": {
+      "display": "{note: This example requires the db capability which is injected by the host application., functions: [total_raised_for_player]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "capabilities-iteration",
+      "source_sha256": "20d88ddcffa95fbcd61283602a212e22ed3616c7907d78cd250e521cc082e7a4",
+      "value": {
+        "functions": [
+          "total_raised_for_player"
+        ],
+        "note": "This example requires the db capability which is injected by the host application."
+      }
+    },
+    "collections/arrays.vibe": {
+      "display": "{head: 10, tail: 20, matrix: [[1, 2], [2, 1]], replaced: [99, 2, 3]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "collections-arrays",
+      "source_sha256": "09c0d543dd323f4b785c31b8c44a91a31a900ee6776a3164649ab0afdaabfaef",
+      "value": {
+        "head": 10,
+        "matrix": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "replaced": [
+          99,
+          2,
+          3
+        ],
+        "tail": 20
+      }
+    },
+    "collections/hashes.vibe": {
+      "display": "{player: {name: Alice, goal: 1000, raised: 0, status: active}, completed: {name: Bob, goal: 500, raised: 0, status: complete}, with_bonus: 300, nested: vip}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "collections-hashes",
+      "source_sha256": "a3768c5ece7efc638c3bf1feee1102da5c0baddc8ad8f572e06a290777cdd808",
+      "value": {
+        "completed": {
+          "goal": 500,
+          "name": "Bob",
+          "raised": 0,
+          "status": "complete"
+        },
+        "nested": "vip",
+        "player": {
+          "goal": 1000,
+          "name": "Alice",
+          "raised": 0,
+          "status": "active"
+        },
+        "with_bonus": 300
+      }
+    },
+    "collections/symbols.vibe": {
+      "display": "{keys: [read, write, delete], fetched: Alice, normalized: {same_entry: true, keys: [name, role]}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "collections-symbols",
+      "source_sha256": "1ced4d6d6048306113c7fe36550381e88944585929f5ee833a8fa155a92c73a2",
+      "value": {
+        "fetched": "Alice",
+        "keys": [
+          "read",
+          "write",
+          "delete"
+        ],
+        "normalized": {
+          "keys": [
+            "name",
+            "role"
+          ],
+          "same_entry": true
+        }
+      }
+    },
+    "control_flow/case_when.vibe": {
+      "display": "[perfect, great, ok]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "control-flow-case-when",
+      "source_sha256": "089cf8d48cd9bd8c73b97da60e26d25971541a02c9523623b8177f22933e7f2c",
+      "value": [
+        "perfect",
+        "great",
+        "ok"
+      ]
+    },
+    "control_flow/conditionals.vibe": {
+      "display": "{legend: legend, gold: gold, bronze: bronze, active: needs attention, complete: done, other: unknown}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "control-flow-conditionals",
+      "source_sha256": "0a0b79328deed139c6c981aef72b3cc00af9223d7cc282ae1ac0fbeb34849be2",
+      "value": {
+        "active": "needs attention",
+        "bronze": "bronze",
+        "complete": "done",
+        "gold": "gold",
+        "legend": "legend",
+        "other": "unknown"
+      }
+    },
+    "control_flow/loop_control.vibe": {
+      "display": "[1, 3, 5, 7, 9]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "control-flow-loop-control",
+      "source_sha256": "f995532aec0e871d9d07a1e60b7b6e786688cd093dadac4639783b1440b207c0",
+      "value": [
+        1,
+        3,
+        5,
+        7,
+        9
+      ]
+    },
+    "control_flow/recursion.vibe": {
+      "display": "{factorial_5: 120, factorial_10: 3628800, fibonacci_5: 5, fibonacci_7: 13}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "control-flow-recursion",
+      "source_sha256": "3d07b85e6976fc85dab9eb9a1bbe5968aae702255cf2e5e98658b2a5e09a156e",
+      "value": {
+        "factorial_10": 3628800,
+        "factorial_5": 120,
+        "fibonacci_5": 5,
+        "fibonacci_7": 13
+      }
+    },
+    "control_flow/until_loop.vibe": {
+      "display": "[0, 1, 2, 3, 4]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "control-flow-until-loop",
+      "source_sha256": "12b086d8df21558c131dec6c56330e2af7439e660b3124808f82fa67aaa199b7",
+      "value": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "control_flow/while_loop.vibe": {
+      "display": "[5, 4, 3, 2, 1]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "control-flow-while-loop",
+      "source_sha256": "208a1fde89109c021f345991edeecf6f1fd4fd93dcf5a9bc5e837034d14de09a",
+      "value": [
+        5,
+        4,
+        3,
+        2,
+        1
+      ]
+    },
+    "durations/durations.vibe": {
+      "display": "{reminder_delay: 300, event_window: 7200s, combined: 900}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "durations-durations",
+      "source_sha256": "56e7aeaa114a009bdc2c3dd9fc3bb48e232d38df0605dc8f1c725821edb8b9bf",
+      "value": {
+        "combined": 900,
+        "event_window": "7200s",
+        "reminder_delay": 300
+      }
+    },
+    "enums/operations.vibe": {
+      "display": "{member_name: Draft, published_name: Published, names: [Draft, Published], facts: {same: true, symbol_same: false, cross_enum_same: false, name: Draft, symbol: draft, render: status=draft, payload: {\"status\":\"draft\"}}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "enums-operations",
+      "source_sha256": "ef476ac1cf1f40bf7a53845eb639b7b0ccbe05bedb0a98b54cbbca75987cbc69",
+      "value": {
+        "facts": {
+          "cross_enum_same": false,
+          "name": "Draft",
+          "payload": "{\"status\":\"draft\"}",
+          "render": "status=draft",
+          "same": true,
+          "symbol": "draft",
+          "symbol_same": false
+        },
+        "member_name": "Draft",
+        "names": [
+          "Draft",
+          "Published"
+        ],
+        "published_name": "Published"
+      }
+    },
+    "errors/assertions.vibe": {
+      "display": "{positive: 42, currency: 25.00 USD, present: hello}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "errors-assertions",
+      "source_sha256": "b98645a5eabe0df724cc90f156c54a99db57bbcde3fd3404fc20617ba1a0bf78",
+      "value": {
+        "currency": "25.00 USD",
+        "positive": 42,
+        "present": "hello"
+      }
+    },
+    "hashes/operations.vibe": {
+      "display": "{merged: {status: active, raised: 75.00 USD, goal: 100.00 USD, name: Alice}, overridden: {a: 2, b: 3}, tally: {active: 2, complete: 1}, flags: {size: 2, length: 2, empty: false, has_name: true, has_goal: true, includes_raised: false}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "hashes-operations",
+      "source_sha256": "cb85bf838e33026f4602a6d8b2bf8b104644e7d4fa9c2532875824d5b6819520",
+      "value": {
+        "flags": {
+          "empty": false,
+          "has_goal": true,
+          "has_name": true,
+          "includes_raised": false,
+          "length": 2,
+          "size": 2
+        },
+        "merged": {
+          "goal": "100.00 USD",
+          "name": "Alice",
+          "raised": "75.00 USD",
+          "status": "active"
+        },
+        "overridden": {
+          "a": 2,
+          "b": 3
+        },
+        "tally": {
+          "active": 2,
+          "complete": 1
+        }
+      }
+    },
+    "hashes/transformations.vibe": {
+      "display": "{compact: {a: 1, c: 3}, select_keys: {name: Alice, goal: 100}, public: {name: Alice, raised: 500, goal: 1000}, without_private: {name: Alice, status: active, score: 0, goal: 100}, normalize: {a: 1, b: 0, c: 3}, active_only: {a: active, c: active}, non_zero: {y: 5, w: 3}, deep_transform: {playerId: 1, totalRaised: 500, meta: {amountCents: 100}}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "hashes-transformations",
+      "source_sha256": "04f0adb49b6905f8cd56749f3f48aa1d2817fc6e0faecdcc6c6b356c925fcb9b",
+      "value": {
+        "active_only": {
+          "a": "active",
+          "c": "active"
+        },
+        "compact": {
+          "a": 1,
+          "c": 3
+        },
+        "deep_transform": {
+          "meta": {
+            "amountCents": 100
+          },
+          "playerId": 1,
+          "totalRaised": 500
+        },
+        "non_zero": {
+          "w": 3,
+          "y": 5
+        },
+        "normalize": {
+          "a": 1,
+          "b": 0,
+          "c": 3
+        },
+        "public": {
+          "goal": 1000,
+          "name": "Alice",
+          "raised": 500
+        },
+        "select_keys": {
+          "goal": 100,
+          "name": "Alice"
+        },
+        "without_private": {
+          "goal": 100,
+          "name": "Alice",
+          "score": 0,
+          "status": "active"
+        }
+      }
+    },
+    "loops/advanced.vibe": {
+      "display": "{sum_of_products: 60, accumulate: 15, first_div_by_7: 7, matrix_sum: 45}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "loops-advanced",
+      "source_sha256": "eebee98014842f521a61e1a8e1c16d919eba5ff3e74e6b713401d13fbe37414e",
+      "value": {
+        "accumulate": 15,
+        "first_div_by_7": 7,
+        "matrix_sum": 45,
+        "sum_of_products": 60
+      }
+    },
+    "loops/fizzbuzz.vibe": {
+      "display": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n16\n17\nFizz\n19\nBuzz\n",
+      "entry_point": "run",
+      "kind": "string",
+      "runnable": true,
+      "slug": "loops-fizzbuzz",
+      "source_sha256": "39105c5151128db872dca01803f26422bd89e13cbe81823cc44b793f5580509b",
+      "value": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n16\n17\nFizz\n19\nBuzz\n"
+    },
+    "loops/iteration.vibe": {
+      "display": "{sum_range: 55, product_range: 720, countdown: 15, total_each: 55, doubled: [6, 14, 22], above_5: [6, 7, 8, 9, 10], reduce: 55}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "loops-iteration",
+      "source_sha256": "66dd508b19930af6dbbf192e65e06635e22bab4f884b0d31cb66b97f8bd35056",
+      "value": {
+        "above_5": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "countdown": 15,
+        "doubled": [
+          6,
+          14,
+          22
+        ],
+        "product_range": 720,
+        "reduce": 55,
+        "sum_range": 55,
+        "total_each": 55
+      }
+    },
+    "money/operations.vibe": {
+      "display": "{added: 62.50 USD, net: 48.25 USD, exceeds: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "money-operations",
+      "source_sha256": "cc313f34741f8486121499c3a3474646cb258bb84addc3ea8472626f7846785d",
+      "value": {
+        "added": "62.50 USD",
+        "exceeds": true,
+        "net": "48.25 USD"
+      }
+    },
+    "policies/access_control.vibe": {
+      "display": "{note: This example requires the ctx capability which is injected by the host application., functions: [can_edit_player?, can_view_player?], can_view_active: true, can_view_archived: false}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "policies-access-control",
+      "source_sha256": "dbca55a86ec5bf0774cbc1a5946c9df128fc9416e3bdb3d3adc47dfee7823695",
+      "value": {
+        "can_view_active": true,
+        "can_view_archived": false,
+        "functions": [
+          "can_edit_player?",
+          "can_view_player?"
+        ],
+        "note": "This example requires the ctx capability which is injected by the host application."
+      }
+    },
+    "ranges/usage.vibe": {
+      "display": "{inclusive_sum: 55, descending: 5,4,3,2,1, evens: 2,4,6,8,10,12,14,16,18,20}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "ranges-usage",
+      "source_sha256": "d3a3c58b44c964572ca7ae46ba2ffb305924877c4c01e17dc5fa4904853122f5",
+      "value": {
+        "descending": "5,4,3,2,1",
+        "evens": "2,4,6,8,10,12,14,16,18,20",
+        "inclusive_sum": 55
+      }
+    },
+    "rosettacode/popular/100_doors.vibe": {
+      "display": "[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-100-doors",
+      "source_sha256": "40399c13fdceec878e8a5e1d4f7c1fe7d40387d2b85ff37c4164e5de4609aa11",
+      "value": [
+        1,
+        4,
+        9,
+        16,
+        25,
+        36,
+        49,
+        64,
+        81,
+        100
+      ]
+    },
+    "rosettacode/popular/99_bottles_of_beer.vibe": {
+      "display": "99 bottles of beer on the wall, 99 bottles of beer.\nTake one down and pass it around, 98 bottles of beer on the wall.\n\n98 bottles of beer on the wall, 98 bottles of beer.\nTake one down and pass it around, 97 bottles of beer on the wall.\n\n97 bottles of beer on the wall, 97 bottles of beer.\nTake one down and pass it around, 96 bottles of beer on the wall.\n\n96 bottles of beer on the wall, 96 bottles of beer.\nTake one down and pass it around, 95 bottles of beer on the wall.\n\n95 bottles of beer on the wall, 95 bottles of beer.\nTake one down and pass it around, 94 bottles of beer on the wall.\n\n94 bottles of beer on the wall, 94 bottles of beer.\nTake one down and pass it around, 93 bottles of beer on the wall.\n\n93 bottles of beer on the wall, 93 bottles of beer.\nTake one down and pass it around, 92 bottles of beer on the wall.\n\n92 bottles of beer on the wall, 92 bottles of beer.\nTake one down and pass it around, 91 bottles of beer on the wall.\n\n91 bottles of beer on the wall, 91 bottles of beer.\nTake one down and pass it around, 90 bottles of beer on the wall.\n\n90 bottles of beer on the wall, 90 bottles of beer.\nTake one down and pass it around, 89 bottles of beer on the wall.\n\n89 bottles of beer on the wall, 89 bottles of beer.\nTake one down and pass it around, 88 bottles of beer on the wall.\n\n88 bottles of beer on the wall, 88 bottles of beer.\nTake one down and pass it around, 87 bottles of beer on the wall.\n\n87 bottles of beer on the wall, 87 bottles of beer.\nTake one down and pass it around, 86 bottles of beer on the wall.\n\n86 bottles of beer on the wall, 86 bottles of beer.\nTake one down and pass it around, 85 bottles of beer on the wall.\n\n85 bottles of beer on the wall, 85 bottles of beer.\nTake one down and pass it around, 84 bottles of beer on the wall.\n\n84 bottles of beer on the wall, 84 bottles of beer.\nTake one down and pass it around, 83 bottles of beer on the wall.\n\n83 bottles of beer on the wall, 83 bottles of beer.\nTake one down and pass it around, 82 bottles of beer on the wall.\n\n82 bottles of beer on the wall, 82 bottles of beer.\nTake one down and pass it around, 81 bottles of beer on the wall.\n\n81 bottles of beer on the wall, 81 bottles of beer.\nTake one down and pass it around, 80 bottles of beer on the wall.\n\n80 bottles of beer on the wall, 80 bottles of beer.\nTake one down and pass it around, 79 bottles of beer on the wall.\n\n79 bottles of beer on the wall, 79 bottles of beer.\nTake one down and pass it around, 78 bottles of beer on the wall.\n\n78 bottles of beer on the wall, 78 bottles of beer.\nTake one down and pass it around, 77 bottles of beer on the wall.\n\n77 bottles of beer on the wall, 77 bottles of beer.\nTake one down and pass it around, 76 bottles of beer on the wall.\n\n76 bottles of beer on the wall, 76 bottles of beer.\nTake one down and pass it around, 75 bottles of beer on the wall.\n\n75 bottles of beer on the wall, 75 bottles of beer.\nTake one down and pass it around, 74 bottles of beer on the wall.\n\n74 bottles of beer on the wall, 74 bottles of beer.\nTake one down and pass it around, 73 bottles of beer on the wall.\n\n73 bottles of beer on the wall, 73 bottles of beer.\nTake one down and pass it around, 72 bottles of beer on the wall.\n\n72 bottles of beer on the wall, 72 bottles of beer.\nTake one down and pass it around, 71 bottles of beer on the wall.\n\n71 bottles of beer on the wall, 71 bottles of beer.\nTake one down and pass it around, 70 bottles of beer on the wall.\n\n70 bottles of beer on the wall, 70 bottles of beer.\nTake one down and pass it around, 69 bottles of beer on the wall.\n\n69 bottles of beer on the wall, 69 bottles of beer.\nTake one down and pass it around, 68 bottles of beer on the wall.\n\n68 bottles of beer on the wall, 68 bottles of beer.\nTake one down and pass it around, 67 bottles of beer on the wall.\n\n67 bottles of beer on the wall, 67 bottles of beer.\nTake one down and pass it around, 66 bottles of beer on the wall.\n\n66 bottles of beer on the wall, 66 bottles of beer.\nTake one down and pass it around, 65 bottles of beer on the wall.\n\n65 bottles of beer on the wall, 65 bottles of beer.\nTake one down and pass it around, 64 bottles of beer on the wall.\n\n64 bottles of beer on the wall, 64 bottles of beer.\nTake one down and pass it around, 63 bottles of beer on the wall.\n\n63 bottles of beer on the wall, 63 bottles of beer.\nTake one down and pass it around, 62 bottles of beer on the wall.\n\n62 bottles of beer on the wall, 62 bottles of beer.\nTake one down and pass it around, 61 bottles of beer on the wall.\n\n61 bottles of beer on the wall, 61 bottles of beer.\nTake one down and pass it around, 60 bottles of beer on the wall.\n\n60 bottles of beer on the wall, 60 bottles of beer.\nTake one down and pass it around, 59 bottles of beer on the wall.\n\n59 bottles of beer on the wall, 59 bottles of beer.\nTake one down and pass it around, 58 bottles of beer on the wall.\n\n58 bottles of beer on the wall, 58 bottles of beer.\nTake one down and pass it around, 57 bottles of beer on the wall.\n\n57 bottles of beer on the wall, 57 bottles of beer.\nTake one down and pass it around, 56 bottles of beer on the wall.\n\n56 bottles of beer on the wall, 56 bottles of beer.\nTake one down and pass it around, 55 bottles of beer on the wall.\n\n55 bottles of beer on the wall, 55 bottles of beer.\nTake one down and pass it around, 54 bottles of beer on the wall.\n\n54 bottles of beer on the wall, 54 bottles of beer.\nTake one down and pass it around, 53 bottles of beer on the wall.\n\n53 bottles of beer on the wall, 53 bottles of beer.\nTake one down and pass it around, 52 bottles of beer on the wall.\n\n52 bottles of beer on the wall, 52 bottles of beer.\nTake one down and pass it around, 51 bottles of beer on the wall.\n\n51 bottles of beer on the wall, 51 bottles of beer.\nTake one down and pass it around, 50 bottles of beer on the wall.\n\n50 bottles of beer on the wall, 50 bottles of beer.\nTake one down and pass it around, 49 bottles of beer on the wall.\n\n49 bottles of beer on the wall, 49 bottles of beer.\nTake one down and pass it around, 48 bottles of beer on the wall.\n\n48 bottles of beer on the wall, 48 bottles of beer.\nTake one down and pass it around, 47 bottles of beer on the wall.\n\n47 bottles of beer on the wall, 47 bottles of beer.\nTake one down and pass it around, 46 bottles of beer on the wall.\n\n46 bottles of beer on the wall, 46 bottles of beer.\nTake one down and pass it around, 45 bottles of beer on the wall.\n\n45 bottles of beer on the wall, 45 bottles of beer.\nTake one down and pass it around, 44 bottles of beer on the wall.\n\n44 bottles of beer on the wall, 44 bottles of beer.\nTake one down and pass it around, 43 bottles of beer on the wall.\n\n43 bottles of beer on the wall, 43 bottles of beer.\nTake one down and pass it around, 42 bottles of beer on the wall.\n\n42 bottles of beer on the wall, 42 bottles of beer.\nTake one down and pass it around, 41 bottles of beer on the wall.\n\n41 bottles of beer on the wall, 41 bottles of beer.\nTake one down and pass it around, 40 bottles of beer on the wall.\n\n40 bottles of beer on the wall, 40 bottles of beer.\nTake one down and pass it around, 39 bottles of beer on the wall.\n\n39 bottles of beer on the wall, 39 bottles of beer.\nTake one down and pass it around, 38 bottles of beer on the wall.\n\n38 bottles of beer on the wall, 38 bottles of beer.\nTake one down and pass it around, 37 bottles of beer on the wall.\n\n37 bottles of beer on the wall, 37 bottles of beer.\nTake one down and pass it around, 36 bottles of beer on the wall.\n\n36 bottles of beer on the wall, 36 bottles of beer.\nTake one down and pass it around, 35 bottles of beer on the wall.\n\n35 bottles of beer on the wall, 35 bottles of beer.\nTake one down and pass it around, 34 bottles of beer on the wall.\n\n34 bottles of beer on the wall, 34 bottles of beer.\nTake one down and pass it around, 33 bottles of beer on the wall.\n\n33 bottles of beer on the wall, 33 bottles of beer.\nTake one down and pass it around, 32 bottles of beer on the wall.\n\n32 bottles of beer on the wall, 32 bottles of beer.\nTake one down and pass it around, 31 bottles of beer on the wall.\n\n31 bottles of beer on the wall, 31 bottles of beer.\nTake one down and pass it around, 30 bottles of beer on the wall.\n\n30 bottles of beer on the wall, 30 bottles of beer.\nTake one down and pass it around, 29 bottles of beer on the wall.\n\n29 bottles of beer on the wall, 29 bottles of beer.\nTake one down and pass it around, 28 bottles of beer on the wall.\n\n28 bottles of beer on the wall, 28 bottles of beer.\nTake one down and pass it around, 27 bottles of beer on the wall.\n\n27 bottles of beer on the wall, 27 bottles of beer.\nTake one down and pass it around, 26 bottles of beer on the wall.\n\n26 bottles of beer on the wall, 26 bottles of beer.\nTake one down and pass it around, 25 bottles of beer on the wall.\n\n25 bottles of beer on the wall, 25 bottles of beer.\nTake one down and pass it around, 24 bottles of beer on the wall.\n\n24 bottles of beer on the wall, 24 bottles of beer.\nTake one down and pass it around, 23 bottles of beer on the wall.\n\n23 bottles of beer on the wall, 23 bottles of beer.\nTake one down and pass it around, 22 bottles of beer on the wall.\n\n22 bottles of beer on the wall, 22 bottles of beer.\nTake one down and pass it around, 21 bottles of beer on the wall.\n\n21 bottles of beer on the wall, 21 bottles of beer.\nTake one down and pass it around, 20 bottles of beer on the wall.\n\n20 bottles of beer on the wall, 20 bottles of beer.\nTake one down and pass it around, 19 bottles of beer on the wall.\n\n19 bottles of beer on the wall, 19 bottles of beer.\nTake one down and pass it around, 18 bottles of beer on the wall.\n\n18 bottles of beer on the wall, 18 bottles of beer.\nTake one down and pass it around, 17 bottles of beer on the wall.\n\n17 bottles of beer on the wall, 17 bottles of beer.\nTake one down and pass it around, 16 bottles of beer on the wall.\n\n16 bottles of beer on the wall, 16 bottles of beer.\nTake one down and pass it around, 15 bottles of beer on the wall.\n\n15 bottles of beer on the wall, 15 bottles of beer.\nTake one down and pass it around, 14 bottles of beer on the wall.\n\n14 bottles of beer on the wall, 14 bottles of beer.\nTake one down and pass it around, 13 bottles of beer on the wall.\n\n13 bottles of beer on the wall, 13 bottles of beer.\nTake one down and pass it around, 12 bottles of beer on the wall.\n\n12 bottles of beer on the wall, 12 bottles of beer.\nTake one down and pass it around, 11 bottles of beer on the wall.\n\n11 bottles of beer on the wall, 11 bottles of beer.\nTake one down and pass it around, 10 bottles of beer on the wall.\n\n10 bottles of beer on the wall, 10 bottles of beer.\nTake one down and pass it around, 9 bottles of beer on the wall.\n\n9 bottles of beer on the wall, 9 bottles of beer.\nTake one down and pass it around, 8 bottles of beer on the wall.\n\n8 bottles of beer on the wall, 8 bottles of beer.\nTake one down and pass it around, 7 bottles of beer on the wall.\n\n7 bottles of beer on the wall, 7 bottles of beer.\nTake one down and pass it around, 6 bottles of beer on the wall.\n\n6 bottles of beer on the wall, 6 bottles of beer.\nTake one down and pass it around, 5 bottles of beer on the wall.\n\n5 bottles of beer on the wall, 5 bottles of beer.\nTake one down and pass it around, 4 bottles of beer on the wall.\n\n4 bottles of beer on the wall, 4 bottles of beer.\nTake one down and pass it around, 3 bottles of beer on the wall.\n\n3 bottles of beer on the wall, 3 bottles of beer.\nTake one down and pass it around, 2 bottles of beer on the wall.\n\n2 bottles of beer on the wall, 2 bottles of beer.\nTake one down and pass it around, 1 bottle of beer on the wall.\n\n1 bottle of beer on the wall, 1 bottle of beer.\nTake it down and pass it around, no more bottles of beer on the wall.\n\nNo more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n",
+      "entry_point": "run",
+      "kind": "string",
+      "runnable": true,
+      "slug": "rosettacode-popular-99-bottles-of-beer",
+      "source_sha256": "c8249abb248bb95a583356fb01c4c250cadd015aa17ce5c9c8f910ec9087ecdf",
+      "value": "99 bottles of beer on the wall, 99 bottles of beer.\nTake one down and pass it around, 98 bottles of beer on the wall.\n\n98 bottles of beer on the wall, 98 bottles of beer.\nTake one down and pass it around, 97 bottles of beer on the wall.\n\n97 bottles of beer on the wall, 97 bottles of beer.\nTake one down and pass it around, 96 bottles of beer on the wall.\n\n96 bottles of beer on the wall, 96 bottles of beer.\nTake one down and pass it around, 95 bottles of beer on the wall.\n\n95 bottles of beer on the wall, 95 bottles of beer.\nTake one down and pass it around, 94 bottles of beer on the wall.\n\n94 bottles of beer on the wall, 94 bottles of beer.\nTake one down and pass it around, 93 bottles of beer on the wall.\n\n93 bottles of beer on the wall, 93 bottles of beer.\nTake one down and pass it around, 92 bottles of beer on the wall.\n\n92 bottles of beer on the wall, 92 bottles of beer.\nTake one down and pass it around, 91 bottles of beer on the wall.\n\n91 bottles of beer on the wall, 91 bottles of beer.\nTake one down and pass it around, 90 bottles of beer on the wall.\n\n90 bottles of beer on the wall, 90 bottles of beer.\nTake one down and pass it around, 89 bottles of beer on the wall.\n\n89 bottles of beer on the wall, 89 bottles of beer.\nTake one down and pass it around, 88 bottles of beer on the wall.\n\n88 bottles of beer on the wall, 88 bottles of beer.\nTake one down and pass it around, 87 bottles of beer on the wall.\n\n87 bottles of beer on the wall, 87 bottles of beer.\nTake one down and pass it around, 86 bottles of beer on the wall.\n\n86 bottles of beer on the wall, 86 bottles of beer.\nTake one down and pass it around, 85 bottles of beer on the wall.\n\n85 bottles of beer on the wall, 85 bottles of beer.\nTake one down and pass it around, 84 bottles of beer on the wall.\n\n84 bottles of beer on the wall, 84 bottles of beer.\nTake one down and pass it around, 83 bottles of beer on the wall.\n\n83 bottles of beer on the wall, 83 bottles of beer.\nTake one down and pass it around, 82 bottles of beer on the wall.\n\n82 bottles of beer on the wall, 82 bottles of beer.\nTake one down and pass it around, 81 bottles of beer on the wall.\n\n81 bottles of beer on the wall, 81 bottles of beer.\nTake one down and pass it around, 80 bottles of beer on the wall.\n\n80 bottles of beer on the wall, 80 bottles of beer.\nTake one down and pass it around, 79 bottles of beer on the wall.\n\n79 bottles of beer on the wall, 79 bottles of beer.\nTake one down and pass it around, 78 bottles of beer on the wall.\n\n78 bottles of beer on the wall, 78 bottles of beer.\nTake one down and pass it around, 77 bottles of beer on the wall.\n\n77 bottles of beer on the wall, 77 bottles of beer.\nTake one down and pass it around, 76 bottles of beer on the wall.\n\n76 bottles of beer on the wall, 76 bottles of beer.\nTake one down and pass it around, 75 bottles of beer on the wall.\n\n75 bottles of beer on the wall, 75 bottles of beer.\nTake one down and pass it around, 74 bottles of beer on the wall.\n\n74 bottles of beer on the wall, 74 bottles of beer.\nTake one down and pass it around, 73 bottles of beer on the wall.\n\n73 bottles of beer on the wall, 73 bottles of beer.\nTake one down and pass it around, 72 bottles of beer on the wall.\n\n72 bottles of beer on the wall, 72 bottles of beer.\nTake one down and pass it around, 71 bottles of beer on the wall.\n\n71 bottles of beer on the wall, 71 bottles of beer.\nTake one down and pass it around, 70 bottles of beer on the wall.\n\n70 bottles of beer on the wall, 70 bottles of beer.\nTake one down and pass it around, 69 bottles of beer on the wall.\n\n69 bottles of beer on the wall, 69 bottles of beer.\nTake one down and pass it around, 68 bottles of beer on the wall.\n\n68 bottles of beer on the wall, 68 bottles of beer.\nTake one down and pass it around, 67 bottles of beer on the wall.\n\n67 bottles of beer on the wall, 67 bottles of beer.\nTake one down and pass it around, 66 bottles of beer on the wall.\n\n66 bottles of beer on the wall, 66 bottles of beer.\nTake one down and pass it around, 65 bottles of beer on the wall.\n\n65 bottles of beer on the wall, 65 bottles of beer.\nTake one down and pass it around, 64 bottles of beer on the wall.\n\n64 bottles of beer on the wall, 64 bottles of beer.\nTake one down and pass it around, 63 bottles of beer on the wall.\n\n63 bottles of beer on the wall, 63 bottles of beer.\nTake one down and pass it around, 62 bottles of beer on the wall.\n\n62 bottles of beer on the wall, 62 bottles of beer.\nTake one down and pass it around, 61 bottles of beer on the wall.\n\n61 bottles of beer on the wall, 61 bottles of beer.\nTake one down and pass it around, 60 bottles of beer on the wall.\n\n60 bottles of beer on the wall, 60 bottles of beer.\nTake one down and pass it around, 59 bottles of beer on the wall.\n\n59 bottles of beer on the wall, 59 bottles of beer.\nTake one down and pass it around, 58 bottles of beer on the wall.\n\n58 bottles of beer on the wall, 58 bottles of beer.\nTake one down and pass it around, 57 bottles of beer on the wall.\n\n57 bottles of beer on the wall, 57 bottles of beer.\nTake one down and pass it around, 56 bottles of beer on the wall.\n\n56 bottles of beer on the wall, 56 bottles of beer.\nTake one down and pass it around, 55 bottles of beer on the wall.\n\n55 bottles of beer on the wall, 55 bottles of beer.\nTake one down and pass it around, 54 bottles of beer on the wall.\n\n54 bottles of beer on the wall, 54 bottles of beer.\nTake one down and pass it around, 53 bottles of beer on the wall.\n\n53 bottles of beer on the wall, 53 bottles of beer.\nTake one down and pass it around, 52 bottles of beer on the wall.\n\n52 bottles of beer on the wall, 52 bottles of beer.\nTake one down and pass it around, 51 bottles of beer on the wall.\n\n51 bottles of beer on the wall, 51 bottles of beer.\nTake one down and pass it around, 50 bottles of beer on the wall.\n\n50 bottles of beer on the wall, 50 bottles of beer.\nTake one down and pass it around, 49 bottles of beer on the wall.\n\n49 bottles of beer on the wall, 49 bottles of beer.\nTake one down and pass it around, 48 bottles of beer on the wall.\n\n48 bottles of beer on the wall, 48 bottles of beer.\nTake one down and pass it around, 47 bottles of beer on the wall.\n\n47 bottles of beer on the wall, 47 bottles of beer.\nTake one down and pass it around, 46 bottles of beer on the wall.\n\n46 bottles of beer on the wall, 46 bottles of beer.\nTake one down and pass it around, 45 bottles of beer on the wall.\n\n45 bottles of beer on the wall, 45 bottles of beer.\nTake one down and pass it around, 44 bottles of beer on the wall.\n\n44 bottles of beer on the wall, 44 bottles of beer.\nTake one down and pass it around, 43 bottles of beer on the wall.\n\n43 bottles of beer on the wall, 43 bottles of beer.\nTake one down and pass it around, 42 bottles of beer on the wall.\n\n42 bottles of beer on the wall, 42 bottles of beer.\nTake one down and pass it around, 41 bottles of beer on the wall.\n\n41 bottles of beer on the wall, 41 bottles of beer.\nTake one down and pass it around, 40 bottles of beer on the wall.\n\n40 bottles of beer on the wall, 40 bottles of beer.\nTake one down and pass it around, 39 bottles of beer on the wall.\n\n39 bottles of beer on the wall, 39 bottles of beer.\nTake one down and pass it around, 38 bottles of beer on the wall.\n\n38 bottles of beer on the wall, 38 bottles of beer.\nTake one down and pass it around, 37 bottles of beer on the wall.\n\n37 bottles of beer on the wall, 37 bottles of beer.\nTake one down and pass it around, 36 bottles of beer on the wall.\n\n36 bottles of beer on the wall, 36 bottles of beer.\nTake one down and pass it around, 35 bottles of beer on the wall.\n\n35 bottles of beer on the wall, 35 bottles of beer.\nTake one down and pass it around, 34 bottles of beer on the wall.\n\n34 bottles of beer on the wall, 34 bottles of beer.\nTake one down and pass it around, 33 bottles of beer on the wall.\n\n33 bottles of beer on the wall, 33 bottles of beer.\nTake one down and pass it around, 32 bottles of beer on the wall.\n\n32 bottles of beer on the wall, 32 bottles of beer.\nTake one down and pass it around, 31 bottles of beer on the wall.\n\n31 bottles of beer on the wall, 31 bottles of beer.\nTake one down and pass it around, 30 bottles of beer on the wall.\n\n30 bottles of beer on the wall, 30 bottles of beer.\nTake one down and pass it around, 29 bottles of beer on the wall.\n\n29 bottles of beer on the wall, 29 bottles of beer.\nTake one down and pass it around, 28 bottles of beer on the wall.\n\n28 bottles of beer on the wall, 28 bottles of beer.\nTake one down and pass it around, 27 bottles of beer on the wall.\n\n27 bottles of beer on the wall, 27 bottles of beer.\nTake one down and pass it around, 26 bottles of beer on the wall.\n\n26 bottles of beer on the wall, 26 bottles of beer.\nTake one down and pass it around, 25 bottles of beer on the wall.\n\n25 bottles of beer on the wall, 25 bottles of beer.\nTake one down and pass it around, 24 bottles of beer on the wall.\n\n24 bottles of beer on the wall, 24 bottles of beer.\nTake one down and pass it around, 23 bottles of beer on the wall.\n\n23 bottles of beer on the wall, 23 bottles of beer.\nTake one down and pass it around, 22 bottles of beer on the wall.\n\n22 bottles of beer on the wall, 22 bottles of beer.\nTake one down and pass it around, 21 bottles of beer on the wall.\n\n21 bottles of beer on the wall, 21 bottles of beer.\nTake one down and pass it around, 20 bottles of beer on the wall.\n\n20 bottles of beer on the wall, 20 bottles of beer.\nTake one down and pass it around, 19 bottles of beer on the wall.\n\n19 bottles of beer on the wall, 19 bottles of beer.\nTake one down and pass it around, 18 bottles of beer on the wall.\n\n18 bottles of beer on the wall, 18 bottles of beer.\nTake one down and pass it around, 17 bottles of beer on the wall.\n\n17 bottles of beer on the wall, 17 bottles of beer.\nTake one down and pass it around, 16 bottles of beer on the wall.\n\n16 bottles of beer on the wall, 16 bottles of beer.\nTake one down and pass it around, 15 bottles of beer on the wall.\n\n15 bottles of beer on the wall, 15 bottles of beer.\nTake one down and pass it around, 14 bottles of beer on the wall.\n\n14 bottles of beer on the wall, 14 bottles of beer.\nTake one down and pass it around, 13 bottles of beer on the wall.\n\n13 bottles of beer on the wall, 13 bottles of beer.\nTake one down and pass it around, 12 bottles of beer on the wall.\n\n12 bottles of beer on the wall, 12 bottles of beer.\nTake one down and pass it around, 11 bottles of beer on the wall.\n\n11 bottles of beer on the wall, 11 bottles of beer.\nTake one down and pass it around, 10 bottles of beer on the wall.\n\n10 bottles of beer on the wall, 10 bottles of beer.\nTake one down and pass it around, 9 bottles of beer on the wall.\n\n9 bottles of beer on the wall, 9 bottles of beer.\nTake one down and pass it around, 8 bottles of beer on the wall.\n\n8 bottles of beer on the wall, 8 bottles of beer.\nTake one down and pass it around, 7 bottles of beer on the wall.\n\n7 bottles of beer on the wall, 7 bottles of beer.\nTake one down and pass it around, 6 bottles of beer on the wall.\n\n6 bottles of beer on the wall, 6 bottles of beer.\nTake one down and pass it around, 5 bottles of beer on the wall.\n\n5 bottles of beer on the wall, 5 bottles of beer.\nTake one down and pass it around, 4 bottles of beer on the wall.\n\n4 bottles of beer on the wall, 4 bottles of beer.\nTake one down and pass it around, 3 bottles of beer on the wall.\n\n3 bottles of beer on the wall, 3 bottles of beer.\nTake one down and pass it around, 2 bottles of beer on the wall.\n\n2 bottles of beer on the wall, 2 bottles of beer.\nTake one down and pass it around, 1 bottle of beer on the wall.\n\n1 bottle of beer on the wall, 1 bottle of beer.\nTake it down and pass it around, no more bottles of beer on the wall.\n\nNo more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
+    },
+    "rosettacode/popular/a_b.vibe": {
+      "display": "[{left: 0, right: 0, sum: 0}, {left: 2, right: 3, sum: 5}, {left: -5, right: 12, sum: 7}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-a-b",
+      "source_sha256": "f1ebe0b6b58b5b936b80e029ba72e88dad74c8cec6fc9a7cf541242c7de7ea97",
+      "value": [
+        {
+          "left": 0,
+          "right": 0,
+          "sum": 0
+        },
+        {
+          "left": 2,
+          "right": 3,
+          "sum": 5
+        },
+        {
+          "left": -5,
+          "right": 12,
+          "sum": 7
+        }
+      ]
+    },
+    "rosettacode/popular/a_plus_b.vibe": {
+      "display": "{first: 7, second: 5, third: 377}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-a-plus-b",
+      "source_sha256": "2875f481bc21a391e3dff223f0c8aeb7dcd0ad4d560ede605e73bd4acc6808d2",
+      "value": {
+        "first": 7,
+        "second": 5,
+        "third": 377
+      }
+    },
+    "rosettacode/popular/abbreviations_automatic.vibe": {
+      "display": "{abbreviations: [{command: add, abbreviation: ad}, {command: append, abbreviation: ap}, {command: commit, abbreviation: com}, {command: copy, abbreviation: cop}, {command: delete, abbreviation: d}, {command: insert, abbreviation: i}, {command: move, abbreviation: m}, {command: print, abbreviation: p}, {command: quit, abbreviation: q}], resolve_app: append, resolve_pr: print, resolve_c: ambiguous}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-abbreviations-automatic",
+      "source_sha256": "8b0e43766c7f0e9794609ea518d223b57aaff6a9005404b2b5d781ff7209f195",
+      "value": {
+        "abbreviations": [
+          {
+            "abbreviation": "ad",
+            "command": "add"
+          },
+          {
+            "abbreviation": "ap",
+            "command": "append"
+          },
+          {
+            "abbreviation": "com",
+            "command": "commit"
+          },
+          {
+            "abbreviation": "cop",
+            "command": "copy"
+          },
+          {
+            "abbreviation": "d",
+            "command": "delete"
+          },
+          {
+            "abbreviation": "i",
+            "command": "insert"
+          },
+          {
+            "abbreviation": "m",
+            "command": "move"
+          },
+          {
+            "abbreviation": "p",
+            "command": "print"
+          },
+          {
+            "abbreviation": "q",
+            "command": "quit"
+          }
+        ],
+        "resolve_app": "append",
+        "resolve_c": "ambiguous",
+        "resolve_pr": "print"
+      }
+    },
+    "rosettacode/popular/abbreviations_simple.vibe": {
+      "display": "{add: add, append: append, ambiguous: ambiguous, delete: delete, unknown: unknown}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-abbreviations-simple",
+      "source_sha256": "f39f5128a36ed89c212c41741f4b84b96db25edb6c52f76713306534f90aa90d",
+      "value": {
+        "add": "add",
+        "ambiguous": "ambiguous",
+        "append": "append",
+        "delete": "delete",
+        "unknown": "unknown"
+      }
+    },
+    "rosettacode/popular/abc_problem.vibe": {
+      "display": "{a: true, bark: true, book: false, treat: true, common: false, squad: true, confuse: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-abc-problem",
+      "source_sha256": "20479ac48ec6e6470ce134120fe787c2f0a0e2b862b550758a980462ac54fbfa",
+      "value": {
+        "a": true,
+        "bark": true,
+        "book": false,
+        "common": false,
+        "confuse": true,
+        "squad": true,
+        "treat": true
+      }
+    },
+    "rosettacode/popular/abundant_deficient_and_perfect_number_classifications.vibe": {
+      "display": "[{value: 12, classification: abundant}, {value: 15, classification: deficient}, {value: 28, classification: perfect}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-abundant-deficient-and-perfect-number-classifications",
+      "source_sha256": "9939fb35226ed6a61e3d28231eb70cd0cd82791fbc23f5827c52a4b412e13b33",
+      "value": [
+        {
+          "classification": "abundant",
+          "value": 12
+        },
+        {
+          "classification": "deficient",
+          "value": 15
+        },
+        {
+          "classification": "perfect",
+          "value": 28
+        }
+      ]
+    },
+    "rosettacode/popular/abundant_odd_numbers.vibe": {
+      "display": "[{value: 315, abundant: false}, {value: 945, abundant: true}, {value: 1575, abundant: true}, {value: 2205, abundant: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-abundant-odd-numbers",
+      "source_sha256": "a2d285db0af85e511ae45b86f8bc935d9ed24ccdfdae9d1249fd1467aefa9ab4",
+      "value": [
+        {
+          "abundant": false,
+          "value": 315
+        },
+        {
+          "abundant": true,
+          "value": 945
+        },
+        {
+          "abundant": true,
+          "value": 1575
+        },
+        {
+          "abundant": true,
+          "value": 2205
+        }
+      ]
+    },
+    "rosettacode/popular/ackermann_function.vibe": {
+      "display": "{a_0_0: 1, a_2_2: 7, a_3_2: 29}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-ackermann-function",
+      "source_sha256": "9f26f03befa36d00084bc7e77f40ef6bb0cb02226faa99da5a07e79f3121b3e2",
+      "value": {
+        "a_0_0": 1,
+        "a_2_2": 7,
+        "a_3_2": 29
+      }
+    },
+    "rosettacode/popular/align_columns.vibe": {
+      "display": "{widths: [10, 10, 10, 6, 6, 9, 10, 8, 7, 7, 6, 4], left: Given      a          text       file   of     many      lines,     where    fields  within  a      line, right:      Given          a       text   file     of      many     lines,    where  fields  within      a line, center:   Given        a         text     file    of     many      lines,    where   fields  within    a    line}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-align-columns",
+      "source_sha256": "3ea9e98ed9c606caee9462c8e216a00b54f162a72b394daa63645ad16f29d09f",
+      "value": {
+        "center": "  Given        a         text     file    of     many      lines,    where   fields  within    a    line",
+        "left": "Given      a          text       file   of     many      lines,     where    fields  within  a      line",
+        "right": "     Given          a       text   file     of      many     lines,    where  fields  within      a line",
+        "widths": [
+          10,
+          10,
+          10,
+          6,
+          6,
+          9,
+          10,
+          8,
+          7,
+          7,
+          6,
+          4
+        ]
+      }
+    },
+    "rosettacode/popular/aliquot_sequence_classifications.vibe": {
+      "display": "[{start: 6, classification: perfect, sequence: [6, 6]}, {start: 10, classification: looping, sequence: [10, 8, 7, 1, 0, 1]}, {start: 12, classification: looping, sequence: [12, 16, 15, 9, 4, 3, 1, 0, 1]}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-aliquot-sequence-classifications",
+      "source_sha256": "94ad794476fa4c1d5f124128d2f52f65b6c2b26455098faa85779f97248f1d7d",
+      "value": [
+        {
+          "classification": "perfect",
+          "sequence": [
+            6,
+            6
+          ],
+          "start": 6
+        },
+        {
+          "classification": "looping",
+          "sequence": [
+            10,
+            8,
+            7,
+            1,
+            0,
+            1
+          ],
+          "start": 10
+        },
+        {
+          "classification": "looping",
+          "sequence": [
+            12,
+            16,
+            15,
+            9,
+            4,
+            3,
+            1,
+            0,
+            1
+          ],
+          "start": 12
+        }
+      ]
+    },
+    "rosettacode/popular/anagrams.vibe": {
+      "display": "[[acre, care, race], [dog, god], [note, tone]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-anagrams",
+      "source_sha256": "d61cd2b7550ba6e04b68f00790a3d2715682fbccd9cf69625e39a2dd207415b4",
+      "value": [
+        [
+          "acre",
+          "care",
+          "race"
+        ],
+        [
+          "dog",
+          "god"
+        ],
+        [
+          "note",
+          "tone"
+        ]
+      ]
+    },
+    "rosettacode/popular/angle_difference_between_two_bearings.vibe": {
+      "display": "{north_to_east: 90, east_to_north: -90, wrap_clockwise: 20, wrap_counterclockwise: -20, same_heading: 0}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-angle-difference-between-two-bearings",
+      "source_sha256": "70229600f76e0a12b7aa838381ef79212ad1354a18daef333fcd6da36fa9ff69",
+      "value": {
+        "east_to_north": -90,
+        "north_to_east": 90,
+        "same_heading": 0,
+        "wrap_clockwise": 20,
+        "wrap_counterclockwise": -20
+      }
+    },
+    "rosettacode/popular/angles_geometric_normalization_and_conversion.vibe": {
+      "display": "{normalized_725: 5, normalized_negative_45: 315, signed_725: 5, signed_225: -135, radians_from_225: 3.9269908169872414, degrees_from_half_pi: 90}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-angles-geometric-normalization-and-conversion",
+      "source_sha256": "df8bb2ce80ab180b4a2ca82d0d446a0706a7212b9a494e2aa8c59bcaa72385be",
+      "value": {
+        "degrees_from_half_pi": 90,
+        "normalized_725": 5,
+        "normalized_negative_45": 315,
+        "radians_from_225": 3.9269908169872414,
+        "signed_225": -135,
+        "signed_725": 5
+      }
+    },
+    "rosettacode/popular/arrays.vibe": {
+      "display": "{original: [3, 1, 4], expanded: [3, 1, 4, 1, 5, 9], first: 3, last: 9, count: 6, total: 23}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-arrays",
+      "source_sha256": "f3193080c865dd17ec3d615bf2eb40d14122317d31dda9e301d7a631dbeb73af",
+      "value": {
+        "count": 6,
+        "expanded": [
+          3,
+          1,
+          4,
+          1,
+          5,
+          9
+        ],
+        "first": 3,
+        "last": 9,
+        "original": [
+          3,
+          1,
+          4
+        ],
+        "total": 23
+      }
+    },
+    "rosettacode/popular/bacon_cipher.vibe": {
+      "display": "{encoded: BABAB ABAAA AAAAB AABAA / AAABA ABBBA AAABB AABAA, decoded: VIBE CODE}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-bacon-cipher",
+      "source_sha256": "151d4a1f7044ec45455e708146ba691539313b85ffcee357e70e6925f376e1e7",
+      "value": {
+        "decoded": "VIBE CODE",
+        "encoded": "BABAB ABAAA AAAAB AABAA / AAABA ABBBA AAABB AABAA"
+      }
+    },
+    "rosettacode/popular/balanced_brackets.vibe": {
+      "display": "{nested_true: true, mixed_true: true, crossed_false: false, incomplete_false: false}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-balanced-brackets",
+      "source_sha256": "90f963568ec918afa6b960bfbd911fcfc990cc76da57b2698a745f4b3411767f",
+      "value": {
+        "crossed_false": false,
+        "incomplete_false": false,
+        "mixed_true": true,
+        "nested_true": true
+      }
+    },
+    "rosettacode/popular/balanced_ternary.vibe": {
+      "display": "{zero: 0, positive_ten: 101, positive_forty_two: 1TTT0, negative_ten: T0T}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-balanced-ternary",
+      "source_sha256": "c2a420783ed63e43fb0d1508fc7e6a3d4285099f20154c5cc36b9ef99aabc22d",
+      "value": {
+        "negative_ten": "T0T",
+        "positive_forty_two": "1TTT0",
+        "positive_ten": "101",
+        "zero": "0"
+      }
+    },
+    "rosettacode/popular/best_shuffle.vibe": {
+      "display": "[{original: abracadabra, shuffled: bcdrraaaaab, fixed_points: 2}, {original: seesaw, shuffled: esswae, fixed_points: 1}, {original: vibescript, shuffled: ceiiprstvb, fixed_points: 0}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-best-shuffle",
+      "source_sha256": "562b1bf0d31f0cf37b3afb89fbd8e864a2ef9322a182203ad153d537949b190c",
+      "value": [
+        {
+          "fixed_points": 2,
+          "original": "abracadabra",
+          "shuffled": "bcdrraaaaab"
+        },
+        {
+          "fixed_points": 1,
+          "original": "seesaw",
+          "shuffled": "esswae"
+        },
+        {
+          "fixed_points": 0,
+          "original": "vibescript",
+          "shuffled": "ceiiprstvb"
+        }
+      ]
+    },
+    "rosettacode/popular/binary_digits.vibe": {
+      "display": "[{value: 0, binary: 0}, {value: 5, binary: 101}, {value: 42, binary: 101010}, {value: 255, binary: 11111111}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-binary-digits",
+      "source_sha256": "25eb21fa77ada6f934dd27e43467256be345526151544034ff1f4ffcec18cfd1",
+      "value": [
+        {
+          "binary": "0",
+          "value": 0
+        },
+        {
+          "binary": "101",
+          "value": 5
+        },
+        {
+          "binary": "101010",
+          "value": 42
+        },
+        {
+          "binary": "11111111",
+          "value": 255
+        }
+      ]
+    },
+    "rosettacode/popular/binary_search.vibe": {
+      "display": "{found_middle: 8, found_first: 0, found_last: 10, missing: }",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-binary-search",
+      "source_sha256": "0f96ecf9f6c6b6a78cdb0d449144b14a06421ae27a0060255793d7538978add9",
+      "value": {
+        "found_first": 0,
+        "found_last": 10,
+        "found_middle": 8,
+        "missing": null
+      }
+    },
+    "rosettacode/popular/binary_strings.vibe": {
+      "display": "{length_three: [000, 100, 010, 110, 001, 101, 011, 111], length_four_count: 16}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-binary-strings",
+      "source_sha256": "0e0f5a483d5ec78334c8833600c59773c6e1b80c45002f116c1db19b0a3b320b",
+      "value": {
+        "length_four_count": 16,
+        "length_three": [
+          "000",
+          "100",
+          "010",
+          "110",
+          "001",
+          "101",
+          "011",
+          "111"
+        ]
+      }
+    },
+    "rosettacode/popular/bitwise_operations.vibe": {
+      "display": "{model: manual 8-bit operations, x: 177, x_signed: -79, y: 3, and: 1, or: 179, xor: 178, not: 78, shift_left: 136, shift_right: 22, shift_right_arithmetic: -10, rotate_left: 141, rotate_right: 54}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-bitwise-operations",
+      "source_sha256": "4019efee92cdc13818d6e566c415110498e8f43619303f1774293917cc82665a",
+      "value": {
+        "and": 1,
+        "model": "manual 8-bit operations",
+        "not": 78,
+        "or": 179,
+        "rotate_left": 141,
+        "rotate_right": 54,
+        "shift_left": 136,
+        "shift_right": 22,
+        "shift_right_arithmetic": -10,
+        "x": 177,
+        "x_signed": -79,
+        "xor": 178,
+        "y": 3
+      }
+    },
+    "rosettacode/popular/box_the_compass.vibe": {
+      "display": "[{index: 1, point: North, degrees: 0}, {index: 2, point: North by east, degrees: 16.87}, {index: 3, point: North-northeast, degrees: 16.88}, {index: 4, point: Northeast by north, degrees: 33.75}, {index: 5, point: Northeast, degrees: 50.62}, {index: 6, point: Northeast by east, degrees: 50.63}, {index: 7, point: East-northeast, degrees: 67.5}, {index: 8, point: East by north, degrees: 84.37}, {index: 9, point: East, degrees: 84.38}, {index: 10, point: East by south, degrees: 101.25}, {index: 11, point: East-southeast, degrees: 118.12}, {index: 12, point: Southeast by east, degrees: 118.13}, {index: 13, point: Southeast, degrees: 135}, {index: 14, point: Southeast by south, degrees: 151.87}, {index: 15, point: South-southeast, degrees: 151.88}, {index: 16, point: South by east, degrees: 168.75}, {index: 17, point: South, degrees: 185.62}, {index: 18, point: South by west, degrees: 185.63}, {index: 19, point: South-southwest, degrees: 202.5}, {index: 20, point: Southwest by south, degrees: 219.37}, {index: 21, point: Southwest, degrees: 219.38}, {index: 22, point: Southwest by west, degrees: 236.25}, {index: 23, point: West-southwest, degrees: 253.12}, {index: 24, point: West by south, degrees: 253.13}, {index: 25, point: West, degrees: 270}, {index: 26, point: West by north, degrees: 286.87}, {index: 27, point: West-northwest, degrees: 286.88}, {index: 28, point: Northwest by west, degrees: 303.75}, {index: 29, point: Northwest, degrees: 320.62}, {index: 30, point: Northwest by north, degrees: 320.63}, {index: 31, point: North-northwest, degrees: 337.5}, {index: 32, point: North by west, degrees: 354.37}, {index: 1, point: North, degrees: 354.38}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-box-the-compass",
+      "source_sha256": "70b5225fded8178a3ea1c8340edf3a153138c9faac1df6483a39a19d32d2fadb",
+      "value": [
+        {
+          "degrees": 0,
+          "index": 1,
+          "point": "North"
+        },
+        {
+          "degrees": 16.87,
+          "index": 2,
+          "point": "North by east"
+        },
+        {
+          "degrees": 16.88,
+          "index": 3,
+          "point": "North-northeast"
+        },
+        {
+          "degrees": 33.75,
+          "index": 4,
+          "point": "Northeast by north"
+        },
+        {
+          "degrees": 50.62,
+          "index": 5,
+          "point": "Northeast"
+        },
+        {
+          "degrees": 50.63,
+          "index": 6,
+          "point": "Northeast by east"
+        },
+        {
+          "degrees": 67.5,
+          "index": 7,
+          "point": "East-northeast"
+        },
+        {
+          "degrees": 84.37,
+          "index": 8,
+          "point": "East by north"
+        },
+        {
+          "degrees": 84.38,
+          "index": 9,
+          "point": "East"
+        },
+        {
+          "degrees": 101.25,
+          "index": 10,
+          "point": "East by south"
+        },
+        {
+          "degrees": 118.12,
+          "index": 11,
+          "point": "East-southeast"
+        },
+        {
+          "degrees": 118.13,
+          "index": 12,
+          "point": "Southeast by east"
+        },
+        {
+          "degrees": 135,
+          "index": 13,
+          "point": "Southeast"
+        },
+        {
+          "degrees": 151.87,
+          "index": 14,
+          "point": "Southeast by south"
+        },
+        {
+          "degrees": 151.88,
+          "index": 15,
+          "point": "South-southeast"
+        },
+        {
+          "degrees": 168.75,
+          "index": 16,
+          "point": "South by east"
+        },
+        {
+          "degrees": 185.62,
+          "index": 17,
+          "point": "South"
+        },
+        {
+          "degrees": 185.63,
+          "index": 18,
+          "point": "South by west"
+        },
+        {
+          "degrees": 202.5,
+          "index": 19,
+          "point": "South-southwest"
+        },
+        {
+          "degrees": 219.37,
+          "index": 20,
+          "point": "Southwest by south"
+        },
+        {
+          "degrees": 219.38,
+          "index": 21,
+          "point": "Southwest"
+        },
+        {
+          "degrees": 236.25,
+          "index": 22,
+          "point": "Southwest by west"
+        },
+        {
+          "degrees": 253.12,
+          "index": 23,
+          "point": "West-southwest"
+        },
+        {
+          "degrees": 253.13,
+          "index": 24,
+          "point": "West by south"
+        },
+        {
+          "degrees": 270,
+          "index": 25,
+          "point": "West"
+        },
+        {
+          "degrees": 286.87,
+          "index": 26,
+          "point": "West by north"
+        },
+        {
+          "degrees": 286.88,
+          "index": 27,
+          "point": "West-northwest"
+        },
+        {
+          "degrees": 303.75,
+          "index": 28,
+          "point": "Northwest by west"
+        },
+        {
+          "degrees": 320.62,
+          "index": 29,
+          "point": "Northwest"
+        },
+        {
+          "degrees": 320.63,
+          "index": 30,
+          "point": "Northwest by north"
+        },
+        {
+          "degrees": 337.5,
+          "index": 31,
+          "point": "North-northwest"
+        },
+        {
+          "degrees": 354.37,
+          "index": 32,
+          "point": "North by west"
+        },
+        {
+          "degrees": 354.38,
+          "index": 1,
+          "point": "North"
+        }
+      ]
+    },
+    "rosettacode/popular/brazilian_numbers.vibe": {
+      "display": "[7, 8, 10, 12, 13, 14, 15, 16, 18, 20]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-brazilian-numbers",
+      "source_sha256": "a4927a177aa837c10e15751cad10f8a6e905fb93ea46c81017e1a8e5472f5cdf",
+      "value": [
+        7,
+        8,
+        10,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        20
+      ]
+    },
+    "rosettacode/popular/bubble_sort.vibe": {
+      "display": "{sorted: [11, 12, 22, 25, 34, 64, 90], already: [1, 2, 3, 4, 5], reversed: [1, 2, 3, 4, 5], single: [42]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-bubble-sort",
+      "source_sha256": "d7e209425dc731ea2c5fb5ec4f624779a38449762e9dd440f7977b74c2dfec00",
+      "value": {
+        "already": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "reversed": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "single": [
+          42
+        ],
+        "sorted": [
+          11,
+          12,
+          22,
+          25,
+          34,
+          64,
+          90
+        ]
+      }
+    },
+    "rosettacode/popular/caesar_cipher.vibe": {
+      "display": "{plain: The quick brown fox jumps over the lazy dog., encoded: Wkh txlfn eurzq ira mxpsv ryhu wkh odcb grj., decoded: The quick brown fox jumps over the lazy dog.}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-caesar-cipher",
+      "source_sha256": "7e678ab12d2869df528138af8f558c6c9ecb87bdfb1e4d65b37380faafd0cc49",
+      "value": {
+        "decoded": "The quick brown fox jumps over the lazy dog.",
+        "encoded": "Wkh txlfn eurzq ira mxpsv ryhu wkh odcb grj.",
+        "plain": "The quick brown fox jumps over the lazy dog."
+      }
+    },
+    "rosettacode/popular/call_a_function.vibe": {
+      "display": "{greeting: hello, vibescript, excited: HELLO, VIBESCRIPT!, combined: hello, rosetta code / hello, browser runner}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-call-a-function",
+      "source_sha256": "9bc26f3c6d9691bf2c74b723ffd0c14de8000f742dc20e44fe76f513e2ea919d",
+      "value": {
+        "combined": "hello, rosetta code / hello, browser runner",
+        "excited": "HELLO, VIBESCRIPT!",
+        "greeting": "hello, vibescript"
+      }
+    },
+    "rosettacode/popular/cartesian_product_of_two_or_more_lists.vibe": {
+      "display": "{two_lists: [[red, 1], [red, 2], [red, 3], [blue, 1], [blue, 2], [blue, 3]], three_lists: [[small, circle, solid], [small, circle, outline], [small, square, solid], [small, square, outline], [large, circle, solid], [large, circle, outline], [large, square, solid], [large, square, outline]]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-cartesian-product-of-two-or-more-lists",
+      "source_sha256": "510328a91dc7b9b9643d5cf8db2cfe4d10338ff36470de96eaa06c3c110ceaa7",
+      "value": {
+        "three_lists": [
+          [
+            "small",
+            "circle",
+            "solid"
+          ],
+          [
+            "small",
+            "circle",
+            "outline"
+          ],
+          [
+            "small",
+            "square",
+            "solid"
+          ],
+          [
+            "small",
+            "square",
+            "outline"
+          ],
+          [
+            "large",
+            "circle",
+            "solid"
+          ],
+          [
+            "large",
+            "circle",
+            "outline"
+          ],
+          [
+            "large",
+            "square",
+            "solid"
+          ],
+          [
+            "large",
+            "square",
+            "outline"
+          ]
+        ],
+        "two_lists": [
+          [
+            "red",
+            1
+          ],
+          [
+            "red",
+            2
+          ],
+          [
+            "red",
+            3
+          ],
+          [
+            "blue",
+            1
+          ],
+          [
+            "blue",
+            2
+          ],
+          [
+            "blue",
+            3
+          ]
+        ]
+      }
+    },
+    "rosettacode/popular/catalan_numbers.vibe": {
+      "display": "[1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-catalan-numbers",
+      "source_sha256": "b223ac09b30f6b688b3ef7d3463f116acca1870e3f9d8fc2fec0295a22712b00",
+      "value": [
+        1,
+        1,
+        2,
+        5,
+        14,
+        42,
+        132,
+        429,
+        1430,
+        4862
+      ]
+    },
+    "rosettacode/popular/chinese_zodiac.vibe": {
+      "display": "[{year: 2020, animal: Rat, element: Metal}, {year: 2024, animal: Dragon, element: Wood}, {year: 2026, animal: Horse, element: Fire}, {year: 1984, animal: Rat, element: Wood}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-chinese-zodiac",
+      "source_sha256": "f38f6821367655d6dd5ae85f89ddd4c6d1a42de73d7819698e49fd529696df2c",
+      "value": [
+        {
+          "animal": "Rat",
+          "element": "Metal",
+          "year": 2020
+        },
+        {
+          "animal": "Dragon",
+          "element": "Wood",
+          "year": 2024
+        },
+        {
+          "animal": "Horse",
+          "element": "Fire",
+          "year": 2026
+        },
+        {
+          "animal": "Rat",
+          "element": "Wood",
+          "year": 1984
+        }
+      ]
+    },
+    "rosettacode/popular/conditional_structures.vibe": {
+      "display": "{temperatures: [freezing, cold, mild, warm], signs: [negative, zero, positive]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-conditional-structures",
+      "source_sha256": "25b8fb4768da7935de62911ce1e0637aab2fceda10d44db5ee5a88fa078404ab",
+      "value": {
+        "signs": [
+          "negative",
+          "zero",
+          "positive"
+        ],
+        "temperatures": [
+          "freezing",
+          "cold",
+          "mild",
+          "warm"
+        ]
+      }
+    },
+    "rosettacode/popular/day_of_the_week.vibe": {
+      "display": "[{date: 2026-03-08, weekday: Sunday}, {date: 2024-02-29, weekday: Thursday}, {date: 2000-01-01, weekday: Saturday}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-day-of-the-week",
+      "source_sha256": "cbfd0b1c96db9046d87a3fa116085679adf2b804f0a404a668f5425001bde761",
+      "value": [
+        {
+          "date": "2026-03-08",
+          "weekday": "Sunday"
+        },
+        {
+          "date": "2024-02-29",
+          "weekday": "Thursday"
+        },
+        {
+          "date": "2000-01-01",
+          "weekday": "Saturday"
+        }
+      ]
+    },
+    "rosettacode/popular/determine_if_a_string_is_numeric.vibe": {
+      "display": "[{text: 42, numeric: true}, {text: -17.5, numeric: true}, {text: +.5, numeric: true}, {text: 12a, numeric: false}, {text: --3, numeric: false}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-determine-if-a-string-is-numeric",
+      "source_sha256": "10a5fa05446d5132c8ff7d7a0784491842bd0fc957bf12a595271a1f87d379ed",
+      "value": [
+        {
+          "numeric": true,
+          "text": "42"
+        },
+        {
+          "numeric": true,
+          "text": "-17.5"
+        },
+        {
+          "numeric": true,
+          "text": "+.5"
+        },
+        {
+          "numeric": false,
+          "text": "12a"
+        },
+        {
+          "numeric": false,
+          "text": "--3"
+        }
+      ]
+    },
+    "rosettacode/popular/determine_if_a_string_is_squeezable.vibe": {
+      "display": "{balloon: true, mississippi: true, no_change: true, mismatch: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-determine-if-a-string-is-squeezable",
+      "source_sha256": "85d7d06d62af5184656906709b51fee80b449729ba112a814395162d8309cb4c",
+      "value": {
+        "balloon": true,
+        "mismatch": true,
+        "mississippi": true,
+        "no_change": true
+      }
+    },
+    "rosettacode/popular/digital_root.vibe": {
+      "display": "[{number: 627615, root: 9, persistence: 2}, {number: 39, root: 3, persistence: 2}, {number: 999999999, root: 9, persistence: 2}, {number: 0, root: 0, persistence: 0}, {number: 10, root: 1, persistence: 1}, {number: 493193, root: 2, persistence: 3}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-digital-root",
+      "source_sha256": "2f3e69ada35b27a4778043a4c6f0cfa19e4a308c5955f71a70430dfbd8cb51b3",
+      "value": [
+        {
+          "number": 627615,
+          "persistence": 2,
+          "root": 9
+        },
+        {
+          "number": 39,
+          "persistence": 2,
+          "root": 3
+        },
+        {
+          "number": 999999999,
+          "persistence": 2,
+          "root": 9
+        },
+        {
+          "number": 0,
+          "persistence": 0,
+          "root": 0
+        },
+        {
+          "number": 10,
+          "persistence": 1,
+          "root": 1
+        },
+        {
+          "number": 493193,
+          "persistence": 3,
+          "root": 2
+        }
+      ]
+    },
+    "rosettacode/popular/discordian_date.vibe": {
+      "display": "[{year: 3190, holiday: St. Tib's Day}, {year: 3192, weekday: Boomtime, day: 67, season: Chaos}, {year: 3191, weekday: Boomtime, day: 43, season: Bureaucracy}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-discordian-date",
+      "source_sha256": "8e2d8514cbfa56d2957e9d823bb11e944ca5d2656daeec9da573d2315578efe7",
+      "value": [
+        {
+          "holiday": "St. Tib's Day",
+          "year": 3190
+        },
+        {
+          "day": 67,
+          "season": "Chaos",
+          "weekday": "Boomtime",
+          "year": 3192
+        },
+        {
+          "day": 43,
+          "season": "Bureaucracy",
+          "weekday": "Boomtime",
+          "year": 3191
+        }
+      ]
+    },
+    "rosettacode/popular/dot_product.vibe": {
+      "display": "{simple: 3, zeros: 0, identity: 0, large: 320}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-dot-product",
+      "source_sha256": "d765ef7c6934d641e6f02f82fba154271959347ca4a9ae3dd5da52762a1da372",
+      "value": {
+        "identity": 0,
+        "large": 320,
+        "simple": 3,
+        "zeros": 0
+      }
+    },
+    "rosettacode/popular/ethiopian_multiplication.vibe": {
+      "display": "{seventeen_thirty_four: 578, twenty_seven_eighty_two: 2214, three_digit_pair: 5535}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-ethiopian-multiplication",
+      "source_sha256": "ca1afe82fb8f96035667d99955517cae40195fc075417ef4f93a97bf464125df",
+      "value": {
+        "seventeen_thirty_four": 578,
+        "three_digit_pair": 5535,
+        "twenty_seven_eighty_two": 2214
+      }
+    },
+    "rosettacode/popular/factorial.vibe": {
+      "display": "{recursive_10: 3628800, recursive_25: 15511210043330985984000000, iterative_50: 30414093201713378043612608166064768844377641568960512000000000000}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-factorial",
+      "source_sha256": "b2b80f26c8f2a27adab26f38202e502f16381cb8ba6a1f9795fd8431f9fca531",
+      "value": {
+        "iterative_50": 0,
+        "recursive_10": 3628800,
+        "recursive_25": 0
+      }
+    },
+    "rosettacode/popular/factors_of_an_integer.vibe": {
+      "display": "{forty_five: [1, 3, 5, 9, 15, 45], fifty_three: [1, 53], sixty_four: [1, 2, 4, 8, 16, 32, 64]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-factors-of-an-integer",
+      "source_sha256": "d88fc915a55d4e14fcb25586e0d7164ab3f67d23197051a4817c35207fd9985b",
+      "value": {
+        "fifty_three": [
+          1,
+          53
+        ],
+        "forty_five": [
+          1,
+          3,
+          5,
+          9,
+          15,
+          45
+        ],
+        "sixty_four": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          64
+        ]
+      }
+    },
+    "rosettacode/popular/farey_sequence.vibe": {
+      "display": "{order_five: [0/1, 1/5, 1/4, 1/3, 2/5, 1/2, 3/5, 2/3, 3/4, 4/5, 1/1], order_seven_count: 19}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-farey-sequence",
+      "source_sha256": "5a1339b0f10e98bc366fd2bd4bfdca421a1d2875ccbaf873fd1ea696e925eeae",
+      "value": {
+        "order_five": [
+          "0/1",
+          "1/5",
+          "1/4",
+          "1/3",
+          "2/5",
+          "1/2",
+          "3/5",
+          "2/3",
+          "3/4",
+          "4/5",
+          "1/1"
+        ],
+        "order_seven_count": 19
+      }
+    },
+    "rosettacode/popular/fibonacci_n_step_number_sequences.vibe": {
+      "display": "{tribonacci: [0, 0, 1, 1, 2, 4, 7, 13, 24, 44, 81, 149], tetranacci: [0, 0, 0, 1, 1, 2, 4, 8, 15, 29, 56, 108]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-fibonacci-n-step-number-sequences",
+      "source_sha256": "2ffe5f306caa89c5dfed8de9b6d4f2ff9e038f5aacec9cf72dcc884a64a6aa26",
+      "value": {
+        "tetranacci": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          2,
+          4,
+          8,
+          15,
+          29,
+          56,
+          108
+        ],
+        "tribonacci": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          4,
+          7,
+          13,
+          24,
+          44,
+          81,
+          149
+        ]
+      }
+    },
+    "rosettacode/popular/fibonacci_sequence.vibe": {
+      "display": "[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-fibonacci-sequence",
+      "source_sha256": "657a65067e6a28ffe900970175ca21350c056bf3141ec7ffcf187b0f207969f8",
+      "value": [
+        0,
+        1,
+        1,
+        2,
+        3,
+        5,
+        8,
+        13,
+        21,
+        34,
+        55,
+        89,
+        144,
+        233,
+        377
+      ]
+    },
+    "rosettacode/popular/fibonacci_word.vibe": {
+      "display": "{words: [0, 01, 010, 01001, 01001010, 0100101001001, 010010100100101001010, 0100101001001010010100100101001001], final_length: 34}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-fibonacci-word",
+      "source_sha256": "513427d1c013b2eda1dc2366180008ecd3ca128d3256eba9cfe3085310de0a00",
+      "value": {
+        "final_length": 34,
+        "words": [
+          "0",
+          "01",
+          "010",
+          "01001",
+          "01001010",
+          "0100101001001",
+          "010010100100101001010",
+          "0100101001001010010100100101001001"
+        ]
+      }
+    },
+    "rosettacode/popular/find_palindromic_numbers_in_both_binary_and_ternary_bases.vibe": {
+      "display": "[{value: 1, binary: 1, ternary: 1}, {value: 6643, binary: 1100111110011, ternary: 100010001}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-find-palindromic-numbers-in-both-binary-and-ternary-bases",
+      "source_sha256": "ef72b4c03ff4fc76fabd31856d15541c42fadc7399fc9d52e628caa801300a8d",
+      "value": [
+        {
+          "binary": "1",
+          "ternary": "1",
+          "value": 1
+        },
+        {
+          "binary": "1100111110011",
+          "ternary": "100010001",
+          "value": 6643
+        }
+      ]
+    },
+    "rosettacode/popular/find_words_which_contain_the_most_consonants.vibe": {
+      "display": "{consonants: 8, words: [strengths]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-find-words-which-contain-the-most-consonants",
+      "source_sha256": "7430f53a11af6304a147007046538f21a1b96e859d774736b4400f6e8569a8e9",
+      "value": {
+        "consonants": 8,
+        "words": [
+          "strengths"
+        ]
+      }
+    },
+    "rosettacode/popular/fizzbuzz.vibe": {
+      "display": "[1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, FizzBuzz]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-fizzbuzz",
+      "source_sha256": "64ddfde29937a30b37c793144be288ef6200f4e6e86ec28497f299d1cdd7e228",
+      "value": [
+        "1",
+        "2",
+        "Fizz",
+        "4",
+        "Buzz",
+        "Fizz",
+        "7",
+        "8",
+        "Fizz",
+        "Buzz",
+        "11",
+        "Fizz",
+        "13",
+        "14",
+        "FizzBuzz",
+        "16",
+        "17",
+        "Fizz",
+        "19",
+        "Buzz",
+        "Fizz",
+        "22",
+        "23",
+        "Fizz",
+        "Buzz",
+        "26",
+        "Fizz",
+        "28",
+        "29",
+        "FizzBuzz"
+      ]
+    },
+    "rosettacode/popular/floyd_s_triangle.vibe": {
+      "display": "[[1], [2, 3], [4, 5, 6], [7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20, 21], [22, 23, 24, 25, 26, 27, 28]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-floyd-s-triangle",
+      "source_sha256": "2cb8ec28496d87d59c9ae8e9b1b78ea486c7ee586379649f011aa2be5708fab9",
+      "value": [
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6
+        ],
+        [
+          7,
+          8,
+          9,
+          10
+        ],
+        [
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        [
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        [
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28
+        ]
+      ]
+    },
+    "rosettacode/popular/four_bit_adder.vibe": {
+      "display": "{five_plus_six: {carry: 0, bits: [1, 0, 1, 1]}, fifteen_plus_one: {carry: 1, bits: [0, 0, 0, 0]}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-four-bit-adder",
+      "source_sha256": "0f5c6eec84e815de64224203931197a5dcb20f7b828857aec8521fcfdf82e048",
+      "value": {
+        "fifteen_plus_one": {
+          "bits": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "carry": 1
+        },
+        "five_plus_six": {
+          "bits": [
+            1,
+            0,
+            1,
+            1
+          ],
+          "carry": 0
+        }
+      }
+    },
+    "rosettacode/popular/fraction_reduction.vibe": {
+      "display": "[{original: [42, 56], reduced: {numerator: 3, denominator: 4}}, {original: [13, 39], reduced: {numerator: 1, denominator: 3}}, {original: [-150, 100], reduced: {numerator: -3, denominator: 2}}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-fraction-reduction",
+      "source_sha256": "b409468925662187730890af08379ef410febdb5d5d4c863e6fb72b5308449f7",
+      "value": [
+        {
+          "original": [
+            42,
+            56
+          ],
+          "reduced": {
+            "denominator": 4,
+            "numerator": 3
+          }
+        },
+        {
+          "original": [
+            13,
+            39
+          ],
+          "reduced": {
+            "denominator": 3,
+            "numerator": 1
+          }
+        },
+        {
+          "original": [
+            -150,
+            100
+          ],
+          "reduced": {
+            "denominator": 2,
+            "numerator": -3
+          }
+        }
+      ]
+    },
+    "rosettacode/popular/gray_code.vibe": {
+      "display": "[0000, 0001, 0011, 0010, 0110, 0111, 0101, 0100, 1100, 1101, 1111, 1110, 1010, 1011, 1001, 1000]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-gray-code",
+      "source_sha256": "a3b7ee40caf12986cb2fbdcbbf301a847ed275cc17dd3c5d5959edb7429d1fc1",
+      "value": [
+        "0000",
+        "0001",
+        "0011",
+        "0010",
+        "0110",
+        "0111",
+        "0101",
+        "0100",
+        "1100",
+        "1101",
+        "1111",
+        "1110",
+        "1010",
+        "1011",
+        "1001",
+        "1000"
+      ]
+    },
+    "rosettacode/popular/greatest_common_divisor.vibe": {
+      "display": "{zero_zero: 0, zero_ten: 10, zero_negative_ten: 10, nine_six: 3, six_nine: 3, negative_six_nine: 3, eight_forty_five: 1, large_pair: 6}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-greatest-common-divisor",
+      "source_sha256": "7afb7b161e65064ad1064256394836e4312e33109b1a523b19e49b49a68b18fb",
+      "value": {
+        "eight_forty_five": 1,
+        "large_pair": 6,
+        "negative_six_nine": 3,
+        "nine_six": 3,
+        "six_nine": 3,
+        "zero_negative_ten": 10,
+        "zero_ten": 10,
+        "zero_zero": 0
+      }
+    },
+    "rosettacode/popular/greedy_algorithm_for_egyptian_fractions.vibe": {
+      "display": "{three_sevenths: [1/3, 1/11, 1/231], eight_elevenths: [1/2, 1/5, 1/37, 1/4070], five_one_hundred_twenty_firsts: [1/25, 1/757, 1/763309, 1/873960180913, 1/1527612795642093418846225]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-greedy-algorithm-for-egyptian-fractions",
+      "source_sha256": "60617cf07b5f3a520f6cac6abb4c1a2810beaf13f92fe4ee2c8a05e8ca895645",
+      "value": {
+        "eight_elevenths": [
+          "1/2",
+          "1/5",
+          "1/37",
+          "1/4070"
+        ],
+        "five_one_hundred_twenty_firsts": [
+          "1/25",
+          "1/757",
+          "1/763309",
+          "1/873960180913",
+          "1/1527612795642093418846225"
+        ],
+        "three_sevenths": [
+          "1/3",
+          "1/11",
+          "1/231"
+        ]
+      }
+    },
+    "rosettacode/popular/hailstone_sequence.vibe": {
+      "display": "{length: 112, first_ten: [27, 82, 41, 124, 62, 31, 94, 47, 142, 71], last_ten: [80, 40, 20, 10, 5, 16, 8, 4, 2, 1]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-hailstone-sequence",
+      "source_sha256": "f3f792b68af10948c1c9fe175e6fde6077c91f67f7afc03b5400d80e7181c45a",
+      "value": {
+        "first_ten": [
+          27,
+          82,
+          41,
+          124,
+          62,
+          31,
+          94,
+          47,
+          142,
+          71
+        ],
+        "last_ten": [
+          80,
+          40,
+          20,
+          10,
+          5,
+          16,
+          8,
+          4,
+          2,
+          1
+        ],
+        "length": 112
+      }
+    },
+    "rosettacode/popular/hamming_numbers.vibe": {
+      "display": "{first_twenty: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 25, 27, 30, 32, 36], twentieth: 36}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-hamming-numbers",
+      "source_sha256": "f4409dfd72a67ba22e9eedb601e7255cdf122d01ed02ee56a35134fa4c44e70d",
+      "value": {
+        "first_twenty": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          9,
+          10,
+          12,
+          15,
+          16,
+          18,
+          20,
+          24,
+          25,
+          27,
+          30,
+          32,
+          36
+        ],
+        "twentieth": 36
+      }
+    },
+    "rosettacode/popular/happy_numbers.vibe": {
+      "display": "{first_five: [1, 7, 10, 13, 19], nineteen: true, twenty: false}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-happy-numbers",
+      "source_sha256": "a831ac704081037782bdb90a60f1c260e361f67a7f1b8ed25e48341af8a6a386",
+      "value": {
+        "first_five": [
+          1,
+          7,
+          10,
+          13,
+          19
+        ],
+        "nineteen": true,
+        "twenty": false
+      }
+    },
+    "rosettacode/popular/harshad_numbers.vibe": {
+      "display": "{first_20: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 18, 20, 21, 24, 27, 30, 36, 40, 42], first_above_1000: 1002}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-harshad-numbers",
+      "source_sha256": "d539b3159ccef5a90df2e8cb89c00e50923ce8700d7c43db9cff61c0831c2e60",
+      "value": {
+        "first_20": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          18,
+          20,
+          21,
+          24,
+          27,
+          30,
+          36,
+          40,
+          42
+        ],
+        "first_above_1000": 1002
+      }
+    },
+    "rosettacode/popular/heronian_triangles.vibe": {
+      "display": "[{sides: [3, 4, 5], area: 6}, {sides: [5, 5, 6], area: 12}, {sides: [5, 12, 13], area: 30}, {sides: [8, 15, 17], area: 60}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-heronian-triangles",
+      "source_sha256": "93440ca19c11ac78334c7274de0528496b9b9bffd81aeb21d7ef0c5a3caa91f4",
+      "value": [
+        {
+          "area": 6,
+          "sides": [
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "area": 12,
+          "sides": [
+            5,
+            5,
+            6
+          ]
+        },
+        {
+          "area": 30,
+          "sides": [
+            5,
+            12,
+            13
+          ]
+        },
+        {
+          "area": 60,
+          "sides": [
+            8,
+            15,
+            17
+          ]
+        }
+      ]
+    },
+    "rosettacode/popular/humble_numbers.vibe": {
+      "display": "{first_twenty_five: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 24, 25, 27, 28, 30, 32, 35, 36], twenty_fifth: 36}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-humble-numbers",
+      "source_sha256": "f12aaad1bd329517b4629a74b7aa0f23c788a62945d8db92fd910cbed8b935fc",
+      "value": {
+        "first_twenty_five": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          14,
+          15,
+          16,
+          18,
+          20,
+          21,
+          24,
+          25,
+          27,
+          28,
+          30,
+          32,
+          35,
+          36
+        ],
+        "twenty_fifth": 36
+      }
+    },
+    "rosettacode/popular/i_before_e_except_after_c.vibe": {
+      "display": "{believe: true, ceiling: true, science: false, weird: false, ancient: false}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-i-before-e-except-after-c",
+      "source_sha256": "c228fde080e04b9bc374aedf490c68adb558d5b2db10b2fa10fd3d19f431a97e",
+      "value": {
+        "ancient": false,
+        "believe": true,
+        "ceiling": true,
+        "science": false,
+        "weird": false
+      }
+    },
+    "rosettacode/popular/insertion_sort.vibe": {
+      "display": "{sorted: [11, 12, 22, 25, 34, 64, 90], already: [1, 2, 3, 4, 5], reversed: [1, 2, 3, 4, 5], single: [42]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-insertion-sort",
+      "source_sha256": "d2a70ae307786003728af1d159736e0455d9bba3a98f5a1839bbe601f30bdd94",
+      "value": {
+        "already": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "reversed": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "single": [
+          42
+        ],
+        "sorted": [
+          11,
+          12,
+          22,
+          25,
+          34,
+          64,
+          90
+        ]
+      }
+    },
+    "rosettacode/popular/isqrt_integer_square_root_of_x.vibe": {
+      "display": "[{value: 0, isqrt: 0}, {value: 1, isqrt: 1}, {value: 2, isqrt: 1}, {value: 3, isqrt: 1}, {value: 4, isqrt: 2}, {value: 10, isqrt: 3}, {value: 27, isqrt: 5}, {value: 81, isqrt: 9}, {value: 12345, isqrt: 111}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-isqrt-integer-square-root-of-x",
+      "source_sha256": "fc71d81b57a770a864fbb362888a513f5db8d05babfb6dcf8396df202710c4ec",
+      "value": [
+        {
+          "isqrt": 0,
+          "value": 0
+        },
+        {
+          "isqrt": 1,
+          "value": 1
+        },
+        {
+          "isqrt": 1,
+          "value": 2
+        },
+        {
+          "isqrt": 1,
+          "value": 3
+        },
+        {
+          "isqrt": 2,
+          "value": 4
+        },
+        {
+          "isqrt": 3,
+          "value": 10
+        },
+        {
+          "isqrt": 5,
+          "value": 27
+        },
+        {
+          "isqrt": 9,
+          "value": 81
+        },
+        {
+          "isqrt": 111,
+          "value": 12345
+        }
+      ]
+    },
+    "rosettacode/popular/josephus_problem.vibe": {
+      "display": "{classic: {survivor: 30, elimination_order: [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35, 38, 0, 4, 9, 13, 18, 22, 27, 31, 36, 40, 6, 12, 19, 25, 33, 39, 7, 16, 28, 37, 10, 24, 1, 21, 3, 34, 15, 30]}, small: {survivor: 2, elimination_order: [1, 3, 0, 4, 2]}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-josephus-problem",
+      "source_sha256": "c39d271b0bacf3be3a23f5a6a5ed879ffa0b8255545e1171414ef1c8a3b3aab4",
+      "value": {
+        "classic": {
+          "elimination_order": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35,
+            38,
+            0,
+            4,
+            9,
+            13,
+            18,
+            22,
+            27,
+            31,
+            36,
+            40,
+            6,
+            12,
+            19,
+            25,
+            33,
+            39,
+            7,
+            16,
+            28,
+            37,
+            10,
+            24,
+            1,
+            21,
+            3,
+            34,
+            15,
+            30
+          ],
+          "survivor": 30
+        },
+        "small": {
+          "elimination_order": [
+            1,
+            3,
+            0,
+            4,
+            2
+          ],
+          "survivor": 2
+        }
+      }
+    },
+    "rosettacode/popular/kaprekar_numbers.vibe": {
+      "display": "[{value: 1, kaprekar: true}, {value: 45, kaprekar: true}, {value: 55, kaprekar: true}, {value: 99, kaprekar: true}, {value: 297, kaprekar: true}, {value: 703, kaprekar: true}, {value: 10, kaprekar: false}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-kaprekar-numbers",
+      "source_sha256": "64ecb10944e72379aefbbf6da13b6e4e7790a42a1c82ef50147f2b422c5aef5e",
+      "value": [
+        {
+          "kaprekar": true,
+          "value": 1
+        },
+        {
+          "kaprekar": true,
+          "value": 45
+        },
+        {
+          "kaprekar": true,
+          "value": 55
+        },
+        {
+          "kaprekar": true,
+          "value": 99
+        },
+        {
+          "kaprekar": true,
+          "value": 297
+        },
+        {
+          "kaprekar": true,
+          "value": 703
+        },
+        {
+          "kaprekar": false,
+          "value": 10
+        }
+      ]
+    },
+    "rosettacode/popular/kaprekar_routine.vibe": {
+      "display": "{from_3524: [3524, 3087, 8352, 6174], from_1234: [1234, 3087, 8352, 6174], from_9998: [9998, 999, 8991, 8082, 8532, 6174], from_1000: [1000, 999, 8991, 8082, 8532, 6174]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-kaprekar-routine",
+      "source_sha256": "10d2d08955b0452083dfcef177f1c4557f953f09348989f838fcac2c29287fb3",
+      "value": {
+        "from_1000": [
+          1000,
+          999,
+          8991,
+          8082,
+          8532,
+          6174
+        ],
+        "from_1234": [
+          1234,
+          3087,
+          8352,
+          6174
+        ],
+        "from_3524": [
+          3524,
+          3087,
+          8352,
+          6174
+        ],
+        "from_9998": [
+          9998,
+          999,
+          8991,
+          8082,
+          8532,
+          6174
+        ]
+      }
+    },
+    "rosettacode/popular/last_letter_first_letter.vibe": {
+      "display": "[audino]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-last-letter-first-letter",
+      "source_sha256": "fa8c61dcb965201c4a1c648f8af4708fdab2426ebcd8623ea98276c2ff64edf3",
+      "value": [
+        "audino"
+      ]
+    },
+    "rosettacode/popular/leap_year.vibe": {
+      "display": "[{year: 1900, leap: false}, {year: 2000, leap: true}, {year: 1996, leap: true}, {year: 1997, leap: false}, {year: 2024, leap: true}, {year: 2025, leap: false}, {year: 2100, leap: false}, {year: 2400, leap: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-leap-year",
+      "source_sha256": "fc402622026da24e94cebb8a264167452ea80bbb358841cab93715a392e5c96b",
+      "value": [
+        {
+          "leap": false,
+          "year": 1900
+        },
+        {
+          "leap": true,
+          "year": 2000
+        },
+        {
+          "leap": true,
+          "year": 1996
+        },
+        {
+          "leap": false,
+          "year": 1997
+        },
+        {
+          "leap": true,
+          "year": 2024
+        },
+        {
+          "leap": false,
+          "year": 2025
+        },
+        {
+          "leap": false,
+          "year": 2100
+        },
+        {
+          "leap": true,
+          "year": 2400
+        }
+      ]
+    },
+    "rosettacode/popular/letter_frequency.vibe": {
+      "display": "{v: 1, i: 2, b: 1, e: 8, s: 5, c: 4, r: 3, p: 1, t: 5, m: 1, a: 3, k: 2, o: 3, d: 1, f: 1, l: 1, n: 1}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-letter-frequency",
+      "source_sha256": "91a256b6a04ae2506ddd85920e9522112e04cdbef8e78cc482d6dc91f4eb129b",
+      "value": {
+        "a": 3,
+        "b": 1,
+        "c": 4,
+        "d": 1,
+        "e": 8,
+        "f": 1,
+        "i": 2,
+        "k": 2,
+        "l": 1,
+        "m": 1,
+        "n": 1,
+        "o": 3,
+        "p": 1,
+        "r": 3,
+        "s": 5,
+        "t": 5,
+        "v": 1
+      }
+    },
+    "rosettacode/popular/levenshtein_distance.vibe": {
+      "display": "{kitten_sitting: 3, rosettacode_raisethysword: 8, reverse_invariant: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-levenshtein-distance",
+      "source_sha256": "c16e32b8622a68993c0e820ee8128989ada14aa6c72b631caf755a35657a566e",
+      "value": {
+        "kitten_sitting": 3,
+        "reverse_invariant": true,
+        "rosettacode_raisethysword": 8
+      }
+    },
+    "rosettacode/popular/long_multiplication.vibe": {
+      "display": "{multiplicand: 123, multiplier: 45, partials: [615, 4920], product: 5535}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-long-multiplication",
+      "source_sha256": "9d3dac20f747f58871fa7be808b8807cf21e02faae9c4d521ef46a49ef662299",
+      "value": {
+        "multiplicand": 123,
+        "multiplier": 45,
+        "partials": [
+          615,
+          4920
+        ],
+        "product": 5535
+      }
+    },
+    "rosettacode/popular/look_and_say_sequence.vibe": {
+      "display": "{term_1: 11, term_2: 21, term_3: 1211, term_4: 111221, term_5: 312211}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-look-and-say-sequence",
+      "source_sha256": "d8372f5d6b9f15d14d306b5fdb37a05a2fff53c7dfc3a4976154f45e690a8231",
+      "value": {
+        "term_1": "11",
+        "term_2": "21",
+        "term_3": "1211",
+        "term_4": "111221",
+        "term_5": "312211"
+      }
+    },
+    "rosettacode/popular/luhn_test_of_credit_card_numbers.vibe": {
+      "display": "{sample_true: true, sample_false: false, visa_true: true, visa_false: false}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-luhn-test-of-credit-card-numbers",
+      "source_sha256": "fc38eca07e35a7994818485cda723715b85d4cf3161d607bc62a0d93d5bdac53",
+      "value": {
+        "sample_false": false,
+        "sample_true": true,
+        "visa_false": false,
+        "visa_true": true
+      }
+    },
+    "rosettacode/popular/lychrel_numbers.vibe": {
+      "display": "[{value: 56, lychrel_candidate: false}, {value: 57, lychrel_candidate: false}, {value: 196, lychrel_candidate: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-lychrel-numbers",
+      "source_sha256": "99a75eed522cde132f718b53953fdc2e9c99c1d1ab455b4062c2a1d8cb9c40e4",
+      "value": [
+        {
+          "lychrel_candidate": false,
+          "value": 56
+        },
+        {
+          "lychrel_candidate": false,
+          "value": 57
+        },
+        {
+          "lychrel_candidate": true,
+          "value": 196
+        }
+      ]
+    },
+    "rosettacode/popular/magic_squares_of_odd_order.vibe": {
+      "display": "[[8, 1, 6], [3, 5, 7], [4, 9, 2]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-magic-squares-of-odd-order",
+      "source_sha256": "6915004a85c0a8d7a1d01aae5e31b7ffd571030723c25c804e3d36e27cd06495",
+      "value": [
+        [
+          8,
+          1,
+          6
+        ],
+        [
+          3,
+          5,
+          7
+        ],
+        [
+          4,
+          9,
+          2
+        ]
+      ]
+    },
+    "rosettacode/popular/matrix_multiplication.vibe": {
+      "display": "[[58, 64], [139, 154]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-matrix-multiplication",
+      "source_sha256": "847e7e9acb1e103d6ecb89fd59d05c64eee638b4880b7c60575072abe7fe8b16",
+      "value": [
+        [
+          58,
+          64
+        ],
+        [
+          139,
+          154
+        ]
+      ]
+    },
+    "rosettacode/popular/matrix_transposition.vibe": {
+      "display": "{square: [[1, 4, 7], [2, 5, 8], [3, 6, 9]], rectangular: [[1, 3, 5], [2, 4, 6]]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-matrix-transposition",
+      "source_sha256": "88335097c6e9398a8fb1d8b2d2a4a9be382ce9d78f7348ad5d8cad1641fd6e43",
+      "value": {
+        "rectangular": [
+          [
+            1,
+            3,
+            5
+          ],
+          [
+            2,
+            4,
+            6
+          ]
+        ],
+        "square": [
+          [
+            1,
+            4,
+            7
+          ],
+          [
+            2,
+            5,
+            8
+          ],
+          [
+            3,
+            6,
+            9
+          ]
+        ]
+      }
+    },
+    "rosettacode/popular/middle_three_digits.vibe": {
+      "display": "[[input, middle_three], [123, 123], [12345, 234], [1234567, 345], [10001, 000], [-10001, 000], [1, too short], [2002, even digit count]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-middle-three-digits",
+      "source_sha256": "ec6e7acf1db8912467e57476879ca850951288a3d80ccf304cf0a8793ddb8c4c",
+      "value": [
+        [
+          "input",
+          "middle_three"
+        ],
+        [
+          123,
+          "123"
+        ],
+        [
+          12345,
+          "234"
+        ],
+        [
+          1234567,
+          "345"
+        ],
+        [
+          10001,
+          "000"
+        ],
+        [
+          -10001,
+          "000"
+        ],
+        [
+          1,
+          "too short"
+        ],
+        [
+          2002,
+          "even digit count"
+        ]
+      ]
+    },
+    "rosettacode/popular/minimum_multiple_of_m_where_digital_sum_equals_m.vibe": {
+      "display": "[{m: 10, value: 190}, {m: 12, value: 48}, {m: 15, value: 195}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-minimum-multiple-of-m-where-digital-sum-equals-m",
+      "source_sha256": "b1121066a497c7d076431e613dcd341f55ad7bacb75f63623201ba994e0e5cb2",
+      "value": [
+        {
+          "m": 10,
+          "value": 190
+        },
+        {
+          "m": 12,
+          "value": 48
+        },
+        {
+          "m": 15,
+          "value": 195
+        }
+      ]
+    },
+    "rosettacode/popular/morse_code.vibe": {
+      "display": "{sos: ... --- ..., vibe: ...- .. -... . / ..--- ----- ..--- -....}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-morse-code",
+      "source_sha256": "3154db15bb845b3221e221ba72c4c09e5686bc6c0390e0968403d5a9d568d2cd",
+      "value": {
+        "sos": "... --- ...",
+        "vibe": "...- .. -... . / ..--- ----- ..--- -...."
+      }
+    },
+    "rosettacode/popular/multiplication_tables.vibe": {
+      "display": "[[1, 2, 3, 4, 5, 6], [2, 4, 6, 8, 10, 12], [3, 6, 9, 12, 15, 18], [4, 8, 12, 16, 20, 24], [5, 10, 15, 20, 25, 30], [6, 12, 18, 24, 30, 36]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-multiplication-tables",
+      "source_sha256": "c672926dfe57395773fea34c5cf42638bad46867696712ad2dc919049113fb06",
+      "value": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12
+        ],
+        [
+          3,
+          6,
+          9,
+          12,
+          15,
+          18
+        ],
+        [
+          4,
+          8,
+          12,
+          16,
+          20,
+          24
+        ],
+        [
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        [
+          6,
+          12,
+          18,
+          24,
+          30,
+          36
+        ]
+      ]
+    },
+    "rosettacode/popular/n_smooth_numbers.vibe": {
+      "display": "[1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24, 25, 27, 30, 32, 36]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-n-smooth-numbers",
+      "source_sha256": "e32bdbd1cd8fe0501cbe0642b3689e0995a3304794f0f6d4a5aaf8a87ad871b5",
+      "value": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9,
+        10,
+        12,
+        15,
+        16,
+        18,
+        20,
+        24,
+        25,
+        27,
+        30,
+        32,
+        36
+      ]
+    },
+    "rosettacode/popular/narcissistic_decimal_number.vibe": {
+      "display": "[{value: 153, narcissistic: true}, {value: 370, narcissistic: true}, {value: 407, narcissistic: true}, {value: 408, narcissistic: false}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-narcissistic-decimal-number",
+      "source_sha256": "a86cf55d919d7d5079983785466de78c6d9f87ea66fd6ef369cf8954e47b6dca",
+      "value": [
+        {
+          "narcissistic": true,
+          "value": 153
+        },
+        {
+          "narcissistic": true,
+          "value": 370
+        },
+        {
+          "narcissistic": true,
+          "value": 407
+        },
+        {
+          "narcissistic": false,
+          "value": 408
+        }
+      ]
+    },
+    "rosettacode/popular/natural_sorting.vibe": {
+      "display": "[file1.txt, file2.txt, file3.txt, file10.txt, file20.txt]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-natural-sorting",
+      "source_sha256": "456e41a46db383bfc46fa90d642c211932b31a5c9f05316564912ac86c086a89",
+      "value": [
+        "file1.txt",
+        "file2.txt",
+        "file3.txt",
+        "file10.txt",
+        "file20.txt"
+      ]
+    },
+    "rosettacode/popular/number_names.vibe": {
+      "display": "{zero: zero, forty_two: forty-two, three_hundred_five: three hundred five, nine_hundred_ninety_nine: nine hundred ninety-nine, twelve_thousand_three_hundred_four: twelve thousand three hundred four}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-number-names",
+      "source_sha256": "660f6723d27e0af377e933e5cdd183eb014216cadf7c49518879ce29abb4df0c",
+      "value": {
+        "forty_two": "forty-two",
+        "nine_hundred_ninety_nine": "nine hundred ninety-nine",
+        "three_hundred_five": "three hundred five",
+        "twelve_thousand_three_hundred_four": "twelve thousand three hundred four",
+        "zero": "zero"
+      }
+    },
+    "rosettacode/popular/numerical_integration.vibe": {
+      "display": "{integral_of_x_squared: 0.3334, integral_of_three_x_plus_two: 47.5}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-numerical-integration",
+      "source_sha256": "92204a80d1bc591563219b677381eacd9e5fd5ffe4fc6c4c6937af3520851444",
+      "value": {
+        "integral_of_three_x_plus_two": 47.5,
+        "integral_of_x_squared": 0.3334
+      }
+    },
+    "rosettacode/popular/palindrome_detection.vibe": {
+      "display": "[[text, palindrome], [racecar, true], [Able was I ere I saw Elba, true], [12321, true], [Vibescript, false]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-palindrome-detection",
+      "source_sha256": "4b81391f4d9f4aaa5afda9647b3033f137dce2b93c7fb5f9e72d6025d3a60a95",
+      "value": [
+        [
+          "text",
+          "palindrome"
+        ],
+        [
+          "racecar",
+          true
+        ],
+        [
+          "Able was I ere I saw Elba",
+          true
+        ],
+        [
+          "12321",
+          true
+        ],
+        [
+          "Vibescript",
+          false
+        ]
+      ]
+    },
+    "rosettacode/popular/palindromic_gapful_numbers.vibe": {
+      "display": "[121, 242, 363, 484, 1001, 1111, 1221, 1331, 1441, 1551]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-palindromic-gapful-numbers",
+      "source_sha256": "94c7ea8873b19ba2aacd56341476a4a1a6a14b5194590029624740944f9ffefd",
+      "value": [
+        121,
+        242,
+        363,
+        484,
+        1001,
+        1111,
+        1221,
+        1331,
+        1441,
+        1551
+      ]
+    },
+    "rosettacode/popular/pangram_checker.vibe": {
+      "display": "{fox_pangram: true, almost_pangram: false, almost_missing: [s]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-pangram-checker",
+      "source_sha256": "134a9a22734c09baacd6732beee94aee6686071882ae2106ce089add52be2e23",
+      "value": {
+        "almost_missing": [
+          "s"
+        ],
+        "almost_pangram": false,
+        "fox_pangram": true
+      }
+    },
+    "rosettacode/popular/parse_an_ip_address.vibe": {
+      "display": "{localhost: [127, 0, 0, 1], docs: [192, 168, 10, 42], invalid_range: , invalid_shape: }",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-parse-an-ip-address",
+      "source_sha256": "8d56446892368be2baffb96530068add903b7cb3662170f163e36904f499efd8",
+      "value": {
+        "docs": [
+          192,
+          168,
+          10,
+          42
+        ],
+        "invalid_range": null,
+        "invalid_shape": null,
+        "localhost": [
+          127,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "rosettacode/popular/pascals_triangle.vibe": {
+      "display": "[[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1, 5, 10, 10, 5, 1], [1, 6, 15, 20, 15, 6, 1]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-pascals-triangle",
+      "source_sha256": "4eaf70f0f9e681842a3e44280503ae261d34ccfd3ada6b86f4c3d1d14f2c2731",
+      "value": [
+        [
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3,
+          1
+        ],
+        [
+          1,
+          4,
+          6,
+          4,
+          1
+        ],
+        [
+          1,
+          5,
+          10,
+          10,
+          5,
+          1
+        ],
+        [
+          1,
+          6,
+          15,
+          20,
+          15,
+          6,
+          1
+        ]
+      ]
+    },
+    "rosettacode/popular/permutations.vibe": {
+      "display": "{count: 6, permutations: [[A, B, C], [A, C, B], [B, A, C], [B, C, A], [C, A, B], [C, B, A]]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-permutations",
+      "source_sha256": "8bfbe67b3ec6fcedc31760e87859f842827aa3051e3b4f98ae7cfab7c76d14d0",
+      "value": {
+        "count": 6,
+        "permutations": [
+          [
+            "A",
+            "B",
+            "C"
+          ],
+          [
+            "A",
+            "C",
+            "B"
+          ],
+          [
+            "B",
+            "A",
+            "C"
+          ],
+          [
+            "B",
+            "C",
+            "A"
+          ],
+          [
+            "C",
+            "A",
+            "B"
+          ],
+          [
+            "C",
+            "B",
+            "A"
+          ]
+        ]
+      }
+    },
+    "rosettacode/popular/pig_latin.vibe": {
+      "display": "{hello: ellohay, world: orldway, apple: appleay, string: ingstray, sentence: ihay erethay}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-pig-latin",
+      "source_sha256": "5433d259b4aba5a240dd5fa4adebe60e760e0d51d9b890165a5fedd6170291be",
+      "value": {
+        "apple": "appleay",
+        "hello": "ellohay",
+        "sentence": "ihay erethay",
+        "string": "ingstray",
+        "world": "orldway"
+      }
+    },
+    "rosettacode/popular/playing_cards.vibe": {
+      "display": "{count: 52, first_three: [{rank: A, suit: spades}, {rank: 2, suit: spades}, {rank: 3, suit: spades}], last_three: [{rank: J, suit: clubs}, {rank: Q, suit: clubs}, {rank: K, suit: clubs}]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-playing-cards",
+      "source_sha256": "08a0846f7e83f104e0dde5eff9c13825876e23f5837a5d290421238ce8b4f31c",
+      "value": {
+        "count": 52,
+        "first_three": [
+          {
+            "rank": "A",
+            "suit": "spades"
+          },
+          {
+            "rank": "2",
+            "suit": "spades"
+          },
+          {
+            "rank": "3",
+            "suit": "spades"
+          }
+        ],
+        "last_three": [
+          {
+            "rank": "J",
+            "suit": "clubs"
+          },
+          {
+            "rank": "Q",
+            "suit": "clubs"
+          },
+          {
+            "rank": "K",
+            "suit": "clubs"
+          }
+        ]
+      }
+    },
+    "rosettacode/popular/prime_decomposition.vibe": {
+      "display": "{twelve: [2, 2, 3], thousand_twenty_three_times_thousand_twenty_four: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 11, 31], sample_composite: [2, 3, 5, 7, 11, 11, 13, 17]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-prime-decomposition",
+      "source_sha256": "2fce2a90fcc57951b08c66e718b43c89745644d6b94e812892bca8c1df081c22",
+      "value": {
+        "sample_composite": [
+          2,
+          3,
+          5,
+          7,
+          11,
+          11,
+          13,
+          17
+        ],
+        "thousand_twenty_three_times_thousand_twenty_four": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          11,
+          31
+        ],
+        "twelve": [
+          2,
+          2,
+          3
+        ]
+      }
+    },
+    "rosettacode/popular/priority_queue.vibe": {
+      "display": "{peek_before_dequeue: {priority: 5, value: ship feature}, first_out: {priority: 5, value: ship feature}, second_out: {priority: 5, value: answer support}, remaining: [{priority: 2, value: write tests}, {priority: 3, value: review docs}]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-priority-queue",
+      "source_sha256": "fb8f8d07831202ac43c1e0828c0eb88f2060420aff9fbffd9f6031b8acc4df3b",
+      "value": {
+        "first_out": {
+          "priority": 5,
+          "value": "ship feature"
+        },
+        "peek_before_dequeue": {
+          "priority": 5,
+          "value": "ship feature"
+        },
+        "remaining": [
+          {
+            "priority": 2,
+            "value": "write tests"
+          },
+          {
+            "priority": 3,
+            "value": "review docs"
+          }
+        ],
+        "second_out": {
+          "priority": 5,
+          "value": "answer support"
+        }
+      }
+    },
+    "rosettacode/popular/pythagorean_triples.vibe": {
+      "display": "{count: 7, triples: [[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [9, 40, 41], [12, 35, 37]]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-pythagorean-triples",
+      "source_sha256": "b530cf4b9a5d49723d38b61b777f3302367b45ad290afd4bcde2a2e11b62be0d",
+      "value": {
+        "count": 7,
+        "triples": [
+          [
+            3,
+            4,
+            5
+          ],
+          [
+            5,
+            12,
+            13
+          ],
+          [
+            8,
+            15,
+            17
+          ],
+          [
+            7,
+            24,
+            25
+          ],
+          [
+            20,
+            21,
+            29
+          ],
+          [
+            9,
+            40,
+            41
+          ],
+          [
+            12,
+            35,
+            37
+          ]
+        ]
+      }
+    },
+    "rosettacode/popular/range_extraction.vibe": {
+      "display": "0-2,4,6-8,11,12,14-25,27-33,35-39",
+      "entry_point": "run",
+      "kind": "string",
+      "runnable": true,
+      "slug": "rosettacode-popular-range-extraction",
+      "source_sha256": "54b7fde1650d4698a97beeb91209f4f73692e975b4acea91992b5d4c025e7f35",
+      "value": "0-2,4,6-8,11,12,14-25,27-33,35-39"
+    },
+    "rosettacode/popular/roman_numerals_decode.vibe": {
+      "display": "{i: 1, iv: 4, xlii: 42, xcix: 99, mmxxiv: 2024}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-roman-numerals-decode",
+      "source_sha256": "8a028cb8528461a24fb2454765fed9e7e64b476786b215ac41867f0f348d8b33",
+      "value": {
+        "i": 1,
+        "iv": 4,
+        "mmxxiv": 2024,
+        "xcix": 99,
+        "xlii": 42
+      }
+    },
+    "rosettacode/popular/roman_numerals_encode.vibe": {
+      "display": "[{number: 1, roman: I}, {number: 4, roman: IV}, {number: 9, roman: IX}, {number: 14, roman: XIV}, {number: 42, roman: XLII}, {number: 99, roman: XCIX}, {number: 2024, roman: MMXXIV}, {number: 1776, roman: MDCCLXXVI}, {number: 3999, roman: MMMCMXCIX}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-roman-numerals-encode",
+      "source_sha256": "60f28264243e90980ee8fc51e6912622134b9ff60bce24f734849eb44a7e5e4e",
+      "value": [
+        {
+          "number": 1,
+          "roman": "I"
+        },
+        {
+          "number": 4,
+          "roman": "IV"
+        },
+        {
+          "number": 9,
+          "roman": "IX"
+        },
+        {
+          "number": 14,
+          "roman": "XIV"
+        },
+        {
+          "number": 42,
+          "roman": "XLII"
+        },
+        {
+          "number": 99,
+          "roman": "XCIX"
+        },
+        {
+          "number": 2024,
+          "roman": "MMXXIV"
+        },
+        {
+          "number": 1776,
+          "roman": "MDCCLXXVI"
+        },
+        {
+          "number": 3999,
+          "roman": "MMMCMXCIX"
+        }
+      ]
+    },
+    "rosettacode/popular/rot_13.vibe": {
+      "display": "{plain: Vibescript keeps Rosetta examples runnable., encoded: Ivorfpevcg xrrcf Ebfrggn rknzcyrf ehaanoyr., decoded: Vibescript keeps Rosetta examples runnable.}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-rot-13",
+      "source_sha256": "7e2560aa8b095a87d28883bb16d71f2352ac60367a5d9d082b19af3d0d90c42f",
+      "value": {
+        "decoded": "Vibescript keeps Rosetta examples runnable.",
+        "encoded": "Ivorfpevcg xrrcf Ebfrggn rknzcyrf ehaanoyr.",
+        "plain": "Vibescript keeps Rosetta examples runnable."
+      }
+    },
+    "rosettacode/popular/run_length_encoding.vibe": {
+      "display": "{sample: AAABBCCCC, encoded: [{char: A, count: 3}, {char: B, count: 2}, {char: C, count: 4}], decoded: AAABBCCCC}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-run-length-encoding",
+      "source_sha256": "2b54a3c37d45ec901d46039cc9c8687a8f87960a24246735b7e7b448509be8c9",
+      "value": {
+        "decoded": "AAABBCCCC",
+        "encoded": [
+          {
+            "char": "A",
+            "count": 3
+          },
+          {
+            "char": "B",
+            "count": 2
+          },
+          {
+            "char": "C",
+            "count": 4
+          }
+        ],
+        "sample": "AAABBCCCC"
+      }
+    },
+    "rosettacode/popular/selection_sort.vibe": {
+      "display": "{sorted: [11, 12, 22, 25, 64], already: [1, 2, 3, 4, 5], reversed: [1, 2, 3, 4, 5]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-selection-sort",
+      "source_sha256": "73a024760bf2c47d91753e1ffed3b0cd81a1ccf1e8ae55c11aeac32471b11361",
+      "value": {
+        "already": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "reversed": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sorted": [
+          11,
+          12,
+          22,
+          25,
+          64
+        ]
+      }
+    },
+    "rosettacode/popular/sequence_of_primorial_primes.vibe": {
+      "display": "[{prime: 2, primorial_minus_one: 1, minus_one_prime: false, primorial_plus_one: 3, plus_one_prime: true}, {prime: 3, primorial_minus_one: 5, minus_one_prime: true, primorial_plus_one: 7, plus_one_prime: true}, {prime: 5, primorial_minus_one: 29, minus_one_prime: true, primorial_plus_one: 31, plus_one_prime: true}, {prime: 7, primorial_minus_one: 209, minus_one_prime: false, primorial_plus_one: 211, plus_one_prime: true}, {prime: 11, primorial_minus_one: 2309, minus_one_prime: true, primorial_plus_one: 2311, plus_one_prime: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-sequence-of-primorial-primes",
+      "source_sha256": "d68b349af85b39ce9825d95607e1da6f92601c008c6cd2f1db212990e5b5dbcf",
+      "value": [
+        {
+          "minus_one_prime": false,
+          "plus_one_prime": true,
+          "prime": 2,
+          "primorial_minus_one": 1,
+          "primorial_plus_one": 3
+        },
+        {
+          "minus_one_prime": true,
+          "plus_one_prime": true,
+          "prime": 3,
+          "primorial_minus_one": 5,
+          "primorial_plus_one": 7
+        },
+        {
+          "minus_one_prime": true,
+          "plus_one_prime": true,
+          "prime": 5,
+          "primorial_minus_one": 29,
+          "primorial_plus_one": 31
+        },
+        {
+          "minus_one_prime": false,
+          "plus_one_prime": true,
+          "prime": 7,
+          "primorial_minus_one": 209,
+          "primorial_plus_one": 211
+        },
+        {
+          "minus_one_prime": true,
+          "plus_one_prime": true,
+          "prime": 11,
+          "primorial_minus_one": 2309,
+          "primorial_plus_one": 2311
+        }
+      ]
+    },
+    "rosettacode/popular/set.vibe": {
+      "display": "{union: [1, 2, 3, 4, 5, 6], intersection: [3, 4], difference: [1, 2]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-set",
+      "source_sha256": "7835d3264a7720b4268b8c160db1e09e5cb9c5686a3e630f46ff16d2ca1ec696",
+      "value": {
+        "difference": [
+          1,
+          2
+        ],
+        "intersection": [
+          3,
+          4
+        ],
+        "union": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    },
+    "rosettacode/popular/show_ascii_table.vibe": {
+      "display": "[{code: 32, character:  , printable: false}, {code: 33, character: !, printable: true}, {code: 34, character: \", printable: true}, {code: 35, character: #, printable: true}, {code: 36, character: $, printable: true}, {code: 37, character: %, printable: true}, {code: 38, character: \u0026, printable: true}, {code: 39, character: ', printable: true}, {code: 40, character: (, printable: true}, {code: 41, character: ), printable: true}, {code: 42, character: *, printable: true}, {code: 43, character: +, printable: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-show-ascii-table",
+      "source_sha256": "8d99e87738f13d3c60996efc7d1dcc627887cf3843d8d5d57a67881d927a4f13",
+      "value": [
+        {
+          "character": " ",
+          "code": 32,
+          "printable": false
+        },
+        {
+          "character": "!",
+          "code": 33,
+          "printable": true
+        },
+        {
+          "character": "\"",
+          "code": 34,
+          "printable": true
+        },
+        {
+          "character": "#",
+          "code": 35,
+          "printable": true
+        },
+        {
+          "character": "$",
+          "code": 36,
+          "printable": true
+        },
+        {
+          "character": "%",
+          "code": 37,
+          "printable": true
+        },
+        {
+          "character": "\u0026",
+          "code": 38,
+          "printable": true
+        },
+        {
+          "character": "'",
+          "code": 39,
+          "printable": true
+        },
+        {
+          "character": "(",
+          "code": 40,
+          "printable": true
+        },
+        {
+          "character": ")",
+          "code": 41,
+          "printable": true
+        },
+        {
+          "character": "*",
+          "code": 42,
+          "printable": true
+        },
+        {
+          "character": "+",
+          "code": 43,
+          "printable": true
+        }
+      ]
+    },
+    "rosettacode/popular/sieve_of_eratosthenes.vibe": {
+      "display": "{limit: 50, count: 15, primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-sieve-of-eratosthenes",
+      "source_sha256": "545442111d81b9bf8cda3e18340217c812fb20bb10ddfe7e2146392914b17be7",
+      "value": {
+        "count": 15,
+        "limit": 50,
+        "primes": [
+          2,
+          3,
+          5,
+          7,
+          11,
+          13,
+          17,
+          19,
+          23,
+          29,
+          31,
+          37,
+          41,
+          43,
+          47
+        ]
+      }
+    },
+    "rosettacode/popular/smith_numbers.vibe": {
+      "display": "[{value: 4, smith: true}, {value: 22, smith: true}, {value: 27, smith: true}, {value: 58, smith: true}, {value: 85, smith: true}, {value: 13, smith: false}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-smith-numbers",
+      "source_sha256": "7b1fdcdbb4890424a23777a6f6216a8a3275181edf8ee05021ba1591cbcd8aa0",
+      "value": [
+        {
+          "smith": true,
+          "value": 4
+        },
+        {
+          "smith": true,
+          "value": 22
+        },
+        {
+          "smith": true,
+          "value": 27
+        },
+        {
+          "smith": true,
+          "value": 58
+        },
+        {
+          "smith": true,
+          "value": 85
+        },
+        {
+          "smith": false,
+          "value": 13
+        }
+      ]
+    },
+    "rosettacode/popular/spiral_matrix.vibe": {
+      "display": "[[1, 2, 3, 4, 5], [16, 17, 18, 19, 6], [15, 24, 25, 20, 7], [14, 23, 22, 21, 8], [13, 12, 11, 10, 9]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-spiral-matrix",
+      "source_sha256": "98596c9bb9338d83fe7ff22eff23ba8b8f8f357242dbb37d3a6656f59504667c",
+      "value": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          16,
+          17,
+          18,
+          19,
+          6
+        ],
+        [
+          15,
+          24,
+          25,
+          20,
+          7
+        ],
+        [
+          14,
+          23,
+          22,
+          21,
+          8
+        ],
+        [
+          13,
+          12,
+          11,
+          10,
+          9
+        ]
+      ]
+    },
+    "rosettacode/popular/square_free_integers.vibe": {
+      "display": "[1, 2, 3, 5, 6, 7, 10, 11, 13, 14, 15, 17, 19, 21, 22, 23, 26, 29, 30]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-square-free-integers",
+      "source_sha256": "b2afe06930ddeff21a15412f8d844891e6cc294c3acd042abbd42fb5c5bc7418",
+      "value": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17,
+        19,
+        21,
+        22,
+        23,
+        26,
+        29,
+        30
+      ]
+    },
+    "rosettacode/popular/stack.vibe": {
+      "display": "{peek_before_pop: blue, popped: blue, peek_after_pop: green, size_after_pop: 2, contents: [red, green]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-stack",
+      "source_sha256": "800fc6b3c4a74aeda43f1cb7899b81d7d48eb452702fc9b88abbe2cb3c1d67e8",
+      "value": {
+        "contents": [
+          "red",
+          "green"
+        ],
+        "peek_after_pop": "green",
+        "peek_before_pop": "blue",
+        "popped": "blue",
+        "size_after_pop": 2
+      }
+    },
+    "rosettacode/popular/string_comparison.vibe": {
+      "display": "[{left: alpha, right: beta, result: -1}, {left: gamma, right: gamma, result: 0}, {left: zeta, right: epsilon, result: 1}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-string-comparison",
+      "source_sha256": "10f853c6aa34689670f93011fd2ca1cdae41c07b085e7167b6afb3fc7f5c39ba",
+      "value": [
+        {
+          "left": "alpha",
+          "result": -1,
+          "right": "beta"
+        },
+        {
+          "left": "gamma",
+          "result": 0,
+          "right": "gamma"
+        },
+        {
+          "left": "zeta",
+          "result": 1,
+          "right": "epsilon"
+        }
+      ]
+    },
+    "rosettacode/popular/string_matching.vibe": {
+      "display": "{aba_in_ababa: [0, 2], ana_in_bananas: [1, 3]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-string-matching",
+      "source_sha256": "d32fff1746096bfc7f873d21765d7090dc4d601cf4dd647e3a28bc93796aa9b8",
+      "value": {
+        "aba_in_ababa": [
+          0,
+          2
+        ],
+        "ana_in_bananas": [
+          1,
+          3
+        ]
+      }
+    },
+    "rosettacode/popular/substring.vibe": {
+      "display": "[[start, count, value], [0, 10, Vibescript], [4, 6, script], [11, 8, examples]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-substring",
+      "source_sha256": "95ba1216535e6ab918054d08d7953bd7ded811eb8627ccffbb59f07df731903c",
+      "value": [
+        [
+          "start",
+          "count",
+          "value"
+        ],
+        [
+          0,
+          10,
+          "Vibescript"
+        ],
+        [
+          4,
+          6,
+          "script"
+        ],
+        [
+          11,
+          8,
+          "examples"
+        ]
+      ]
+    },
+    "rosettacode/popular/sum_multiples_of_3_and_5.vibe": {
+      "display": "{below_ten: 23, below_one_hundred: 2318, below_one_thousand: 233168}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-sum-multiples-of-3-and-5",
+      "source_sha256": "d50c27b8df12afdf28bfeeda10bf31407ff74ef6cc6b234a861f474cad51e7cc",
+      "value": {
+        "below_one_hundred": 2318,
+        "below_one_thousand": 233168,
+        "below_ten": 23
+      }
+    },
+    "rosettacode/popular/taxicab_numbers.vibe": {
+      "display": "[{value: 1729, decompositions: [[1, 12], [9, 10]]}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-taxicab-numbers",
+      "source_sha256": "70ab4945678ac434f0c2bdfc2bd2db4fb8fe9c943e950fd81dbf165eff17b2b1",
+      "value": [
+        {
+          "decompositions": [
+            [
+              1,
+              12
+            ],
+            [
+              9,
+              10
+            ]
+          ],
+          "value": "1729"
+        }
+      ]
+    },
+    "rosettacode/popular/temperature_conversion.vibe": {
+      "display": "{freezing_point: {celsius: 0, fahrenheit: 32, kelvin: 273.15}, boiling_point: {celsius: 100, fahrenheit: 212, kelvin: 373.15}, room_temperature_fahrenheit: {fahrenheit: 68, celsius: 20}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-temperature-conversion",
+      "source_sha256": "2543a7d3c33057f5b271bf2d4db27a7ebfd5069490ffbdbbd9fdd631d2d77c81",
+      "value": {
+        "boiling_point": {
+          "celsius": 100,
+          "fahrenheit": 212,
+          "kelvin": 373.15
+        },
+        "freezing_point": {
+          "celsius": 0,
+          "fahrenheit": 32,
+          "kelvin": 273.15
+        },
+        "room_temperature_fahrenheit": {
+          "celsius": 20,
+          "fahrenheit": 68
+        }
+      }
+    },
+    "rosettacode/popular/ternary_logic.vibe": {
+      "display": "[[left, right, and, or, not_left], [T, T, T, T, F], [T, M, M, T, F], [T, F, F, T, F], [M, T, M, T, M], [M, M, M, M, M], [M, F, F, M, M], [F, T, F, T, T], [F, M, F, M, T], [F, F, F, F, T]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-ternary-logic",
+      "source_sha256": "c34d149823553161965a426cf085c66c9ce00f73c08c8b48d229075b179b2ef3",
+      "value": [
+        [
+          "left",
+          "right",
+          "and",
+          "or",
+          "not_left"
+        ],
+        [
+          "T",
+          "T",
+          "T",
+          "T",
+          "F"
+        ],
+        [
+          "T",
+          "M",
+          "M",
+          "T",
+          "F"
+        ],
+        [
+          "T",
+          "F",
+          "F",
+          "T",
+          "F"
+        ],
+        [
+          "M",
+          "T",
+          "M",
+          "T",
+          "M"
+        ],
+        [
+          "M",
+          "M",
+          "M",
+          "M",
+          "M"
+        ],
+        [
+          "M",
+          "F",
+          "F",
+          "M",
+          "M"
+        ],
+        [
+          "F",
+          "T",
+          "F",
+          "T",
+          "T"
+        ],
+        [
+          "F",
+          "M",
+          "F",
+          "M",
+          "T"
+        ],
+        [
+          "F",
+          "F",
+          "F",
+          "F",
+          "T"
+        ]
+      ]
+    },
+    "rosettacode/popular/top_rank_per_group.vibe": {
+      "display": "[{group: blue, name: Ava, score: 92}, {group: green, name: Mia, score: 91}, {group: red, name: Eli, score: 84}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-top-rank-per-group",
+      "source_sha256": "8c59da076537b1f238e430c84aab598cd4d17272bf0e4bb6393d119108deb0e1",
+      "value": [
+        {
+          "group": "blue",
+          "name": "Ava",
+          "score": 92
+        },
+        {
+          "group": "green",
+          "name": "Mia",
+          "score": 91
+        },
+        {
+          "group": "red",
+          "name": "Eli",
+          "score": 84
+        }
+      ]
+    },
+    "rosettacode/popular/topological_sort.vibe": {
+      "display": "[shop, cook, eat, clean, sleep]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-topological-sort",
+      "source_sha256": "a6b7a4f2fd933b1f7a5c266596c8a17c0299c1cecbb1fc6e223305aa20ad5367",
+      "value": [
+        "shop",
+        "cook",
+        "eat",
+        "clean",
+        "sleep"
+      ]
+    },
+    "rosettacode/popular/total_circles_area.vibe": {
+      "display": "{radii: [1, 2.5, 4], total_area: 73.0420291959627}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-total-circles-area",
+      "source_sha256": "06f269668a877dca27e7de3b51148e0b61bb5afb2a645f8100ff35cf8b75740e",
+      "value": {
+        "radii": [
+          1,
+          2.5,
+          4
+        ],
+        "total_area": 73.0420291959627
+      }
+    },
+    "rosettacode/popular/towers_of_hanoi.vibe": {
+      "display": "{move_count: 7, moves: [{disk: 1, from: 1, to: 3}, {disk: 2, from: 1, to: 2}, {disk: 1, from: 3, to: 2}, {disk: 3, from: 1, to: 3}, {disk: 1, from: 2, to: 1}, {disk: 2, from: 2, to: 3}, {disk: 1, from: 1, to: 3}]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-towers-of-hanoi",
+      "source_sha256": "35a080af649f17ba8b453566ed4bf4467164c98c6d59bf1ed722b47edf0129d5",
+      "value": {
+        "move_count": 7,
+        "moves": [
+          {
+            "disk": 1,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "disk": 2,
+            "from": 1,
+            "to": 2
+          },
+          {
+            "disk": 1,
+            "from": 3,
+            "to": 2
+          },
+          {
+            "disk": 3,
+            "from": 1,
+            "to": 3
+          },
+          {
+            "disk": 1,
+            "from": 2,
+            "to": 1
+          },
+          {
+            "disk": 2,
+            "from": 2,
+            "to": 3
+          },
+          {
+            "disk": 1,
+            "from": 1,
+            "to": 3
+          }
+        ]
+      }
+    },
+    "rosettacode/popular/tree_traversal.vibe": {
+      "display": "{preorder: [F, B, A, D, C, E, G, I, H], inorder: [A, B, C, D, E, F, G, H, I], postorder: [A, C, E, D, B, H, I, G, F], level_order: [F, B, G, A, D, I, C, E, H]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-tree-traversal",
+      "source_sha256": "386d2136dd7c5855c39c5b46c6d310c898b286ba9f3543bab5c9bddb40dc229e",
+      "value": {
+        "inorder": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H",
+          "I"
+        ],
+        "level_order": [
+          "F",
+          "B",
+          "G",
+          "A",
+          "D",
+          "I",
+          "C",
+          "E",
+          "H"
+        ],
+        "postorder": [
+          "A",
+          "C",
+          "E",
+          "D",
+          "B",
+          "H",
+          "I",
+          "G",
+          "F"
+        ],
+        "preorder": [
+          "F",
+          "B",
+          "A",
+          "D",
+          "C",
+          "E",
+          "G",
+          "I",
+          "H"
+        ]
+      }
+    },
+    "rosettacode/popular/truth_table.vibe": {
+      "display": "[{a: true, b: true, and: true, or: true, xor: false, not_a: false}, {a: true, b: false, and: false, or: true, xor: true, not_a: false}, {a: false, b: true, and: false, or: true, xor: true, not_a: true}, {a: false, b: false, and: false, or: false, xor: false, not_a: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-truth-table",
+      "source_sha256": "65e854808fe28f67df26f62ad902f7e284aa88c6842f659493bd327d93848819",
+      "value": [
+        {
+          "a": true,
+          "and": true,
+          "b": true,
+          "not_a": false,
+          "or": true,
+          "xor": false
+        },
+        {
+          "a": true,
+          "and": false,
+          "b": false,
+          "not_a": false,
+          "or": true,
+          "xor": true
+        },
+        {
+          "a": false,
+          "and": false,
+          "b": true,
+          "not_a": true,
+          "or": true,
+          "xor": true
+        },
+        {
+          "a": false,
+          "and": false,
+          "b": false,
+          "not_a": true,
+          "or": false,
+          "xor": false
+        }
+      ]
+    },
+    "rosettacode/popular/upc.vibe": {
+      "display": "[{code: 036000291452, valid: true}, {code: 042100005264, valid: true}, {code: 123456789999, valid: true}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-upc",
+      "source_sha256": "aca8d76bc7134a769f24f9a4eb9d33bb73c9360bfc72807d08b1718e59f7226a",
+      "value": [
+        {
+          "code": "036000291452",
+          "valid": true
+        },
+        {
+          "code": "042100005264",
+          "valid": true
+        },
+        {
+          "code": "123456789999",
+          "valid": true
+        }
+      ]
+    },
+    "rosettacode/popular/url_parser.vibe": {
+      "display": "{scheme: https, host: example.com, path: /docs/guide, query: [{key: page, value: 2}, {key: lang, value: en}]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-url-parser",
+      "source_sha256": "483fd5f46e8aa5f31160aa6b2b0d30199750b5ad9abc7c235b0053ae0473ec3f",
+      "value": {
+        "host": "example.com",
+        "path": "/docs/guide",
+        "query": [
+          {
+            "key": "page",
+            "value": "2"
+          },
+          {
+            "key": "lang",
+            "value": "en"
+          }
+        ],
+        "scheme": "https"
+      }
+    },
+    "rosettacode/popular/utf_8_encode_and_decode.vibe": {
+      "display": "[{code_point: 36, bytes: [36], decoded: 36}, {code_point: 162, bytes: [194, 162], decoded: 162}, {code_point: 8364, bytes: [226, 130, 172], decoded: 8364}, {code_point: 128578, bytes: [240, 159, 153, 130], decoded: 128578}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-utf-8-encode-and-decode",
+      "source_sha256": "53341d84eb80a0007c722e6a995f37bb29c570e57b21e29e78e3f2af5fbd2200",
+      "value": [
+        {
+          "bytes": [
+            36
+          ],
+          "code_point": 36,
+          "decoded": 36
+        },
+        {
+          "bytes": [
+            194,
+            162
+          ],
+          "code_point": 162,
+          "decoded": 162
+        },
+        {
+          "bytes": [
+            226,
+            130,
+            172
+          ],
+          "code_point": 8364,
+          "decoded": 8364
+        },
+        {
+          "bytes": [
+            240,
+            159,
+            153,
+            130
+          ],
+          "code_point": 128578,
+          "decoded": 128578
+        }
+      ]
+    },
+    "rosettacode/popular/variables.vibe": {
+      "display": "{count: 5, label: EXAMPLES, total: 21, sentence: 5 EXAMPLES ready}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-variables",
+      "source_sha256": "7093e10975ecb66b0ad6baf4b5ce9e75cc00b57fdf7da9a1ad995c42e7e27a71",
+      "value": {
+        "count": 5,
+        "label": "EXAMPLES",
+        "sentence": "5 EXAMPLES ready",
+        "total": 21
+      }
+    },
+    "rosettacode/popular/vector_products.vibe": {
+      "display": "{dot: -4, cross: [-49, -7, 28]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-vector-products",
+      "source_sha256": "36f5b9d59a5f71cf197cee035cab74b6fb9df7bcbb4ec71431892759ccbb3a87",
+      "value": {
+        "cross": [
+          -49,
+          -7,
+          28
+        ],
+        "dot": -4
+      }
+    },
+    "rosettacode/popular/vigen_re_cipher.vibe": {
+      "display": "{encoded: XWEIUQUMRH USEYV, decoded: VIBESCRIPT ROCKS}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-vigen-re-cipher",
+      "source_sha256": "0ee304a3cf063c4f283c2918230118a3c46eef2ce4692f978434d669d4e9f458",
+      "value": {
+        "decoded": "VIBESCRIPT ROCKS",
+        "encoded": "XWEIUQUMRH USEYV"
+      }
+    },
+    "rosettacode/popular/word_frequency.vibe": {
+      "display": "[{word: to, count: 3}, {word: be, count: 3}, {word: not, count: 2}, {word: question, count: 1}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-word-frequency",
+      "source_sha256": "6fdeae287ce44c7994b268a855b729625b851e1b4b9060f1cff9043962378321",
+      "value": [
+        {
+          "count": 3,
+          "word": "to"
+        },
+        {
+          "count": 3,
+          "word": "be"
+        },
+        {
+          "count": 2,
+          "word": "not"
+        },
+        {
+          "count": 1,
+          "word": "question"
+        }
+      ]
+    },
+    "rosettacode/popular/word_wrap.vibe": {
+      "display": "{width_32: [In olden times when wishing, still helped one, there lived a, king whose daughters were all, beautiful, but the youngest was, so beautiful that the sun, itself, which has seen so much,, was astonished whenever it shone, in her face.], width_48: [In olden times when wishing still helped one,, there lived a king whose daughters were all, beautiful, but the youngest was so beautiful, that the sun itself, which has seen so much, was, astonished whenever it shone in her face.]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "rosettacode-popular-word-wrap",
+      "source_sha256": "9f84d2381d5c304169321bf64292cbeb7f6cd9bdd24da34baaa42917a689cbb9",
+      "value": {
+        "width_32": [
+          "In olden times when wishing",
+          "still helped one, there lived a",
+          "king whose daughters were all",
+          "beautiful, but the youngest was",
+          "so beautiful that the sun",
+          "itself, which has seen so much,",
+          "was astonished whenever it shone",
+          "in her face."
+        ],
+        "width_48": [
+          "In olden times when wishing still helped one,",
+          "there lived a king whose daughters were all",
+          "beautiful, but the youngest was so beautiful",
+          "that the sun itself, which has seen so much, was",
+          "astonished whenever it shone in her face."
+        ]
+      }
+    },
+    "rosettacode/popular/zeckendorf_number_representation.vibe": {
+      "display": "[{n: 1, zeckendorf: 1}, {n: 2, zeckendorf: 2}, {n: 3, zeckendorf: 3}, {n: 4, zeckendorf: 3 + 1}, {n: 5, zeckendorf: 5}, {n: 6, zeckendorf: 5 + 1}, {n: 7, zeckendorf: 5 + 2}, {n: 8, zeckendorf: 8}, {n: 9, zeckendorf: 8 + 1}, {n: 10, zeckendorf: 8 + 2}, {n: 11, zeckendorf: 8 + 3}, {n: 12, zeckendorf: 8 + 3 + 1}, {n: 13, zeckendorf: 13}, {n: 14, zeckendorf: 13 + 1}, {n: 15, zeckendorf: 13 + 2}, {n: 16, zeckendorf: 13 + 3}, {n: 17, zeckendorf: 13 + 3 + 1}, {n: 18, zeckendorf: 13 + 5}, {n: 19, zeckendorf: 13 + 5 + 1}, {n: 20, zeckendorf: 13 + 5 + 2}]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-zeckendorf-number-representation",
+      "source_sha256": "b8c703bff4d68507c5a6b43be99e029c37bb57683afb6a7233efa80b1e740dd0",
+      "value": [
+        {
+          "n": 1,
+          "zeckendorf": "1"
+        },
+        {
+          "n": 2,
+          "zeckendorf": "2"
+        },
+        {
+          "n": 3,
+          "zeckendorf": "3"
+        },
+        {
+          "n": 4,
+          "zeckendorf": "3 + 1"
+        },
+        {
+          "n": 5,
+          "zeckendorf": "5"
+        },
+        {
+          "n": 6,
+          "zeckendorf": "5 + 1"
+        },
+        {
+          "n": 7,
+          "zeckendorf": "5 + 2"
+        },
+        {
+          "n": 8,
+          "zeckendorf": "8"
+        },
+        {
+          "n": 9,
+          "zeckendorf": "8 + 1"
+        },
+        {
+          "n": 10,
+          "zeckendorf": "8 + 2"
+        },
+        {
+          "n": 11,
+          "zeckendorf": "8 + 3"
+        },
+        {
+          "n": 12,
+          "zeckendorf": "8 + 3 + 1"
+        },
+        {
+          "n": 13,
+          "zeckendorf": "13"
+        },
+        {
+          "n": 14,
+          "zeckendorf": "13 + 1"
+        },
+        {
+          "n": 15,
+          "zeckendorf": "13 + 2"
+        },
+        {
+          "n": 16,
+          "zeckendorf": "13 + 3"
+        },
+        {
+          "n": 17,
+          "zeckendorf": "13 + 3 + 1"
+        },
+        {
+          "n": 18,
+          "zeckendorf": "13 + 5"
+        },
+        {
+          "n": 19,
+          "zeckendorf": "13 + 5 + 1"
+        },
+        {
+          "n": 20,
+          "zeckendorf": "13 + 5 + 2"
+        }
+      ]
+    },
+    "rosettacode/popular/zig_zag_matrix.vibe": {
+      "display": "[[0, 1, 5, 6, 14], [2, 4, 7, 13, 15], [3, 8, 12, 16, 21], [9, 11, 17, 20, 22], [10, 18, 19, 23, 24]]",
+      "entry_point": "run",
+      "kind": "array",
+      "runnable": true,
+      "slug": "rosettacode-popular-zig-zag-matrix",
+      "source_sha256": "03ca91b8d39460ff85534a55bd8095fc40ae8cf33af0e376884d0e958fa8be52",
+      "value": [
+        [
+          0,
+          1,
+          5,
+          6,
+          14
+        ],
+        [
+          2,
+          4,
+          7,
+          13,
+          15
+        ],
+        [
+          3,
+          8,
+          12,
+          16,
+          21
+        ],
+        [
+          9,
+          11,
+          17,
+          20,
+          22
+        ],
+        [
+          10,
+          18,
+          19,
+          23,
+          24
+        ]
+      ]
+    },
+    "showcase/automation/maintenance_window.vibe": {
+      "display": "{sandbox: {environment: Sandbox, starts_at: 2023-11-21T15:53:20Z, ends_at: 2023-11-21T21:13:20Z, freeze_at: 2023-11-21T20:23:20Z, duration: PT20M}, production: {environment: Production, starts_at: 2023-11-21T15:53:20Z, ends_at: 2023-11-21T22:53:20Z, freeze_at: 2023-11-20T20:53:20Z, duration: PT2H}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-automation-maintenance-window",
+      "source_sha256": "7d2e4316f52b89222e48de31014cf0e2765fc95dbf95ed7796d558a956035e5a",
+      "value": {
+        "production": {
+          "duration": "PT2H",
+          "ends_at": "2023-11-21T22:53:20Z",
+          "environment": "Production",
+          "freeze_at": "2023-11-20T20:53:20Z",
+          "starts_at": "2023-11-21T15:53:20Z"
+        },
+        "sandbox": {
+          "duration": "PT20M",
+          "ends_at": "2023-11-21T21:13:20Z",
+          "environment": "Sandbox",
+          "freeze_at": "2023-11-21T20:23:20Z",
+          "starts_at": "2023-11-21T15:53:20Z"
+        }
+      }
+    },
+    "showcase/automation/retry_backoff.vibe": {
+      "display": "{fast: [{attempt: 1, delay: PT30S, at: 2023-11-14T22:13:50Z}, {attempt: 2, delay: PT1M, at: 2023-11-14T22:14:50Z}, {attempt: 3, delay: PT2M, at: 2023-11-14T22:16:50Z}, {attempt: 4, delay: PT4M, at: 2023-11-14T22:20:50Z}], careful: [{attempt: 1, delay: PT5M, at: 2023-11-14T22:18:20Z}, {attempt: 2, delay: PT10M, at: 2023-11-14T22:28:20Z}, {attempt: 3, delay: PT20M, at: 2023-11-14T22:48:20Z}]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-automation-retry-backoff",
+      "source_sha256": "61c71ad04000e157772ca0a3973809baa2779d5953d4d2ec0d4f29512a9d4322",
+      "value": {
+        "careful": [
+          {
+            "at": "2023-11-14T22:18:20Z",
+            "attempt": 1,
+            "delay": "PT5M"
+          },
+          {
+            "at": "2023-11-14T22:28:20Z",
+            "attempt": 2,
+            "delay": "PT10M"
+          },
+          {
+            "at": "2023-11-14T22:48:20Z",
+            "attempt": 3,
+            "delay": "PT20M"
+          }
+        ],
+        "fast": [
+          {
+            "at": "2023-11-14T22:13:50Z",
+            "attempt": 1,
+            "delay": "PT30S"
+          },
+          {
+            "at": "2023-11-14T22:14:50Z",
+            "attempt": 2,
+            "delay": "PT1M"
+          },
+          {
+            "at": "2023-11-14T22:16:50Z",
+            "attempt": 3,
+            "delay": "PT2M"
+          },
+          {
+            "at": "2023-11-14T22:20:50Z",
+            "attempt": 4,
+            "delay": "PT4M"
+          }
+        ]
+      }
+    },
+    "showcase/collections/hash_projection.vibe": {
+      "display": "{public_view: {id: 42, name: Ada, email: ada@vibe.dev, plan: pro}, summary: {id: 42, name: Ada, plan: pro}, with_defaults: {plan: free, region: us, id: 7, name: Lin}, required_fields: [42, ada@vibe.dev], contacts: [Ada, ada@vibe.dev]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-collections-hash-projection",
+      "source_sha256": "09589a92704984547c75720d53ba12ae12e6d8c5bef4d556cc389ba4e47cae9e",
+      "value": {
+        "contacts": [
+          "Ada",
+          "ada@vibe.dev"
+        ],
+        "public_view": {
+          "email": "ada@vibe.dev",
+          "id": 42,
+          "name": "Ada",
+          "plan": "pro"
+        },
+        "required_fields": [
+          42,
+          "ada@vibe.dev"
+        ],
+        "summary": {
+          "id": 42,
+          "name": "Ada",
+          "plan": "pro"
+        },
+        "with_defaults": {
+          "id": 7,
+          "name": "Lin",
+          "plan": "free",
+          "region": "us"
+        }
+      }
+    },
+    "showcase/collections/matrix_report.vibe": {
+      "display": "{by_metric: [[signups, 31], [errors, 10], [refunds, 3]], daily_totals: [14, 17, 13], grand_total: 44}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-collections-matrix-report",
+      "source_sha256": "967f1c46e2a8cf3d7064b8e9acc60aa62607363a3979889ff4db6e3b9a7eafc0",
+      "value": {
+        "by_metric": [
+          [
+            "signups",
+            31
+          ],
+          [
+            "errors",
+            10
+          ],
+          [
+            "refunds",
+            3
+          ]
+        ],
+        "daily_totals": [
+          14,
+          17,
+          13
+        ],
+        "grand_total": 44
+      }
+    },
+    "showcase/collections/reshape.vibe": {
+      "display": "{pages: [[101, 102, 103], [104, 105, 106], [107]], first_three: [101, 102, 103], rest: [104, 105, 106, 107], endpoints: [101, 107], rolling_totals: [8, 9, 12, 14]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-collections-reshape",
+      "source_sha256": "3a2dd3a8e0fc020eba3acf9b5fdafa55afd7af6983528f1013f833156d8add50",
+      "value": {
+        "endpoints": [
+          101,
+          107
+        ],
+        "first_three": [
+          101,
+          102,
+          103
+        ],
+        "pages": [
+          [
+            101,
+            102,
+            103
+          ],
+          [
+            104,
+            105,
+            106
+          ],
+          [
+            107
+          ]
+        ],
+        "rest": [
+          104,
+          105,
+          106,
+          107
+        ],
+        "rolling_totals": [
+          8,
+          9,
+          12,
+          14
+        ]
+      }
+    },
+    "showcase/commerce/quote_approval.vibe": {
+      "display": "{self_serve: {quote_id: quote_410, total: 1800.00 USD, margin_points: 48, approval_lane: AutoApprove, note: quote_410 routes to AutoApprove}, enterprise: {quote_id: quote_411, total: 48000.00 USD, margin_points: 18, approval_lane: Finance, note: quote_411 routes to Finance}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-commerce-quote-approval",
+      "source_sha256": "0bbb9f8c8e46e384a704608d36e313700c2cd4ae33483e87d77b28ad88c87cc0",
+      "value": {
+        "enterprise": {
+          "approval_lane": "Finance",
+          "margin_points": 18,
+          "note": "quote_411 routes to Finance",
+          "quote_id": "quote_411",
+          "total": "48000.00 USD"
+        },
+        "self_serve": {
+          "approval_lane": "AutoApprove",
+          "margin_points": 48,
+          "note": "quote_410 routes to AutoApprove",
+          "quote_id": "quote_410",
+          "total": "1800.00 USD"
+        }
+      }
+    },
+    "showcase/commerce/shipping_quote.vibe": {
+      "display": "{economy: {speed: Economy, subtotal: 125.00 USD, fee: 0.00 USD, total: 125.00 USD, transit: P5D, eta: 2023-11-19T22:13:20Z}, same_day: {speed: SameDay, subtotal: 48.00 USD, fee: 35.00 USD, total: 83.00 USD, transit: PT6H, eta: 2023-11-15T04:13:20Z}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-commerce-shipping-quote",
+      "source_sha256": "31a6c14ff50e04888f316085eee3e801829e5ca094a5332904bd5a57b89abdb5",
+      "value": {
+        "economy": {
+          "eta": "2023-11-19T22:13:20Z",
+          "fee": "0.00 USD",
+          "speed": "Economy",
+          "subtotal": "125.00 USD",
+          "total": "125.00 USD",
+          "transit": "P5D"
+        },
+        "same_day": {
+          "eta": "2023-11-15T04:13:20Z",
+          "fee": "35.00 USD",
+          "speed": "SameDay",
+          "subtotal": "48.00 USD",
+          "total": "83.00 USD",
+          "transit": "PT6H"
+        }
+      }
+    },
+    "showcase/finance/late_fee.vibe": {
+      "display": "{on_time: 0.00 USD, grace: 5.00 USD, overdue: 15.00 USD}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-finance-late-fee",
+      "source_sha256": "8c7a72f232496fe126b872ec3461b3370da5e24c7c68e89e011ed6d03708a9a5",
+      "value": {
+        "grace": "5.00 USD",
+        "on_time": "0.00 USD",
+        "overdue": "15.00 USD"
+      }
+    },
+    "showcase/finance/late_fee_policy.vibe": {
+      "display": "{grace: {invoice_id: inv_310, standing: Grace, overdue: P7D, balance: 240.00 USD, late_fee: 12.00 USD, total_due: 252.00 USD}, delinquent: {invoice_id: inv_311, standing: Delinquent, overdue: P28D, balance: 240.00 USD, late_fee: 35.00 USD, total_due: 275.00 USD}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-finance-late-fee-policy",
+      "source_sha256": "fea1bf42138e6613234d28553bc89533e51075e4876981358155bec2adbdb07d",
+      "value": {
+        "delinquent": {
+          "balance": "240.00 USD",
+          "invoice_id": "inv_311",
+          "late_fee": "35.00 USD",
+          "overdue": "P28D",
+          "standing": "Delinquent",
+          "total_due": "275.00 USD"
+        },
+        "grace": {
+          "balance": "240.00 USD",
+          "invoice_id": "inv_310",
+          "late_fee": "12.00 USD",
+          "overdue": "P7D",
+          "standing": "Grace",
+          "total_due": "252.00 USD"
+        }
+      }
+    },
+    "showcase/finance/payout_schedule.vibe": {
+      "display": "{daily: {batch_id: batch_daily_19, cadence: Daily, total: 1820.44 USD, settlement_delay: P1D, payout_at: 2023-11-20T13:20:00Z}, monthly: {batch_id: batch_monthly_07, cadence: Monthly, total: 98210.17 USD, settlement_delay: P30D, payout_at: 2023-12-19T13:20:00Z}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-finance-payout-schedule",
+      "source_sha256": "c29bfb3f61e383c94b2c766644a8faac1ac24e50e867ab35256b05be58d07fef",
+      "value": {
+        "daily": {
+          "batch_id": "batch_daily_19",
+          "cadence": "Daily",
+          "payout_at": "2023-11-20T13:20:00Z",
+          "settlement_delay": "P1D",
+          "total": "1820.44 USD"
+        },
+        "monthly": {
+          "batch_id": "batch_monthly_07",
+          "cadence": "Monthly",
+          "payout_at": "2023-12-19T13:20:00Z",
+          "settlement_delay": "P30D",
+          "total": "98210.17 USD"
+        }
+      }
+    },
+    "showcase/finance/statement_grid.vibe": {
+      "display": "{by_category: [[subscriptions, 3630.00 USD], [usage, 1255.00 USD], [support, 285.00 USD]], weekly_totals: [1630.00 USD, 1735.00 USD, 1805.00 USD], grand_total: 5170.00 USD}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-finance-statement-grid",
+      "source_sha256": "c5e7e9e1ca2c751f4924530d44007320467e11ec6eb28f7be39eb9c738dffcb0",
+      "value": {
+        "by_category": [
+          [
+            "subscriptions",
+            "3630.00 USD"
+          ],
+          [
+            "usage",
+            "1255.00 USD"
+          ],
+          [
+            "support",
+            "285.00 USD"
+          ]
+        ],
+        "grand_total": "5170.00 USD",
+        "weekly_totals": [
+          "1630.00 USD",
+          "1735.00 USD",
+          "1805.00 USD"
+        ]
+      }
+    },
+    "showcase/finance/subscription_billing.vibe": {
+      "display": "{growth: {plan: Growth, base: 79.00 USD, seats: 4, seats_fee: 76.00 USD, discount: 10.00 USD, total: 145.00 USD, currency: USD}, scale: {plan: Scale, base: 199.00 USD, seats: 12, seats_fee: 348.00 USD, discount: 0.00 USD, total: 547.00 USD, currency: USD}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-finance-subscription-billing",
+      "source_sha256": "fafdee6dce1e24fad5059107659bcea3006bb252888ae5d444f0d8ad3b598445",
+      "value": {
+        "growth": {
+          "base": "79.00 USD",
+          "currency": "USD",
+          "discount": "10.00 USD",
+          "plan": "Growth",
+          "seats": 4,
+          "seats_fee": "76.00 USD",
+          "total": "145.00 USD"
+        },
+        "scale": {
+          "base": "199.00 USD",
+          "currency": "USD",
+          "discount": "0.00 USD",
+          "plan": "Scale",
+          "seats": 12,
+          "seats_fee": "348.00 USD",
+          "total": "547.00 USD"
+        }
+      }
+    },
+    "showcase/language/synchronous_blocks.vibe": {
+      "display": "{doubled_twice: 12, ready_ids: [a, c]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-language-synchronous-blocks",
+      "source_sha256": "68d8408f2d2617eac70c5603d48529326287c04f97fcc3ee287d9af220c376a4",
+      "value": {
+        "doubled_twice": 12,
+        "ready_ids": [
+          "a",
+          "c"
+        ]
+      }
+    },
+    "showcase/language/value_boundaries.vibe": {
+      "display": "{order: {original: {id: o-17, status: new}, updated: {id: o-17, status: approved}, string_lookup: approved}, reviews: {original: [security], updated: [security, finance]}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-language-value-boundaries",
+      "source_sha256": "a9d92b471c327a0476b727647266c784f42f3988ad1861d2d5b96d8a72e5cf35",
+      "value": {
+        "order": {
+          "original": {
+            "id": "o-17",
+            "status": "new"
+          },
+          "string_lookup": "approved",
+          "updated": {
+            "id": "o-17",
+            "status": "approved"
+          }
+        },
+        "reviews": {
+          "original": [
+            "security"
+          ],
+          "updated": [
+            "security",
+            "finance"
+          ]
+        }
+      }
+    },
+    "showcase/math/chudnovsky_pi.vibe": {
+      "display": "{pi_100_digits: 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679, matching_reference_digits: 102, terms_used: 9, digits_per_term: 14.18}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-math-chudnovsky-pi",
+      "source_sha256": "ebc92be33ca9e649e8b43640365c2d257d22e7d7c3b4473596817a514a9c603d",
+      "value": {
+        "digits_per_term": 14.18,
+        "matching_reference_digits": 102,
+        "pi_100_digits": "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679",
+        "terms_used": 9
+      }
+    },
+    "showcase/notifications/digest_schedule.vibe": {
+      "display": "{hourly: {channel_id: ops-alerts, cadence: Hourly, window: PT1H, next_run: 2023-11-25T09:13:20Z, subject: Hourly digest for ops-alerts}, weekly: {channel_id: revenue-updates, cadence: Weekly, window: P7D, next_run: 2023-12-02T08:13:20Z, subject: Weekly digest for revenue-updates}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-notifications-digest-schedule",
+      "source_sha256": "6501145fe5e7d7cd411114ae4fdb4d64a35f376de53835895d9cce530d0aba24",
+      "value": {
+        "hourly": {
+          "cadence": "Hourly",
+          "channel_id": "ops-alerts",
+          "next_run": "2023-11-25T09:13:20Z",
+          "subject": "Hourly digest for ops-alerts",
+          "window": "PT1H"
+        },
+        "weekly": {
+          "cadence": "Weekly",
+          "channel_id": "revenue-updates",
+          "next_run": "2023-12-02T08:13:20Z",
+          "subject": "Weekly digest for revenue-updates",
+          "window": "P7D"
+        }
+      }
+    },
+    "showcase/notifications/email.vibe": {
+      "display": "{body: Hi Alex,\n\nYour account is ready. Thanks for joining us., status: preview, subject: Welcome, Alex!, to: alex@example.com}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-notifications-email",
+      "source_sha256": "630d42444508472646872247c66ceb3492202f82948d90d38b09dfdfece9ac1f",
+      "value": {
+        "body": "Hi Alex,\n\nYour account is ready. Thanks for joining us.",
+        "status": "preview",
+        "subject": "Welcome, Alex!",
+        "to": "alex@example.com"
+      }
+    },
+    "showcase/notifications/reminder_schedule.vibe": {
+      "display": "{email: {invoice_id: inv_2026_0042, channel: Email, lead_time: P2D, send_at: 2023-11-19T20:53:20Z, subject: Invoice inv_2026_0042 is due soon}, sms: {invoice_id: inv_2026_0042, channel: Sms, lead_time: PT6H, send_at: 2023-11-21T14:53:20Z, subject: Invoice inv_2026_0042 is due soon}, push: {invoice_id: inv_2026_0042, channel: Push, lead_time: PT30M, send_at: 2023-11-21T20:23:20Z, subject: Invoice inv_2026_0042 is due soon}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-notifications-reminder-schedule",
+      "source_sha256": "b4bcc0f219280b04b3622d2acf301e973dda75c6df588abf780fcdb9f9967d8f",
+      "value": {
+        "email": {
+          "channel": "Email",
+          "invoice_id": "inv_2026_0042",
+          "lead_time": "P2D",
+          "send_at": "2023-11-19T20:53:20Z",
+          "subject": "Invoice inv_2026_0042 is due soon"
+        },
+        "push": {
+          "channel": "Push",
+          "invoice_id": "inv_2026_0042",
+          "lead_time": "PT30M",
+          "send_at": "2023-11-21T20:23:20Z",
+          "subject": "Invoice inv_2026_0042 is due soon"
+        },
+        "sms": {
+          "channel": "Sms",
+          "invoice_id": "inv_2026_0042",
+          "lead_time": "PT6H",
+          "send_at": "2023-11-21T14:53:20Z",
+          "subject": "Invoice inv_2026_0042 is due soon"
+        }
+      }
+    },
+    "showcase/notifications/sms.vibe": {
+      "display": "{body: Order 1042 is on its way., status: preview, to: +12025550123}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-notifications-sms",
+      "source_sha256": "857fe3f5ceabc8b7792a1acbcae15ba51eb8091b4fa1736f6f1669c9b95e383d",
+      "value": {
+        "body": "Order 1042 is on its way.",
+        "status": "preview",
+        "to": "+12025550123"
+      }
+    },
+    "showcase/numbers/big_integers.vibe": {
+      "display": "{factorial_50: 30414093201713378043612608166064768844377641568960512000000000000, factorial_50_digits: 65, two_to_the_256: 115792089237316195423570985008687907853269984665640564039457584007913129639936, fibonacci_300: 222232244629420445529739893461909967206666939096499764990979600, json_stays_exact: true, still_an_int: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-numbers-big-integers",
+      "source_sha256": "a681eedc02bb912147ba9013f813e35bfb119d2146dd26ecc3765f086a97bdb5",
+      "value": {
+        "factorial_50": 0,
+        "factorial_50_digits": 65,
+        "fibonacci_300": 0,
+        "json_stays_exact": true,
+        "still_an_int": true,
+        "two_to_the_256": 0
+      }
+    },
+    "showcase/numbers/literals_and_rounding.vibe": {
+      "display": "{permission_bits: {read: 4, write: 2, execute: 1, read_write: 6}, named_sizes: {kilobyte: 1000, megabyte: 1e+06, hex_flags: 65280, octal_mode: 493}, rounding: {whole: 3, cents: 3.14, down: 3, up: 4}, is_even: true, next_id: 42}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-numbers-literals-and-rounding",
+      "source_sha256": "7912e6273a354eac42949f5e97517d79c9a4bcfab1771355ce05c1e9dac11ee4",
+      "value": {
+        "is_even": true,
+        "named_sizes": {
+          "hex_flags": 65280,
+          "kilobyte": 1000,
+          "megabyte": 1000000,
+          "octal_mode": 493
+        },
+        "next_id": 42,
+        "permission_bits": {
+          "execute": 1,
+          "read": 4,
+          "read_write": 6,
+          "write": 2
+        },
+        "rounding": {
+          "cents": 3.14,
+          "down": 3,
+          "up": 4,
+          "whole": 3
+        }
+      }
+    },
+    "showcase/operations/log_digest.vibe": {
+      "display": "{entry_count: 5, first_message: service started, counts_by_level: {INFO: 2, WARN: 2, ERROR: 1}, warnings: [disk at 82%, memory high]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-operations-log-digest",
+      "source_sha256": "5e7fa9b90e57a7cc2a01ef0ee0671b990b6d18c20996ed49b83b4d225c8a5432",
+      "value": {
+        "counts_by_level": {
+          "ERROR": 1,
+          "INFO": 2,
+          "WARN": 2
+        },
+        "entry_count": 5,
+        "first_message": "service started",
+        "warnings": [
+          "disk at 82%",
+          "memory high"
+        ]
+      }
+    },
+    "showcase/operations/on_call_handoff.vibe": {
+      "display": "{primary: {service: payments-api, level: Primary, starts_at: 2023-11-27T10:46:40Z, ends_at: 2023-11-27T23:46:40Z, reminder_at: 2023-11-27T23:16:40Z, summary: payments-api Primary handoff}, commander: {service: payments-api, level: Commander, starts_at: 2023-11-27T10:46:40Z, ends_at: 2023-11-28T15:46:40Z, reminder_at: 2023-11-28T15:16:40Z, summary: payments-api Commander handoff}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-operations-on-call-handoff",
+      "source_sha256": "4f5ba78590fa17297fdef840b1ec2c1fb4e93e3be4cb7ce7b1145bc365ca1e95",
+      "value": {
+        "commander": {
+          "ends_at": "2023-11-28T15:46:40Z",
+          "level": "Commander",
+          "reminder_at": "2023-11-28T15:16:40Z",
+          "service": "payments-api",
+          "starts_at": "2023-11-27T10:46:40Z",
+          "summary": "payments-api Commander handoff"
+        },
+        "primary": {
+          "ends_at": "2023-11-27T23:46:40Z",
+          "level": "Primary",
+          "reminder_at": "2023-11-27T23:16:40Z",
+          "service": "payments-api",
+          "starts_at": "2023-11-27T10:46:40Z",
+          "summary": "payments-api Primary handoff"
+        }
+      }
+    },
+    "showcase/policies/refund_decision.vibe": {
+      "display": "{full: {decision: Full, age: P3D, used: false, refund: 89.00 USD}, partial: {decision: Partial, age: P14D, used: true, refund: 74.00 USD}, denied: {decision: Denied, age: P45D, used: true, refund: 0.00 USD}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-policies-refund-decision",
+      "source_sha256": "0be48524ed21c1f67055626d3e612ea6521f39d33da9f99d2a503d9fcf683196",
+      "value": {
+        "denied": {
+          "age": "P45D",
+          "decision": "Denied",
+          "refund": "0.00 USD",
+          "used": true
+        },
+        "full": {
+          "age": "P3D",
+          "decision": "Full",
+          "refund": "89.00 USD",
+          "used": false
+        },
+        "partial": {
+          "age": "P14D",
+          "decision": "Partial",
+          "refund": "74.00 USD",
+          "used": true
+        }
+      }
+    },
+    "showcase/policies/trial_offer.vibe": {
+      "display": "{personal: {account_id: acct_personal_22, account_kind: Personal, trial_length: P14D, expires_at: 2023-12-08T04:26:40Z, welcome: acct_personal_22 starts a Personal trial}, enterprise: {account_id: acct_enterprise_09, account_kind: Enterprise, trial_length: P30D, expires_at: 2023-12-24T04:26:40Z, welcome: acct_enterprise_09 starts a Enterprise trial}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-policies-trial-offer",
+      "source_sha256": "f5b278f6676b6fe67005c14109f648f23f736303b526aec4fd3f6bf25bdc808f",
+      "value": {
+        "enterprise": {
+          "account_id": "acct_enterprise_09",
+          "account_kind": "Enterprise",
+          "expires_at": "2023-12-24T04:26:40Z",
+          "trial_length": "P30D",
+          "welcome": "acct_enterprise_09 starts a Enterprise trial"
+        },
+        "personal": {
+          "account_id": "acct_personal_22",
+          "account_kind": "Personal",
+          "expires_at": "2023-12-08T04:26:40Z",
+          "trial_length": "P14D",
+          "welcome": "acct_personal_22 starts a Personal trial"
+        }
+      }
+    },
+    "showcase/reliability/resilient_parse.vibe": {
+      "display": "{known: 5, unknown: 0, divide_ok: 25, divide_guarded: , infinity_label: Infinity, is_finite: true, nan_detected: true, incomparable_is_nil: true}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-reliability-resilient-parse",
+      "source_sha256": "60b19f1f56cb017b8b27a9e36d2442662924ba53f214c482b4d09562a8e8912a",
+      "value": {
+        "divide_guarded": null,
+        "divide_ok": 25,
+        "incomparable_is_nil": true,
+        "infinity_label": "Infinity",
+        "is_finite": true,
+        "known": 5,
+        "nan_detected": true,
+        "unknown": 0
+      }
+    },
+    "showcase/security/session_expiry.vibe": {
+      "display": "{trusted: {user_id: user_100, risk: Trusted, age: PT1H30M, ttl: P30D, expires_at: 2023-12-14T22:13:20Z, refreshable: true}, sensitive: {user_id: user_200, risk: Sensitive, age: PT1H30M, ttl: PT30M, expires_at: 2023-11-14T22:43:20Z, refreshable: false}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-security-session-expiry",
+      "source_sha256": "c5a0e76a7daedd3ec28bc53b1eeb83d3123957863d79e01e0876ed3b6a16f1a2",
+      "value": {
+        "sensitive": {
+          "age": "PT1H30M",
+          "expires_at": "2023-11-14T22:43:20Z",
+          "refreshable": false,
+          "risk": "Sensitive",
+          "ttl": "PT30M",
+          "user_id": "user_200"
+        },
+        "trusted": {
+          "age": "PT1H30M",
+          "expires_at": "2023-12-14T22:13:20Z",
+          "refreshable": true,
+          "risk": "Trusted",
+          "ttl": "P30D",
+          "user_id": "user_100"
+        }
+      }
+    },
+    "showcase/strings/text_toolkit.vibe": {
+      "display": "{setting: {key: timeout, assigned: true, value: 30}, no_assignment: {key: bare-token, assigned: false, value: }, domain: vibescript.dev, banner: ***** ship it ******, initials: GBH, warn_flagged: true, info_flagged: false}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-strings-text-toolkit",
+      "source_sha256": "4df4e8750090856894d0383a31d9ff3e4347b3e94bf3ad6772f17a3e9fe34c71",
+      "value": {
+        "banner": "***** ship it ******",
+        "domain": "vibescript.dev",
+        "info_flagged": false,
+        "initials": "GBH",
+        "no_assignment": {
+          "assigned": false,
+          "key": "bare-token",
+          "value": ""
+        },
+        "setting": {
+          "assigned": true,
+          "key": "timeout",
+          "value": "30"
+        },
+        "warn_flagged": true
+      }
+    },
+    "showcase/strings/word_arrays.vibe": {
+      "display": "{static_tags: [alpha, beta, gamma], build_targets: [build-prod, deploy-prod, verify-prod], lifecycle_states: [queued, running, done], first_state: queued, target_count: 3}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-strings-word-arrays",
+      "source_sha256": "0a18f5f3b74887cfec79ad078b72e33a732c7cf080baff4e45a01831668b8554",
+      "value": {
+        "build_targets": [
+          "build-prod",
+          "deploy-prod",
+          "verify-prod"
+        ],
+        "first_state": "queued",
+        "lifecycle_states": [
+          "queued",
+          "running",
+          "done"
+        ],
+        "static_tags": [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        "target_count": 3
+      }
+    },
+    "showcase/support/escalation_policy.vibe": {
+      "display": "{high: {ticket_id: inc_204, severity: High, response_window: PT2H, deadline: 2023-11-17T07:46:40Z, route_to: incident-manager, summary: inc_204 routes to incident-manager}, critical: {ticket_id: inc_205, severity: Critical, response_window: PT15M, deadline: 2023-11-17T06:01:40Z, route_to: exec-bridge, summary: inc_205 routes to exec-bridge}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-support-escalation-policy",
+      "source_sha256": "737fe0766c346b1208460e60103233b3abe539e981352c9306710b2d012ed1f6",
+      "value": {
+        "critical": {
+          "deadline": "2023-11-17T06:01:40Z",
+          "response_window": "PT15M",
+          "route_to": "exec-bridge",
+          "severity": "Critical",
+          "summary": "inc_205 routes to exec-bridge",
+          "ticket_id": "inc_205"
+        },
+        "high": {
+          "deadline": "2023-11-17T07:46:40Z",
+          "response_window": "PT2H",
+          "route_to": "incident-manager",
+          "severity": "High",
+          "summary": "inc_204 routes to incident-manager",
+          "ticket_id": "inc_204"
+        }
+      }
+    },
+    "showcase/time/timestamps.vibe": {
+      "display": "{stamps: {iso: 2024-01-01T09:30:00Z, xml: 2024-01-01T09:30:00Z, millis: 2024-01-01T09:30:00.000Z, one_minute_later: 2024-01-01T09:31:00Z}, epoch: 1970-01-01T00:00:00Z, year_start: 2024-01-01T00:00:00Z}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-time-timestamps",
+      "source_sha256": "b6fa6e753a9184199088d16885b416b5dc91494919e324c3cd0dc21345fcc81e",
+      "value": {
+        "epoch": "1970-01-01T00:00:00Z",
+        "stamps": {
+          "iso": "2024-01-01T09:30:00Z",
+          "millis": "2024-01-01T09:30:00.000Z",
+          "one_minute_later": "2024-01-01T09:31:00Z",
+          "xml": "2024-01-01T09:30:00Z"
+        },
+        "year_start": "2024-01-01T00:00:00Z"
+      }
+    },
+    "showcase/workflows/approval_chain.vibe": {
+      "display": "{pending: {change_id: change_88, state: Review, next_state: Blocked, checks_passed: false, steps: [{label: security review, due_in: PT4H, due_at: 2023-11-26T16:00:00Z}, {label: ops signoff, due_in: PT8H, due_at: 2023-11-26T20:00:00Z}]}, ready: {change_id: change_89, state: Review, next_state: Approved, checks_passed: true, steps: [{label: security review, due_in: PT4H, due_at: 2023-11-26T16:00:00Z}, {label: ops signoff, due_in: PT8H, due_at: 2023-11-26T20:00:00Z}]}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-workflows-approval-chain",
+      "source_sha256": "d29b1c3742c066ff7a3e0297ac1862fecf0729fbf413b157510d20b4b0a4f62f",
+      "value": {
+        "pending": {
+          "change_id": "change_88",
+          "checks_passed": false,
+          "next_state": "Blocked",
+          "state": "Review",
+          "steps": [
+            {
+              "due_at": "2023-11-26T16:00:00Z",
+              "due_in": "PT4H",
+              "label": "security review"
+            },
+            {
+              "due_at": "2023-11-26T20:00:00Z",
+              "due_in": "PT8H",
+              "label": "ops signoff"
+            }
+          ]
+        },
+        "ready": {
+          "change_id": "change_89",
+          "checks_passed": true,
+          "next_state": "Approved",
+          "state": "Review",
+          "steps": [
+            {
+              "due_at": "2023-11-26T16:00:00Z",
+              "due_in": "PT4H",
+              "label": "security review"
+            },
+            {
+              "due_at": "2023-11-26T20:00:00Z",
+              "due_in": "PT8H",
+              "label": "ops signoff"
+            }
+          ]
+        }
+      }
+    },
+    "showcase/workflows/release_readiness.vibe": {
+      "display": "{draft: {name: billing-v2, status: Draft, next_status: Approved, publishable: false, launch_at: unscheduled, banner: billing-v2 is Draft}, scheduled: {name: billing-v2, status: Scheduled, next_status: Live, publishable: true, launch_at: 2023-11-15T00:13:20Z, banner: billing-v2 is Scheduled}}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "showcase-workflows-release-readiness",
+      "source_sha256": "26240a1c84a655c735ecaeb017bb1253af0797f8a2dbb4396e565191823cec2f",
+      "value": {
+        "draft": {
+          "banner": "billing-v2 is Draft",
+          "launch_at": "unscheduled",
+          "name": "billing-v2",
+          "next_status": "Approved",
+          "publishable": false,
+          "status": "Draft"
+        },
+        "scheduled": {
+          "banner": "billing-v2 is Scheduled",
+          "launch_at": "2023-11-15T00:13:20Z",
+          "name": "billing-v2",
+          "next_status": "Live",
+          "publishable": true,
+          "status": "Scheduled"
+        }
+      }
+    },
+    "stdlib/core_utilities.vibe": {
+      "display": "{json_id: p-1, json_score: 10, json_encoded: {\"id\":\"p-1\",\"score\":10}, regex_match: ID-12, regex_replace: X ID-34, regex_replace_all: X X, uuid_length: 36, uuid_has_dash: true, random_length: 8, to_int: 42, to_float: 1.25, math_sqrt: 12, math_hypot: 5, math_log_base: 3, math_pi_rounded: 3.142, parsed_time: 2024-05-01T10:30:00Z, inspect_string: \"a\\tb\", inspect_array: [1, \"x\", nil]}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "stdlib-core-utilities",
+      "source_sha256": "2440c0cf3697cd3a55e362be8c1df2b4e0dc8a74a496dc115d431b62485460c4",
+      "value": {
+        "inspect_array": "[1, \"x\", nil]",
+        "inspect_string": "\"a\\tb\"",
+        "json_encoded": "{\"id\":\"p-1\",\"score\":10}",
+        "json_id": "p-1",
+        "json_score": 10,
+        "math_hypot": 5,
+        "math_log_base": 3,
+        "math_pi_rounded": 3.142,
+        "math_sqrt": 12,
+        "parsed_time": "2024-05-01T10:30:00Z",
+        "random_length": 8,
+        "regex_match": "ID-12",
+        "regex_replace": "X ID-34",
+        "regex_replace_all": "X X",
+        "to_float": 1.25,
+        "to_int": 42,
+        "uuid_has_dash": true,
+        "uuid_length": 36
+      }
+    },
+    "strings/operations.vibe": {
+      "display": "{normalized: vibescript example, bytesize: 3, ord: 104, chr: h, upper: VIBESCRIPT EXAMPLE, lower: vibescript example, capitalize: Héllo world, swapcase: hELLO vibe, reverse: olléh, sub: baNAnas, gsub: baNANAs, sub_regex: X ID-34, gsub_regex: X X, match: [ID-12, 12], scan: [ID-12, ID-34], strip_bang: hello, strip_bang_nochange: , squish: hello world, squish_bang: hello world, template: Player Alex scored 42, template_missing: Hello {{missing}}, immutable_after:   hello  , clear: , concat: hello!, concat_noop: hello, replace: new, sub_bang: baNAnas, gsub_bang: baNANAs, lstrip: hello\t, rstrip: \thello, chomp_default: line, chomp_custom: path//, delete_prefix: happy, delete_suffix: report, split_default: [one, two, three], split_custom: [a, b, c], tags: [ruby, go, vibescript], empty_true: true, empty_false: false, starts: true, ends: true, include: true, index: 2, rindex: 8, slice_char: é, slice_range: éllo, length: 5}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "strings-operations",
+      "source_sha256": "8844828e7058a3de5e8d40a6c2f61ec3f548f9ee4ecb09a039c23bdb91d072c5",
+      "value": {
+        "bytesize": 3,
+        "capitalize": "Héllo world",
+        "chomp_custom": "path//",
+        "chomp_default": "line",
+        "chr": "h",
+        "clear": "",
+        "concat": "hello!",
+        "concat_noop": "hello",
+        "delete_prefix": "happy",
+        "delete_suffix": "report",
+        "empty_false": false,
+        "empty_true": true,
+        "ends": true,
+        "gsub": "baNANAs",
+        "gsub_bang": "baNANAs",
+        "gsub_regex": "X X",
+        "immutable_after": "  hello  ",
+        "include": true,
+        "index": 2,
+        "length": 5,
+        "lower": "vibescript example",
+        "lstrip": "hello\t",
+        "match": [
+          "ID-12",
+          "12"
+        ],
+        "normalized": "vibescript example",
+        "ord": 104,
+        "replace": "new",
+        "reverse": "olléh",
+        "rindex": 8,
+        "rstrip": "\thello",
+        "scan": [
+          "ID-12",
+          "ID-34"
+        ],
+        "slice_char": "é",
+        "slice_range": "éllo",
+        "split_custom": [
+          "a",
+          "b",
+          "c"
+        ],
+        "split_default": [
+          "one",
+          "two",
+          "three"
+        ],
+        "squish": "hello world",
+        "squish_bang": "hello world",
+        "starts": true,
+        "strip_bang": "hello",
+        "strip_bang_nochange": null,
+        "sub": "baNAnas",
+        "sub_bang": "baNAnas",
+        "sub_regex": "X ID-34",
+        "swapcase": "hELLO vibe",
+        "tags": [
+          "ruby",
+          "go",
+          "vibescript"
+        ],
+        "template": "Player Alex scored 42",
+        "template_missing": "Hello {{missing}}",
+        "upper": "VIBESCRIPT EXAMPLE"
+      }
+    },
+    "time/duration.vibe": {
+      "display": "{parts: {iso: P1DT1H1M1S, parts: {days: 1, hours: 1, minutes: 1, seconds: 1}}, parse_build: PT1M30S, to_i: 88200, math: {add: PT2H4S, subtract: PT1H59M56S, multiply: PT30S, multiply_left: PT30S, divide: PT5S, divide_duration: 2.5, modulo: PT2S, compare: {lt: true, eq: true, gt: true}}, to_i_math: 8}",
+      "entry_point": "run",
+      "kind": "hash",
+      "runnable": true,
+      "slug": "time-duration",
+      "source_sha256": "ba0f4988c861600b14e001695a85cc3539a343b0cdf8e5cff3557e1dce21d5bf",
+      "value": {
+        "math": {
+          "add": "PT2H4S",
+          "compare": {
+            "eq": true,
+            "gt": true,
+            "lt": true
+          },
+          "divide": "PT5S",
+          "divide_duration": 2.5,
+          "modulo": "PT2S",
+          "multiply": "PT30S",
+          "multiply_left": "PT30S",
+          "subtract": "PT1H59M56S"
+        },
+        "parse_build": "PT1M30S",
+        "parts": {
+          "iso": "P1DT1H1M1S",
+          "parts": {
+            "days": 1,
+            "hours": 1,
+            "minutes": 1,
+            "seconds": 1
+          }
+        },
+        "to_i": 88200,
+        "to_i_math": 8
+      }
+    }
+  },
+  "site_revision": "5ca06f3"
+}
