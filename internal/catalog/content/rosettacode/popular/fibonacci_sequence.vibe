@@ -4,15 +4,16 @@
 # difficulty: Intro
 # summary: Produce the opening terms of the Fibonacci sequence iteratively.
 # tags: popular, math, loops, arrays
+# vibe: 0.1.0
 
-def fibonacci_terms(count)
-  values = []
+def fibonacci_terms(count: int) -> array<int>
+  values: array<int> = []
   a = 0
   b = 1
   produced = 0
 
   while produced < count
-    values = values.push(a)
+    values.push(a)
     next_value = a + b
     a = b
     b = next_value
@@ -22,7 +23,6 @@ def fibonacci_terms(count)
   values
 end
 
-def run
+def run -> array<int>
   fibonacci_terms(15)
 end
-

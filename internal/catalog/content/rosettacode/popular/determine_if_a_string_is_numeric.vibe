@@ -4,19 +4,19 @@
 # difficulty: Intro
 # summary: Recognize simple signed integer and decimal strings.
 # tags: popular, strings, validation, parsing
-# vibe: 0.2
+# vibe: 0.1.0
 
-def digit?(char)
+def digit?(char: string) -> bool
   char >= "0" && char <= "9"
 end
 
-def numeric?(text)
+def numeric?(text: string) -> bool
   if text == ""
     return false
   end
 
   index = 0
-  if text.slice(0) == "+" || text.slice(0) == "-"
+  if text.chars.fetch(0) == "+" || text.chars.fetch(0) == "-"
     index = 1
   end
 
@@ -28,7 +28,7 @@ def numeric?(text)
   seen_decimal = false
 
   while index < text.length
-    char = text.slice(index)
+    char = text.chars.fetch(index)
     if digit?(char)
       seen_digit = true
     elsif char == "." && !seen_decimal
@@ -42,7 +42,7 @@ def numeric?(text)
   seen_digit
 end
 
-def run
+def run -> array<{ numeric: bool, text: string }>
   [
     { text: "42", numeric: numeric?("42") },
     { text: "-17.5", numeric: numeric?("-17.5") },

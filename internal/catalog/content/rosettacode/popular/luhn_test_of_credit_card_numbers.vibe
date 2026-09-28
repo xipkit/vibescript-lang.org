@@ -4,19 +4,22 @@
 # difficulty: Easy
 # summary: Validate account numbers with the Luhn checksum.
 # tags: popular, checksum, strings, math
-# vibe: 0.2
+# vibe: 0.1.0
 
-def digit_value(char)
-  "0123456789".index(char)
+def digit_value(char: string) -> int
+  digit = "0123456789".index(char)
+  raise ArgumentError, "expected a decimal digit" if digit == nil
+  digit
 end
 
-def luhn_valid?(number)
+def luhn_valid?(number: string) -> bool
+  number_chars = number.chars
   sum = 0
   offset = 0
   index = number.length - 1
 
   while index >= 0
-    digit = digit_value(number.slice(index))
+    digit = digit_value(number_chars.fetch(index))
 
     if offset % 2 == 1
       digit = digit * 2
@@ -33,7 +36,7 @@ def luhn_valid?(number)
   sum % 10 == 0
 end
 
-def run
+def run -> { sample_false: bool, sample_true: bool, visa_false: bool, visa_true: bool }
   {
     sample_true: luhn_valid?("49927398716"),
     sample_false: luhn_valid?("49927398717"),

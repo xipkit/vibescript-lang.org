@@ -4,9 +4,9 @@
 # difficulty: Intro
 # summary: List the square-free integers up to thirty.
 # tags: popular, math, factors, search
-# vibe: 0.2
+# vibe: 0.1.0
 
-def square_free?(number)
+def square_free?(number: int) -> bool
   factor = 2
 
   while factor * factor <= number
@@ -19,13 +19,13 @@ def square_free?(number)
   true
 end
 
-def square_free_up_to(limit)
-  values = []
+def square_free_up_to(limit: int) -> array<int>
+  values: array<int> = []
   number = 1
 
   while number <= limit
     if square_free?(number)
-      values = values.push(number)
+      values.push(number)
     end
     number = number + 1
   end
@@ -33,6 +33,6 @@ def square_free_up_to(limit)
   values
 end
 
-def run
+def run -> array<int>
   square_free_up_to(30)
 end

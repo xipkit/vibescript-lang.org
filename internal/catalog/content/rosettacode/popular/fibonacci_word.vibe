@@ -4,16 +4,16 @@
 # difficulty: Intro
 # summary: Build the opening Fibonacci words by concatenating the two previous terms.
 # tags: popular, strings, sequences, recursion
-# vibe: 0.2
+# vibe: 0.1.0
 
-def fibonacci_words(count)
-  words = []
+def fibonacci_words(count: int) -> array<string>
+  words: array<string> = []
   previous = "1"
   current = "0"
   index = 0
 
   while index < count
-    words = words.push(current)
+    words.push(current)
     next_word = current + previous
     previous = current
     current = next_word
@@ -23,10 +23,10 @@ def fibonacci_words(count)
   words
 end
 
-def run
+def run -> { final_length: int, words: array<string> }
   words = fibonacci_words(8)
   {
     words: words,
-    final_length: words[words.size - 1].length
+    final_length: words.fetch(words.length - 1).length
   }
 end

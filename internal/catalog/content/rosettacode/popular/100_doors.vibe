@@ -4,33 +4,33 @@
 # difficulty: Intro
 # summary: Toggle one hundred doors and return the open door numbers.
 # tags: popular, loops, arrays, math
+# vibe: 0.1.0
 
-def open_doors(limit)
-  doors = []
+def open_doors(limit: int) -> array<int>
+  doors: array<bool> = []
   for _ in 1..limit
-    doors = doors.push(false)
+    doors.push(false)
   end
 
   pass = 1
   while pass <= limit
     door = pass
     while door <= limit
-      doors[door - 1] = !doors[door - 1]
+      doors[door - 1] = !doors.fetch(door - 1)
       door = door + pass
     end
     pass = pass + 1
   end
 
-  open = []
+  open: array<int> = []
   for door in 1..limit
-    if doors[door - 1]
-      open = open.push(door)
+    if doors.fetch(door - 1)
+      open.push(door)
     end
   end
   open
 end
 
-def run
+def run -> array<int>
   open_doors(100)
 end
-

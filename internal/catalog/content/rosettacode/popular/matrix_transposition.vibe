@@ -4,9 +4,9 @@
 # difficulty: Easy
 # summary: Transpose a matrix by swapping its rows and columns with the built-in Array#transpose.
 # tags: popular, math, arrays
-# vibe: 0.4
+# vibe: 0.1.0
 
-def run
+def run -> { rectangular: array<array<int>>, square: array<array<int>> }
   {
     square: [[1, 2, 3], [4, 5, 6], [7, 8, 9]].transpose,
     rectangular: [[1, 2], [3, 4], [5, 6]].transpose

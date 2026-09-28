@@ -4,15 +4,15 @@
 # difficulty: Intro
 # summary: Check whether a sentence contains every letter of the alphabet at least once.
 # tags: popular, strings, analysis
-# vibe: 0.2
+# vibe: 0.1.0
 
-def is_pangram(sentence)
+def is_pangram(sentence: string) -> bool
   alphabet = "abcdefghijklmnopqrstuvwxyz"
   lower = sentence.downcase
   i = 0
 
   while i < alphabet.length
-    letter = alphabet.slice(i)
+    letter = alphabet.chars.fetch(i)
     if lower.index(letter) == nil
       return false
     end
@@ -22,16 +22,16 @@ def is_pangram(sentence)
   true
 end
 
-def missing_letters(sentence)
+def missing_letters(sentence: string) -> array<string>
   alphabet = "abcdefghijklmnopqrstuvwxyz"
   lower = sentence.downcase
-  missing = []
+  missing: array<string> = []
   i = 0
 
   while i < alphabet.length
-    letter = alphabet.slice(i)
+    letter = alphabet.chars.fetch(i)
     if lower.index(letter) == nil
-      missing = missing.push(letter)
+      missing.push(letter)
     end
     i = i + 1
   end
@@ -39,7 +39,7 @@ def missing_letters(sentence)
   missing
 end
 
-def run
+def run -> { almost_missing: array<string>, almost_pangram: bool, fox_pangram: bool }
   fox = "The quick brown fox jumps over the lazy dog"
   almost = "The quick brown fox jumped over the lazy dog"
   {

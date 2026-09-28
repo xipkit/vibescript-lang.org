@@ -4,9 +4,9 @@
 # difficulty: Intro
 # summary: Enumerate small Pythagorean triples with bounded hypotenuse.
 # tags: popular, math, geometry, search
-# vibe: 0.2
+# vibe: 0.1.0
 
-def gcd(a, b)
+def gcd(a: int, b: int) -> int
   left = a.abs
   right = b.abs
 
@@ -19,8 +19,8 @@ def gcd(a, b)
   left
 end
 
-def pythagorean_triples(limit)
-  triples = []
+def pythagorean_triples(limit: int) -> array<array<int>>
+  triples: array<array<int>> = []
   m = 2
 
   while (m * m) + 1 <= limit
@@ -33,9 +33,9 @@ def pythagorean_triples(limit)
 
         if c <= limit
           if a < b
-            triples = triples.push([a, b, c])
+            triples.push([a, b, c])
           else
-            triples = triples.push([b, a, c])
+            triples.push([b, a, c])
           end
         end
       end
@@ -47,7 +47,7 @@ def pythagorean_triples(limit)
   triples
 end
 
-def run
+def run -> { count: int, triples: array<array<int>> }
   triples = pythagorean_triples(50)
   {
     count: triples.length,

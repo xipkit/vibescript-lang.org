@@ -4,9 +4,9 @@
 # difficulty: Easy
 # summary: Encode text to Morse code using a fixed A-Z and digit lookup table.
 # tags: popular, strings, encoding, lookup
-# vibe: 0.2
+# vibe: 0.1.0
 
-def morse_for(char)
+def morse_for(char: string) -> string?
   if char == "A"
     ".-"
   elsif char == "B"
@@ -84,12 +84,13 @@ def morse_for(char)
   end
 end
 
-def encode_morse(text)
-  codes = []
+def encode_morse(text: string) -> string
+  text_chars = text.chars
+  codes: array<string> = []
   index = 0
 
   while index < text.length
-    char = text.slice(index).upcase
+    char = text_chars.fetch(index).upcase
     if char == " "
       codes = codes + ["/"]
     else
@@ -104,7 +105,7 @@ def encode_morse(text)
   codes.join(" ")
 end
 
-def run
+def run -> { sos: string, vibe: string }
   {
     sos: encode_morse("SOS"),
     vibe: encode_morse("VIBE 2026")

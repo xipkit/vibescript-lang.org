@@ -4,34 +4,37 @@
 # difficulty: Medium
 # summary: Encode and decode a short uppercase message with a fixed Vigenère key.
 # tags: popular, strings, ciphers, encoding
-# vibe: 0.2
+# vibe: 0.1.0
 
-def alphabet
+def alphabet -> string
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 end
 
-def shift_char(char, key_char, direction)
+def shift_char(char: string, key_char: string, direction: string) -> string
   char_index = alphabet.index(char)
   key_index = alphabet.index(key_char)
+  raise ArgumentError, "expected uppercase letters" if char_index == nil || key_index == nil
 
   if direction == "encode"
-    alphabet.slice((char_index + key_index) % 26)
+    alphabet.chars.fetch((char_index + key_index) % 26)
   else
-    alphabet.slice((char_index - key_index + 26) % 26)
+    alphabet.chars.fetch((char_index - key_index + 26) % 26)
   end
 end
 
-def apply_vigenere(text, key, direction)
+def apply_vigenere(text: string, key: string, direction: string) -> string
+  text_chars = text.chars
+  key_chars = key.chars
   output = ""
   key_index = 0
   index = 0
 
   while index < text.length
-    char = text.slice(index)
+    char = text_chars.fetch(index)
     if char == " "
       output = output + char
     else
-      output = output + shift_char(char, key.slice(key_index % key.length), direction)
+      output = output + shift_char(char, key_chars.fetch(key_index % key.length), direction)
       key_index = key_index + 1
     end
     index = index + 1
@@ -40,7 +43,7 @@ def apply_vigenere(text, key, direction)
   output
 end
 
-def run
+def run -> { decoded: string, encoded: string }
   plain = "VIBESCRIPT ROCKS"
   key = "CODE"
   encoded = apply_vigenere(plain, key, "encode")

@@ -4,28 +4,28 @@
 # difficulty: Intro
 # summary: Generate the opening rows of Floyd's triangle.
 # tags: popular, arrays, formatting, sequences
-# vibe: 0.2
+# vibe: 0.1.0
 
-def floyd_triangle(rows_count)
-  rows = []
+def floyd_triangle(rows_count: int) -> array<array<int>>
+  rows: array<array<int>> = []
   current = 1
   row_size = 1
 
   while row_size <= rows_count
-    row = []
+    row: array<int> = []
     index = 0
     while index < row_size
-      row = row.push(current)
+      row.push(current)
       current = current + 1
       index = index + 1
     end
-    rows = rows.push(row)
+    rows.push(row)
     row_size = row_size + 1
   end
 
   rows
 end
 
-def run
+def run -> array<array<int>>
   floyd_triangle(7)
 end

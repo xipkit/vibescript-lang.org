@@ -4,26 +4,27 @@
 # difficulty: Intro
 # summary: Extract substrings from a source string using start offsets and lengths.
 # tags: popular, strings, slicing, basics
-# vibe: 0.2
+# vibe: 0.1.0
 
-def substring(text, start_index, count)
+def substring(text: string, start_index: int, count: int) -> string
+  text_chars = text.chars
   output = ""
   offset = 0
 
   while offset < count && start_index + offset < text.length
-    output = output + text.slice(start_index + offset)
+    output = output + text_chars.fetch(start_index + offset)
     offset = offset + 1
   end
 
   output
 end
 
-def run
+def run -> array<array<int | string>>
   sample = "Vibescript examples"
-  rows = []
-  rows = rows.push(["start", "count", "value"])
-  rows = rows.push([0, 10, substring(sample, 0, 10)])
-  rows = rows.push([4, 6, substring(sample, 4, 6)])
-  rows = rows.push([11, 8, substring(sample, 11, 8)])
+  rows: array<array<int | string>> = []
+  rows.push(["start", "count", "value"])
+  rows.push([0, 10, substring(sample, 0, 10)])
+  rows.push([4, 6, substring(sample, 4, 6)])
+  rows.push([11, 8, substring(sample, 11, 8)])
   rows
 end
