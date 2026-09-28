@@ -176,12 +176,12 @@ required-capture and typed-JSON error decisions are recorded in the
 
 ## Evidence and reproduction
 
-[The JSON Lines dataset](/reference-source/187e0455c92cef44ed1cfd0bf6aa9d1a43e82e65/corpus/glue/evaluation.jsonl) contains every source
+[The JSON Lines dataset](/reference-source/de1b6c9eb37e5ac38299ecb63bcac4520d81b88c/corpus/glue/evaluation.jsonl) contains every source
 revision, SHA-256 digest, diagnostic (including fixes), command status, failed
 behavioral output, and qualitative assessment. It also records the unchanged
 first-draft replay and all seeded exercises separately. Raw command streams,
 source snapshots, baseline/updated binaries and exploratory doc checks are kept
-under `/Volumes/AI/Work/xipkit/vibescript.rs/.cache/authoring-eval/evidence/`.
+under `.cache/authoring-eval/evidence/`.
 The baseline executable is `vibes-before`; the updated one is `vibes-after`.
 No raw benchmark data or binary is committed.
 
@@ -197,7 +197,7 @@ Replay directories must be fresh. Original-draft replay is expected to return
 failure for the three recorded programs; revised replay expects 40 passes.
 Replaying is a reproducibility check, not another authoring trial.
 
-The maintained [glue corpus](/reference-source/187e0455c92cef44ed1cfd0bf6aa9d1a43e82e65/corpus/glue/README.md) runs through `vibes test`
+The maintained [glue corpus](/reference-source/de1b6c9eb37e5ac38299ecb63bcac4520d81b88c/corpus/glue/README.md) runs through `vibes test`
 in the normal workspace tests. It lives outside `examples/` so adding it does
 not extend the historical CLI golden sweep with unrecorded cases. The existing
 golden corpora and counter files are unchanged. No runtime code was changed,

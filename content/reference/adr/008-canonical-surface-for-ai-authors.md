@@ -303,3 +303,36 @@ This applies to scalar, collection, shape and nominal type mismatches.
 
 - [ADR-006: Slim the language for predictable sandboxing](/reference/adr/006-slim-language-for-predictable-sandboxing/)
 - [ADR-007: Static types with local inference](/reference/adr/007-static-types/)
+
+## Addendum: integer powers (2026-09-27)
+
+`int ** int` keeps type `int`. Negative integer exponents raise `ArgumentError`, including through `**=`, with a hint to use a float base (`2.0 ** -1`). This removes an implicit float result that violated the static type. Non-negative powers, bigint promotion and floating-point powers retain their behavior; there is no separate `pow` builtin.
+
+## Addendum: total float ordering (2026-09-27)
+
+Float `<=>` always returns `int`, ordered like Go's `cmp.Compare`: NaNs first,
+NaNs equal to each other, and signed zeros equal. Stable sorting preserves
+input order within those ties, and extrema keep the first tied value. All
+ordering builtins, including key-based selection and float `clamp`, share
+this rule. Equality and relational predicates retain IEEE semantics; NaN
+remains unequal to itself and `between?` remains false for NaN. This makes
+float selection deterministic without weakening the declared result type.
+
+## Addendum: expression separators (2026-09-27)
+
+Two expressions cannot form adjacent statements on the same line. `x = 1"0"`
+reports V0001 at their gap, suggesting an operator, a comma between arguments,
+or a newline or `;` between statements. The parser offers no automatic fix
+because those repairs mean different things. Parenless calls keep their
+existing grammar. A suffix that the multiline expression grammar leaves as a
+separate expression also requires a separator; it is no longer silently run.
+
+## Addendum: required-file function scope (2026-09-27)
+
+A required file's function calls are lexically scoped to that file. During
+`helper = helper(...)`, bypass the local being assigned, but keep the file's
+function declarations in scope. The requiring script's `helper`, and exports
+from other files, cannot replace the function the checker resolved. The rule
+is independent of call syntax, visibility and nesting. Historical
+`same_name_call_*` golden observations intentionally change where they
+recorded lookup in the requiring script or an undefined-name error.

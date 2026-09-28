@@ -32,7 +32,7 @@ puts greet("Ada")            # Hello, Ada!
 puts greet("Ada", LIMIT)
 ```
 
-Declarations may appear in any order; each function is checked once, from its own signature and the signatures of what it calls. Comments start with `#`. Statements end at a line break; a line ending in an operator, a comma or an opening bracket continues on the next line.
+Declarations may appear in any order; each function is checked once, from its own signature and the signatures of what it calls. Comments start with `#`. Separate statements with a line break or `;`. Adjacent expressions such as `x = 1"0"` are a syntax error (V0001): insert an operator, a comma between arguments, or a statement separator. Parenless calls such as `puts x` and `fetch "a"` remain calls. A statement ends at a line break; a line ending in an operator, a comma or an opening bracket continues on the next line.
 
 `vibes run script.vibe` runs a file, `vibes run --function greet script.vibe Ada` calls one function with command-line arguments, which are strings, and `vibes check` compiles and reports diagnostics without running anything. See [the command line](/reference/cli/).
 
@@ -449,7 +449,7 @@ end
 Pricing.with_tax(1_000)   # 1080
 ```
 
-`require` loads another file from the host's module paths. The name and the optional alias are string literals (V0309), so the compiler checks the file, and every call into it, before the script runs. A file's `def` and `export def` functions are public, `private def` functions are not, and public functions are also bound by name in the requiring script when the name is free:
+`require` loads another file from the host's module paths. The name and the optional alias are string literals (V0309), so the compiler checks the file, and every call into it, before the script runs. Calls within a required file resolve its own functions lexically, including `helper = helper()`; a function in the requiring script cannot replace that target. A file's `def` and `export def` functions are public, `private def` functions are not, and public functions are also bound by name in the requiring script when the name is free:
 
 ```vibe module=reports/format.vibe
 export def cents(amount: int) -> string
@@ -561,6 +561,10 @@ assert (money("1.05 USD") * 3).cents == 315
 
 See [formatting examples](/reference/formatting/) for float precision, CSV quoting,
 ISO time and duration output, and supported `strftime` directives.
+
+`int ** int` returns an `int`. A negative integer exponent raises `ArgumentError`; use a float base for a fractional result, such as `2.0 ** -1`. The same rule applies to `**=`. Non-negative integer powers stay exact and promote to arbitrary precision.
+
+Float `<=>` always returns an `int`: NaN sorts before every non-NaN, two NaNs compare as `0`, and `-0.0` and `0.0` compare as `0`. `sort`, `sort_by`, `min`, `max`, `minmax`, `min_by`, `max_by` and float `clamp` use this order. Sorts are stable for equal values. `==`, `!=`, `<`, `<=`, `>` and `>=` keep IEEE semantics: NaN is unequal to everything and all relational comparisons with it are false. See [equality and ordering](/reference/equality/).
 
 Dividing two ints by zero, with `/` or `//`, raises `ZeroDivisionError`; a float operand gives an infinity or NaN instead.
 
