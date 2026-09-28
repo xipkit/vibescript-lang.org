@@ -6,7 +6,12 @@
 # tags: automation, durations, time, enums
 # featured: true
 # feature_rank: 2
-# vibe: 0.2
+# vibe: 0.1.0
+
+type RunResult = {
+  careful: array<{ at: string, attempt: int, delay: string }>,
+  fast: array<{ at: string, attempt: int, delay: string }>
+}
 
 enum RetryProfile
   Fast
@@ -21,9 +26,13 @@ def base_delay(profile: RetryProfile) -> duration
   end
 end
 
-def retry_schedule(profile: RetryProfile, start: time, attempts: int) -> array
+def retry_schedule(
+  profile: RetryProfile,
+  start: time,
+  attempts: int
+) -> array<{ at: string, attempt: int, delay: string }>
   delay = base_delay(profile)
-  rows = []
+  rows: array<{ at: string, attempt: int, delay: string }> = []
   current = start
   multiplier = 1
   attempt = 1
@@ -31,7 +40,7 @@ def retry_schedule(profile: RetryProfile, start: time, attempts: int) -> array
   while attempt <= attempts
     window = delay * multiplier
     current = window.after(current)
-    rows = rows.push({
+    rows.push({
       attempt: attempt,
       delay: window.iso8601,
       at: current.format("2006-01-02T15:04:05Z")
@@ -43,7 +52,7 @@ def retry_schedule(profile: RetryProfile, start: time, attempts: int) -> array
   rows
 end
 
-def run
+def run -> RunResult
   start = Time.at(1700000000)
   {
     fast: retry_schedule(RetryProfile::Fast, start, 4),

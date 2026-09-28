@@ -6,7 +6,18 @@
 # tags: workflows, enums, types, templates
 # featured: true
 # feature_rank: 0
-# vibe: 0.2
+# vibe: 0.1.0
+
+type ReleaseReportResult = {
+  banner: string,
+  launch_at: string,
+  name: string,
+  next_status: string,
+  publishable: bool,
+  status: string
+}
+
+type RunResult = { draft: ReleaseReportResult, scheduled: ReleaseReportResult }
 
 enum ReleaseStatus
   Draft
@@ -39,7 +50,11 @@ def publishable?(status: ReleaseStatus, launch_at: time?) -> bool
   status == ReleaseStatus::Scheduled && launch_at != nil
 end
 
-def release_report(name: string, status: ReleaseStatus, launch_at: time? = nil) -> hash
+def release_report(
+  name: string,
+  status: ReleaseStatus,
+  launch_at: time? = nil
+) -> ReleaseReportResult
   {
     name: name,
     status: status.name,
@@ -50,7 +65,7 @@ def release_report(name: string, status: ReleaseStatus, launch_at: time? = nil) 
   }
 end
 
-def run
+def run -> RunResult
   launch_at = 2.hours.after(Time.at(1700000000))
   {
     draft: release_report("billing-v2", ReleaseStatus::Draft),

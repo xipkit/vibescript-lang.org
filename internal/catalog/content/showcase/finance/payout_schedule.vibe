@@ -4,7 +4,17 @@
 # summary: Schedule payouts from the amount, cadence, and settlement delay.
 # description: Money tracks the payout amount, while enums and durations set the timing.
 # tags: finance, money, durations, enums, payouts
-# vibe: 0.2
+# vibe: 0.1.0
+
+type Payout_JobResult = {
+  batch_id: string,
+  cadence: string,
+  payout_at: string,
+  settlement_delay: string,
+  total: money
+}
+
+type RunResult = { daily: Payout_JobResult, monthly: Payout_JobResult }
 
 enum PayoutCadence
   Daily
@@ -14,7 +24,7 @@ end
 
 def settlement_delay(cadence: PayoutCadence) -> duration
   if cadence == PayoutCadence::Daily
-    1.day
+    1.days
   elsif cadence == PayoutCadence::Weekly
     7.days
   else
@@ -22,7 +32,12 @@ def settlement_delay(cadence: PayoutCadence) -> duration
   end
 end
 
-def payout_job(batch_id: string, cadence: PayoutCadence, total: money, closed_at: time) -> hash
+def payout_job(
+  batch_id: string,
+  cadence: PayoutCadence,
+  total: money,
+  closed_at: time
+) -> Payout_JobResult
   delay = settlement_delay(cadence)
 
   {
@@ -34,7 +49,7 @@ def payout_job(batch_id: string, cadence: PayoutCadence, total: money, closed_at
   }
 end
 
-def run
+def run -> RunResult
   closed_at = Time.at(1700400000)
 
   {

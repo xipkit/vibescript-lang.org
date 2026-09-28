@@ -4,18 +4,24 @@
 # summary: Format RFC3339 timestamps with whole or fractional seconds.
 # description: iso8601 and xmlschema format timestamps. Time values can also subtract seconds.
 # tags: time, timestamps, serialization
-# vibe: 0.4
+# vibe: 0.1.0
 
-def stamps(base: time) -> hash
+type RunResult = {
+  epoch: string,
+  stamps: { iso: string, millis: string, one_minute_later: string, xml: string },
+  year_start: string
+}
+
+def stamps(base: time) -> { iso: string, millis: string, one_minute_later: string, xml: string }
   {
     iso: base.iso8601,
-    xml: base.xmlschema,
+    xml: base.iso8601,
     millis: base.iso8601(3),
     one_minute_later: (base + 60).iso8601
   }
 end
 
-def run
+def run -> RunResult
   base = Time.utc(2024, 1, 1, 9, 30, 0)
 
   {

@@ -6,7 +6,13 @@
 # tags: policies, money, durations, enums
 # featured: true
 # feature_rank: 4
-# vibe: 0.4
+# vibe: 0.1.0
+
+type RunResult = {
+  denied: { age: string, decision: string, refund: money, used: bool },
+  full: { age: string, decision: string, refund: money, used: bool },
+  partial: { age: string, decision: string, refund: money, used: bool }
+}
 
 enum RefundDecision
   Full
@@ -34,8 +40,13 @@ def refund_amount(total: money, decision: RefundDecision) -> money
   end
 end
 
-def refund_quote(total: money, purchased_at: time, requested_at: time, used: bool) -> hash
-  age = Duration.build((requested_at - purchased_at).to_i)
+def refund_quote(
+  total: money,
+  purchased_at: time,
+  requested_at: time,
+  used: bool
+) -> { age: string, decision: string, refund: money, used: bool }
+  age = Duration.build(seconds: (requested_at - purchased_at).to_i)
   decision = refund_decision(age, used)
 
   {
@@ -46,7 +57,7 @@ def refund_quote(total: money, purchased_at: time, requested_at: time, used: boo
   }
 end
 
-def run
+def run -> RunResult
   purchased_at = Time.at(1700000000)
   {
     full: refund_quote(money("89.00 USD"), purchased_at, 3.days.after(purchased_at), false),

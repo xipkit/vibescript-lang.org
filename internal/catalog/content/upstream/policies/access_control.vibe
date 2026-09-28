@@ -1,15 +1,22 @@
-# vibe: 1.0
+# vibe: 0.1.0
 # uses: ctx
 
-def can_edit_player?(player)
-  ctx.user.role == "coach" || ctx.user.id == player[:created_by]
+type RunResult = {
+  can_view_active: bool,
+  can_view_archived: bool,
+  functions: array<string>,
+  note: string
+}
+
+def can_edit_player?(player: { created_by: string }) -> bool
+  ctx.user["role"] == "coach" || ctx.user["id"] == player["created_by"]
 end
 
-def can_view_player?(player)
-  player[:status] != "archived"
+def can_view_player?(player: { status: string }) -> bool
+  player["status"] != "archived"
 end
 
-def run
+def run -> RunResult
   {
     note: "This example requires the ctx capability which is injected by the host application.",
     functions: ["can_edit_player?", "can_view_player?"],

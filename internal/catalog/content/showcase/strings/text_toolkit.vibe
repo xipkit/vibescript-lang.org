@@ -4,9 +4,19 @@
 # summary: Split, align, and inspect text with Ruby-style string helpers.
 # description: partition, center, chars, and start_with? handle common parsing and formatting without manual indexes.
 # tags: strings, text, formatting
-# vibe: 0.4
+# vibe: 0.1.0
 
-def split_setting(line: string) -> hash
+type RunResult = {
+  banner: string,
+  domain: string,
+  info_flagged: bool,
+  initials: string,
+  no_assignment: { assigned: bool, key: string, value: string },
+  setting: { assigned: bool, key: string, value: string },
+  warn_flagged: bool
+}
+
+def split_setting(line: string) -> { assigned: bool, key: string, value: string }
   parts = line.partition("=")
   {
     key: parts[0],
@@ -31,7 +41,7 @@ def flagged?(line: string) -> bool
   line.start_with?("WARN", "ERROR")
 end
 
-def run
+def run -> RunResult
   {
     setting: split_setting("timeout=30"),
     no_assignment: split_setting("bare-token"),

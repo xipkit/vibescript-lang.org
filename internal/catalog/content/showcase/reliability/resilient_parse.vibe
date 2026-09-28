@@ -4,29 +4,40 @@
 # summary: Recover from missing hash keys and check float edge cases.
 # description: rescue supplies a fallback when fetch fails. nan? and finite? identify special float values.
 # tags: reliability, errors, floats
-# vibe: 0.4
+# vibe: 0.1.0
 
-def lookup_or(table: hash, key: symbol, fallback)
+type RunResult = {
+  divide_guarded: float?,
+  divide_ok: float?,
+  ordered_comparison: int,
+  infinity_label: string,
+  is_finite: bool,
+  known: int,
+  nan_detected: bool,
+  unknown: int
+}
+
+def lookup_or(table: hash<string, int>, key: string, fallback: int) -> int
   table.fetch(key) rescue fallback
 end
 
-def safe_divide(a: int, b: int)
+def safe_divide(a: int, b: int) -> float?
   (a / b) rescue nil
 end
 
-def run
+def run -> RunResult
   prices = { small: 5, large: 9 }
   infinity = 1.0 / 0.0
   not_a_number = 0.0 / 0.0
 
   {
-    known: lookup_or(prices, :small, 0),
-    unknown: lookup_or(prices, :huge, 0),
+    known: lookup_or(prices, "small", 0),
+    unknown: lookup_or(prices, "huge", 0),
     divide_ok: safe_divide(100, 4),
     divide_guarded: safe_divide(100, 0),
     infinity_label: infinity.to_s,
     is_finite: (3.0 / 4.0).finite?,
     nan_detected: not_a_number.nan?,
-    incomparable_is_nil: (1 <=> "a") == nil
+    ordered_comparison: 1.0 <=> 2.0
   }
 end

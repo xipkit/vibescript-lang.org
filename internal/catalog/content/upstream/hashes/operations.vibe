@@ -1,41 +1,74 @@
-# vibe: 1.0
+# vibe: 0.1.0
 
-def merge_defaults(player, defaults)
+type Hash_FlagsResult = {
+  empty: bool,
+  has_goal: bool,
+  has_name: bool,
+  includes_raised: bool,
+  length: int,
+  size: int
+}
+type RunResult = {
+  flags: Hash_FlagsResult,
+  merged: hash<string, money | string>,
+  overridden: hash<string, int>,
+  tally: hash<string, int>
+}
+
+type Player = { name: string, raised: money, meta?: { display_name?: string } }
+
+def merge_defaults(
+  player: hash<string, money | string>,
+  defaults: hash<string, money | string>
+) -> hash<string, money | string>
   defaults.merge(player)
 end
 
-def merge_with_override(base, override)
+def merge_with_override(base: hash<string, int>, override: hash<string, int>) -> hash<string, int>
   base.merge(override)
 end
 
-def layer_settings(base, environment, request)
+def layer_settings(
+  base: hash<string, string>,
+  environment: hash<string, string>,
+  request: hash<string, string>
+) -> hash<string, string>
   base.merge(environment, request)
 end
 
-def apply_patch(record, patch)
+def apply_patch(record: hash<string, int>, patch: hash<string, int>) -> hash<string, int>
   record.merge(patch)
 end
 
-def reset_record(record, replacement)
+def reset_record(record: hash<string, int>, replacement: hash<string, int>) -> hash<string, int>
   record.replace(replacement)
 end
 
-def to_pairs(record)
-  record.flatten
+def to_pairs(record: hash<string, int>) -> array<int | string>
+  pairs: array<int | string> = []
+  record.each { |key, value|
+    pairs.push(key, value)
+  }
+  pairs
 end
 
-def index_report_by_id(records)
-  report = {}
-  records.each do |record|
-    report[record[:id]] = {
-      name: record[:name],
-      raised: record[:raised]
+def index_report_by_id(
+  records: array<{ id: string, name: string, raised: money }>
+) -> hash<string, { name: string, raised: money }>
+  report: hash<string, { name: string, raised: money }> = {}
+  records.each { |record|
+    report[record["id"]] = {
+      name: record["name"],
+      raised: record["raised"]
     }
-  end
+  }
   report
 end
 
-def deep_fetch_or(records, player_id)
+def deep_fetch_or(
+  records: hash<string, Player>,
+  player_id: string
+) -> { name: string, raised: money }
   record = records[player_id]
   if record == nil
     return {
@@ -43,37 +76,39 @@ def deep_fetch_or(records, player_id)
       raised: money("0.00 USD")
     }
   end
-  display_name = records.dig(player_id, :meta, :display_name)
-  if display_name == nil
-    display_name = record[:name]
+  display_name = record["name"]
+  meta = record["meta"]
+  if meta != nil
+    preferred = meta["display_name"]
+    display_name = preferred if preferred != nil
   end
   {
     name: display_name,
-    raised: record[:raised]
+    raised: record["raised"]
   }
 end
 
-def tally_statuses(players)
-  counts = {}
-  players.each do |player|
-    status = player[:status]
+def tally_statuses(players: array<{ status: string }>) -> hash<string, int>
+  counts: hash<string, int> = {}
+  players.each { |player|
+    status = player["status"]
     counts[status] = counts.fetch(status, 0) + 1
-  end
+  }
   counts
 end
 
-def hash_flags(record)
+def hash_flags(record: { goal: int, name: string }) -> Hash_FlagsResult
   {
-    size: record.size,
+    size: record.length,
     length: record.length,
     empty: record.empty?,
-    has_name: record.key?(:name),
-    has_goal: record.has_key?(:goal),
-    includes_raised: record.include?("raised")
+    has_name: record.key?("name"),
+    has_goal: record.key?("goal"),
+    includes_raised: record.key?("raised")
   }
 end
 
-def run
+def run -> RunResult
   defaults = { status: "active", raised: money("0.00 USD"), goal: money("100.00 USD") }
   player = { name: "Alice", raised: money("75.00 USD") }
   players = [

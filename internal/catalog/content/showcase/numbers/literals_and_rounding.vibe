@@ -4,9 +4,17 @@
 # summary: Read hex, octal, binary, and scientific numbers, then round them.
 # description: Vibescript uses Ruby-style number literals and helpers for rounding and checking values.
 # tags: numbers, literals, math
-# vibe: 0.4
+# vibe: 0.1.0
 
-def permission_bits
+type RunResult = {
+  is_even: bool,
+  named_sizes: { hex_flags: int, kilobyte: float, megabyte: float, octal_mode: int },
+  next_id: int,
+  permission_bits: { execute: int, read: int, read_write: int, write: int },
+  rounding: { cents: number, down: int, up: int, whole: int }
+}
+
+def permission_bits -> { execute: int, read: int, read_write: int, write: int }
   {
     read: 0b100,
     write: 0b010,
@@ -15,7 +23,7 @@ def permission_bits
   }
 end
 
-def named_sizes
+def named_sizes -> { hex_flags: int, kilobyte: float, megabyte: float, octal_mode: int }
   {
     kilobyte: 1e3,
     megabyte: 1e6,
@@ -24,7 +32,7 @@ def named_sizes
   }
 end
 
-def rounding(value: float) -> hash
+def rounding(value: float) -> { cents: number, down: int, up: int, whole: int }
   {
     whole: value.round,
     cents: value.round(2),
@@ -33,7 +41,7 @@ def rounding(value: float) -> hash
   }
 end
 
-def run
+def run -> RunResult
   {
     permission_bits: permission_bits,
     named_sizes: named_sizes,

@@ -6,7 +6,17 @@
 # tags: notifications, durations, enums, templates
 # featured: true
 # feature_rank: 5
-# vibe: 0.2
+# vibe: 0.1.0
+
+type Reminder_JobResult = {
+  channel: string,
+  invoice_id: string,
+  lead_time: string,
+  send_at: string,
+  subject: string
+}
+
+type RunResult = { email: Reminder_JobResult, push: Reminder_JobResult, sms: Reminder_JobResult }
 
 enum ReminderChannel
   Email
@@ -24,9 +34,9 @@ def lead_time(channel: ReminderChannel) -> duration
   end
 end
 
-def reminder_job(invoice_id: string, due_at: time, channel: ReminderChannel) -> hash
+def reminder_job(invoice_id: string, due_at: time, channel: ReminderChannel) -> Reminder_JobResult
   delta = lead_time(channel)
-  send_at = delta.ago(due_at)
+  send_at = delta.before(due_at)
 
   {
     invoice_id: invoice_id,
@@ -37,7 +47,7 @@ def reminder_job(invoice_id: string, due_at: time, channel: ReminderChannel) -> 
   }
 end
 
-def run
+def run -> RunResult
   due_at = Time.at(1700600000)
   {
     email: reminder_job("inv_2026_0042", due_at, ReminderChannel::Email),

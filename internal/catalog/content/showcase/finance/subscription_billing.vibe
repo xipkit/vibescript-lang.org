@@ -6,7 +6,19 @@
 # tags: finance, money, enums, invoices
 # featured: true
 # feature_rank: 1
-# vibe: 0.2
+# vibe: 0.1.0
+
+type InvoiceResult = {
+  base: money,
+  currency: string,
+  discount: money,
+  plan: string,
+  seats: int,
+  seats_fee: money,
+  total: money
+}
+
+type RunResult = { growth: InvoiceResult, scale: InvoiceResult }
 
 enum PlanTier
   Starter
@@ -38,7 +50,7 @@ def seats_total(plan: PlanTier, seats: int) -> money
   money_cents(seat_fee_cents(plan) * seats, "USD")
 end
 
-def invoice(plan: PlanTier, seats: int, discount: money) -> hash
+def invoice(plan: PlanTier, seats: int, discount: money) -> InvoiceResult
   base = base_fee(plan)
   seats_fee = seats_total(plan, seats)
   subtotal = base + seats_fee
@@ -55,7 +67,7 @@ def invoice(plan: PlanTier, seats: int, discount: money) -> hash
   }
 end
 
-def run
+def run -> RunResult
   {
     growth: invoice(PlanTier::Growth, 4, money("10.00 USD")),
     scale: invoice(PlanTier::Scale, 12, money("0.00 USD"))

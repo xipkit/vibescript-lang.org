@@ -4,7 +4,17 @@
 # summary: Send each quote to the right approval step based on its total.
 # description: Money values set the thresholds, and an enum names each approval step.
 # tags: commerce, money, enums, approvals
-# vibe: 0.2
+# vibe: 0.1.0
+
+type Quote_DecisionResult = {
+  approval_lane: string,
+  margin_points: int,
+  note: string,
+  quote_id: string,
+  total: money
+}
+
+type RunResult = { enterprise: Quote_DecisionResult, self_serve: Quote_DecisionResult }
 
 enum ApprovalLane
   AutoApprove
@@ -22,7 +32,7 @@ def approval_lane(total: money, margin_points: int) -> ApprovalLane
   end
 end
 
-def quote_decision(quote_id: string, total: money, margin_points: int) -> hash
+def quote_decision(quote_id: string, total: money, margin_points: int) -> Quote_DecisionResult
   lane = approval_lane(total, margin_points)
 
   {
@@ -34,7 +44,7 @@ def quote_decision(quote_id: string, total: money, margin_points: int) -> hash
   }
 end
 
-def run
+def run -> RunResult
   {
     self_serve: quote_decision("quote_410", money("1800.00 USD"), 48),
     enterprise: quote_decision("quote_411", money("48000.00 USD"), 18)

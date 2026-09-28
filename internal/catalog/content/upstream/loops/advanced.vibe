@@ -1,6 +1,6 @@
-# vibe: 1.0
+# vibe: 0.1.0
 
-def sum_of_products(x_limit, y_limit)
+def sum_of_products(x_limit: int, y_limit: int) -> int
   total = 0
   for x in 1..x_limit
     for y in 1..y_limit
@@ -10,7 +10,7 @@ def sum_of_products(x_limit, y_limit)
   total
 end
 
-def accumulate_until(limit, threshold)
+def accumulate_until(limit: int, threshold: int) -> int
   total = 0
   for value in 1..limit
     if total >= threshold
@@ -21,7 +21,7 @@ def accumulate_until(limit, threshold)
   total
 end
 
-def find_first_divisible(limit, divisor)
+def find_first_divisible(limit: int, divisor: int) -> int?
   for value in 1..limit
     if value % divisor == 0
       return value
@@ -30,17 +30,17 @@ def find_first_divisible(limit, divisor)
   nil
 end
 
-def sum_matrix(matrix)
+def sum_matrix(matrix: array<array<int>>) -> int
   total = 0
-  matrix.each do |row|
-    row.each do |value|
+  matrix.each { |row|
+    row.each { |value|
       total = total + value
-    end
-  end
+    }
+  }
   total
 end
 
-def run
+def run -> { accumulate: int, first_div_by_7: int?, matrix_sum: int, sum_of_products: int }
   {
     sum_of_products: sum_of_products(4, 3),
     accumulate: accumulate_until(20, 15),
