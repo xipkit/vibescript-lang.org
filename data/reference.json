@@ -1,0 +1,32 @@
+{
+  "revision": "187e0455c92cef44ed1cfd0bf6aa9d1a43e82e65",
+  "guides": [
+    "language",
+    "cli",
+    "types",
+    "capabilities",
+    "globals",
+    "errors",
+    "diagnostics",
+    "formatting",
+    "output",
+    "strings",
+    "regex",
+    "modules",
+    "require",
+    "classes",
+    "sessions",
+    "tooling",
+    "platforms",
+    "safe-navigation",
+    "equality",
+    "random",
+    "timezones",
+    "loop",
+    "introspection",
+    "value-helpers",
+    "checker",
+    "lsp"
+  ],
+  "prelude_sha256": "370adac42251d1aa93c02806b4a84b4e0b0e59e2586bde28bc7122c83fc6bd4e"
+}
