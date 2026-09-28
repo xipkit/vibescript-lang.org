@@ -4,13 +4,14 @@
 output. The checked-in Markdown under `content/reference/` lets Pages build
 without cloning Rust, compiling it, or downloading docs.
 
-To update both prose and signatures from one immutable commit:
+To update both prose and signatures from one immutable commit, with a checkout of
+[xipkit/vibescript](https://github.com/xipkit/vibescript) beside this repository:
 
 ```sh
 python3 scripts/sync-reference.py \
-  --repo /Volumes/AI/Work/xipkit/vibescript.rs \
+  --repo ../vibescript \
   --revision FULL_RUST_COMMIT \
-  --cache /Volumes/AI/Work/xipkit/vibescript.rs/.cache/site-static/reference
+  --cache ../vibescript/.cache/site-reference
 hugo --cleanDestinationDir
 python3 scripts/check-site.py
 ```

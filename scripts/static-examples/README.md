@@ -11,7 +11,7 @@ because its development package version alone does not identify the language.
 From the website root:
 
 ```sh
-VIBES=/Volumes/AI/Work/xipkit/vibescript.rs/target/gate/vibes \
+VIBES=../vibescript/target/gate/vibes \
   python3 scripts/check-static-examples.py
 ```
 

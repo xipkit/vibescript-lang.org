@@ -21,35 +21,15 @@ Verified on 2026-09-28 with Hugo 0.164.0 extended and headless Chromium 145 on m
   fit a 390px phone viewport without horizontal overflow. Desktop screenshots use
   1440px width. The light-theme appearance was visually reviewed.
 
-## Integration inputs
+## Integration
 
-The website branches are integrated **examples first**. No `.vibe` files were
-changed on `mgomes/static-site`. Browser verification used a temporary Hugo config
-identical to `hugo.toml` except for the example asset mount, which read
-`/tmp/site-examples/internal/catalog/content` from the completed
-`mgomes/static-examples` branch (`9d73818`). Ordinary `hugo` on this branch builds
-cleanly, but its pre-migration examples still need that branch integrated before
-Rust execution works across the catalog. Do not deploy this branch alone.
-
-Runtime: clean `mgomes/playground` commit
-`1875d45b0e6f3a55a304299de03b865ef1017d32`, with SHA-256 and build provenance recorded
-in `data/playground.json` and `data/playground-build.json`. No runtime stub remains.
-Reference: `187e0455c92cef44ed1cfd0bf6aa9d1a43e82e65`.
-
-To repeat integration verification before merging branches, copy `hugo.toml` to
-`/tmp/site-static-integration.toml`, replace only the `internal/catalog/content`
-mount source with the migrated checkout's absolute path, then run:
-
-```sh
-hugo --config /tmp/site-static-integration.toml --gc --minify --cleanDestinationDir
-python3 scripts/check-site.py
-# With scripts/serve.py running, and Playwright configured per README:
-node scripts/check-browser.mjs
-```
-
-After integration, use `just check` and the same browser test without an override.
-The full browser report and screenshots are written to ignored `test-results/`.
-Tests do not deploy or call any messaging service.
+The example migration (`mgomes/static-examples`) is integrated beneath these
+commits, so `hugo` builds the migrated catalog directly. The runtime and the
+reference are pinned to Rust `master` after the playground runner merged; see
+`data/playground.json`, `data/playground-build.json` and `data/reference.json`.
+After repinning, `just check`, `scripts/check-static-examples.py`,
+`scripts/check-browser.mjs` and `scripts/check-catalog-browser.mjs` all passed
+again.
 
 ## Page weights
 
