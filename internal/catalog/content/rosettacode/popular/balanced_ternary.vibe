@@ -4,14 +4,22 @@
 # difficulty: Intermediate
 # summary: Convert small signed integers into balanced ternary using 1, 0, and T digits.
 # tags: popular, math, numerals, conversion
-# vibe: 0.2
+# vibe: 0.1.0
 
-def flip_digits(text)
+type RunResult = {
+  negative_ten: string,
+  positive_forty_two: string,
+  positive_ten: string,
+  zero: string
+}
+
+def flip_digits(text: string) -> string
+  text_chars = text.chars
   output = ""
   index = 0
 
   while index < text.length
-    char = text.slice(index)
+    char = text_chars.fetch(index)
     if char == "1"
       output = output + "T"
     elsif char == "T"
@@ -25,7 +33,7 @@ def flip_digits(text)
   output
 end
 
-def positive_balanced_ternary(value)
+def positive_balanced_ternary(value: int) -> string
   if value == 0
     return "0"
   end
@@ -35,7 +43,7 @@ def positive_balanced_ternary(value)
 
   while current > 0
     remainder = current % 3
-    current = current / 3
+    current = current // 3
 
     if remainder == 0
       digits = "0" + digits
@@ -50,7 +58,7 @@ def positive_balanced_ternary(value)
   digits
 end
 
-def balanced_ternary(value)
+def balanced_ternary(value: int) -> string
   if value < 0
     return flip_digits(positive_balanced_ternary(-value))
   end
@@ -58,7 +66,7 @@ def balanced_ternary(value)
   positive_balanced_ternary(value)
 end
 
-def run
+def run -> RunResult
   {
     zero: balanced_ternary(0),
     positive_ten: balanced_ternary(10),

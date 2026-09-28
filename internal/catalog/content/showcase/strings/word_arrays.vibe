@@ -1,24 +1,32 @@
 # title: Word and symbol arrays
 # category: Vibescript Showcase
 # difficulty: Showcase
-# summary: Build string and symbol arrays with %w, %i, %W, and %I.
-# description: Lowercase forms create fixed arrays. Uppercase forms allow interpolation.
+# summary: Build explicit string and symbol arrays, with interpolation for generated names.
+# description: Array literals show each element and its type. Strings can interpolate values when building names.
 # tags: strings, symbols, literals
-# vibe: 0.4
+# vibe: 0.1.0
 
-def static_tags
-  %w[alpha beta gamma]
+type RunResult = {
+  build_targets: array<string>,
+  first_state: string,
+  lifecycle_states: array<string>,
+  static_tags: array<string>,
+  target_count: int
+}
+
+def static_tags -> array<string>
+  ["alpha", "beta", "gamma"]
 end
 
-def build_targets(env: string)
-  %W[build-#{env} deploy-#{env} verify-#{env}]
+def build_targets(env: string) -> array<string>
+  ["build-#{env}", "deploy-#{env}", "verify-#{env}"]
 end
 
-def lifecycle_states
-  %i[queued running done]
+def lifecycle_states -> array<symbol>
+  [:queued, :running, :done]
 end
 
-def run
+def run -> RunResult
   {
     static_tags: static_tags,
     build_targets: build_targets("prod"),

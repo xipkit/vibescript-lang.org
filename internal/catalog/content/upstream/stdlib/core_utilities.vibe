@@ -1,7 +1,28 @@
-# vibe: 1.0
+# vibe: 0.1.0
 
-def run
-  parsed = JSON.parse("{\"id\":\"p-1\",\"score\":10}")
+type RunResult = {
+  inspect_array: string,
+  inspect_string: string,
+  json_encoded: string,
+  json_id: string,
+  json_score: int,
+  math_hypot: float,
+  math_log_base: float,
+  math_pi_rounded: number,
+  math_sqrt: float,
+  parsed_time: string,
+  random_length: int,
+  regex_match: string?,
+  regex_replace: string,
+  regex_replace_all: string,
+  to_float: float,
+  to_int: int,
+  uuid_has_dash: bool,
+  uuid_length: int
+}
+
+def run -> RunResult
+  parsed = JSON.parse_as("{\"id\":\"p-1\",\"score\":10}", { id: string, score: int })
   event_id = uuid
   token = random_id(8)
   parsed_time = Time.parse("2024-05-01 10:30:00", in: "UTC")

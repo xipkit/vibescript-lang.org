@@ -4,23 +4,23 @@
 # difficulty: Intro
 # summary: Count consonants in a fixed word list and return the words with the highest totals.
 # tags: popular, strings, search, metrics
-# vibe: 0.2
+# vibe: 0.1.0
 
-def letter?(char)
+def letter?(char: string) -> bool
   char >= "a" && char <= "z"
 end
 
-def vowel?(char)
+def vowel?(char: string) -> bool
   char == "a" || char == "e" || char == "i" || char == "o" || char == "u"
 end
 
-def consonant_count(word)
+def consonant_count(word: string) -> int
   count = 0
   index = 0
   lower = word.downcase
 
   while index < lower.length
-    char = lower.slice(index)
+    char = lower.chars.fetch(index)
     if letter?(char) && !vowel?(char)
       count = count + 1
     end
@@ -30,19 +30,19 @@ def consonant_count(word)
   count
 end
 
-def strongest_words(words)
+def strongest_words(words: array<string>) -> { consonants: int, words: array<string> }
   best = 0
-  output = []
+  output: array<string> = []
   index = 0
 
   while index < words.length
-    word = words[index]
+    word = words.fetch(index)
     count = consonant_count(word)
     if count > best
       best = count
       output = [word]
     elsif count == best
-      output = output.push(word)
+      output.push(word)
     end
     index = index + 1
   end
@@ -53,6 +53,6 @@ def strongest_words(words)
   }
 end
 
-def run
+def run -> { consonants: int, words: array<string> }
   strongest_words(["strengths", "rhythms", "vibescript", "algorithms", "crypts"])
 end

@@ -2,15 +2,26 @@
 # category: Vibescript Showcase
 # difficulty: Showcase
 # summary: Update arrays and hashes without changing the values held by aliases.
-# description: Collections behave as values, while label, string, and symbol hash lookups share one string keyspace.
+# description: Collections behave as values, and hash keys are strings.
 # tags: language, collections, hashes, values
 # featured: true
 # feature_rank: -1
-# vibe: 1.0
+# vibe: 0.1.0
 
-def with_status(order, status)
+type With_StatusResult = {
+  original: { id: string, status: string },
+  string_lookup: string,
+  updated: { id: string, status: string }
+}
+
+type RunResult = {
+  order: With_StatusResult,
+  reviews: { original: array<string>, updated: array<string> }
+}
+
+def with_status(order: { id: string, status: string }, status: string) -> With_StatusResult
   original = order
-  order[:status] = status
+  order["status"] = status
 
   {
     original: original,
@@ -19,7 +30,10 @@ def with_status(order, status)
   }
 end
 
-def append_review(queue, review)
+def append_review(
+  queue: array<string>,
+  review: string
+) -> { original: array<string>, updated: array<string> }
   original = queue
   queue << review
 
@@ -29,7 +43,7 @@ def append_review(queue, review)
   }
 end
 
-def run
+def run -> RunResult
   {
     order: with_status({ id: "o-17", status: "new" }, "approved"),
     reviews: append_review(["security"], "finance")

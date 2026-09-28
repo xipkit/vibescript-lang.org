@@ -4,13 +4,13 @@
 # summary: Turn rows of daily metrics into totals for each metric.
 # description: transpose swaps rows and columns. zip pairs each total with its label.
 # tags: collections, arrays, matrix
-# vibe: 0.4
+# vibe: 0.1.0
 
-def column_totals(rows)
+def column_totals(rows: array<array<int>>) -> array<int>
   rows.transpose.map { |column| column.sum }
 end
 
-def run
+def run -> { by_metric: array<[string, int?]>, daily_totals: array<int>, grand_total: int }
   labels = ["signups", "errors", "refunds"]
   daily = [
     [10, 3, 1],

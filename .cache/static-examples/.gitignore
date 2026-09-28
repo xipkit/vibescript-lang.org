@@ -1,0 +1,4 @@
+*
+!.gitignore
+!go-baseline.json
+!capture.go

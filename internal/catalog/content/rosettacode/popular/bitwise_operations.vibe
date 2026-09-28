@@ -4,9 +4,25 @@
 # difficulty: Medium
 # summary: Run common bitwise operations with a hand-built 8-bit model.
 # tags: popular, math, bits, arrays
-# vibe: 0.2
+# vibe: 0.1.0
 
-def divmod2(value)
+type RunResult = {
+  and: int,
+  model: string,
+  not: int,
+  or: int,
+  rotate_left: int,
+  rotate_right: int,
+  shift_left: int,
+  shift_right: int,
+  shift_right_arithmetic: int,
+  x: int,
+  x_signed: int,
+  xor: int,
+  y: int
+}
+
+def divmod2(value: int) -> { quotient: int, remainder: int }
   quotient = 0
   remainder = value
 
@@ -21,34 +37,34 @@ def divmod2(value)
   }
 end
 
-def to_bits(value, width)
-  bits = []
+def to_bits(value: int, width: int) -> array<int>
+  bits: array<int> = []
   current = value
   index = 0
 
   while index < width
     pair = divmod2(current)
-    bits = [pair[:remainder]] + bits
-    current = pair[:quotient]
+    bits = [pair["remainder"]] + bits
+    current = pair["quotient"]
     index = index + 1
   end
 
   bits
 end
 
-def from_bits(bits)
+def from_bits(bits: array<int>) -> int
   value = 0
   index = 0
 
-  while index < bits.size
-    value = (value * 2) + bits[index]
+  while index < bits.length
+    value = (value * 2) + bits.fetch(index)
     index = index + 1
   end
 
   value
 end
 
-def normalize_rotate(amount, width)
+def normalize_rotate(amount: int, width: int) -> int
   shift = amount
   while shift >= width
     shift = shift - width
@@ -56,15 +72,15 @@ def normalize_rotate(amount, width)
   shift
 end
 
-def bitwise_and(left_bits, right_bits)
-  output = []
+def bitwise_and(left_bits: array<int>, right_bits: array<int>) -> array<int>
+  output: array<int> = []
   index = 0
 
-  while index < left_bits.size
-    if left_bits[index] == 1 && right_bits[index] == 1
-      output = output.push(1)
+  while index < left_bits.length
+    if left_bits.fetch(index) == 1 && right_bits.fetch(index) == 1
+      output.push(1)
     else
-      output = output.push(0)
+      output.push(0)
     end
     index = index + 1
   end
@@ -72,15 +88,15 @@ def bitwise_and(left_bits, right_bits)
   output
 end
 
-def bitwise_or(left_bits, right_bits)
-  output = []
+def bitwise_or(left_bits: array<int>, right_bits: array<int>) -> array<int>
+  output: array<int> = []
   index = 0
 
-  while index < left_bits.size
-    if left_bits[index] == 1 || right_bits[index] == 1
-      output = output.push(1)
+  while index < left_bits.length
+    if left_bits.fetch(index) == 1 || right_bits.fetch(index) == 1
+      output.push(1)
     else
-      output = output.push(0)
+      output.push(0)
     end
     index = index + 1
   end
@@ -88,15 +104,15 @@ def bitwise_or(left_bits, right_bits)
   output
 end
 
-def bitwise_xor(left_bits, right_bits)
-  output = []
+def bitwise_xor(left_bits: array<int>, right_bits: array<int>) -> array<int>
+  output: array<int> = []
   index = 0
 
-  while index < left_bits.size
-    if left_bits[index] != right_bits[index]
-      output = output.push(1)
+  while index < left_bits.length
+    if left_bits.fetch(index) != right_bits.fetch(index)
+      output.push(1)
     else
-      output = output.push(0)
+      output.push(0)
     end
     index = index + 1
   end
@@ -104,15 +120,15 @@ def bitwise_xor(left_bits, right_bits)
   output
 end
 
-def bitwise_not(bits)
-  output = []
+def bitwise_not(bits: array<int>) -> array<int>
+  output: array<int> = []
   index = 0
 
-  while index < bits.size
-    if bits[index] == 1
-      output = output.push(0)
+  while index < bits.length
+    if bits.fetch(index) == 1
+      output.push(0)
     else
-      output = output.push(1)
+      output.push(1)
     end
     index = index + 1
   end
@@ -120,101 +136,101 @@ def bitwise_not(bits)
   output
 end
 
-def shift_left(bits, amount)
-  output = []
+def shift_left(bits: array<int>, amount: int) -> array<int>
+  output: array<int> = []
   index = amount
 
-  while index < bits.size
-    output = output.push(bits[index])
+  while index < bits.length
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
-  while output.size < bits.size
-    output = output.push(0)
+  while output.length < bits.length
+    output.push(0)
   end
 
   output
 end
 
-def shift_right_logical(bits, amount)
-  output = []
+def shift_right_logical(bits: array<int>, amount: int) -> array<int>
+  output: array<int> = []
   index = 0
 
   while index < amount
-    output = output.push(0)
+    output.push(0)
     index = index + 1
   end
 
-  limit = bits.size - amount
+  limit = bits.length - amount
   index = 0
   while index < limit
-    output = output.push(bits[index])
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
   output
 end
 
-def shift_right_arithmetic(bits, amount)
-  output = []
-  sign = bits[0]
+def shift_right_arithmetic(bits: array<int>, amount: int) -> array<int>
+  output: array<int> = []
+  sign = bits.fetch(0)
   index = 0
 
   while index < amount
-    output = output.push(sign)
+    output.push(sign)
     index = index + 1
   end
 
-  limit = bits.size - amount
+  limit = bits.length - amount
   index = 0
   while index < limit
-    output = output.push(bits[index])
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
   output
 end
 
-def rotate_left(bits, amount)
-  shift = normalize_rotate(amount, bits.size)
-  output = []
+def rotate_left(bits: array<int>, amount: int) -> array<int>
+  shift = normalize_rotate(amount, bits.length)
+  output: array<int> = []
   index = shift
 
-  while index < bits.size
-    output = output.push(bits[index])
+  while index < bits.length
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
   index = 0
   while index < shift
-    output = output.push(bits[index])
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
   output
 end
 
-def rotate_right(bits, amount)
-  shift = normalize_rotate(amount, bits.size)
-  cut = bits.size - shift
-  output = []
+def rotate_right(bits: array<int>, amount: int) -> array<int>
+  shift = normalize_rotate(amount, bits.length)
+  cut = bits.length - shift
+  output: array<int> = []
   index = cut
 
-  while index < bits.size
-    output = output.push(bits[index])
+  while index < bits.length
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
   index = 0
   while index < cut
-    output = output.push(bits[index])
+    output.push(bits.fetch(index))
     index = index + 1
   end
 
   output
 end
 
-def to_signed(value, width)
+def to_signed(value: int, width: int) -> int
   sign_bit = 1
   index = 1
 
@@ -231,7 +247,7 @@ def to_signed(value, width)
   end
 end
 
-def run
+def run -> RunResult
   width = 8
   x = 177
   y = 3

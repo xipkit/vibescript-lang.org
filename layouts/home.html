@@ -1,0 +1,274 @@
+{{define "main"}}
+{{ $hero := site.GetPage "/examples/showcase-notifications-sms" }}
+<section class="hero">
+  <svg class="sparkle sparkle-sm sparkle-keyword hero-sparkle-1 tilt-14" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <svg class="sparkle sparkle-md hero-sparkle-2 tilt-neg-9" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <div class="hero-copy">
+    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Open source &middot; MIT licensed</p>
+    <h1>A Ruby-like language for <span class="underlined">your app<svg class="underline-swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C48 4 118 2 197 5C150 7.5 70 9 6 11.5Z"/></svg></span>.</h1>
+    <p class="hero-lede">
+      Let users and AI agents add features with scripts. You choose which data and
+      functions they can use, and how much work each script can do.
+    </p>
+    <div class="hero-actions">
+      <a class="button" href="/examples">Try an example</a>
+      <a class="button-secondary" href="{{site.Params.upstreamRepo}}">Read the source</a>
+    </div>
+    <p class="hero-meta">Hundreds of examples to run in your browser</p>
+  </div>
+
+  <div class="hero-panel">
+    <div class="code-window hero-runner" data-playground data-function="run">
+      <div class="code-window-header">
+        <span class="code-window-title">delivery_update.vibe</span>
+        <span class="code-window-version">{{site.Params.languageLabel}}</span>
+      </div>
+      <pre><code class="language-vibescript">{{$hero.Params.sourcebody}}</code></pre>
+      {{if $hero}}
+      <div class="hero-runner-bar">
+        <button class="button run-button hero-run-button" type="button" data-run-button >Run it</button>
+        <a class="hero-runner-link" href="/examples/{{$hero.Params.slug}}">Edit this example &rarr;</a>
+      </div>
+      <p class="hero-preview-note">SMS and email calls return previews. No messages are sent.</p>
+      <button class="button-secondary" type="button" data-stop-button disabled>Stop</button>
+      <pre class="hero-runner-output" data-run-output role="status" aria-live="polite"></pre>
+      {{end}}
+    </div>
+  </div>
+</section>
+
+<div class="wave" aria-hidden="true">
+  <svg class="wave-lines" viewBox="0 0 1200 150" preserveAspectRatio="none" focusable="false">
+    <path class="wave-back" d="M-40 60 c72 36 128 36 200 0 c72 -36 128 -36 200 0 c72 36 128 36 200 0 c72 -36 128 -36 200 0 c72 36 128 36 200 0 c72 -36 128 -36 200 0 c72 36 128 36 200 0 L1360 94 c-72 -36 -128 -36 -200 0 c-72 36 -128 36 -200 0 c-72 -36 -128 -36 -200 0 c-72 36 -128 36 -200 0 c-72 -36 -128 -36 -200 0 c-72 36 -128 36 -200 0 c-72 -36 -128 -36 -200 0 Z"/>
+    <path class="wave-front" d="M-40 45 c72 -36 128 -36 200 0 c72 36 128 36 200 0 c72 -36 128 -36 200 0 c72 36 128 36 200 0 c72 -36 128 -36 200 0 c72 36 128 36 200 0 c72 -36 128 -36 200 0 L1360 95 c-72 -36 -128 -36 -200 0 c-72 36 -128 36 -200 0 c-72 -36 -128 -36 -200 0 c-72 36 -128 36 -200 0 c-72 -36 -128 -36 -200 0 c-72 36 -128 36 -200 0 c-72 -36 -128 -36 -200 0 Z"/>
+  </svg>
+  <svg class="sparkle sparkle-md sparkle-keyword sparkle-float sparkle-wave-1 tilt-neg-18" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <svg class="sparkle sparkle-sm sparkle-constant sparkle-float sparkle-wave-2 tilt-12" aria-hidden="true"><use href="#sparkle"></use></svg>
+</div>
+
+<section class="pairs">
+  <svg class="sparkle sparkle-md sparkle-type sparkle-float sparkle-pairs-1 tilt-22" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <svg class="sparkle sparkle-sm sparkle-string sparkle-float sparkle-pairs-2 tilt-neg-16" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <svg class="sparkle sparkle-md sparkle-number sparkle-float sparkle-pairs-3 tilt-9" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <header class="section-intro">
+    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Language</p>
+    <h2>If you know Ruby, much of this will look familiar.</h2>
+    <p class="section-sub">Write functions, work with collections, and check types before running. Vibescript also has money, durations, and enums built in.</p>
+  </header>
+
+  <div class="pair">
+    <div class="pair-copy">
+      <h3>Small on purpose.</h3>
+      <p>
+        Functions have names, and blocks run during the call that receives them.
+        Changing an array or hash leaves other copies alone. Hash keys are strings,
+        and records declare the keys they contain.
+      </p>
+    </div>
+    <div class="pair-panel">
+      <div class="code-window">
+        <div class="code-window-header">
+          <span class="code-window-title">small_surface.vibe</span>
+        </div>
+        <pre><code class="language-vibescript">module Scoring
+  BONUS = 10
+
+  def self.with_bonus(score: int) -> int
+    score + BONUS
+  end
+end
+
+type Order = { status: string }
+
+def approve(order: Order) -> { original: Order, updated: Order, same_key: bool, score: int }
+  original = order
+  order["status"] = "approved"
+
+  { original: original, updated: order,
+    same_key: order["status"] == order["status"],
+    score: Scoring.with_bonus(80) }
+end</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div class="pair-copy">
+      <h3>Add your own services.</h3>
+      <p>
+        Give a script an SMS service, an email client, or your own API through a
+        host capability. You write the adapter. The script calls it like any other method.
+        <a href="/reference#app-services">Here's how to connect one.</a>
+      </p>
+    </div>
+    <div class="pair-panel">
+      <div class="code-window">
+        <div class="code-window-header">
+          <span class="code-window-title">notifications.vibe</span>
+          <span class="code-window-version">host side</span>
+        </div>
+        <pre><code class="language-vibescript">def run -> { to: string, body: string, status: string }
+  sms.send("+15555550123", "Your order is ready.")
+end</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div class="pair-copy">
+      <h3>Set hard limits for each script.</h3>
+      <p>
+        Set a budget for execution steps, memory, and call depth. If a script reaches
+        a limit, the engine stops it and returns an error.
+      </p>
+    </div>
+    <div class="pair-panel">
+      <div class="term-window">
+        <div class="term-header">
+          <span class="term-title">untrusted.vibe &middot; sandboxed</span>
+        </div>
+        <pre class="term-body"><span class="term-prompt">$</span> <span class="term-cmd">cat untrusted.vibe</span>
+<span class="term-out">def run
+  balance = 0
+  while true
+    balance = balance + 1
+  end
+end</span>
+
+<span class="term-prompt">$</span> <span class="term-cmd">vibes run --function run untrusted.vibe</span>
+<span class="term-err">RuntimeError: step quota exceeded</span>
+<span class="term-ok">&#10003; stopped at 1,000,000, page stays responsive</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div class="pair-copy">
+      <h3>Built-in money, duration, and enum types.</h3>
+      <p>
+        Write <code>3.days</code> for a duration. Use money values for exact decimal
+        arithmetic. Define enums for choices such as shipping speeds or order states.
+      </p>
+    </div>
+    <div class="pair-panel">
+      <div class="code-window">
+        <div class="code-window-header">
+          <span class="code-window-title">primitives.vibe</span>
+        </div>
+        <pre><code class="language-vibescript">enum ShippingSpeed
+  Economy
+  Priority
+  Overnight
+end
+
+def transit_time(speed: ShippingSpeed) -> duration
+  if speed == ShippingSpeed::Overnight
+    6.hours
+  else
+    5.days
+  end
+end
+
+def net_after_fee(cents: int) -> money
+  gross = money_cents(cents, "USD")
+  gross - money("1.75 USD")
+end</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy band">
+  <svg class="sparkle sparkle-lg sparkle-constant sparkle-float sparkle-philosophy tilt-neg-24" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <div class="philosophy-copy">
+    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> In your app</p>
+    <h2>Give scripts access to your app's services.</h2>
+    <p>
+      Put pricing rules, approval steps, or notification schedules in scripts that
+      users can change without rebuilding your app.
+    </p>
+    <p>
+      Your app handles I/O and scheduling. Scripts use the functions and data you
+      provide to calculate a price, choose the next reviewer, or plan a reminder.
+    </p>
+    <p>
+      Add services through host capabilities. A script can then call
+      <a href="/examples/showcase-notifications-sms"><code>sms.send(...)</code></a> or
+      <a href="/examples/showcase-notifications-email"><code>email.send(...)</code></a>.
+      Try the message previews and edit the scripts behind them.
+    </p>
+  </div>
+
+  <aside class="guardrails" aria-labelledby="guardrails-title">
+    <h3 id="guardrails-title">Sandbox limits</h3>
+    <p>These limits apply to this site's examples. Choose the values that fit your app.</p>
+    <dl class="guardrail-list">
+      <div class="guardrail">
+        <dt><svg class="vee"><use href="#vee"></use></svg> Step quota <span class="guardrail-default">1,000,000</span></dt>
+        <dd>Stops execution when the script uses its step budget.</dd>
+      </div>
+      <div class="guardrail">
+        <dt><svg class="vee"><use href="#vee"></use></svg> Recursion limit <span class="guardrail-default">128</span></dt>
+        <dd>Limits how deeply function calls can nest.</dd>
+      </div>
+      <div class="guardrail">
+        <dt><svg class="vee"><use href="#vee"></use></svg> Memory quota <span class="guardrail-default">16 MiB</span></dt>
+        <dd>Limits the memory a script can use.</dd>
+      </div>
+      <div class="guardrail">
+        <dt><svg class="vee"><use href="#vee"></use></svg> Effects control <span class="guardrail-default">strict</span></dt>
+        <dd>Operations such as database writes need permission from your app.</dd>
+      </div>
+      <div class="guardrail">
+        <dt><svg class="vee"><use href="#vee"></use></svg> Module paths <span class="guardrail-default">allowlist</span></dt>
+        <dd>Loads modules from directories you approve.</dd>
+      </div>
+      <div class="guardrail">
+        <dt><svg class="vee"><use href="#vee"></use></svg> App access <span class="guardrail-default">host adapters</span></dt>
+        <dd>You choose which services scripts can call.</dd>
+      </div>
+    </dl>
+  </aside>
+</section>
+
+<section class="featured">
+  <svg class="sparkle sparkle-md sparkle-string sparkle-float sparkle-featured tilt-17" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <div class="section-intro">
+    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Featured</p>
+    <h2>A few examples to start with.</h2>
+    <p class="section-sub">Send notifications, calculate fees, and check approvals.</p>
+  </div>
+  <div class="card-grid">
+    {{range first 6 (sort (where (where site.RegularPages "Type" "examples") "Params.featured" true) "Params.featurerank")}}
+    <a href="/examples/{{.Params.slug}}" class="example-card">
+      <div class="card-meta">
+        <span class="card-category" data-accent="{{mod (hash.FNV32a .Params.topic) 6}}">{{.Params.topic}}</span>
+        {{if .Params.runnable}}<span class="card-runnable">runnable</span>{{end}}
+      </div>
+      <h3>{{.Title}}</h3>
+      <p>{{.Params.summary}}</p>
+    </a>
+    {{end}}
+  </div>
+</section>
+
+<div class="divider divider-band" aria-hidden="true">
+  <svg viewBox="0 0 1200 48" preserveAspectRatio="none" focusable="false"><path d="M0 20 L552 20 L600 48 L648 20 L1200 20 L1200 48 L0 48 Z"/></svg>
+</div>
+
+<section class="closing">
+  <svg class="sparkle sparkle-bleed tilt-18" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <svg class="sparkle sparkle-md sparkle-keyword sparkle-float sparkle-closing tilt-neg-13" aria-hidden="true"><use href="#sparkle"></use></svg>
+  <div class="closing-copy">
+    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Try it</p>
+    <h2>Run a few examples.</h2>
+    <p class="section-sub">
+      Pick an example, read the code, and run it. You don't need to install anything.
+    </p>
+    <div class="hero-actions">
+      <a class="button" href="/examples">Browse examples</a>
+      <a class="button-secondary" href="{{site.Params.upstreamRepo}}">View on GitHub</a>
+    </div>
+  </div>
+</section>
+{{end}}

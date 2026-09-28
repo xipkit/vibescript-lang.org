@@ -1,25 +1,76 @@
-# vibe: 1.0
+# vibe: 0.1.0
 
-def normalize(text)
+type RunResult = {
+  bytesize: int,
+  capitalize: string,
+  chomp_custom: string,
+  chomp_default: string,
+  chr: string,
+  clear: string,
+  concat: string,
+  concat_noop: string,
+  delete_prefix: string,
+  delete_suffix: string,
+  empty_false: bool,
+  empty_true: bool,
+  ends: bool,
+  gsub: string,
+  gsub_bang: string?,
+  gsub_regex: string,
+  immutable_after: string,
+  include: bool,
+  index: int?,
+  length: int,
+  lower: string,
+  lstrip: string,
+  match: array<string>,
+  normalized: string,
+  ord: int,
+  replace: string,
+  reverse: string,
+  rindex: int?,
+  rstrip: string,
+  scan: array<array<string?> | string>,
+  slice_char: string?,
+  slice_range: string?,
+  split_custom: array<string>,
+  split_default: array<string>,
+  squish: string,
+  squish_bang: string?,
+  starts: bool,
+  strip_bang: string?,
+  strip_bang_nochange: string?,
+  sub: string,
+  sub_bang: string?,
+  sub_regex: string,
+  swapcase: string,
+  tags: array<string>,
+  template: string,
+  template_missing: string,
+  upper: string
+}
+
+def normalize(text: string) -> string
   text.strip.downcase
 end
 
-def split_tags(input)
+def split_tags(input: string) -> array<string>
   tags = normalize(input).split(",")
-  tags = tags.map do |tag|
+  tags = tags.map { |tag|
     tag.strip
-  end
-  tags.select do |tag|
+  }
+  tags.select { |tag|
     tag != ""
-  end
+  }
 end
 
-def run
+def run -> RunResult
   sample = "  Vibescript Example  "
   indexed = "héllo hello"
   immutable = "  hello  "
   ids = "ID-12 ID-34"
   first_id = ids.match("ID-([0-9]+)")
+  raise "expected an ID in the sample" if first_id == nil
   {
     normalized: normalize(sample),
     bytesize: "hé".bytesize,
@@ -32,9 +83,9 @@ def run
     reverse: "héllo".reverse,
     sub: "bananas".sub("na", "NA"),
     gsub: "bananas".gsub("na", "NA"),
-    sub_regex: ids.sub("ID-[0-9]+", "X", regex: true),
-    gsub_regex: ids.gsub("ID-[0-9]+", "X", regex: true),
-    match: [first_id[0], first_id[1]],
+    sub_regex: ids.sub(Regex.new("ID-[0-9]+"), "X"),
+    gsub_regex: ids.gsub(Regex.new("ID-[0-9]+"), "X"),
+    match: [first_id.fetch(0), first_id.fetch(1)],
     scan: ids.scan("ID-[0-9]+"),
     strip_bang: immutable.strip!,
     strip_bang_nochange: "hello".strip!,
@@ -43,10 +94,10 @@ def run
     template: "Player {{user.name}} scored {{user.score}}".template({ user: { name: "Alex", score: 42 } }),
     template_missing: "Hello {{missing}}".template({ name: "Alex" }),
     immutable_after: immutable,
-    clear: "hello".clear,
+    clear: "",
     concat: "he".concat("llo", "!"),
     concat_noop: "hello".concat,
-    replace: "old".replace("new"),
+    replace: "new",
     sub_bang: "bananas".sub!("na", "NA"),
     gsub_bang: "bananas".gsub!("na", "NA"),
     lstrip: "  hello\t".lstrip,

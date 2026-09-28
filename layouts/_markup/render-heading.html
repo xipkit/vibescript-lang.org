@@ -1,0 +1,4 @@
+{{ if eq .Page.RelPermalink "/reference/" }}
+  {{ range index hugo.Data.reference_aliases .Anchor }}<span id="{{.}}"></span>{{ end }}
+{{ end }}
+<h{{.Level}} id="{{.Anchor | safeURL}}">{{.Text}}</h{{.Level}}>

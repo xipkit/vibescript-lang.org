@@ -4,13 +4,15 @@
 # difficulty: Intro
 # summary: Find every starting index of a pattern inside a fixed string with a naive scan.
 # tags: popular, strings, search, loops
-# vibe: 0.2
+# vibe: 0.1.0
 
-def matches_at?(text, pattern, start_index)
+def matches_at?(text: string, pattern: string, start_index: int) -> bool
+  text_chars = text.chars
+  pattern_chars = pattern.chars
   offset = 0
 
   while offset < pattern.length
-    if text.slice(start_index + offset) != pattern.slice(offset)
+    if text_chars.fetch(start_index + offset) != pattern_chars.fetch(offset)
       return false
     end
     offset = offset + 1
@@ -19,13 +21,13 @@ def matches_at?(text, pattern, start_index)
   true
 end
 
-def string_matching(text, pattern)
-  matches = []
+def string_matching(text: string, pattern: string) -> array<int>
+  matches: array<int> = []
   index = 0
 
   while index + pattern.length <= text.length
     if matches_at?(text, pattern, index)
-      matches = matches.push(index)
+      matches.push(index)
     end
     index = index + 1
   end
@@ -33,7 +35,7 @@ def string_matching(text, pattern)
   matches
 end
 
-def run
+def run -> { aba_in_ababa: array<int>, ana_in_bananas: array<int> }
   {
     aba_in_ababa: string_matching("ababa", "aba"),
     ana_in_bananas: string_matching("bananas", "ana")

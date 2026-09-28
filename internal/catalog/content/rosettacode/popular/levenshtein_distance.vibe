@@ -4,10 +4,10 @@
 # difficulty: Medium
 # summary: Compute edit distance with insert, delete, and substitute operations using a single rolling row.
 # tags: popular, strings, dynamic-programming, metrics
-# vibe: 0.2
+# vibe: 0.1.0
 
-def index_row(length)
-  row = []
+def index_row(length: int) -> array<int>
+  row: array<int> = []
   index = 0
   while index <= length
     row = row + [index]
@@ -16,7 +16,7 @@ def index_row(length)
   row
 end
 
-def smallest(a, b, c)
+def smallest(a: int, b: int, c: int) -> int
   value = a
   if b < value
     value = b
@@ -27,7 +27,7 @@ def smallest(a, b, c)
   value
 end
 
-def levenshtein(left, right)
+def levenshtein(left: string, right: string) -> int
   if left.length > right.length
     swap = left
     left = right
@@ -40,12 +40,12 @@ def levenshtein(left, right)
     current = [right_index + 1]
     left_index = 0
     while left_index < left.length
-      if left.slice(left_index) == right.slice(right_index)
-        value = previous[left_index]
+      if left.chars.fetch(left_index) == right.chars.fetch(right_index)
+        value = previous.fetch(left_index)
       else
-        deletion = previous[left_index + 1] + 1
-        insertion = current[left_index] + 1
-        substitution = previous[left_index] + 1
+        deletion = previous.fetch(left_index + 1) + 1
+        insertion = current.fetch(left_index) + 1
+        substitution = previous.fetch(left_index) + 1
         value = smallest(deletion, insertion, substitution)
       end
       current = current + [value]
@@ -55,10 +55,10 @@ def levenshtein(left, right)
     right_index = right_index + 1
   end
 
-  previous[previous.size - 1]
+  previous.fetch(previous.length - 1)
 end
 
-def run
+def run -> { kitten_sitting: int, reverse_invariant: bool, rosettacode_raisethysword: int }
   {
     kitten_sitting: levenshtein("kitten", "sitting"),
     rosettacode_raisethysword: levenshtein("rosettacode", "raisethysword"),

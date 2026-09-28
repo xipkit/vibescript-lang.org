@@ -4,18 +4,21 @@
 # difficulty: Intro
 # summary: Validate sample UPC codes with the standard checksum rule.
 # tags: popular, strings, validation, checksum
-# vibe: 0.2
+# vibe: 0.1.0
 
-def digit_value(char)
-  "0123456789".index(char)
+def digit_value(char: string) -> int
+  digit = "0123456789".index(char)
+  raise ArgumentError, "expected a decimal digit" if digit == nil
+  digit
 end
 
-def valid_upc?(code)
+def valid_upc?(code: string) -> bool
+  code_chars = code.chars
   sum = 0
   index = 0
 
   while index < code.length
-    digit = digit_value(code.slice(index))
+    digit = digit_value(code_chars.fetch(index))
     if index.even?
       sum = sum + (digit * 3)
     else
@@ -27,7 +30,7 @@ def valid_upc?(code)
   sum % 10 == 0
 end
 
-def run
+def run -> array<{ code: string, valid: bool }>
   [
     { code: "036000291452", valid: valid_upc?("036000291452") },
     { code: "042100005264", valid: valid_upc?("042100005264") },

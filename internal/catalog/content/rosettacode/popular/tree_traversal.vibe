@@ -4,89 +4,63 @@
 # difficulty: Medium
 # summary: Traverse a small binary tree in preorder, inorder, postorder, and level order.
 # tags: popular, trees, recursion, data-structures
-# vibe: 0.2
+# vibe: 0.1.0
 
-def node(value, left = nil, right = nil)
-  {
-    value: value,
-    left: left,
-    right: right
-  }
-end
+type RunResult = {
+  preorder: array<string>,
+  inorder: array<string>,
+  postorder: array<string>,
+  level_order: array<string>
+}
 
-def sample_tree
-  node(
-    "F",
-    node(
-      "B",
-      node("A"),
-      node(
-        "D",
-        node("C"),
-        node("E")
-      )
-    ),
-    node(
-      "G",
-      nil,
-      node(
-        "I",
-        node("H"),
-        nil
-      )
-    )
-  )
-end
+class Node
+  getter value: string
+  getter left: Node?
+  getter right: Node?
 
-def preorder(node)
-  if node == nil
-    []
-  else
-    [node[:value]] + preorder(node[:left]) + preorder(node[:right])
+  def initialize(@value: string, @left: Node? = nil, @right: Node? = nil)
   end
 end
 
-def inorder(node)
-  if node == nil
-    []
-  else
-    inorder(node[:left]) + [node[:value]] + inorder(node[:right])
-  end
+def sample_tree -> Node
+  Node.new("F",
+    Node.new("B", Node.new("A"), Node.new("D", Node.new("C"), Node.new("E"))),
+    Node.new("G", nil, Node.new("I", Node.new("H"))))
 end
 
-def postorder(node)
-  if node == nil
-    []
-  else
-    postorder(node[:left]) + postorder(node[:right]) + [node[:value]]
-  end
+def preorder(node: Node?) -> array<string>
+  return [] if node == nil
+  [node.value] + preorder(node.left) + preorder(node.right)
 end
 
-def level_order(root)
-  if root == nil
-    return []
-  end
+def inorder(node: Node?) -> array<string>
+  return [] if node == nil
+  inorder(node.left) + [node.value] + inorder(node.right)
+end
 
+def postorder(node: Node?) -> array<string>
+  return [] if node == nil
+  postorder(node.left) + postorder(node.right) + [node.value]
+end
+
+def level_order(root: Node?) -> array<string>
+  return [] if root == nil
   queue = [root]
-  output = []
+  output: array<string> = []
   index = 0
-
   while index < queue.length
-    current = queue[index]
-    output = output.push(current[:value])
-    if current[:left] != nil
-      queue = queue.push(current[:left])
-    end
-    if current[:right] != nil
-      queue = queue.push(current[:right])
-    end
-    index = index + 1
+    current = queue.fetch(index)
+    output << current.value
+    left = current.left
+    right = current.right
+    queue << left if left != nil
+    queue << right if right != nil
+    index += 1
   end
-
   output
 end
 
-def run
+def run -> RunResult
   tree = sample_tree
   {
     preorder: preorder(tree),

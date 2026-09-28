@@ -4,9 +4,17 @@
 # difficulty: Medium
 # summary: Check primorial minus one and plus one values for primality over a short prime prefix.
 # tags: popular, math, primes, sequences
-# vibe: 0.2
+# vibe: 0.1.0
 
-def prime?(number)
+type RunResult = array<{
+  minus_one_prime: bool,
+  plus_one_prime: bool,
+  prime: int,
+  primorial_minus_one: int,
+  primorial_plus_one: int
+}>
+
+def prime?(number: int) -> bool
   if number < 2
     return false
   end
@@ -22,16 +30,16 @@ def prime?(number)
   true
 end
 
-def run
+def run -> RunResult
   primes = [2, 3, 5, 7, 11]
   primorial = 1
-  rows = []
+  rows: RunResult = []
   index = 0
 
   while index < primes.length
-    primorial = primorial * primes[index]
-    rows = rows.push({
-      prime: primes[index],
+    primorial = primorial * primes.fetch(index)
+    rows.push({
+      prime: primes.fetch(index),
       primorial_minus_one: primorial - 1,
       minus_one_prime: prime?(primorial - 1),
       primorial_plus_one: primorial + 1,

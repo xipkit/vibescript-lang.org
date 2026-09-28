@@ -4,51 +4,59 @@
 # difficulty: Easy
 # summary: Model a small LIFO stack with push, pop, and peek over an array-backed store.
 # tags: popular, stack, arrays, data-structures
-# vibe: 0.4
+# vibe: 0.1.0
 
-def new_stack
+type RunResult = {
+  contents: array<string>,
+  peek_after_pop: string?,
+  peek_before_pop: string?,
+  popped: string?,
+  size_after_pop: int
+}
+
+def new_stack -> { items: array<string> }
   {
     items: []
   }
 end
 
-def push(stack, value)
-  stack[:items].push(value)
+def push(stack: { items: array<string> }, value: string) -> { items: array<string> }
+  stack["items"].push(value)
   stack
 end
 
-def peek(stack)
-  items = stack[:items]
+def peek(stack: { items: array<string> }) -> string?
+  items = stack["items"]
 
   if items.empty?
     nil
   else
-    items[items.length - 1]
+    items.fetch(items.length - 1)
   end
 end
 
-def pop(stack)
-  value = stack[:items].pop
+def pop(stack: { items: array<string> }) -> { stack: { items: array<string> }, value: string? }
+  value = stack["items"].pop
   {
     stack: stack,
     value: value
   }
 end
 
-def run
+def run -> RunResult
   stack = new_stack
   stack = push(stack, "red")
   stack = push(stack, "green")
   stack = push(stack, "blue")
   top_before_pop = peek(stack)
   popped = pop(stack)
-  stack = popped[:stack]
+  stack = popped["stack"]
 
   {
     peek_before_pop: top_before_pop,
-    popped: popped[:value],
+    popped: popped["value"],
     peek_after_pop: peek(stack),
-    size_after_pop: stack[:items].length,
-    contents: stack[:items]
+    size_after_pop: stack["items"].length,
+    contents: stack["items"]
   }
 end

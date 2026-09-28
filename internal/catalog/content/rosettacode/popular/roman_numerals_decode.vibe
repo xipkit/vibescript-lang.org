@@ -4,9 +4,9 @@
 # difficulty: Easy
 # summary: Convert a Roman numeral string back to its integer value.
 # tags: popular, strings, math, conversion
-# vibe: 0.2
+# vibe: 0.1.0
 
-def roman_value(char)
+def roman_value(char: string) -> int
   if char == "M"
     return 1000
   elsif char == "D"
@@ -25,14 +25,15 @@ def roman_value(char)
   0
 end
 
-def from_roman(roman)
+def from_roman(roman: string) -> int
+  roman_chars = roman.chars
   total = 0
   i = 0
 
   while i < roman.length
-    current = roman_value(roman.slice(i))
+    current = roman_value(roman_chars.fetch(i))
     if i + 1 < roman.length
-      next_val = roman_value(roman.slice(i + 1))
+      next_val = roman_value(roman_chars.fetch(i + 1))
       if current < next_val
         total = total + (next_val - current)
         i = i + 2
@@ -49,7 +50,7 @@ def from_roman(roman)
   total
 end
 
-def run
+def run -> { i: int, iv: int, mmxxiv: int, xcix: int, xlii: int }
   {
     i: from_roman("I"),
     iv: from_roman("IV"),

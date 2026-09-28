@@ -1,0 +1,9 @@
+class EmailPreview
+  def send(to: string, subject: string, body: string) -> { status: string, to: string, subject: string, body: string }
+    { body: body, status: "preview", subject: subject, to: to }
+  end
+end
+
+def email -> EmailPreview
+  EmailPreview.new
+end

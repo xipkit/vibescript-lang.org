@@ -4,7 +4,17 @@
 # summary: Build a release approval process with states and deadlines.
 # description: Enums name each state, durations set deadlines, and the result lists each review step.
 # tags: workflows, durations, enums, approvals
-# vibe: 0.2
+# vibe: 0.1.0
+
+type ApprovalChainResult = {
+  change_id: string,
+  checks_passed: bool,
+  next_state: string,
+  state: string,
+  steps: array<{ due_at: string, due_in: string, label: string }>
+}
+
+type RunResult = { pending: ApprovalChainResult, ready: ApprovalChainResult }
 
 enum ApprovalState
   Draft
@@ -25,7 +35,11 @@ def next_state(state: ApprovalState, checks_passed: bool) -> ApprovalState
   end
 end
 
-def approval_step(label: string, due_in: duration, opened_at: time) -> hash
+def approval_step(
+  label: string,
+  due_in: duration,
+  opened_at: time
+) -> { due_at: string, due_in: string, label: string }
   {
     label: label,
     due_in: due_in.iso8601,
@@ -33,17 +47,22 @@ def approval_step(label: string, due_in: duration, opened_at: time) -> hash
   }
 end
 
-def approval_chain(change_id: string, state: ApprovalState, checks_passed: bool, opened_at: time) -> hash
+def approval_chain(
+  change_id: string,
+  state: ApprovalState,
+  checks_passed: bool,
+  opened_at: time
+) -> ApprovalChainResult
   target_state = next_state(state, checks_passed)
-  steps = []
+  steps: array<{ due_at: string, due_in: string, label: string }> = []
 
   if state == ApprovalState::Draft
-    steps = steps.push(approval_step("peer review", 2.hours, opened_at))
+    steps.push(approval_step("peer review", 2.hours, opened_at))
   elsif state == ApprovalState::Review
-    steps = steps.push(approval_step("security review", 4.hours, opened_at))
-    steps = steps.push(approval_step("ops signoff", 8.hours, opened_at))
+    steps.push(approval_step("security review", 4.hours, opened_at))
+    steps.push(approval_step("ops signoff", 8.hours, opened_at))
   else
-    steps = steps.push(approval_step("release", 30.minutes, opened_at))
+    steps.push(approval_step("release", 30.minutes, opened_at))
   end
 
   {
@@ -55,7 +74,7 @@ def approval_chain(change_id: string, state: ApprovalState, checks_passed: bool,
   }
 end
 
-def run
+def run -> RunResult
   opened_at = Time.at(1701000000)
 
   {

@@ -4,22 +4,23 @@
 # difficulty: Intro
 # summary: Return the middle three digits of integers that have an odd number of digits.
 # tags: popular, numbers, strings, validation
-# vibe: 0.2
+# vibe: 0.1.0
 
-def substring(text, start_index, count)
+def substring(text: string, start_index: int, count: int) -> string
+  text_chars = text.chars
   output = ""
   offset = 0
 
   while offset < count && start_index + offset < text.length
-    output = output + text.slice(start_index + offset)
+    output = output + text_chars.fetch(start_index + offset)
     offset = offset + 1
   end
 
   output
 end
 
-def middle_three_digits(value)
-  digits = "" + value.abs
+def middle_three_digits(value: int) -> string
+  digits = value.abs.to_s
 
   if digits.length < 3
     return "too short"
@@ -29,19 +30,19 @@ def middle_three_digits(value)
     return "even digit count"
   end
 
-  middle = (digits.length - 3) / 2
+  middle = (digits.length - 3) // 2
   substring(digits, middle, 3)
 end
 
-def run
-  rows = []
-  rows = rows.push(["input", "middle_three"])
-  rows = rows.push([123, middle_three_digits(123)])
-  rows = rows.push([12345, middle_three_digits(12345)])
-  rows = rows.push([1234567, middle_three_digits(1234567)])
-  rows = rows.push([10001, middle_three_digits(10001)])
-  rows = rows.push([-10001, middle_three_digits(-10001)])
-  rows = rows.push([1, middle_three_digits(1)])
-  rows = rows.push([2002, middle_three_digits(2002)])
+def run -> array<array<int | string>>
+  rows: array<array<int | string>> = []
+  rows.push(["input", "middle_three"])
+  rows.push([123, middle_three_digits(123)])
+  rows.push([12345, middle_three_digits(12345)])
+  rows.push([1234567, middle_three_digits(1234567)])
+  rows.push([10001, middle_three_digits(10001)])
+  rows.push([-10001, middle_three_digits(-10001)])
+  rows.push([1, middle_three_digits(1)])
+  rows.push([2002, middle_three_digits(2002)])
   rows
 end

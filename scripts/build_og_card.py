@@ -8,7 +8,7 @@ Text is restricted to ASCII: the inlined MonoLisaText subset covers U+0020-007E,
 so an em dash or curly quote would silently render as tofu.
 
 Usage:
-    python3 scripts/build_og_card.py            # writes internal/site/static/og-card.png
+    python3 scripts/build_og_card.py            # writes static/static/og-card.png
     python3 scripts/build_og_card.py --html-only
 
 Rendering needs Chrome or Chromium. The binary is resolved from PATH, then the
@@ -31,7 +31,7 @@ import sys
 import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-STATIC = ROOT / "internal" / "site" / "static"
+STATIC = ROOT / "static" / "static"
 FONT = STATIC / "fonts" / "woff2" / "0-MonoLisaText-normal.woff2"
 LOGO = STATIC / "logo-dark.svg"
 OUT = STATIC / "og-card.png"

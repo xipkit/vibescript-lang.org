@@ -1,0 +1,56 @@
+{{ $seen := newScratch }}
+{{ $titles := newScratch }}
+{{ $pages := slice }}
+{{ range resources.Match "examples/**/*.vibe" }}
+  {{ $source := .Content | string }}
+  {{ $path := strings.TrimPrefix "examples/" (strings.TrimPrefix "/" .Name) }}
+  {{ $parts := split $path "/" }}
+  {{ $origin := index $parts 0 }}
+  {{ $relative := strings.TrimPrefix (printf "%s/" $origin) $path }}
+  {{ $slug := strings.TrimSuffix ".vibe" $relative | replaceRE "[^A-Za-z0-9]+" "-" | lower }}
+  {{ if ne $origin "upstream" }}{{ $slug = printf "%s-%s" $origin $slug }}{{ end }}
+  {{ if $seen.Get $slug }}{{ errorf "Duplicate example URL: %s" $slug }}{{ end }}
+  {{ $seen.Set $slug true }}
+  {{ $metadata := newScratch }}
+  {{ range split $source "\n" }}
+    {{ if eq (strings.TrimSpace .) "" }}{{ continue }}{{ end }}
+    {{ if not (findRE `^# [a-zA-Z_]+:` .) }}{{ break }}{{ end }}
+    {{ $key := replaceRE `^# ([a-zA-Z_]+):.*$` "$1" . | lower }}
+    {{ $value := replaceRE `^# [a-zA-Z_]+:\s*` "" . | strings.TrimSpace }}
+    {{ $metadata.Set $key $value }}
+  {{ end }}
+  {{ $title := $metadata.Get "title" | default (path.Base $relative | strings.TrimSuffix ".vibe" | replaceRE "[_-]" " " | title) }}
+  {{ $category := $metadata.Get "category" | default "Vibescript Showcase" }}
+  {{ $difficulty := $metadata.Get "difficulty" | default "Showcase" }}
+  {{ $summary := $metadata.Get "summary" | default (printf "%s written in Vibescript." $title) }}
+  {{ $tags := slice $origin "browser-runner" }}
+  {{ $rank := 0 }}
+  {{ $featured := eq ($metadata.Get "featured") "true" }}
+  {{ $featureRank := int ($metadata.Get "feature_rank" | default "0") }}
+  {{ if eq $origin "upstream" }}
+    {{ $rank = 1 }}
+    {{ $category = $metadata.Get "category" | default (path.Dir $relative | replaceRE "[_/]" " " | title) }}
+    {{ $difficulty = $metadata.Get "difficulty" | default "Reference" }}
+    {{ $summary = $metadata.Get "summary" | default (index hugo.Data.example_defaults $relative) | default $summary }}
+    {{ $tags = $tags | append ($category | urlize) }}
+    {{ $featuredPaths := slice "control_flow/case_when.vibe" "strings/operations.vibe" "stdlib/core_utilities.vibe" "enums/operations.vibe" }}
+    {{ if in $featuredPaths $relative }}{{ $featured = true }}{{ $featureRank = 100 }}{{ end }}
+  {{ else if eq $origin "rosettacode" }}
+    {{ $rank = 2 }}
+    {{ $category = $metadata.Get "category" | default "Rosetta Code" }}
+    {{ $difficulty = $metadata.Get "difficulty" | default "Reference" }}
+    {{ $tags = $tags | append "rosetta-code" }}
+  {{ else }}
+    {{ $tags = $tags | append "idiomatic-vibescript" }}
+  {{ end }}
+  {{ with $metadata.Get "tags" }}{{ range split . "," }}{{ $tags = $tags | append (strings.TrimSpace .) }}{{ end }}{{ end }}
+  {{ $body := replaceRE `\A(?:\s*# [A-Za-z_]+:[^\n]*\n|\s*\n)*` "" $source | strings.TrimSpace }}
+  {{ $params := dict "previews" ($metadata.Get "uses" | default "") "slug" $slug "category" $category "difficulty" $difficulty "summary" $summary "tags" (uniq $tags) "sourcebody" $body "sourcepath" $path "sourceurl" ($metadata.Get "source" | default "") "topic" (path.Dir $relative | replaceRE "[_/]" " " | title) "featured" $featured "featurerank" $featureRank "sortkey" (printf "%d-%s-%s" $rank $category $title) "runnable" true "function" (cond (gt (len (findRE `(?m)^def run\b` $source)) 0) "run" "") }}
+  {{ $titles.Add $title 1 }}
+  {{ $pages = $pages | append (dict "path" $slug "title" $title "description" $summary "type" "examples" "params" $params) }}
+{{ end }}
+{{ range $pages }}
+  {{ $page := . }}
+  {{ if gt ($titles.Get .title) 1 }}{{ $page = merge . (dict "title" (printf "%s %s" .params.category .title)) }}{{ end }}
+  {{ $.AddPage $page }}
+{{ end }}

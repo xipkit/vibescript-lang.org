@@ -1,0 +1,32 @@
+{{define "main"}}
+<div class="catalog">
+  <aside class="catalog-sidebar" data-catalog-sidebar>
+    <div class="catalog-sidebar-header">
+      <svg class="sparkle sparkle-sm sparkle-string sparkle-catalog tilt-16" aria-hidden="true"><use href="#sparkle"></use></svg>
+      <span class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Examples</span>
+      <h2>Browse examples</h2>
+      <p>Hundreds of examples you can run in your browser.</p>
+    </div>
+    <nav class="catalog-nav" data-catalog-nav></nav>
+  </aside>
+
+  <div class="catalog-main">
+    <div class="catalog-toolbar" data-catalog-toolbar>
+      <div class="catalog-active-filters" data-active-filters></div>
+    </div>
+    <div class="card-grid" data-catalog-grid>
+      {{range sort .RegularPages "Params.sortkey"}}
+      <a href="/examples/{{.Params.slug}}" class="example-card" data-accent="{{mod (hash.FNV32a .Params.category) 6}}" data-category="{{.Params.category}}" data-tags="{{range .Params.tags}}{{.}} {{end}}">
+        <div class="card-meta">
+          <span class="card-category" data-accent="{{mod (hash.FNV32a .Params.category) 6}}">{{.Params.category}}</span>
+          {{if .Params.runnable}}<span class="card-runnable" title="Runs in your browser">runnable</span>{{end}}
+        </div>
+        <h3>{{.Title}}</h3>
+        <span class="card-difficulty">{{.Params.difficulty}}</span>
+        <p>{{.Params.summary}}</p>
+      </a>
+      {{end}}
+    </div>
+  </div>
+</div>
+{{end}}

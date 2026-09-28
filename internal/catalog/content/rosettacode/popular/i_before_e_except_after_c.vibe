@@ -4,9 +4,9 @@
 # difficulty: Intro
 # summary: Check sample words against the classic “i before e except after c” spelling rule.
 # tags: popular, strings, rules, basics
-# vibe: 0.2
+# vibe: 0.1.0
 
-def obeys_rule?(word)
+def obeys_rule?(word: string) -> bool
   lower = word.downcase
 
   if lower.index("cie") != nil
@@ -18,14 +18,14 @@ def obeys_rule?(word)
     return true
   end
 
-  if ei_index > 0 && lower.slice(ei_index - 1) == "c"
+  if ei_index > 0 && lower.chars.fetch(ei_index - 1) == "c"
     return true
   end
 
   false
 end
 
-def run
+def run -> { ancient: bool, believe: bool, ceiling: bool, science: bool, weird: bool }
   {
     believe: obeys_rule?("believe"),
     ceiling: obeys_rule?("ceiling"),

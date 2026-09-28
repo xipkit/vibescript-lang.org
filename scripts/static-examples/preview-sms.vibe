@@ -1,0 +1,9 @@
+class SMSPreview
+  def send(to: string, body: string) -> { status: string, to: string, body: string }
+    { body: body, status: "preview", to: to }
+  end
+end
+
+def sms -> SMSPreview
+  SMSPreview.new
+end

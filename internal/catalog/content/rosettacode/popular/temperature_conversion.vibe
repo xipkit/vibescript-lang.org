@@ -4,21 +4,27 @@
 # difficulty: Intro
 # summary: Convert values between Celsius and Fahrenheit.
 # tags: popular, math, conversion, basics
-# vibe: 0.2
+# vibe: 0.1.0
 
-def celsius_to_fahrenheit(value)
+type RunResult = {
+  boiling_point: { celsius: int, fahrenheit: float, kelvin: float },
+  freezing_point: { celsius: int, fahrenheit: float, kelvin: float },
+  room_temperature_fahrenheit: { celsius: float, fahrenheit: int }
+}
+
+def celsius_to_fahrenheit(value: int) -> float
   (value * 9 / 5) + 32
 end
 
-def fahrenheit_to_celsius(value)
+def fahrenheit_to_celsius(value: int) -> float
   (value - 32) * 5 / 9
 end
 
-def celsius_to_kelvin(value)
+def celsius_to_kelvin(value: int) -> float
   value + 273.15
 end
 
-def run
+def run -> RunResult
   {
     freezing_point: {
       celsius: 0,

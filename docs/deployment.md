@@ -1,115 +1,64 @@
-# Deployment
+# Cloudflare Pages
 
-This site deploys as a Miren app on a Vultr Linux server.
+This repository builds a static site. Cloudflare Pages replaces the Go service
+on Miren/Vultr; Vibescript executes only in the visitor's browser. No deployment
+was performed as part of this migration.
 
-## Miren App
+## Build configuration
 
-The app config lives in `.miren/app.toml`.
+Set these in the Pages dashboard:
 
-- App name: `vibescript`
-- Service: `web`
-- Command: `/bin/app`
-- Port: `8080`
-- Scaling: one fixed instance
+| Setting | Value |
+| --- | --- |
+| Framework | Hugo |
+| Hugo version environment variable | `HUGO_VERSION=0.164.0` |
+| Build command | `hugo --gc --minify` |
+| Build output directory | `public` |
+| Root directory | Repository root |
 
-Miren detects the Go app from `go.mod`, builds the binary on the server, and starts it as `/bin/app`.
+Use Hugo **0.164.0 extended** (the local verified version). Content, reference
+snapshots, WASM, and dependencies are committed. The build requires no npm, Rust,
+Go toolchain, server secrets, or network access to fetch runtime code.
 
-## Hosts
+Review a Pages preview before switching the production domain. Verify the home
+page, `/examples`, an original example URL, `/reference`, `/reference#app-services`,
+404 status, Run/Edit/Stop/Format, and the WASM response headers. Directory routes
+may gain a trailing slash; their original URLs continue to resolve. `_redirects`
+handles `/favicon.ico` and the retired `/healthz` URL. The old POST execution API
+is retired, with no equivalent server endpoint.
 
-`vibescript-lang.org` is the canonical host. `www.vibescript-lang.org` and the older `vibescript.mauriciogomes.com` both redirect to it, so verification commands should target the canonical host or pass `curl -L`; otherwise they return the redirect body rather than the page. The redirect sources are listed in `internal/site/site.go`.
+## Host redirects
 
-## First-Time Vultr Migration
+Attach `vibescript-lang.org` as the Pages custom domain. In the **Cloudflare
+ dashboard**, create redirect rules for both:
 
-Use a fresh Vultr VM for the Miren cutover. The previous deployment stack used Caddy, systemd, and direct SSH binary uploads; Miren should own ingress and TLS on the new server instead of competing with those services in place.
+- `www.vibescript-lang.org` → `https://vibescript-lang.org`
+- `vibescript.mauriciogomes.com` → `https://vibescript-lang.org`
 
-1. Create a Vultr Linux VM that meets Miren's server requirements.
-2. Install the Miren CLI on the VM.
-3. Run `sudo miren server install` on the VM.
-4. Bind the new cluster from the local machine with `miren login` and `miren cluster add`.
-5. Preview the app detection:
+Use permanent redirects (301), preserve the path and query string, and ensure
+both source hosts have proxied DNS and valid TLS. Configure the legacy hostname
+in its own Cloudflare zone where needed. Pages `_redirects` cannot perform host
+redirects; these rules belong in the dashboard, not that file.
 
-   ```bash
-   miren deploy --analyze
-   ```
+After a successful cutover and the chosen rollback window, retire the Miren app
+and Vultr server and remove their stale DNS records. Until then, keep rollback
+available. Nothing in the build or preview scripts changes infrastructure.
 
-6. Deploy without moving production traffic:
+## Security and caching
 
-   ```bash
-   miren deploy
-   ```
+`static/_headers` supplies a CSP with no inline scripts, inline styles, external
+origins, objects, frames, or form submissions. `script-src 'self' 'wasm-unsafe-eval'`
+permits WebAssembly; `worker-src 'self'` permits the dedicated Worker. Responses
+also deny framing and MIME sniffing and disable camera, microphone and location.
 
-7. Set a temporary route and verify the app:
+Hugo fingerprints CSS, JavaScript, and the bundled WASI shim beneath `/assets/`.
+The WASM filename includes its full SHA-256 beneath `/wasm/`. These paths receive
+`Cache-Control: public, max-age=31536000, immutable`. WASM responses explicitly use
+`Content-Type: application/wasm`. HTML and unhashed static assets use Pages'
+normal caching. Do not put mutable files under the immutable paths.
 
-   ```bash
-   miren route set preview.vibescript.mauriciogomes.com vibescript
-   miren logs -a vibescript
-   curl -fsS https://preview.vibescript.mauriciogomes.com/
-   ```
-
-8. Point `vibescript.mauriciogomes.com` at the new Vultr IP.
-9. Set the production route:
-
-   ```bash
-   miren route set vibescript.mauriciogomes.com vibescript
-   ```
-
-10. Keep the old VM online until the production route and rollback path have been verified.
-
-## Routine Deploys
-
-After the cluster is configured:
-
-```bash
-miren deploy
-```
-
-Use Miren history and rollback for operational recovery:
-
-```bash
-miren app history -a vibescript
-miren rollback -a vibescript
-```
-
-## Vibescript Version Bumps
-
-The most common deploy is tracking a new upstream `vibescript` release. The dependency is pinned in `go.mod`. `UpstreamVersion` in `internal/catalog/catalog.go` is the reader-facing label, while `upstreamRevision` pins imported-example source links to the exact matching tree.
-
-Replace `vX.Y.Z` with the target tag:
-
-```bash
-go get github.com/mgomes/vibescript@vX.Y.Z
-go mod tidy
-# edit internal/catalog/catalog.go: UpstreamVersion = "vX.Y.Z"
-# edit internal/catalog/catalog.go: upstreamRevision = the tag or commit
-go build ./...
-go test ./...
-```
-
-`TestAllExamplesCompileAndPassStaticChecks` is the real signal that the new release doesn't break any embedded example. `TestEveryExampleIsRunnable` then asserts that all of them still expose a top-level `def run`.
-
-Spot-check locally:
-
-```bash
-go run .
-curl -s http://localhost:8080/ | grep brand-version
-curl -s http://localhost:8080/examples/strings-operations | grep -oE 'blob/[^/]+/examples/[^"]+' | head -1
-```
-
-Commit as two atomic changes on `master` (matching prior bumps):
-
-1. `Bump vibescript to X.Y.Z` — `go.mod`, `go.sum`
-2. `Show vibescript X.Y.Z in version badge and source links` — `internal/catalog/catalog.go`
-
-Deploy and verify:
-
-```bash
-miren deploy
-curl -s https://vibescript-lang.org/healthz
-curl -s https://vibescript-lang.org/ | grep brand-version
-```
-
-If the new tag exposes a runtime regression that only shows up in production, `miren rollback -a vibescript` reverts; then bisect upstream from a clean state.
-
-## Credentials
-
-Do not commit provider credentials, root passwords, or API tokens. Rotate any credentials that were previously stored in local deployment scripts before relying on the Miren deployment path.
+The preview server applies the same security headers for browser tests. Check
+production headers again after deployment; a local test cannot verify dashboard
+rules or CDN behavior. Pages headers and redirects are documented in
+[Cloudflare headers](https://developers.cloudflare.com/pages/configuration/headers/)
+and [serving Pages](https://developers.cloudflare.com/pages/configuration/serving-pages/).

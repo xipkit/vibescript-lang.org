@@ -6,7 +6,18 @@
 # tags: commerce, money, durations, enums
 # featured: true
 # feature_rank: 3
-# vibe: 0.2
+# vibe: 0.1.0
+
+type Shipping_QuoteResult = {
+  eta: string,
+  fee: money,
+  speed: string,
+  subtotal: money,
+  total: money,
+  transit: string
+}
+
+type RunResult = { economy: Shipping_QuoteResult, same_day: Shipping_QuoteResult }
 
 enum ShippingSpeed
   Economy
@@ -36,7 +47,11 @@ def shipping_fee(speed: ShippingSpeed, subtotal: money) -> money
   end
 end
 
-def shipping_quote(speed: ShippingSpeed, subtotal: money, purchased_at: time) -> hash
+def shipping_quote(
+  speed: ShippingSpeed,
+  subtotal: money,
+  purchased_at: time
+) -> Shipping_QuoteResult
   fee = shipping_fee(speed, subtotal)
   transit = transit_time(speed)
   eta = transit.after(purchased_at)
@@ -51,7 +66,7 @@ def shipping_quote(speed: ShippingSpeed, subtotal: money, purchased_at: time) ->
   }
 end
 
-def run
+def run -> RunResult
   purchased_at = Time.at(1700000000)
   {
     economy: shipping_quote(ShippingSpeed::Economy, money("125.00 USD"), purchased_at),

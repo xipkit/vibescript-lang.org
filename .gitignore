@@ -7,3 +7,8 @@
 __pycache__/
 *.pyc
 /og-card-preview.html
+/public/
+/resources/
+/.hugo_build.lock
+/test-results/
+/assets/jsconfig.json

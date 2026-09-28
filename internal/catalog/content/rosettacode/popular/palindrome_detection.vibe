@@ -4,14 +4,15 @@
 # difficulty: Intro
 # summary: Detect palindromes after normalizing letters and digits to lowercase.
 # tags: popular, strings, scanning, predicates
-# vibe: 0.2
+# vibe: 0.1.0
 
-def normalized(text)
+def normalized(text: string) -> string
+  text_chars = text.chars
   output = ""
   index = 0
 
   while index < text.length
-    char = text.slice(index).downcase
+    char = text_chars.fetch(index).downcase
     if (char >= "a" && char <= "z") || (char >= "0" && char <= "9")
       output = output + char
     end
@@ -21,13 +22,13 @@ def normalized(text)
   output
 end
 
-def palindrome?(text)
+def palindrome?(text: string) -> bool
   value = normalized(text)
   left = 0
   right = value.length - 1
 
   while left < right
-    if value.slice(left) != value.slice(right)
+    if value.chars.fetch(left) != value.chars.fetch(right)
       return false
     end
     left = left + 1
@@ -37,12 +38,12 @@ def palindrome?(text)
   true
 end
 
-def run
-  rows = []
-  rows = rows.push(["text", "palindrome"])
-  rows = rows.push(["racecar", palindrome?("racecar")])
-  rows = rows.push(["Able was I ere I saw Elba", palindrome?("Able was I ere I saw Elba")])
-  rows = rows.push(["12321", palindrome?("12321")])
-  rows = rows.push(["Vibescript", palindrome?("Vibescript")])
+def run -> array<array<bool | string>>
+  rows: array<array<bool | string>> = []
+  rows.push(["text", "palindrome"])
+  rows.push(["racecar", palindrome?("racecar")])
+  rows.push(["Able was I ere I saw Elba", palindrome?("Able was I ere I saw Elba")])
+  rows.push(["12321", palindrome?("12321")])
+  rows.push(["Vibescript", palindrome?("Vibescript")])
   rows
 end

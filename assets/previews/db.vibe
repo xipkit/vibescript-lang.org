@@ -1,0 +1,31 @@
+class DatabasePreview
+  def find(model: string, id: string) -> { id: string, raised: money }
+    assert model == "Player"
+    { id: id, raised: money("75.00 USD") }
+  end
+
+  def query(model: string, *, order: { raised: symbol }, limit: int) -> array<{ id: string, raised: money }>
+    assert model == "Player" && order["raised"] == :desc
+    [{ id: "p-1", raised: money("75.00 USD") }].first(limit)
+  end
+
+  def update(model: string, id: string, changes: { raised: money }) -> { id: string, raised: money }
+    assert model == "Player"
+    { id: id, raised: changes["raised"] }
+  end
+
+  def each(model: string, *, where: { player_id: string }, &block: { amount: money } -> money)
+    assert model == "ScoreEntry" && where["player_id"] == "p-1"
+    yield({ amount: money("25.00 USD") })
+    yield({ amount: money("50.00 USD") })
+  end
+
+  def sum(model: string, field: string, *, where: { player_id: string }) -> money
+    assert model == "ScoreEntry" && field == "amount" && where["player_id"] == "p-1"
+    money("75.00 USD")
+  end
+end
+
+def db -> DatabasePreview
+  DatabasePreview.new
+end

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{if eq .Title "Vibescript"}}Vibescript{{else}}{{.Title}} | Vibescript{{end}}</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/static/favicon-32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+    <meta name="description" content="{{.Description}}">
+    <link rel="canonical" href="{{.Permalink}}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vibescript">
+    <meta property="og:title" content="{{.Title}}">
+    <meta property="og:description" content="{{.Description}}">
+    <meta property="og:url" content="{{.Permalink}}">
+    <meta property="og:image" content="{{strings.TrimSuffix "/" site.BaseURL}}/static/og-card.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Vibescript, a statically typed language for embedded workflows">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{.Title}}">
+    <meta name="twitter:description" content="{{.Description}}">
+    <meta name="twitter:image" content="{{strings.TrimSuffix "/" site.BaseURL}}/static/og-card.png">
+    <meta name="twitter:image:alt" content="Vibescript, a statically typed language for embedded workflows">
+
+    {{ $theme := resources.Get "theme.js" | resources.Copy "assets/theme.js" | fingerprint }}
+    <script src="{{ $theme.RelPermalink }}" integrity="{{ $theme.Data.Integrity }}"></script>
+    <link rel="preload" href="/static/fonts/woff2/0-MonoLisaText-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/static/fonts/woff2/0-MonoLisaCode-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/static/fonts/monolisa.css">
+    {{ $css := resources.Get "site.css" | resources.Copy "assets/site.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    {{ $js := resources.Get "site.js" | resources.Copy "assets/site.js" | minify | fingerprint }}
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    {{ if or .IsHome (eq .Type "examples") }}{{ partial "runner-assets.html" . }}{{ end }}
+  </head>
+  <body>
+    <svg width="0" height="0" class="brand-sprite" aria-hidden="true" focusable="false">
+      <symbol id="vee" viewBox="0 0 85 73"><polygon points="31.188 73 52.992 73 84.18 0 60.444 0 42.366 44.712 24.288 0 0 0"/></symbol>
+      <symbol id="sparkle" viewBox="0 0 35 35"><path d="M17.5 0C17.5 9.665 25.335 17.5 35 17.5C25.335 17.5 17.5 25.335 17.5 35C17.5 25.335 9.665 17.5 0 17.5C9.665 17.5 17.5 9.665 17.5 0Z"/></symbol>
+    </svg>
+    <div class="site-shell">
+      <header class="site-header">
+        <a href="/" class="brand" aria-label="Vibescript home">
+          <img src="/static/logo-dark.svg" alt="Vibescript" class="brand-logo brand-logo-dark">
+          <img src="/static/logo-light.svg" alt="Vibescript" class="brand-logo brand-logo-light">
+          <span class="brand-version">{{site.Params.languageLabel}}</span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/" {{if .IsHome}}class="is-active"{{end}}>Home</a>
+          <a href="/examples" {{if eq .Section "examples"}}class="is-active"{{end}}>Examples</a>
+          <a href="/reference" {{if eq .Section "reference"}}class="is-active"{{end}}>Reference</a>
+          <a href="{{site.Params.upstreamRepo}}">GitHub</a>
+          <button class="theme-toggle sound-toggle" type="button" aria-label="Sound effects" aria-pressed="true" data-sound-toggle>
+            <svg class="icon-sound-on" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+            <svg class="icon-sound-off" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>
+          </button>
+          <button class="theme-toggle" type="button" aria-label="Toggle theme" data-theme-toggle>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+        </nav>
+      </header>
+
+      <main>{{block "main" .}}{{end}}</main>
+
+      <footer class="site-footer">
+        <span class="site-footer-mark"><svg class="vee"><use href="#vee"></use></svg> &copy; {{now.Year}} Mauricio Gomes. MIT licensed.</span>
+        <div class="site-footer-links">
+          <a href="/examples">Examples</a>
+          <a href="/reference">Reference</a>
+          <a href="{{site.Params.upstreamRepo}}">GitHub</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
