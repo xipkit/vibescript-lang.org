@@ -21,8 +21,8 @@ compiler version, target, profile, raw byte count and SHA-256 of the wasm. When
 and records its byte count. Ship an artifact with `dirty: false` and retain its
 manifest. Wasm size is independent of the native host architecture.
 
-Measured with Rust 1.98.1 on macOS ARM64: **3,821,319 bytes raw** and
-**904,926 bytes Brotli** (quality 11). The earlier engine-only measurement was
+Measured with Rust 1.98.1 on macOS ARM64: **3,822,420 bytes raw** and
+**904,866 bytes Brotli** (quality 11). The earlier engine-only measurement was
 approximately 3.8 MB raw and 0.97 MB Brotli; it is a sizing reference, not a
 performance benchmark or a paired comparison of identical binaries.
 

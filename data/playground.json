@@ -1,6 +1,6 @@
 {
-  "revision": "1875d45b0e6f3a55a304299de03b865ef1017d32",
-  "sha256": "edcec1e410637ab3bfda7ce95d997ed1708547d7344bd11ff12dcac985bd7ffe",
-  "bytes": 3821319,
-  "url": "/wasm/playground.edcec1e410637ab3bfda7ce95d997ed1708547d7344bd11ff12dcac985bd7ffe.wasm"
+  "revision": "da3645ca43910063613361e279c8639716670188",
+  "sha256": "c684532cdb78adc03256d366dce296d1b1c61e3cfc526d06fa1aeed57e6c26f6",
+  "bytes": 3830335,
+  "url": "/wasm/playground.c684532cdb78adc03256d366dce296d1b1c61e3cfc526d06fa1aeed57e6c26f6.wasm"
 }
