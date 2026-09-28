@@ -147,18 +147,10 @@ precision. The original example result is also interpolated before export so
 its display text is checked independently. This is necessary because the flat
 CLI's native JSON encoder rejects money and duration values.
 
-## Owner follow-up
+## Follow-up
 
-The Rust checkout used here has a checker/runtime disagreement for NaN ordering.
-This probe prints `[null,null,null]`:
-
-```sh
-vibes -e 'n = 0.0 / 0.0; [n <=> 1.0, 1.0 <=> n, n <=> n]'
-```
-
-`src/typing/expr.rs` types `<=>` as `int`, but `src/ordering.rs::spaceship` returns
-`nil` for unordered values at the recorded revision. The migration does not
-assume the anticipated NaN total ordering and does not modify the Rust checkout.
-The owner should settle that behavior in the engine and wire the preview
-contracts into the playground. Browser/WASI integration itself remains the
-playground agent's responsibility; this branch verifies the native Rust engine.
+Rust `fef329a3` settles NaN ordering: float `<=>` is a total order, so the probe
+`n = 0.0 / 0.0; [n <=> 1.0, 1.0 <=> n, n <=> n]` prints `[-1,1,0]`. All 203
+examples and 51 probes pass against that revision. The browser playground still
+has to provide the preview capability contracts that the `preview-*.vibe`
+doubles describe.
