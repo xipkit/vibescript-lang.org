@@ -47,7 +47,8 @@ Stop and deadline cancellation, preview capabilities, catalog filters, CSP,
 phone layout, and lazy loading. It writes screenshots and measured page weights
 to `test-results/`. After integrating the migrated examples, run
 `node scripts/check-catalog-browser.mjs` with the same Playwright environment to
-execute the entire catalog through the real browser runner.
+execute the entire catalog through the real browser runner and compare each
+result with `scripts/static-examples/expected.json`.
 
 See [deployment](docs/deployment.md) for Cloudflare Pages configuration and the
 host redirects. Building or testing this repository does not deploy it.
