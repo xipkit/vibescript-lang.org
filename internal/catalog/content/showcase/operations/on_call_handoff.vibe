@@ -48,7 +48,7 @@ def handoff_packet(service: string, level: CoverageLevel, started_at: time) -> H
 end
 
 def run -> RunResult
-  started_at = Time.at(1701100000)
+  started_at = Time.at(1701100000, in: "UTC")
 
   {
     primary: handoff_packet("payments-api", CoverageLevel::Primary, started_at),

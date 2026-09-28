@@ -51,7 +51,7 @@ def maintenance_plan(environment: Environment, starts_at: time) -> Maintenance_P
 end
 
 def run -> RunResult
-  starts_at = Time.at(1700600000)
+  starts_at = Time.at(1700600000, in: "UTC")
 
   {
     sandbox: maintenance_plan(Environment::Sandbox, starts_at),
