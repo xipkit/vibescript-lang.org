@@ -54,7 +54,7 @@ def verify(args):
     if executable is None:
         raise ValueError(f"Rust vibes not found: {args.vibes}; set VIBES or --vibes")
     version = invoke([executable, "--version"])
-    if version.returncode or not version.stdout.startswith("vibescript.rs "):
+    if version.returncode or not version.stdout.startswith(("vibescript ", "vibescript.rs ")):
         raise ValueError("the verifier requires the Rust vibes CLI")
 
     content = args.content.resolve()
