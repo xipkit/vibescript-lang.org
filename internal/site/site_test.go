@@ -26,13 +26,13 @@ func TestHomePageRendersFeaturedExamples(t *testing.T) {
 	}
 
 	body := recorder.Body.String()
-	for _, want := range []string{"Small on purpose", "Value boundaries", "Release readiness"} {
+	for _, want := range []string{"Send an SMS", "Send an email", "Value boundaries", "Release readiness"} {
 		if !strings.Contains(body, want) {
 			t.Fatalf("expected homepage to contain %q", want)
 		}
 	}
 
-	if !strings.Contains(body, "/api/examples/showcase-finance-late-fee/run") {
+	if !strings.Contains(body, "/api/examples/showcase-notifications-sms/run") {
 		t.Fatalf("expected hero runner wiring, got %q", body)
 	}
 }
@@ -56,7 +56,7 @@ func TestHomePageRendersRealGuardrailValues(t *testing.T) {
 func TestRunHeroExample(t *testing.T) {
 	app := newTestApp(t)
 
-	request := httptest.NewRequest(http.MethodPost, "/api/examples/showcase-finance-late-fee/run", nil)
+	request := httptest.NewRequest(http.MethodPost, "/api/examples/showcase-notifications-sms/run", nil)
 	recorder := httptest.NewRecorder()
 
 	app.ServeHTTP(recorder, request)
@@ -65,7 +65,7 @@ func TestRunHeroExample(t *testing.T) {
 		t.Fatalf("expected status 200, got %d", recorder.Code)
 	}
 
-	if body := recorder.Body.String(); !strings.Contains(body, "15.00 USD") {
+	if body := recorder.Body.String(); !strings.Contains(body, "Order 1042 is on its way.") || !strings.Contains(body, `"status":"preview"`) {
 		t.Fatalf("expected hero example output, got %q", body)
 	}
 }
@@ -132,12 +132,32 @@ func TestReferencePageRendersContentAndSidebar(t *testing.T) {
 		`data-reference-nav`,
 		`href="#basics"`,
 		`id="parameters"`,
+		`id="app-services"`,
 		`class="language-vibe"`,
 		catalog.UpstreamVersion,
 	} {
 		if !strings.Contains(body, want) {
 			t.Fatalf("expected reference page to contain %q", want)
 		}
+	}
+}
+
+func TestNotificationPagesShowGoAdapters(t *testing.T) {
+	app := newTestApp(t)
+	for _, slug := range []string{"showcase-notifications-sms", "showcase-notifications-email"} {
+		t.Run(slug, func(t *testing.T) {
+			request := httptest.NewRequest(http.MethodGet, "/examples/"+slug, nil)
+			recorder := httptest.NewRecorder()
+			app.ServeHTTP(recorder, request)
+			if recorder.Code != http.StatusOK {
+				t.Fatalf("GET /examples/%s status = %d, want 200", slug, recorder.Code)
+			}
+			for _, want := range []string{`class="language-go"`, "NewTypedBuiltin", `href="/reference#app-services"`, "message preview"} {
+				if !strings.Contains(recorder.Body.String(), want) {
+					t.Errorf("GET /examples/%s missing %q", slug, want)
+				}
+			}
+		})
 	}
 }
 

@@ -1456,6 +1456,30 @@ a.tag:hover {
   color: var(--code-text);
 }
 
+.hero-preview-note {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.host-example {
+  margin-top: 2.5rem;
+}
+
+.host-example p {
+  max-width: 75ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.host-example summary {
+  padding: 0.75rem 1.25rem;
+  background: var(--code-header-bg);
+  cursor: pointer;
+  font-weight: 600;
+}
+
 .detail-tags {
   display: flex;
   flex-wrap: wrap;

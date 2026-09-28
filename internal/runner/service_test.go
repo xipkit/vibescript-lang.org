@@ -101,6 +101,59 @@ func TestRunAllRunnableExamples(t *testing.T) {
 	}
 }
 
+func TestNotificationPreviews(t *testing.T) {
+	store, err := catalog.Load()
+	if err != nil {
+		t.Fatalf("Load(): %v", err)
+	}
+	service, err := New(store)
+	if err != nil {
+		t.Fatalf("New(): %v", err)
+	}
+
+	for _, tc := range []struct {
+		slug string
+		want map[string]string
+	}{
+		{
+			slug: "showcase-notifications-sms",
+			want: map[string]string{
+				"status": "preview",
+				"to":     "+12025550123",
+				"body":   "Order 1042 is on its way.",
+			},
+		},
+		{
+			slug: "showcase-notifications-email",
+			want: map[string]string{
+				"status":  "preview",
+				"to":      "alex@example.com",
+				"subject": "Welcome, Alex!",
+				"body":    "Hi Alex,\n\nYour account is ready. Thanks for joining us.",
+			},
+		},
+	} {
+		t.Run(tc.slug, func(t *testing.T) {
+			result, err := service.Run(t.Context(), tc.slug)
+			if err != nil {
+				t.Fatalf("Run(%q): %v", tc.slug, err)
+			}
+			got, ok := result.Value.(map[string]any)
+			if !ok {
+				t.Fatalf("Run(%q) value = %T, want preview hash", tc.slug, result.Value)
+			}
+			if len(got) != len(tc.want) {
+				t.Errorf("Run(%q) fields = %d, want %d", tc.slug, len(got), len(tc.want))
+			}
+			for key, want := range tc.want {
+				if got[key] != want {
+					t.Errorf("Run(%q)[%q] = %q, want %q", tc.slug, key, got[key], want)
+				}
+			}
+		})
+	}
+}
+
 func numericValueEquals(value any, expected int) bool {
 	switch typed := value.(type) {
 	case int:

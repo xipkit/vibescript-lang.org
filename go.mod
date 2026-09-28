@@ -4,7 +4,7 @@ go 1.26.5
 
 require (
 	github.com/mgomes/ohm v0.13.0
-	github.com/mgomes/vibescript v0.60.0
+	github.com/mgomes/vibescript v0.70.0
 	github.com/yuin/goldmark v1.8.5
 )
 
@@ -18,5 +18,6 @@ require (
 	go.opentelemetry.io/otel v1.44.0 // indirect
 	go.opentelemetry.io/otel/metric v1.44.0 // indirect
 	go.opentelemetry.io/otel/trace v1.44.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/text v0.40.0 // indirect
 )

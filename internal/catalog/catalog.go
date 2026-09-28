@@ -9,12 +9,15 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/mgomes/vibescript/vibes"
+	"github.com/xipkit/vibescript-lang.org/internal/notifications"
 )
 
 const (
 	UpstreamRepoURL  = "https://github.com/xipkit/vibescript"
-	UpstreamVersion  = "v0.60.0"
-	upstreamRevision = "v0.60.0"
+	UpstreamVersion  = "v0.70.0"
+	upstreamRevision = "v0.70.0"
 )
 
 var featuredExamples = map[string]int{
@@ -82,6 +85,10 @@ type Example struct {
 	SourceURL   string
 	RunFunction string
 	FeatureRank int
+	// HostSource is the Go adapter used to run this example, when present.
+	HostSource string
+	// Capabilities contains the host adapters available to this example.
+	Capabilities []vibes.CapabilityAdapter
 }
 
 // AccentSlots is the number of syntax-token colors the site cycles chips through.
@@ -419,24 +426,37 @@ func loadShowcaseExample(relativePath string, source []byte) Example {
 		topic = titleize(dir)
 	}
 
+	var hostSource string
+	var capabilities []vibes.CapabilityAdapter
+	switch relativePath {
+	case "notifications/sms.vibe":
+		hostSource = notifications.SMSSource
+		capabilities = []vibes.CapabilityAdapter{notifications.SMS{}}
+	case "notifications/email.vibe":
+		hostSource = notifications.EmailSource
+		capabilities = []vibes.CapabilityAdapter{notifications.Email{}}
+	}
+
 	return Example{
-		Slug:        "showcase-" + slugPart(strings.TrimSuffix(relativePath, ".vibe")),
-		Title:       title,
-		Summary:     summary,
-		Description: description,
-		Category:    category,
-		Difficulty:  difficulty,
-		Topic:       topic,
-		Origin:      "Showcase",
-		Stage:       stage,
-		Featured:    featured,
-		Runnable:    runnable,
-		Tags:        dedupe(tags),
-		Source:      string(source),
-		SourcePath:  "showcase/" + relativePath,
-		SourceURL:   metadata["source"],
-		RunFunction: runFunction,
-		FeatureRank: featureRank,
+		Slug:         "showcase-" + slugPart(strings.TrimSuffix(relativePath, ".vibe")),
+		Title:        title,
+		Summary:      summary,
+		Description:  description,
+		Category:     category,
+		Difficulty:   difficulty,
+		Topic:        topic,
+		Origin:       "Showcase",
+		Stage:        stage,
+		Featured:     featured,
+		Runnable:     runnable,
+		Tags:         dedupe(tags),
+		Source:       string(source),
+		SourcePath:   "showcase/" + relativePath,
+		SourceURL:    metadata["source"],
+		HostSource:   hostSource,
+		Capabilities: capabilities,
+		RunFunction:  runFunction,
+		FeatureRank:  featureRank,
 	}
 }
 

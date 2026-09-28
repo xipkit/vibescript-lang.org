@@ -5,6 +5,7 @@
       <span class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> {{.Example.Category}}</span>
       <h1>{{.Example.Title}}</h1>
       <p class="detail-summary">{{.Example.Summary}}</p>
+      {{if .Example.HostSource}}<p>{{.Example.Description}}</p>{{end}}
       <div class="detail-meta">
         <span class="meta-pill">{{.Example.Difficulty}}</span>
         {{if .Example.SourceURL}}
@@ -25,7 +26,7 @@
         <strong>Source</strong>
         <span>{{.Example.SourcePath}}</span>
       </div>
-      <pre class="code-block"><code class="language-vibescript">{{.Example.Source}}</code></pre>
+      <pre class="code-block"><code class="language-vibescript">{{if .Example.HostSource}}{{.Example.SourceBody}}{{else}}{{.Example.Source}}{{end}}</code></pre>
     </div>
 
     <div class="runner-panel" data-example-runner="{{.Example.Slug}}">
@@ -36,7 +37,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
         </button>
       </div>
-      <pre class="runner-output" data-run-output>Press Run example to run this code.</pre>
+      <pre class="runner-output" data-run-output>Click Run example to see the result.</pre>
       {{else}}
       <div class="runner-panel-header">
         <span>Output</span>
@@ -48,6 +49,18 @@
       {{end}}
     </div>
   </div>
+
+  {{if .Example.HostSource}}
+  <section class="host-example">
+    <h2>Add this capability from Go</h2>
+    <p>A capability connects a script to your app. This adapter returns a preview. Replace that part with a call to your messaging service, using the supplied context for cancellation.</p>
+    <p><a href="/reference#app-services">See how to pass the adapter to a script.</a></p>
+    <details class="code-panel">
+      <summary>Go adapter</summary>
+      <pre class="code-block"><code class="language-go">{{.Example.HostSource}}</code></pre>
+    </details>
+  </section>
+  {{end}}
 
   {{if .Example.Tags}}
   <div class="detail-tags">

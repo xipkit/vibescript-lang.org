@@ -1,14 +1,12 @@
-Vibescript lets users and AI agents add scripts to a Go app. Like Lua in a
-game, each script runs inside limits set by the host app. This page covers the
-language boundary, sandbox, and main host settings. For the full Go API,
-capability adapters, migration notes, and built-in methods, see the
+Vibescript runs scripts inside your Go app. Your app supplies the data and
+functions each script can use, and sets its execution limits. For the Go API,
+adapters that connect scripts to your app, and migration notes, see the
 [upstream docs](https://github.com/xipkit/vibescript/tree/master/docs).
 
-Vibescript is an embedded workflow language, not a general-purpose Ruby
-runtime. Scripts call named functions and methods, transform value collections,
-and invoke capabilities supplied by the host. Blocks run synchronously during
-the call that receives them. Modules are namespaces. The Go app owns
-concurrency, delay, I/O, and external authority.
+Scripts call named functions and methods, work with arrays and hashes, and
+use services your app provides. Blocks run during the call that receives them.
+Modules group functions and constants. Your Go app handles concurrency,
+scheduling, and I/O.
 
 ## Basics {#basics}
 
@@ -671,6 +669,38 @@ end
 The upstream [built-ins guide](https://github.com/xipkit/vibescript/blob/master/docs/builtins.md)
 and [standard library guide](https://github.com/xipkit/vibescript/blob/master/docs/stdlib_core_utilities.md)
 list every method, including methods on strings, arrays, hashes, and ranges.
+
+### Add SMS and email {#app-services}
+
+Your app can give scripts services such as SMS, email, or a job queue through
+**capabilities**. You choose the names and methods. For example, an adapter can
+expose `sms.send(phone, body)` or `email.send(address, subject, body)`.
+
+The [SMS example](/examples/showcase-notifications-sms) and
+[email example](/examples/showcase-notifications-email) include the Go adapters
+that run them. Both return message previews. They don't send anything.
+
+Each adapter implements `Bind`, which returns the names a script can use.
+`NewTypedBuiltin` checks the arguments and return type. Pass the adapter in
+`CallOptions.Capabilities` when you call the script:
+
+```go
+result, err := script.Call(ctx, "run", nil, vibes.CallOptions{
+    Capabilities: []vibes.CapabilityAdapter{
+        notifications.SMS{},
+        notifications.Email{},
+    },
+})
+if err != nil {
+    return err
+}
+```
+
+Here, `notifications` is your Go package containing the adapters shown in the
+examples. Pass only the capabilities that a particular script needs. The
+adapter's Go code decides who can receive a message and which provider to use.
+Keep provider credentials in Go, and pass `binding.Context` to the provider's
+client so it can honor cancellation and deadlines.
 
 ### Host-owned scheduling {#host-scheduling}
 

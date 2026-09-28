@@ -4,31 +4,31 @@
   <svg class="sparkle sparkle-md hero-sparkle-2" style="--tilt: -9deg" aria-hidden="true"><use href="#sparkle"></use></svg>
   <div class="hero-copy">
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Open source &middot; MIT licensed</p>
-    <h1>An embeddable Ruby-like language for Go. <span class="underlined">Safe by default<svg class="underline-swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C48 4 118 2 197 5C150 7.5 70 9 6 11.5Z"/></svg></span>, easy for AI to write.</h1>
+    <h1>A Ruby-like language for <span class="underlined">your Go app<svg class="underline-swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C48 4 118 2 197 5C150 7.5 70 9 6 11.5Z"/></svg></span>.</h1>
     <p class="hero-lede">
-      Vibescript is a small Ruby-like language that runs inside your Go app. Users and
-      AI agents write scripts to add features. Your app decides exactly what each
-      script can touch.
+      Let users and AI agents add features with scripts. You choose which data and
+      functions they can use, and how much work each script can do.
     </p>
     <div class="hero-actions">
-      <a class="button" href="/examples">Explore examples</a>
+      <a class="button" href="/examples">Try an example</a>
       <a class="button-secondary" href="{{.UpstreamRepoURL}}">Read the source</a>
     </div>
-    <p class="hero-meta">{{.RunnableExamples}} examples run live in your browser</p>
+    <p class="hero-meta">Hundreds of examples to run in your browser</p>
   </div>
 
   <div class="hero-panel">
     <div class="code-window hero-runner">
       <div class="code-window-header">
-        <span class="code-window-title">late_fee.vibe</span>
+        <span class="code-window-title">delivery_update.vibe</span>
         <span class="code-window-version">{{.UpstreamVersion}}</span>
       </div>
       <pre><code class="language-vibescript">{{.HeroExample.SourceBody}}</code></pre>
       {{if .HeroExample.Runnable}}
       <div class="hero-runner-bar">
         <button class="button run-button hero-run-button" type="button" data-run-button data-run-url="/api/examples/{{.HeroExample.Slug}}/run">Run it</button>
-        <a class="hero-runner-link" href="/examples/{{.HeroExample.Slug}}">view in catalog &rarr;</a>
+        <a class="hero-runner-link" href="/examples/{{.HeroExample.Slug}}">See the Go adapter &rarr;</a>
       </div>
+      <p class="hero-preview-note">{{.HeroExample.Description}}</p>
       <pre class="hero-runner-output" data-run-output></pre>
       {{end}}
     </div>
@@ -50,17 +50,17 @@
   <svg class="sparkle sparkle-md sparkle-number sparkle-float sparkle-pairs-3" style="--tilt: 9deg" aria-hidden="true"><use href="#sparkle"></use></svg>
   <header class="section-intro">
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Language</p>
-    <h2>A familiar language with a small surface.</h2>
-    <p class="section-sub">Vibescript keeps Ruby-like syntax, optional types, money, durations, and enums. It leaves scheduling and open-ended metaprogramming to your Go app.</p>
+    <h2>If you know Ruby, much of this will look familiar.</h2>
+    <p class="section-sub">Write functions, work with collections, and add types where they help. Vibescript also has money, durations, and enums built in.</p>
   </header>
 
   <div class="pair">
     <div class="pair-copy">
       <h3>Small on purpose.</h3>
       <p>
-        Functions are called by name. Blocks run during the call that receives them.
-        Arrays and hashes behave like values, and every hash key lands in one string
-        keyspace. Modules are namespaces. Your Go app owns scheduling and I/O.
+        Functions have names, and blocks run during the call that receives them.
+        Changing an array or hash leaves other copies alone. Hash keys are strings,
+        so <code>order[:status]</code> and <code>order["status"]</code> read the same entry.
       </p>
     </div>
     <div class="pair-panel">
@@ -90,11 +90,11 @@ end</code></pre>
 
   <div class="pair">
     <div class="pair-copy">
-      <h3>Embed it with three calls.</h3>
+      <h3>Add your own services.</h3>
       <p>
-        One <code>go get</code>, then three calls: create an engine, compile the script,
-        call a function. The script exposes functions to your app. Your app exposes only
-        the capabilities it chooses to share back.
+        Give a script an SMS service, an email client, or your own API through a
+        Go capability. You write the adapter. The script calls it like any other method.
+        <a href="/reference#app-services">Here's how to connect one.</a>
       </p>
     </div>
     <div class="pair-panel">
@@ -103,14 +103,17 @@ end</code></pre>
           <span class="code-window-title">main.go</span>
           <span class="code-window-version">host side</span>
         </div>
-        <pre><code><span class="tok-function">engine</span>, _ := vibes.<span class="tok-type">NewEngine</span>(vibes.<span class="tok-type">Config</span>{
-  StepQuota: <span class="tok-number">250_000</span>,
-})
-
-<span class="tok-function">script</span>, _ := engine.<span class="tok-type">Compile</span>(userScript)
-
-fee, _ := script.<span class="tok-type">Call</span>(ctx, <span class="tok-string">"late_fee"</span>, args, opts)
-fee.<span class="tok-type">String</span>() <span class="tok-comment">// "5.00 USD"</span></code></pre>
+        <pre><code class="language-go">opts := vibes.CallOptions{
+  Capabilities: []vibes.CapabilityAdapter{
+    notifications.SMS{},
+  },
+}
+result, err := script.Call(
+  ctx, "run", nil, opts,
+)
+if err != nil {
+  return err
+}</code></pre>
       </div>
     </div>
   </div>
@@ -119,9 +122,8 @@ fee.<span class="tok-type">String</span>() <span class="tok-comment">// "5.00 US
     <div class="pair-copy">
       <h3>Set hard limits for each script.</h3>
       <p>
-        A runaway loop, a hostile script, an AI hallucination with a while-true in it.
-        The engine stops each one at the step, memory, or recursion limit and returns a
-        clean error to your Go app. No goroutine leak, no OOM, no incident channel.
+        Set a budget for execution steps, memory, and call depth. If a script reaches
+        a limit, the engine stops it and returns an error.
       </p>
     </div>
     <div class="pair-panel">
@@ -148,9 +150,8 @@ end</span>
     <div class="pair-copy">
       <h3>Built-in money, duration, and enum types.</h3>
       <p>
-        <code>3.days</code> is a duration, not an integer with a comment. Money uses exact
-        decimal values, so float rounding cannot lose a cent. Enums are real values, not
-        strings you promise to spell consistently.
+        Write <code>3.days</code> for a duration. Use money values for exact decimal
+        arithmetic. Define enums for choices such as shipping speeds or order states.
       </p>
     </div>
     <div class="pair-panel">
@@ -184,51 +185,51 @@ end</code></pre>
 <section class="philosophy band">
   <svg class="sparkle sparkle-lg sparkle-constant sparkle-float sparkle-philosophy" style="--tilt: -24deg" aria-hidden="true"><use href="#sparkle"></use></svg>
   <div class="philosophy-copy">
-    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Extension model</p>
-    <h2>Your Go app stays in charge.</h2>
+    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> In your app</p>
+    <h2>Give scripts access to your app's services.</h2>
     <p>
-      Lua is often embedded in games and tools so people can extend them with scripts.
-      Vibescript brings that model to Go apps.
+      Put pricing rules, approval steps, or notification schedules in scripts that
+      users can change without rebuilding your app.
     </p>
     <p>
-      Each Vibescript extension works through the functions, data, and services your app
-      exposes. The rest of the host stays out of reach.
+      Your Go app handles I/O and scheduling. Scripts use the functions and data you
+      provide to calculate a price, choose the next reviewer, or plan a reminder.
     </p>
     <p>
-      Extending an app this way feels more like HyperCard than traditional software
-      development. Flexible, but within bounds. Scripts get an opinionated set of
-      primitives that combine into predictable features, not a blank slate that can
-      take your app down.
+      Add services through Go capabilities. A script can then call
+      <a href="/examples/showcase-notifications-sms"><code>sms.send(...)</code></a> or
+      <a href="/examples/showcase-notifications-email"><code>email.send(...)</code></a>.
+      Try the message previews and see the Go adapters behind them.
     </p>
   </div>
 
   <aside class="guardrails" aria-labelledby="guardrails-title">
     <h3 id="guardrails-title">Sandbox limits</h3>
-    <p>Safe defaults. Change them to fit your app.</p>
+    <p>These limits apply to this site's examples. Choose the values that fit your app.</p>
     <dl class="guardrail-list">
       <div class="guardrail">
         <dt><svg class="vee"><use href="#vee"></use></svg> Step quota <span class="guardrail-default">{{.Guardrails.StepQuota}}</span></dt>
-        <dd>Caps execution steps to prevent unbounded loops.</dd>
+        <dd>Stops execution when the script uses its step budget.</dd>
       </div>
       <div class="guardrail">
         <dt><svg class="vee"><use href="#vee"></use></svg> Recursion limit <span class="guardrail-default">{{.Guardrails.RecursionLimit}}</span></dt>
-        <dd>Bounds call depth to prevent stack blowups.</dd>
+        <dd>Limits how deeply function calls can nest.</dd>
       </div>
       <div class="guardrail">
         <dt><svg class="vee"><use href="#vee"></use></svg> Memory quota <span class="guardrail-default">{{.Guardrails.MemoryQuota}}</span></dt>
-        <dd>Limits allocations so scripts fail cleanly instead of OOMing the host.</dd>
+        <dd>Limits the memory a script can use.</dd>
       </div>
       <div class="guardrail">
         <dt><svg class="vee"><use href="#vee"></use></svg> Effects control <span class="guardrail-default">strict</span></dt>
-        <dd>Side-effecting operations require explicit capabilities.</dd>
+        <dd>Operations such as database writes need permission from your app.</dd>
       </div>
       <div class="guardrail">
         <dt><svg class="vee"><use href="#vee"></use></svg> Module paths <span class="guardrail-default">allowlist</span></dt>
-        <dd>Module lookups only resolve inside directories you approve.</dd>
+        <dd>Loads modules from directories you approve.</dd>
       </div>
       <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Capability gating <span class="guardrail-default">host adapters</span></dt>
-        <dd>Scripts only touch the safe adapters you expose.</dd>
+        <dt><svg class="vee"><use href="#vee"></use></svg> App access <span class="guardrail-default">host adapters</span></dt>
+        <dd>You choose which services scripts can call.</dd>
       </div>
     </dl>
   </aside>
@@ -238,8 +239,8 @@ end</code></pre>
   <svg class="sparkle sparkle-md sparkle-string sparkle-float sparkle-featured" style="--tilt: 17deg" aria-hidden="true"><use href="#sparkle"></use></svg>
   <div class="section-intro">
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Featured</p>
-    <h2>See Vibescript in real programs.</h2>
-    <p class="section-sub">These examples use the language for common app logic. Each one runs in your browser.</p>
+    <h2>A few examples to start with.</h2>
+    <p class="section-sub">Send notifications, calculate fees, and check approvals.</p>
   </div>
   <div class="card-grid">
     {{range .Featured}}
@@ -266,12 +267,11 @@ end</code></pre>
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Try it</p>
     <h2>Run a few examples.</h2>
     <p class="section-sub">
-      {{.RunnableExamples}} programs are compiled against the real interpreter when the
-      site starts and run with one click. No install or setup needed.
+      Pick an example, read the code, and run it. You don't need to install anything.
     </p>
     <div class="hero-actions">
-      <a class="button" href="/examples">Browse all {{.TotalExamples}} examples</a>
-      <a class="button-secondary" href="{{.UpstreamRepoURL}}">Star it on GitHub</a>
+      <a class="button" href="/examples">Browse examples</a>
+      <a class="button-secondary" href="{{.UpstreamRepoURL}}">View on GitHub</a>
     </div>
   </div>
 </section>

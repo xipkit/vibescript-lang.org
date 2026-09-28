@@ -8,9 +8,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/xipkit/vibescript-lang.org/internal/catalog"
 	"github.com/mgomes/vibescript/vibes"
 	"github.com/mgomes/vibescript/vibes/value"
+	"github.com/xipkit/vibescript-lang.org/internal/catalog"
 )
 
 var (
@@ -115,7 +115,9 @@ func (s *Service) Run(ctx context.Context, slug string) (Result, error) {
 	}
 
 	started := time.Now()
-	result, err := script.Call(ctx, example.RunFunction, nil, vibes.CallOptions{})
+	result, err := script.Call(ctx, example.RunFunction, nil, vibes.CallOptions{
+		Capabilities: example.Capabilities,
+	})
 	if err != nil {
 		return Result{}, err
 	}

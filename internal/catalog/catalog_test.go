@@ -63,10 +63,10 @@ func TestCatalogUsesTheLightLanguageSurface(t *testing.T) {
 		t.Fatalf("Load() error = %v, want nil", err)
 	}
 
-	if got, want := store.Count(), 201; got != want {
+	if got, want := store.Count(), 203; got != want {
 		t.Errorf("Count() = %d, want %d", got, want)
 	}
-	if got, want := store.TaggedCount("showcase"), 31; got != want {
+	if got, want := store.TaggedCount("showcase"), 33; got != want {
 		t.Errorf("TaggedCount(%q) = %d, want %d", "showcase", got, want)
 	}
 
@@ -95,9 +95,14 @@ func TestCatalogUsesTheLightLanguageSurface(t *testing.T) {
 		}
 	}
 
-	featured := store.Featured(1)
-	if len(featured) != 1 || featured[0].Slug != "showcase-language-value-boundaries" {
-		t.Errorf("Featured(1) = %#v, want value-boundaries first", featured)
+	featured := store.Featured(3)
+	if len(featured) != 3 {
+		t.Fatalf("len(Featured(3)) = %d, want 3", len(featured))
+	}
+	for i, want := range []string{"showcase-notifications-sms", "showcase-notifications-email", "showcase-language-value-boundaries"} {
+		if featured[i].Slug != want {
+			t.Errorf("Featured(3)[%d].Slug = %q, want %q", i, featured[i].Slug, want)
+		}
 	}
 }
 
@@ -119,9 +124,10 @@ func TestAllExamplesCompileAndPassStaticChecks(t *testing.T) {
 				return
 			}
 
-			if warnings := script.CheckWarningsForFunction(example.RunFunction); len(warnings) > 0 {
+			opts := vibes.CallOptions{Capabilities: example.Capabilities}
+			if warnings := script.CheckWarningsForFunctionWithOptions(example.RunFunction, opts); len(warnings) > 0 {
 				t.Errorf(
-					"CheckWarningsForFunction(%q, %q) = %#v, want none",
+					"CheckWarningsForFunctionWithOptions(%q, %q) = %#v, want none",
 					example.SourcePath,
 					example.RunFunction,
 					warnings,
