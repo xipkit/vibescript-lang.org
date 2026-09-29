@@ -1,6 +1,6 @@
 import { WASI, File, OpenFile, ConsoleStdout } from "./vendor/browser_wasi_shim/dist/index.js";
 
-const limits = Object.freeze({ steps: 1000000, memory_bytes: 16777216, recursion: 128 });
+const limits = Object.freeze({ steps: 10000000, memory_bytes: 16777216, recursion: 128 });
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 let compiled;

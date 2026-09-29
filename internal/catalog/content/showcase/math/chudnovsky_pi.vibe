@@ -43,8 +43,8 @@ def split_series(a: int, b: int) -> [int, int, int]
   end
 end
 
-# Integer Newton square root. The float seed is inflated above the true root,
-# so the sequence descends monotonically and stops exactly at floor(sqrt(n)).
+# Integer Newton square root. Starting above the true root, the sequence
+# descends monotonically and stops exactly at floor(sqrt(n)).
 def integer_sqrt(n: int, seed: int) -> int
   x = (seed + n // seed) // 2
   y = (x + n // x) // 2
@@ -72,7 +72,9 @@ def run -> RunResult
 
   p, q, t = split_series(0, terms)
 
-  seed = (Math.sqrt(10005.0) * 1.001 * (10.0 ** scale)).to_i
+  # sqrt(10005) is about 100.025, so 101 * 10^scale starts above the root. An
+  # integer seed keeps every step exact at any number of digits.
+  seed = 101 * (10 ** scale)
   sqrt_c = integer_sqrt(10005 * (10 ** (2 * scale)), seed)
 
   # pi * 10^scale = 426880 * sqrt(10005 * 10^(2*scale)) * Q // T
