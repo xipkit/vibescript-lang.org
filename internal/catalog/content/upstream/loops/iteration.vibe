@@ -1,13 +1,13 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  above_5: array<int>,
-  countdown: int,
-  doubled: array<int>,
-  product_range: int,
-  reduce: int,
+type Iterations = {
   sum_range: int,
-  total_each: int
+  product_range: int,
+  countdown: int,
+  total_each: int,
+  doubled: array<int>,
+  above_5: array<int>,
+  reduce: int
 }
 
 def sum_range(limit: int) -> int
@@ -60,7 +60,7 @@ def reduce_sum(values: array<int>) -> int
   }
 end
 
-def run -> RunResult
+def run -> Iterations
   nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   {
     sum_range: sum_range(10),

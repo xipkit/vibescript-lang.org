@@ -2,9 +2,14 @@
 # uses: jobs, events, db
 # The host owns the queue and performs delayed work after this call returns.
 
-def queue_recalc(
-  player_id: string
-) -> { status: string, job: string, player_id: string, delay: string, key: string }
+type Player = { id: string, raised: money }
+type RecalcPayload = { player_id: string }
+type QueuedJob = { status: string, job: string, player_id: string, delay: string, key: string }
+type TotalUpdate = { id: string, total: string }
+type PublishedEvent = { status: string, channel: string, payload: TotalUpdate }
+type HostNote = { note: string, functions: array<string> }
+
+def queue_recalc(player_id: string) -> QueuedJob
   jobs.enqueue(
     "recalc_player_total",
     { player_id: player_id },
@@ -13,9 +18,7 @@ def queue_recalc(
   )
 end
 
-def publish_update(
-  player: { id: string, raised: money }
-) -> { status: string, channel: string, payload: { id: string, total: string } }
+def publish_update(player: Player) -> PublishedEvent
   events.publish(
     "players_totals",
     {
@@ -25,16 +28,14 @@ def publish_update(
   )
 end
 
-def job_recalc_player_total(
-  payload: { player_id: string }
-) -> { status: string, channel: string, payload: { id: string, total: string } }
+def job_recalc_player_total(payload: RecalcPayload) -> PublishedEvent
   player_id = payload["player_id"]
   total = db.sum("ScoreEntry", "amount", where: { player_id: player_id })
   db.update("Player", player_id, { raised: total })
   publish_update({ id: player_id, raised: total })
 end
 
-def run -> { functions: array<string>, note: string }
+def run -> HostNote
   {
     note: "This example requires jobs, events, and db capabilities which are injected by the host application.",
     functions: ["queue_recalc", "publish_update", "job_recalc_player_total"]

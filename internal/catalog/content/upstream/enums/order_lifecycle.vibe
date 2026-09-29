@@ -28,6 +28,7 @@ def apply(state: OrderState, target: OrderState) -> OrderState
 end
 
 type Replay = { state: string, history: array<string>, rejected: array<string> }
+type Replays = { happy_path: Replay, out_of_order: Replay, finished: array<string> }
 
 def replay(steps: array<OrderState>) -> Replay
   state: OrderState = :pending
@@ -44,7 +45,7 @@ def replay(steps: array<OrderState>) -> Replay
   { state: state.name, history: history, rejected: rejected }
 end
 
-def run -> { happy_path: Replay, out_of_order: Replay, finished: array<string> }
+def run -> Replays
   {
     happy_path: replay([:paid, :shipped, :delivered]),
     out_of_order: replay([:shipped, :paid, :cancelled, :paid]),

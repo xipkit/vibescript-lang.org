@@ -16,7 +16,7 @@ def fibonacci(n: int) -> int
   end
 end
 
-def run -> { factorial_10: int, factorial_5: int, fibonacci_5: int, fibonacci_7: int }
+def run -> hash<string, int>
   {
     factorial_5: factorial(5),
     factorial_10: factorial(10),

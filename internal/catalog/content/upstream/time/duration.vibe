@@ -1,20 +1,25 @@
 # vibe: 0.1.0
 
-type DurationMathResult = {
+type Parts = { days: int, hours: int, minutes: int, seconds: int }
+type DurationParts = { iso: string, parts: Parts }
+type Comparison = { lt: bool, eq: bool, gt: bool }
+
+type DurationMath = {
   add: string,
-  compare: { eq: bool, gt: bool, lt: bool },
+  subtract: string,
+  multiply: string,
+  multiply_left: string,
   divide: string,
   divide_duration: float,
   modulo: string,
-  multiply: string,
-  multiply_left: string,
-  subtract: string
+  compare: Comparison
 }
-type RunResult = {
-  math: DurationMathResult,
+
+type DurationTour = {
+  parts: DurationParts,
   parse_build: string,
-  parts: { iso: string, parts: { days: int, hours: int, minutes: int, seconds: int } },
   to_i: int,
+  math: DurationMath,
   to_i_math: int
 }
 
@@ -26,7 +31,7 @@ def ago_time(base: time) -> string
   2.hours.before(base).to_s
 end
 
-def duration_parts -> { iso: string, parts: { days: int, hours: int, minutes: int, seconds: int } }
+def duration_parts -> DurationParts
   d = Duration.parse("P1DT1H1M1S")
   {
     iso: d.iso8601,
@@ -46,7 +51,7 @@ def duration_until(base: time) -> string
   90.minutes.before(base).to_s
 end
 
-def duration_math -> DurationMathResult
+def duration_math -> DurationMath
   d1 = 4.seconds + 2.hours
   d2 = 2.hours - 4.seconds
   d3 = 10.seconds * 3
@@ -76,7 +81,7 @@ def duration_to_i_math -> int
   (3.seconds + 5.seconds).to_i
 end
 
-def run -> RunResult
+def run -> DurationTour
   {
     parts: duration_parts,
     parse_build: duration_parse_build,

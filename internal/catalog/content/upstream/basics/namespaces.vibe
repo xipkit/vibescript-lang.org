@@ -8,11 +8,13 @@ module Scoring
   end
 end
 
+type Score = { base: int, with_bonus: int }
+
 def score_with_bonus(score: int) -> int
   Scoring.with_bonus(score)
 end
 
-def run -> { base: int, with_bonus: int }
+def run -> Score
   {
     base: 80,
     with_bonus: score_with_bonus(80)

@@ -1,5 +1,8 @@
 # vibe: 0.1.0
 
+type Timing = { result: int, elapsed: float }
+type Yielded = { times: array<int>, tap: int, transform_keys: hash<string, int | string> }
+
 def times(n: int, &block: int -> any)
   i = 0
   while i < n
@@ -20,7 +23,7 @@ def first_truthy(max_attempts: int, &block: int -> bool) -> bool?
   nil
 end
 
-def benchmark(&block: () -> int) -> { result: int, elapsed: float }
+def benchmark(&block: () -> int) -> Timing
   start = Time.now
   result = yield
   elapsed = Time.now - start
@@ -44,7 +47,7 @@ def transform_keys(
   result
 end
 
-def run -> { tap: int, times: array<int>, transform_keys: hash<string, int | string> }
+def run -> Yielded
   collected: array<int> = []
   times(5) { |i|
     collected = collected + [i]

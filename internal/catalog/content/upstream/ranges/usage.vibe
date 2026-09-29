@@ -1,5 +1,7 @@
 # vibe: 0.1.0
 
+type RangeSamples = { inclusive_sum: int, descending: string, evens: string }
+
 def inclusive_range_sum(start: int, finish: int) -> int
   total = 0
   for value in start..finish
@@ -42,7 +44,7 @@ def range_even_numbers(start: int, finish: int) -> string
   output
 end
 
-def run -> { descending: string, evens: string, inclusive_sum: int }
+def run -> RangeSamples
   {
     inclusive_sum: inclusive_range_sum(1, 10),
     descending: descending_range_collect(5, 1),

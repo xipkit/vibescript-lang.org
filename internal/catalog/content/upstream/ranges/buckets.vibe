@@ -2,6 +2,13 @@
 # summary: Use ranges in case branches to label values and count how many land in each bucket.
 # vibe: 0.1.0
 
+type Buckets = {
+  tiers: hash<string, string>,
+  tier_counts: hash<string, int>,
+  grades: array<string>,
+  histogram: array<string>
+}
+
 def shipping_tier(grams: int) -> string
   case grams
   when 0...500 then "letter"
@@ -20,14 +27,7 @@ def grade(score: int) -> string
   end
 end
 
-type RunResult = {
-  tiers: hash<string, string>,
-  tier_counts: hash<string, int>,
-  grades: array<string>,
-  histogram: array<string>
-}
-
-def run -> RunResult
+def run -> Buckets
   parcels: hash<string, int> = {
     card: 40,
     book: 900,

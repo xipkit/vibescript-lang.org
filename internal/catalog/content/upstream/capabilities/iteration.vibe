@@ -1,6 +1,8 @@
 # vibe: 0.1.0
 # uses: db
 
+type HostNote = { note: string, functions: array<string> }
+
 def total_raised_for_player(player_id: string) -> money
   total = money("0.00 USD")
   db.each("ScoreEntry", where: { player_id: player_id }) { |entry|
@@ -9,7 +11,7 @@ def total_raised_for_player(player_id: string) -> money
   total
 end
 
-def run -> { functions: array<string>, note: string }
+def run -> HostNote
   {
     note: "This example requires the db capability which is injected by the host application.",
     functions: ["total_raised_for_player"]

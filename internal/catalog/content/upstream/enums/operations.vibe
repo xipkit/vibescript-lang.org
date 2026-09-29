@@ -1,21 +1,21 @@
 # vibe: 0.1.0
 # Enum basics
 
-type FactsResult = {
+type EnumFacts = {
+  same: bool,
+  symbol_same: bool,
   cross_enum_same: bool,
   name: string,
-  payload: string,
-  render: string,
-  same: bool,
   symbol: symbol,
-  symbol_same: bool
+  render: string,
+  payload: string
 }
 
-type RunResult = {
-  facts: FactsResult,
+type EnumTour = {
   member_name: string,
+  published_name: string,
   names: array<string>,
-  published_name: string
+  facts: EnumFacts
 }
 
 enum Status
@@ -43,7 +43,7 @@ def block_names(values: array<Status>) -> array<string>
   }
 end
 
-def facts -> FactsResult
+def facts -> EnumFacts
   draft = Status::Draft
   draft_symbol = :draft
 
@@ -58,7 +58,7 @@ def facts -> FactsResult
   }
 end
 
-def run -> RunResult
+def run -> EnumTour
   {
     member_name: member_name,
     published_name: publish_name(:published),

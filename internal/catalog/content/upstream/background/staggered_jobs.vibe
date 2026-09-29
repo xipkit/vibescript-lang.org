@@ -11,6 +11,8 @@ type Queued = {
   key: string
 }
 
+type Schedule = { queued: array<Queued>, waves: hash<string, int> }
+
 def stagger(player_ids: array<string>, *, gap: duration, per_wave: int) -> array<Queued>
   player_ids.map_with_index { |player_id, index|
     wave = index // per_wave
@@ -23,7 +25,7 @@ def stagger(player_ids: array<string>, *, gap: duration, per_wave: int) -> array
   }
 end
 
-def run -> { queued: array<Queued>, waves: hash<string, int> }
+def run -> Schedule
   queued = stagger(["p-1", "p-2", "p-3", "p-4", "p-5"], gap: 30.seconds, per_wave: 2)
 
   {

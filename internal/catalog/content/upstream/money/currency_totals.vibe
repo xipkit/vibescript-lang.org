@@ -4,6 +4,13 @@
 
 type Payment = { customer: string, amount: money }
 
+type CurrencyReport = {
+  totals: hash<string, money>,
+  largest_usd: string,
+  largest_eur: string,
+  refundable: bool
+}
+
 def totals_by_currency(payments: array<Payment>) -> hash<string, money>
   payments
     .group_by { |payment| payment["amount"].currency }
@@ -20,14 +27,7 @@ def largest(payments: array<Payment>, currency: string) -> string
   top == nil ? "none" : "#{top["customer"]} (#{top["amount"]})"
 end
 
-type RunResult = {
-  totals: hash<string, money>,
-  largest_usd: string,
-  largest_eur: string,
-  refundable: bool
-}
-
-def run -> RunResult
+def run -> CurrencyReport
   payments: array<Payment> = [
     { customer: "Ada", amount: money("120.00 USD") },
     { customer: "Lin", amount: money("45.50 EUR") },

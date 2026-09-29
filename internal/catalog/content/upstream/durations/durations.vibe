@@ -1,5 +1,7 @@
 # vibe: 0.1.0
 
+type Delays = { reminder_delay: int, event_window: duration, combined: int }
+
 def reminder_delay_seconds -> int
   (5.minutes).to_i
 end
@@ -12,7 +14,7 @@ def combine_delay_seconds(first: duration, second: duration) -> int
   first.to_i + second.to_i
 end
 
-def run -> { combined: int, event_window: duration, reminder_delay: int }
+def run -> Delays
   {
     reminder_delay: reminder_delay_seconds,
     event_window: event_window,

@@ -1,14 +1,5 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  active: string,
-  bronze: string,
-  complete: string,
-  gold: string,
-  legend: string,
-  other: string
-}
-
 def fundraising_badge(amount: int) -> string
   if amount >= 100000
     "legend"
@@ -33,7 +24,7 @@ def choose_label(status: string) -> string
   end
 end
 
-def run -> RunResult
+def run -> hash<string, string>
   {
     legend: fundraising_badge(100000),
     gold: fundraising_badge(5000),

@@ -4,6 +4,7 @@
 
 type Ticket = { id: string, priority: string, waited: duration }
 type Status = { id: string, target: string, remaining: string, breached: bool }
+type SlaReport = { statuses: array<Status>, breached: array<string> }
 
 def target_for(priority: string) -> duration
   case priority
@@ -27,7 +28,7 @@ def status(ticket: Ticket) -> Status
   }
 end
 
-def run -> { statuses: array<Status>, breached: array<string> }
+def run -> SlaReport
   tickets: array<Ticket> = [
     { id: "T-101", priority: "urgent", waited: 40.minutes },
     { id: "T-102", priority: "high", waited: 5.hours },

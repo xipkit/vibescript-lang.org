@@ -1,6 +1,8 @@
 # vibe: 0.1.0
 
-def total_raised_by_currency(donations: array<{ amount: money }>) -> hash<string, money>
+type Donation = { amount: money }
+
+def total_raised_by_currency(donations: array<Donation>) -> hash<string, money>
   grouped: hash<string, money> = {}
   donations.each { |donation|
     currency = donation["amount"].currency

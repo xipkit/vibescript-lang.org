@@ -1,5 +1,7 @@
 # vibe: 0.1.0
 
+type Checked = { positive: int, currency: money, present: string }
+
 def ensure_positive(amount: int) -> int
   assert amount > 0, "amount must be positive"
   amount
@@ -15,7 +17,7 @@ def guard_present(value: string?) -> string
   value
 end
 
-def run -> { currency: money, positive: int, present: string }
+def run -> Checked
   {
     positive: ensure_positive(42),
     currency: ensure_currency(money("25.00 USD")),

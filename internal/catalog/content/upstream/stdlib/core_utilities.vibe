@@ -1,27 +1,27 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  inspect_array: string,
-  inspect_string: string,
-  json_encoded: string,
+type Utilities = {
   json_id: string,
   json_score: int,
-  math_hypot: float,
-  math_log_base: float,
-  math_pi_rounded: number,
-  math_sqrt: float,
-  parsed_time: string,
-  random_length: int,
+  json_encoded: string,
   regex_match: string?,
   regex_replace: string,
   regex_replace_all: string,
-  to_float: float,
-  to_int: int,
+  uuid_length: int,
   uuid_has_dash: bool,
-  uuid_length: int
+  random_length: int,
+  to_int: int,
+  to_float: float,
+  math_sqrt: float,
+  math_hypot: float,
+  math_log_base: float,
+  math_pi_rounded: number,
+  parsed_time: string,
+  inspect_string: string,
+  inspect_array: string
 }
 
-def run -> RunResult
+def run -> Utilities
   parsed = JSON.parse_as("{\"id\":\"p-1\",\"score\":10}", { id: string, score: int })
   event_id = uuid
   token = random_id(8)

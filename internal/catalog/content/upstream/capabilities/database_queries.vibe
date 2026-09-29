@@ -1,21 +1,24 @@
 # vibe: 0.1.0
 # uses: db
 
-def load_player(id: string) -> { id: string, raised: money }
+type Player = { id: string, raised: money }
+type HostNote = { note: string, functions: array<string> }
+
+def load_player(id: string) -> Player
   db.find("Player", id)
 end
 
-def top_players(limit: int) -> array<{ id: string, raised: money }>
+def top_players(limit: int) -> array<Player>
   db.query("Player", order: { raised: :desc }, limit: limit)
 end
 
-def increment_total(id: string, amount: money) -> { id: string, raised: money }
+def increment_total(id: string, amount: money) -> Player
   player = db.find("Player", id)
   updated = player["raised"] + amount
   db.update("Player", id, { raised: updated })
 end
 
-def run -> { functions: array<string>, note: string }
+def run -> HostNote
   {
     note: "This example requires the db capability which is injected by the host application.",
     functions: ["load_player", "top_players", "increment_total"]

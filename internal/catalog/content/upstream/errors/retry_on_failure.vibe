@@ -9,6 +9,7 @@ def flaky_fetch(attempt: int, *, succeeds_on: int) -> string
 end
 
 type Outcome = { result: string, attempts: int, log: array<string> }
+type Retries = { recovers: Outcome, gives_up: Outcome }
 
 def fetch_with_retries(*, succeeds_on: int, limit: int) -> Outcome
   attempts = 0
@@ -27,7 +28,7 @@ def fetch_with_retries(*, succeeds_on: int, limit: int) -> Outcome
   { result: result, attempts: attempts, log: log }
 end
 
-def run -> { recovers: Outcome, gives_up: Outcome }
+def run -> Retries
   {
     recovers: fetch_with_retries(succeeds_on: 3, limit: 5),
     gives_up: fetch_with_retries(succeeds_on: 10, limit: 2)

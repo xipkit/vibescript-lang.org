@@ -2,6 +2,14 @@
 # summary: Round, floor, and format numbers for reports, and do exact integer math.
 # vibe: 0.1.0
 
+type Formatting = {
+  rounding: hash<string, number>,
+  formatted: array<string>,
+  divmod: [int, int],
+  exact_power: string,
+  distance: float
+}
+
 def percent(part: int, whole: int) -> string
   format("%.1f%%", part * 100 / whole)
 end
@@ -12,15 +20,7 @@ def with_commas(value: int) -> string
   value < 0 ? "-#{digits}" : digits
 end
 
-type RunResult = {
-  rounding: hash<string, number>,
-  formatted: array<string>,
-  divmod: [int, int],
-  exact_power: string,
-  distance: float
-}
-
-def run -> RunResult
+def run -> Formatting
   price = 19.4567
 
   {

@@ -1,14 +1,15 @@
 # vibe: 0.1.0
 
+type Donation = { id: string, amount: money }
+type Transformed = { doubled: array<int>, total: int }
+
 def double_each(pledges: array<int>) -> array<int>
   pledges.map { |pledge|
     pledge * 2
   }
 end
 
-def select_large_donations(
-  donations: array<{ id: string, amount: money }>
-) -> array<{ id: string, amount: money }>
+def select_large_donations(donations: array<Donation>) -> array<Donation>
   donations.select { |donation|
     donation["amount"] > money("50.00 USD")
   }
@@ -20,7 +21,7 @@ def total_scores(scores: array<int>) -> int
   }
 end
 
-def run -> { doubled: array<int>, total: int }
+def run -> Transformed
   {
     doubled: double_each([10, 20, 30]),
     total: total_scores([100, 200, 300])

@@ -1,5 +1,7 @@
 # vibe: 0.1.0
 
+type LoopTotals = { sum_of_products: int, accumulate: int, first_div_by_7: int?, matrix_sum: int }
+
 def sum_of_products(x_limit: int, y_limit: int) -> int
   total = 0
   for x in 1..x_limit
@@ -40,7 +42,7 @@ def sum_matrix(matrix: array<array<int>>) -> int
   total
 end
 
-def run -> { accumulate: int, first_div_by_7: int?, matrix_sum: int, sum_of_products: int }
+def run -> LoopTotals
   {
     sum_of_products: sum_of_products(4, 3),
     accumulate: accumulate_until(20, 15),

@@ -1,5 +1,8 @@
 # vibe: 0.1.0
 
+type Copies = { updated: array<int>, original: array<int> }
+type ArrayAccess = { head: int?, tail: int?, matrix: array<array<int>>, replaced: array<int> }
+
 def head(values: array<int>) -> int?
   values.first
 end
@@ -17,16 +20,13 @@ def replace_first(values: array<int>, value: int) -> array<int>
   values
 end
 
-def update_without_aliasing(
-  values: array<int>,
-  value: int
-) -> { updated: array<int>, original: array<int> }
+def update_without_aliasing(values: array<int>, value: int) -> Copies
   original = values
   values[0] = value
   { updated: values, original: original }
 end
 
-def run -> { head: int?, matrix: array<array<int>>, replaced: array<int>, tail: int? }
+def run -> ArrayAccess
   {
     head: head([10, 20, 30]),
     tail: tail([10, 20, 30]),

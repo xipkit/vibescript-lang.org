@@ -9,6 +9,8 @@ type Published = {
   payload: { id: string, total: string }
 }
 
+type MilestoneReport = { totals: array<money>, published: array<Published> }
+
 def milestones -> array<money>
   [money("25.00 USD"), money("50.00 USD"), money("100.00 USD")]
 end
@@ -28,7 +30,7 @@ def crossed(totals: array<money>) -> array<money>
   milestones.select { |milestone| totals.any? { |total| total >= milestone } }
 end
 
-def run -> { totals: array<money>, published: array<Published> }
+def run -> MilestoneReport
   totals = running_totals("p-1")
   published = crossed(totals).map { |milestone|
     events.publish("player_milestones", { id: "p-1", total: milestone.to_s })

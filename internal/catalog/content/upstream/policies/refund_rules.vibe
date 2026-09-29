@@ -4,6 +4,7 @@
 
 type Request = { id: string, amount: money, days_since_purchase: int, used: bool }
 type Decision = { id: string, outcome: string, reason: string }
+type Refunds = { decisions: array<Decision>, summary: hash<string, int> }
 
 # Rules run in order; the first that matches decides.
 def ruling(request: Request) -> [string, string]
@@ -20,7 +21,7 @@ def decide(request: Request) -> Decision
   { id: request["id"], outcome: outcome, reason: reason }
 end
 
-def run -> { decisions: array<Decision>, summary: hash<string, int> }
+def run -> Refunds
   requests: array<Request> = [
     { id: "R-1", amount: money("24.00 USD"), days_since_purchase: 3, used: false },
     { id: "R-2", amount: money("89.00 USD"), days_since_purchase: 12, used: true },

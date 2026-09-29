@@ -10,6 +10,7 @@ enum Priority
 end
 
 type Ticket = { title: string, priority: Priority }
+type Triage = { queue: array<string>, counts: hash<string, int>, urgent_label: string }
 
 def rank(priority: Priority) -> int
   case priority
@@ -29,7 +30,7 @@ def label(priority: Priority) -> string
   end
 end
 
-def run -> { queue: array<string>, counts: hash<string, int>, urgent_label: string }
+def run -> Triage
   tickets: array<Ticket> = [
     { title: "Update footer links", priority: Priority::Low },
     { title: "Checkout fails for EU cards", priority: Priority::Urgent },

@@ -1,13 +1,18 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  completed: { goal: int, name: string, raised: int, status: string },
-  nested: string,
-  player: { goal: int, name: string, raised: int, status: string },
-  with_bonus: int
+type Player = { name: string, goal: int, raised: int, status: string }
+type Row = { raised: int }
+type Meta = { tag: string }
+type Tagged = { meta: Meta }
+
+type HashLookups = {
+  player: Player,
+  completed: Player,
+  with_bonus: int,
+  nested: string
 }
 
-def make_player(name: string, goal: int) -> { goal: int, name: string, raised: int, status: string }
+def make_player(name: string, goal: int) -> Player
   {
     name: name,
     goal: goal,
@@ -16,22 +21,20 @@ def make_player(name: string, goal: int) -> { goal: int, name: string, raised: i
   }
 end
 
-def mark_complete(
-  player: { goal: int, name: string, raised: int, status: string }
-) -> { goal: int, name: string, raised: int, status: string }
+def mark_complete(player: Player) -> Player
   player["status"] = "complete"
   player
 end
 
-def total_with_bonus(row: { raised: int }, bonus: int) -> int
+def total_with_bonus(row: Row, bonus: int) -> int
   row["raised"] + bonus
 end
 
-def nested_lookup(record: { meta: { tag: string } }) -> string
+def nested_lookup(record: Tagged) -> string
   record["meta"]["tag"]
 end
 
-def run -> RunResult
+def run -> HashLookups
   player = make_player("Alice", 1000)
   completed = mark_complete(make_player("Bob", 500))
   {
