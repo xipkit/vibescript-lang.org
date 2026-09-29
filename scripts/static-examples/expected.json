@@ -3432,6 +3432,24 @@
       },
       "display": "{fast: [{attempt: 1, delay: PT30S, at: 2023-11-14T22:13:50Z}, {attempt: 2, delay: PT1M, at: 2023-11-14T22:14:50Z}, {attempt: 3, delay: PT2M, at: 2023-11-14T22:16:50Z}, {attempt: 4, delay: PT4M, at: 2023-11-14T22:20:50Z}], careful: [{attempt: 1, delay: PT5M, at: 2023-11-14T22:18:20Z}, {attempt: 2, delay: PT10M, at: 2023-11-14T22:28:20Z}, {attempt: 3, delay: PT20M, at: 2023-11-14T22:48:20Z}]}"
     },
+    "showcase/automation/trial_reminder.vibe": {
+      "value": "Your trial ends in 2 days.",
+      "probes": [
+        {
+          "expression": "reminder(:pro, 1.days)",
+          "value": null
+        },
+        {
+          "expression": "reminder(:free, 5.days)",
+          "value": null
+        },
+        {
+          "expression": "reminder(:free, 3.days)",
+          "value": "Your trial ends in 3 days."
+        }
+      ],
+      "display": "Your trial ends in 2 days."
+    },
     "showcase/collections/hash_projection.vibe": {
       "value": {
         "contacts": [

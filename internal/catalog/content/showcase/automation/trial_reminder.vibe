@@ -1,0 +1,21 @@
+# title: Trial reminder
+# category: Vibescript Showcase
+# difficulty: Showcase
+# summary: Remind free users that their trial is ending, and skip everyone else.
+# description: An enum picks out the plan, and an optional result makes callers handle the no-reminder case.
+# tags: automation, enums, durations, optionals
+# vibe: 0.1.0
+
+enum Plan
+  Free
+  Pro
+end
+
+def reminder(plan: Plan, left: duration) -> string?
+  return nil if plan == Plan::Pro || left > 3.days
+  "Your trial ends in #{left.days} days."
+end
+
+def run -> string?
+  reminder(:free, 2.days)
+end

@@ -1,5 +1,5 @@
 {{define "main"}}
-{{ $hero := site.GetPage "/examples/showcase-notifications-sms" }}
+{{ $hero := site.GetPage "/examples/showcase-automation-trial-reminder" }}
 <section class="hero">
   <svg class="sparkle sparkle-sm sparkle-keyword hero-sparkle-1 tilt-14" aria-hidden="true"><use href="#sparkle"></use></svg>
   <svg class="sparkle sparkle-md hero-sparkle-2 tilt-neg-9" aria-hidden="true"><use href="#sparkle"></use></svg>
@@ -20,7 +20,7 @@
   <div class="hero-panel">
     <div class="code-window hero-runner" data-playground data-function="run">
       <div class="code-window-header">
-        <span class="code-window-title">delivery_update.vibe</span>
+        <span class="code-window-title">trial_reminder.vibe</span>
         <span class="code-window-version">v{{hugo.Data.playground.version}}</span>
       </div>
       <pre><code class="language-vibescript">{{$hero.Params.sourcebody}}</code></pre>
@@ -30,7 +30,6 @@
         <button class="button-secondary hero-stop-button" type="button" data-stop-button disabled hidden>Stop</button>
         <a class="hero-runner-link" href="/examples/{{$hero.Params.slug}}">Edit this example &rarr;</a>
       </div>
-      <p class="hero-preview-note">SMS and email calls return previews. No messages are sent.</p>
       <pre class="hero-runner-output" data-run-output role="status" aria-live="polite"></pre>
       {{end}}
     </div>
