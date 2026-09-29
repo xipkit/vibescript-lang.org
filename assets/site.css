@@ -390,20 +390,6 @@ button:focus-visible {
   display: block;
 }
 
-.sound-toggle .icon-sound-on,
-.sound-toggle .icon-sound-off {
-  display: none;
-}
-
-[data-sound="on"] .sound-toggle .icon-sound-on,
-[data-sound="off"] .sound-toggle .icon-sound-off {
-  display: block;
-}
-
-[data-sound="off"] .sound-toggle {
-  color: var(--faint);
-}
-
 /* Shared text */
 
 .eyebrow {

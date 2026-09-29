@@ -17,76 +17,15 @@
     return `${result.kind} in ${dur}\n\n${String(result.value)}`;
   }
 
-  const SOUND_KEY = "sound";
-  let cuelume = null;
-
   /* Storage access throws outright when a browser denies it (private modes,
-     blocked cookies, sandboxed embeds), so every read and write is guarded.
-     A preference we cannot reach is simply the default. */
-  function readStored(key) {
-    try {
-      return localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  }
-
+     blocked cookies, sandboxed embeds), so the write is guarded. A preference
+     we cannot store still applies for the session. */
   function writeStored(key, value) {
     try {
       localStorage.setItem(key, value);
     } catch {
       // Preference cannot be persisted; the session still honors it.
     }
-  }
-
-  /** Resolves the vendored cuelume module, loading it on first use. */
-  async function loadCuelume() {
-    if (cuelume) return cuelume;
-    try {
-      cuelume = await import("/static/vendor/cuelume/index.js");
-      cuelume.setEnabled(soundEnabled());
-    } catch {
-      cuelume = { play() {}, setEnabled() {} };
-    }
-    return cuelume;
-  }
-
-  /* Held in memory so muting still works for the session when storage is
-     unavailable; storage only seeds this and persists it across visits. */
-  let soundPreference = null;
-
-  function soundEnabled() {
-    if (soundPreference === null) {
-      soundPreference = readStored(SOUND_KEY) !== "off";
-    }
-    return soundPreference;
-  }
-
-  function setSoundEnabled(on) {
-    soundPreference = on;
-    writeStored(SOUND_KEY, on ? "on" : "off");
-  }
-
-  async function playCue(name) {
-    if (!soundEnabled()) return;
-    const audio = await loadCuelume();
-    audio.play(name);
-  }
-
-  /* Safari only lets an AudioContext start inside a user gesture, and the
-     result cue plays after an await, by which point the activation may have
-     expired. Playing a cue synchronously on click opens the context while the
-     gesture is live, so later cues are audible. Needs the module already
-     resolved, hence the preload. */
-  function unlockAudioDuringGesture() {
-    if (!cuelume || !soundEnabled()) return;
-    cuelume.play("press");
-  }
-
-  function preloadAudio() {
-    if (!document.querySelector("[data-run-button]")) return;
-    if (!soundEnabled()) return;
-    loadCuelume();
   }
 
   /** Restarts a CSS animation that may already have run on this element. */
@@ -109,33 +48,6 @@
       if (output) {
         output.classList.remove("is-thinking");
         replay(output, "slide-in-down");
-      }
-    });
-  }
-
-  function initSoundToggle() {
-    const toggle = document.querySelector("[data-sound-toggle]");
-    if (!toggle) return;
-
-    // Stable label naming the control, with aria-pressed carrying the state:
-    // an action label plus aria-pressed announces the state inverted.
-    const sync = () => {
-      const on = soundEnabled();
-      document.documentElement.setAttribute("data-sound", on ? "on" : "off");
-      toggle.setAttribute("aria-pressed", String(on));
-    };
-
-    sync();
-    toggle.addEventListener("click", async () => {
-      const next = !soundEnabled();
-      setSoundEnabled(next);
-      sync();
-      if (next) {
-        const audio = await loadCuelume();
-        audio.setEnabled(true);
-        audio.play("toggle");
-      } else if (cuelume) {
-        cuelume.setEnabled(false);
       }
     });
   }
@@ -572,7 +484,6 @@
 
     initReferenceNav();
     initThemeToggle();
-    initSoundToggle();
     initRunFeedback();
     initCatalog();
   });

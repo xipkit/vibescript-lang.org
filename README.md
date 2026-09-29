@@ -20,8 +20,8 @@ There is no Go server, npm build, API endpoint, database, or runtime CDN depende
   `internal/catalog/content/` paths through a Hugo asset mount. Metadata headers
   drive titles, categories, difficulty, tags, and featured ordering. The old
   path-based slugs are preserved. Add or change an example there; `hugo` picks it up.
-- `layouts/` and `assets/` retain the site's design. Fonts, logos, icons, Open Graph
-  images, and the optional sound module retain their `/static/` URLs.
+- `layouts/` and `assets/` retain the site's design. Fonts, logos, icons, and Open
+  Graph images retain their `/static/` URLs.
 - `content/reference/` is a committed snapshot of the Rust language guide, its
   supporting guides, and builtin signatures. See [reference updates](docs/reference.md).
 - `assets/runner-worker.js` owns WASI instantiation. `assets/runner.js` owns the
