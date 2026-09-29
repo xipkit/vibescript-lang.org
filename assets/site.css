@@ -1903,7 +1903,15 @@ a.tag:hover {
 .runner-controls { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
 button:disabled { opacity: 0.5; cursor: default; }
 .editor-note { font-size: 0.85rem; margin-block: 1rem; }
-.source-editor { display: block; box-sizing: border-box; width: 100%; min-height: 28rem; resize: vertical; border: 0; border-radius: 0 0 12px 12px; padding: 1.25rem; color: var(--ink); background: transparent; font: 0.84rem/1.7 var(--font-mono); tab-size: 2; white-space: pre; overflow: auto; }
+/* The highlight layer and the textarea share a grid cell and identical text
+   metrics, so every glyph the textarea lays out lands on its painted token. */
+.source-stack { display: grid; }
+.source-highlight, .source-editor { grid-area: 1 / 1; box-sizing: border-box; min-width: 0; margin: 0; border: 0; padding: 1.25rem; font: 0.84rem/1.7 var(--font-mono); letter-spacing: normal; tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere; word-break: normal; }
+.source-highlight { visibility: hidden; color: var(--code-text); pointer-events: none; }
+.source-editor { display: block; width: 100%; min-height: 28rem; resize: none; border-radius: 0 0 12px 12px; color: var(--ink); background: transparent; overflow: hidden; }
+.source-stack.is-highlighted .source-highlight { visibility: visible; }
+.source-stack.is-highlighted .source-editor { color: transparent; caret-color: var(--ink); }
+.source-stack.is-highlighted .source-editor::selection { color: transparent; background: color-mix(in srgb, var(--accent) 30%, transparent); }
 .source-editor:focus-visible { outline: 2px solid var(--accent, #bf8bff); outline-offset: -2px; }
 .diagnostics-panel { margin-block: 1.5rem; }
 .diagnostics-panel h2 { font-size: 1rem; }
@@ -1914,7 +1922,7 @@ button:disabled { opacity: 0.5; cursor: default; }
 .reference-nav li { margin-block: 0.4rem; }
 .reference-prose pre { overflow-x: auto; }
 .code-header span { overflow-wrap: anywhere; min-width: 0; }
-@media (max-width: 640px) { .runner-controls { width: 100%; } .source-editor { font-size: 0.8rem; } .detail-header { gap: 1rem; } }
+@media (max-width: 640px) { .runner-controls { width: 100%; } .source-highlight, .source-editor { font-size: 0.8rem; } .detail-header { gap: 1rem; } }
 
 .card-difficulty { color: var(--muted); font-size: 0.72rem; }
 .align-left { text-align: left; }

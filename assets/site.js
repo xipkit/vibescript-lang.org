@@ -365,6 +365,21 @@
     });
   }
 
+  /* Highlights the editor by painting tokens on a layer under the textarea,
+     whose own text turns transparent once the layer is live. Both wrap the
+     same way, and the stack grows with the layer, so neither ever scrolls. */
+  function initEditor() {
+    const stack = document.querySelector("[data-source-stack]");
+    if (!stack) return;
+    const editor = stack.querySelector("[data-source]");
+    const layer = stack.querySelector("[data-source-highlight]");
+    // The trailing newline needs a character after it to occupy a line.
+    const render = () => { layer.innerHTML = highlightVibescript(editor.value) + "\n "; };
+    render();
+    editor.addEventListener("input", render);
+    stack.classList.add("is-highlighted");
+  }
+
   function initThemeToggle() {
     const toggle = document.querySelector("[data-theme-toggle]");
     if (!toggle) return;
@@ -535,6 +550,8 @@
     document.querySelectorAll("code.language-go").forEach((el) => {
       el.innerHTML = highlightGo(el.textContent);
     });
+
+    initEditor();
 
     initReferenceNav();
     initThemeToggle();

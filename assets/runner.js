@@ -61,7 +61,7 @@
       if (job.op === "format") {
         if (response.ok && typeof response.source === "string" && source() === job.source) {
           editor.value = response.source;
-          scheduleCheck();
+          changed();
         } else if (error) output.textContent = error;
       }
       if (job.op === "run") {
@@ -112,6 +112,11 @@
       } catch (error) { cancel(error.message); }
     }
 
+    // Setting value from script fires no input event; raise one so the highlighter and checker both see the edit.
+    function changed() {
+      editor.dispatchEvent(new Event("input"));
+    }
+
     function scheduleCheck() {
       clearTimeout(debounce);
       if (!loaded || !editor) return;
@@ -128,7 +133,7 @@
       editor.value = original;
       output.textContent = "Reset to the original example.";
       if (diagnostics) diagnostics.textContent = loaded ? "Checking…" : "Run once to load the checker. Your code stays in this browser.";
-      scheduleCheck();
+      changed();
     });
     editor?.addEventListener("input", () => {
       if (active?.op === "check") cancel();
@@ -139,7 +144,7 @@
       if (event.key === "Tab" && !event.shiftKey) {
         event.preventDefault();
         editor.setRangeText("  ", editor.selectionStart, editor.selectionEnd, "end");
-        scheduleCheck();
+        changed();
       }
     });
     window.addEventListener("pagehide", () => cancel());

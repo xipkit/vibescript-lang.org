@@ -22,7 +22,10 @@
   <div class="detail-grid">
     <div class="code-panel">
       <div class="code-header"><label for="source"><strong>Source</strong></label><span>{{.Params.sourcepath}}</span></div>
-      <textarea id="source" class="source-editor" data-source spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="editor-help">{{.Params.sourcebody}}</textarea>
+      <div class="source-stack" data-source-stack>
+        <pre class="source-highlight" aria-hidden="true"><code data-source-highlight></code></pre>
+        <textarea id="source" class="source-editor" data-source spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="editor-help">{{.Params.sourcebody}}</textarea>
+      </div>
     </div>
     <div class="runner-panel">
       <div class="runner-panel-header"><span>Output</span></div>
