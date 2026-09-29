@@ -27,10 +27,10 @@
       {{if $hero}}
       <div class="hero-runner-bar">
         <button class="button run-button hero-run-button" type="button" data-run-button >Run it</button>
+        <button class="button-secondary hero-stop-button" type="button" data-stop-button disabled hidden>Stop</button>
         <a class="hero-runner-link" href="/examples/{{$hero.Params.slug}}">Edit this example &rarr;</a>
       </div>
       <p class="hero-preview-note">SMS and email calls return previews. No messages are sent.</p>
-      <button class="button-secondary" type="button" data-stop-button disabled>Stop</button>
       <pre class="hero-runner-output" data-run-output role="status" aria-live="polite"></pre>
       {{end}}
     </div>

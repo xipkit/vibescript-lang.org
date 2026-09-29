@@ -22,12 +22,16 @@
     const diagnostics = root.querySelector("[data-diagnostics]");
     const original = editor ? editor.value : root.querySelector("code.language-vibescript").textContent;
     const source = () => editor ? editor.value : original;
-    let worker, active, deadline, debounce, sequence = 0, loaded = false;
+    let worker, active, deadline, debounce, revealStop, sequence = 0, loaded = false;
     if (format) format.disabled = true;
 
     function buttons(busy) {
       run.disabled = busy;
       stop.disabled = !busy;
+      // Stop appears only for a run that outlasts a blink, so quick runs and background checks never flash it.
+      clearTimeout(revealStop);
+      if (busy && active?.op === "run") revealStop = setTimeout(() => { stop.hidden = false; }, 250);
+      else stop.hidden = true;
       if (format) format.disabled = busy || !loaded;
       root.setAttribute("aria-busy", String(busy));
     }
