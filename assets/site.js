@@ -284,6 +284,116 @@
     return result.join("\n");
   }
 
+  /* Minimal Rust tokenizer for the embedding snippets in the reference. It
+     shares the other highlighters' token classes. Lines that start with `#`
+     are rustdoc's hidden doctest setup, so they are dropped as rustdoc does. */
+  function highlightRust(source) {
+    const lines = source.split("\n").filter((line) => !/^\s*#(\s|$)/.test(line));
+    const result = [];
+
+    const keywords = new Set([
+      "as", "async", "await", "break", "const", "continue", "crate", "dyn",
+      "else", "enum", "extern", "fn", "for", "if", "impl", "in", "let", "loop",
+      "match", "mod", "move", "mut", "pub", "ref", "return", "self", "Self",
+      "static", "struct", "super", "trait", "type", "unsafe", "use", "where",
+      "while",
+    ]);
+    const constants = new Set(["true", "false"]);
+
+    for (const line of lines) {
+      const tokens = [];
+      let i = 0;
+
+      while (i < line.length) {
+        if (line[i] === "/" && line[i + 1] === "/") {
+          tokens.push(`<span class="tok-comment">${escapeHtml(line.slice(i))}</span>`);
+          i = line.length;
+          continue;
+        }
+
+        // Strings, including byte strings such as b"queued".
+        if (line[i] === '"' || (line[i] === "b" && line[i + 1] === '"' && !/[a-zA-Z0-9_]/.test(line[i - 1] || ""))) {
+          let j = line[i] === "b" ? i + 2 : i + 1;
+          while (j < line.length && line[j] !== '"') {
+            if (line[j] === "\\") j++;
+            j++;
+          }
+          j = Math.min(j + 1, line.length);
+          tokens.push(`<span class="tok-string">${escapeHtml(line.slice(i, j))}</span>`);
+          i = j;
+          continue;
+        }
+
+        // Character literals such as 'a' or '\n'; a lone quote is a lifetime.
+        if (line[i] === "'") {
+          const char = line.slice(i).match(/^'(\\.|[^'\\])'/);
+          if (char) {
+            tokens.push(`<span class="tok-string">${escapeHtml(char[0])}</span>`);
+            i += char[0].length;
+            continue;
+          }
+          const lifetime = line.slice(i).match(/^'[a-zA-Z_]\w*/);
+          if (lifetime) {
+            tokens.push(`<span class="tok-type">${escapeHtml(lifetime[0])}</span>`);
+            i += lifetime[0].length;
+            continue;
+          }
+        }
+
+        if (/\d/.test(line[i]) && (i === 0 || /[^a-zA-Z_]/.test(line[i - 1]))) {
+          const number = line.slice(i).match(/^\d[\d_]*(\.\d[\d_]*)?([iu](8|16|32|64|128|size)|f32|f64)?/);
+          tokens.push(`<span class="tok-number">${number[0]}</span>`);
+          i += number[0].length;
+          continue;
+        }
+
+        if (/[a-zA-Z_]/.test(line[i])) {
+          let j = i;
+          while (j < line.length && /[a-zA-Z0-9_]/.test(line[j])) j++;
+          const word = line.slice(i, j);
+
+          if (line[j] === "!" && line[j + 1] !== "=") {
+            tokens.push(`<span class="tok-function">${escapeHtml(word)}!</span>`);
+            i = j + 1;
+            continue;
+          }
+          if (constants.has(word)) {
+            tokens.push(`<span class="tok-constant">${word}</span>`);
+          } else if (keywords.has(word)) {
+            tokens.push(`<span class="tok-keyword">${word}</span>`);
+          } else if (/^[A-Z]/.test(word)) {
+            tokens.push(`<span class="tok-type">${escapeHtml(word)}</span>`);
+          } else if (line[j] === "(") {
+            tokens.push(`<span class="tok-function">${escapeHtml(word)}</span>`);
+          } else {
+            tokens.push(escapeHtml(word));
+          }
+          i = j;
+          continue;
+        }
+
+        const twoChar = line.slice(i, i + 2);
+        if (["->", "=>", "==", "!=", "<=", ">=", "&&", "||", "..", "+=", "-="].includes(twoChar)) {
+          tokens.push(`<span class="tok-operator">${escapeHtml(twoChar)}</span>`);
+          i += 2;
+          continue;
+        }
+        if ("=+-*/%<>!&|?".includes(line[i])) {
+          tokens.push(`<span class="tok-operator">${escapeHtml(line[i])}</span>`);
+          i++;
+          continue;
+        }
+
+        tokens.push(escapeHtml(line[i]));
+        i++;
+      }
+
+      result.push(tokens.join(""));
+    }
+
+    return result.join("\n");
+  }
+
   /* Puts each highlighted line in its own block so a long line wraps with a
      hanging indent under its own indentation rather than at column zero. */
   function hangLines(el, html) {
@@ -478,6 +588,11 @@
 
     document.querySelectorAll("code.language-go").forEach((el) => {
       el.innerHTML = highlightGo(el.textContent);
+    });
+
+    // rustdoc attributes stay in the class, as in `language-rust,no_run`.
+    document.querySelectorAll('code[class^="language-rust"]').forEach((el) => {
+      el.innerHTML = highlightRust(el.textContent.replace(/\n$/, ""));
     });
 
     initEditor();
