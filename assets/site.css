@@ -779,6 +779,43 @@ h3 {
 
 /* Zig-zag pairs */
 
+/* Why Vibescript: a lead statement over two supporting paragraphs. */
+.why {
+  padding-top: 4rem;
+}
+
+.why .section-intro {
+  margin-bottom: 1.75rem;
+}
+
+.why-lead {
+  margin: 0;
+  max-width: 34em;
+  color: var(--ink);
+  font-size: clamp(1.3rem, 1rem + 0.9vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.why-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.why-columns p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
 .pairs {
   position: relative;
   display: flex;
@@ -1822,6 +1859,17 @@ a.tag:hover {
 
   .philosophy-copy {
     padding-top: 0;
+  }
+
+  .why {
+    padding-top: 3rem;
+  }
+
+  .why-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
   }
 
   .limits {
