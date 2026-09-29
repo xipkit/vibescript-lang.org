@@ -779,41 +779,103 @@ h3 {
 
 /* Zig-zag pairs */
 
-/* Why Vibescript: a lead statement over two supporting paragraphs. */
+/* Why Vibescript: a short letter from the author, heading on the left. */
 .why {
-  padding-top: 4rem;
-}
-
-.why .section-intro {
-  margin-bottom: 1.75rem;
-}
-
-.why-lead {
-  margin: 0;
-  max-width: 34em;
-  color: var(--ink);
-  font-size: clamp(1.3rem, 1rem + 0.9vw, 1.65rem);
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
-  text-wrap: pretty;
-}
-
-.why-columns {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--gap);
-  margin-top: 2.5rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--line);
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: clamp(3rem, 7vw, 6rem);
+  align-items: start;
+  padding-top: 5rem;
 }
 
-.why-columns p {
+.eyebrow .eyebrow-sparkle {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: var(--accent);
+}
+
+.why-head h2 {
   margin: 0;
+  font-size: clamp(2.2rem, 1.4rem + 2.4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+.why-byline {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   color: var(--muted);
-  font-size: 1.125rem;
+}
+
+/* The top padding lines the first paragraph up with the heading, below the eyebrow. */
+.why-letter {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 40rem;
+  padding-top: 2.1rem;
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: 1.25rem;
   line-height: 1.65;
+}
+
+.why-letter p {
+  margin: 0;
   text-wrap: pretty;
+}
+
+.why-letter .why-emphasis {
+  color: var(--ink);
+}
+
+.why-signoff {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0.75rem;
+}
+
+.why-signature {
+  display: block;
+  width: auto;
+  height: 6.25rem;
+  color: var(--ink);
+}
+
+.why-author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-top: -0.375rem;
+}
+
+.why-author > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.why-author-mark {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: var(--accent);
+}
+
+.why-author-name {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.why-author-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 .pairs {
@@ -1855,14 +1917,18 @@ a.tag:hover {
   }
 
   .why {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
     padding-top: 3rem;
   }
 
-  .why-columns {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.25rem;
-    margin-top: 1.75rem;
-    padding-top: 1.75rem;
+  .why-letter {
+    padding-top: 0;
+    font-size: 1.125rem;
+  }
+
+  .why-signature {
+    height: 5rem;
   }
 
   .limits {

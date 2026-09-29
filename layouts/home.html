@@ -46,28 +46,43 @@
 </div>
 
 <section class="why" aria-labelledby="why-title">
-  <header class="section-intro">
-    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Why Vibescript</p>
+  <header class="why-head">
+    <p class="eyebrow"><svg class="eyebrow-sparkle" aria-hidden="true"><use href="#sparkle"></use></svg> Why Vibescript</p>
     <h2 id="why-title">Software people can shape.</h2>
+    <p class="why-byline">A note from the author</p>
   </header>
-  <p class="why-lead">
-    Vibecoding will have a profound impact on personal computing. However, vibecoding
-    still requires expertise. Generated code needs to be maintained, or it will rot and
-    become vulnerable to attack. The future will consist of malleable software, where
-    users vibecode their customizations on top of a base package.
-  </p>
-  <div class="why-columns">
-    <p>
-      Vibescript helps power this future with a small, statically typed scripting language
-      for customizations on top of an existing app. The host decides which capabilities
-      scripts can access and how much work they can do.
+
+  <article class="why-letter">
+    <p class="why-emphasis">
+      Vibecoding will have a profound impact on personal computing. But it still requires
+      expertise. Generated code needs to be maintained, or it will rot and become
+      vulnerable to attack.
+    </p>
+    <p class="why-emphasis">
+      I think the future is malleable software, where people vibecode their own
+      customizations on top of a base package.
     </p>
     <p>
-      Vibescript's Ruby-inspired syntax is easy to read. Its type checker catches mistakes
-      before execution and offers fixes in its diagnostics, so people and AI can write
-      custom behavior while the host app stays in control.
+      I built Vibescript to help power that future. It's a small, statically typed
+      scripting language for customizing an existing app. The host app decides which
+      capabilities scripts can use and how much work they can do.
     </p>
-  </div>
+    <p>
+      The syntax is inspired by Ruby, so it's easy to read. The type checker catches
+      mistakes before a script runs and suggests fixes in its diagnostics. People and AI
+      can write custom behavior, and the host app stays in control.
+    </p>
+    <footer class="why-signoff">
+      {{ (resources.Get "signature.svg").Content | safeHTML }}
+      <div class="why-author">
+        <svg class="why-author-mark" aria-hidden="true"><use href="#sparkle"></use></svg>
+        <div>
+          <span class="why-author-name">Mauricio Gomes</span>
+          <span class="why-author-role">Creator of Vibescript</span>
+        </div>
+      </div>
+    </footer>
+  </article>
 </section>
 
 <section class="pairs">
