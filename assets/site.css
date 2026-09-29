@@ -862,13 +862,13 @@ h3 {
   border-radius: 0.25rem;
 }
 
-/* Philosophy + guardrails */
+/* Philosophy + sandbox limits */
 
 .philosophy {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: var(--gap);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem var(--gap);
   align-items: start;
   padding-block: 5rem;
 }
@@ -880,8 +880,8 @@ h3 {
   left: clamp(0.75rem, calc(50vw - 33rem), 6rem);
 }
 
-.philosophy-copy h2 {
-  margin: 0 0 1rem;
+.philosophy-head h2 {
+  margin: 0;
   font-size: clamp(1.9rem, 1.3rem + 1.9vw, 2.8rem);
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -890,91 +890,101 @@ h3 {
   max-width: 20ch;
 }
 
+/* Drops the copy to the heading's first line rather than the eyebrow's. */
+.philosophy-copy {
+  padding-top: 2.1rem;
+}
+
 .philosophy-copy p {
   margin: 0 0 1rem;
   color: var(--muted);
   font-size: 1.125rem;
   line-height: 1.65;
   text-wrap: pretty;
-  max-width: 54ch;
+  max-width: 58ch;
 }
 
 .philosophy-copy p:last-child {
   margin-bottom: 0;
 }
 
-.guardrails {
-  border-radius: var(--radius-md);
-  background: var(--panel);
-  padding: 1.85rem;
+.limits {
+  grid-column: 1 / -1;
+  margin-top: 2.5rem;
   border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  overflow: hidden;
 }
 
-.guardrails h3 {
-  margin: 0 0 0.35rem;
-  font-size: 1.125rem;
+.limits-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding: 1.6rem 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.limits-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.01em;
 }
 
-.guardrails > p {
-  margin: 0 0 1.25rem;
+.limits-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* The 1px gaps show the grid's line color through, drawing the dividers
+   between cells without doubled borders at the edges. */
+.limits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--line);
+}
+
+.limit {
+  padding: 1.75rem 2rem 2rem;
+  background: var(--panel);
+}
+
+.limit dt {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.limit dd {
+  margin: 0;
   color: var(--muted);
   font-size: 0.9375rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
-.guardrail-list {
-  margin: 0;
-}
-
-.guardrail {
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--line);
-}
-
-.guardrail:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.guardrail:last-child {
-  padding-bottom: 0;
-}
-
-.guardrail dt {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 700;
-}
-
-.guardrail dt .vee {
-  align-self: center;
-}
-
-.guardrail dt .guardrail-default {
-  margin-left: auto;
-}
-
-.guardrail-default {
+.limit dd.limit-value {
+  margin: 0.35rem 0 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  color: var(--accent-text);
-  background: var(--accent-soft);
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-size: clamp(1.6rem, 1.2rem + 0.9vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--tok-type);
+  overflow-wrap: anywhere;
 }
 
-.guardrail dd {
-  margin: 0.35rem 0 0 1.28rem;
-  color: var(--muted);
-  font-size: 0.9375rem;
-  line-height: 1.55;
+.limit dd.limit-number {
+  color: var(--tok-number);
 }
 
 /* Featured examples + shared cards */
@@ -1823,6 +1833,18 @@ a.tag:hover {
     position: static;
     max-height: none;
   }
+
+  .philosophy-copy {
+    padding-top: 0;
+  }
+
+  .limits {
+    margin-top: 1.5rem;
+  }
+
+  .limits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -1849,7 +1871,7 @@ a.tag:hover {
   }
 
   .example-card p,
-  .guardrail dd {
+  .limit dd {
     font-size: 1rem;
   }
 
@@ -1865,9 +1887,17 @@ a.tag:hover {
     padding-block: 1rem 1.75rem;
   }
 
-  .section-panel,
-  .guardrails {
+  .section-panel {
     padding: 1.25rem;
+  }
+
+  .limits-header,
+  .limit {
+    padding: 1.25rem;
+  }
+
+  .limits-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .code-window pre {

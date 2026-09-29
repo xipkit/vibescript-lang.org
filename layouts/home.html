@@ -180,9 +180,11 @@ end</code></pre>
 
 <section class="philosophy band">
   <svg class="sparkle sparkle-lg sparkle-constant sparkle-float sparkle-philosophy tilt-neg-24" aria-hidden="true"><use href="#sparkle"></use></svg>
-  <div class="philosophy-copy">
+  <header class="philosophy-head">
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> In your app</p>
     <h2>Give scripts access to your app's services.</h2>
+  </header>
+  <div class="philosophy-copy">
     <p>
       Put pricing rules, approval steps, or notification schedules in scripts that
       users can change without rebuilding your app.
@@ -199,36 +201,44 @@ end</code></pre>
     </p>
   </div>
 
-  <aside class="guardrails" aria-labelledby="guardrails-title">
-    <h3 id="guardrails-title">Sandbox limits</h3>
-    <p>These limits apply to this site's examples. Choose the values that fit your app.</p>
-    <dl class="guardrail-list">
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Step quota <span class="guardrail-default">1,000,000</span></dt>
+  <section class="limits" aria-labelledby="limits-title">
+    <header class="limits-header">
+      <h3 id="limits-title">Sandbox limits</h3>
+      <p>These limits apply to this site's examples. Choose the values that fit your app.</p>
+    </header>
+    <dl class="limits-grid">
+      <div class="limit">
+        <dt>Step quota</dt>
+        <dd class="limit-value limit-number">1,000,000</dd>
         <dd>Stops execution when the script uses its step budget.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Recursion limit <span class="guardrail-default">128</span></dt>
+      <div class="limit">
+        <dt>Recursion limit</dt>
+        <dd class="limit-value limit-number">128</dd>
         <dd>Limits how deeply function calls can nest.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Memory quota <span class="guardrail-default">16 MiB</span></dt>
+      <div class="limit">
+        <dt>Memory quota</dt>
+        <dd class="limit-value limit-number">16 MiB</dd>
         <dd>Limits the memory a script can use.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Effects control <span class="guardrail-default">strict</span></dt>
+      <div class="limit">
+        <dt>Effects control</dt>
+        <dd class="limit-value">strict</dd>
         <dd>Operations such as database writes need permission from your app.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Module paths <span class="guardrail-default">allowlist</span></dt>
+      <div class="limit">
+        <dt>Module paths</dt>
+        <dd class="limit-value">allowlist</dd>
         <dd>Loads modules from directories you approve.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> App access <span class="guardrail-default">host adapters</span></dt>
+      <div class="limit">
+        <dt>App access</dt>
+        <dd class="limit-value">host adapters</dd>
         <dd>You choose which services scripts can call.</dd>
       </div>
     </dl>
-  </aside>
+  </section>
 </section>
 
 <section class="featured">
