@@ -95,13 +95,18 @@ TOK_KEYWORD = "#dd93b7"
 TOK_CONSTANT = "#96bfe3"
 TOK_STRING = "#dcbe78"
 
-HEADLINE = "An embeddable Ruby-like language for Go."
-SUBLINE = "Safe by default. Easy for AI to write."
+# Mirrors the homepage hero, including the swash under one word.
+HEADLINE = "A Ruby-like language to extend your app."
+UNDERLINED = "extend"
+SUBLINE = "Let users and AI agents add features with scripts."
 
 SPARKLE = (
     "M17.5 0C17.5 9.665 25.335 17.5 35 17.5C25.335 17.5 17.5 25.335 17.5 35"
     "C17.5 25.335 9.665 17.5 0 17.5C9.665 17.5 17.5 9.665 17.5 0Z"
 )
+
+# The hero's underline stroke, from layouts/home.html.
+SWASH = "M2 9C48 4 118 2 197 5C150 7.5 70 9 6 11.5Z"
 
 # Same sine as the homepage wave, but filled to the bottom edge rather than
 # drawn as a ribbon: a wavy lower edge would let the background show through at
@@ -135,6 +140,13 @@ def build_html() -> str:
     non_ascii = [c for c in HEADLINE + SUBLINE if ord(c) > 0x7E]
     if non_ascii:
         sys.exit(f"card text must stay ASCII, found: {non_ascii!r}")
+    if HEADLINE.count(UNDERLINED) != 1:
+        sys.exit(f"underlined word must appear once in the headline: {UNDERLINED!r}")
+    headline = HEADLINE.replace(
+        UNDERLINED,
+        f'<span class="underlined">{UNDERLINED}<svg class="swash" viewBox="0 0 200 12" '
+        f'preserveAspectRatio="none"><path d="{SWASH}"/></svg></span>',
+    )
 
     return f"""<!doctype html>
 <html><head><meta charset="utf-8">
@@ -173,6 +185,17 @@ def build_html() -> str:
     color: {MUTED};
     letter-spacing: -0.01em;
   }}
+  .underlined {{ position: relative; white-space: nowrap; isolation: isolate; }}
+  .swash {{
+    position: absolute;
+    left: -1.5%;
+    bottom: 0.02em;
+    width: 103%;
+    height: 0.2em;
+    overflow: visible;
+    z-index: -1;
+    fill: {ACCENT};
+  }}
   .wave {{ position: absolute; left: 0; right: 0; bottom: 0; line-height: 0; }}
   .wave svg {{ width: 100%; height: 126px; display: block; }}
   .sp {{ position: absolute; }}
@@ -182,7 +205,7 @@ def build_html() -> str:
   {sparkle(1120, 168, 20, TOK_CONSTANT, 18)}
   {sparkle(92, 96, 16, TOK_STRING, 24)}
   {logo}
-  <h1>{HEADLINE}</h1>
+  <h1>{headline}</h1>
   <p>{SUBLINE}</p>
   <div class="wave">
     <svg viewBox="0 0 1200 150" preserveAspectRatio="none">
