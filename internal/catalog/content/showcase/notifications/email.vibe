@@ -9,15 +9,14 @@
 # uses: email
 # vibe: 0.1.0
 
-def welcome(
-  address: string,
-  name: string
-) -> { body: string, status: string, subject: string, to: string }
+type EmailReceipt = { to: string, subject: string, body: string, status: string }
+
+def welcome(address: string, name: string) -> EmailReceipt
   subject = "Welcome, #{name}!"
   body = "Hi #{name},\n\nYour account is ready. Thanks for joining us."
   email.send(address, subject, body)
 end
 
-def run -> { body: string, status: string, subject: string, to: string }
+def run -> EmailReceipt
   welcome("alex@example.com", "Alex")
 end

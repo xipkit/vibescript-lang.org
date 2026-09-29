@@ -6,16 +6,16 @@
 # tags: support, durations, enums, sla
 # vibe: 0.1.0
 
-type TicketSlaResult = {
-  deadline: string,
-  response_window: string,
-  route_to: string,
+type TicketSla = {
+  ticket_id: string,
   severity: string,
-  summary: string,
-  ticket_id: string
+  response_window: string,
+  deadline: string,
+  route_to: string,
+  summary: string
 }
 
-type RunResult = { critical: TicketSlaResult, high: TicketSlaResult }
+type TicketSlas = { high: TicketSla, critical: TicketSla }
 
 enum TicketSeverity
   Low
@@ -43,7 +43,7 @@ def escalation_target(severity: TicketSeverity) -> string
   end
 end
 
-def ticket_sla(ticket_id: string, severity: TicketSeverity, opened_at: time) -> TicketSlaResult
+def ticket_sla(ticket_id: string, severity: TicketSeverity, opened_at: time) -> TicketSla
   window = response_window(severity)
   target = escalation_target(severity)
 
@@ -57,7 +57,7 @@ def ticket_sla(ticket_id: string, severity: TicketSeverity, opened_at: time) -> 
   }
 end
 
-def run -> RunResult
+def run -> TicketSlas
   opened_at = Time.at(1700200000)
 
   {

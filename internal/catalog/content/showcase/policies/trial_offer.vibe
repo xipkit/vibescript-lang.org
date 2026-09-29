@@ -6,15 +6,15 @@
 # tags: policies, durations, enums, templates
 # vibe: 0.1.0
 
-type TrialOfferResult = {
+type TrialOffer = {
   account_id: string,
   account_kind: string,
-  expires_at: string,
   trial_length: string,
+  expires_at: string,
   welcome: string
 }
 
-type RunResult = { enterprise: TrialOfferResult, personal: TrialOfferResult }
+type TrialOffers = { personal: TrialOffer, enterprise: TrialOffer }
 
 enum AccountKind
   Personal
@@ -32,7 +32,7 @@ def trial_length(kind: AccountKind) -> duration
   end
 end
 
-def trial_offer(account_id: string, kind: AccountKind, created_at: time) -> TrialOfferResult
+def trial_offer(account_id: string, kind: AccountKind, created_at: time) -> TrialOffer
   length = trial_length(kind)
 
   {
@@ -44,7 +44,7 @@ def trial_offer(account_id: string, kind: AccountKind, created_at: time) -> Tria
   }
 end
 
-def run -> RunResult
+def run -> TrialOffers
   created_at = Time.at(1700800000)
 
   {

@@ -6,11 +6,11 @@
 # tags: collections, arrays, enumerable
 # vibe: 0.1.0
 
-type RunResult = {
-  endpoints: array<int?>,
-  first_three: array<int>,
+type Slices = {
   pages: array<array<int>>,
+  first_three: array<int>,
   rest: array<int>,
+  endpoints: array<int?>,
   rolling_totals: array<int>
 }
 
@@ -30,7 +30,7 @@ def rolling_totals(values: array<int>, window: int) -> array<int>
   totals
 end
 
-def run -> RunResult
+def run -> Slices
   ids = [101, 102, 103, 104, 105, 106, 107]
   readings = [3, 5, 4, 8, 6]
 

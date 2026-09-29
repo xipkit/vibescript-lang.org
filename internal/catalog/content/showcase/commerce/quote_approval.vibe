@@ -6,15 +6,15 @@
 # tags: commerce, money, enums, approvals
 # vibe: 0.1.0
 
-type Quote_DecisionResult = {
-  approval_lane: string,
-  margin_points: int,
-  note: string,
+type QuoteDecision = {
   quote_id: string,
-  total: money
+  total: money,
+  margin_points: int,
+  approval_lane: string,
+  note: string
 }
 
-type RunResult = { enterprise: Quote_DecisionResult, self_serve: Quote_DecisionResult }
+type QuoteDecisions = { self_serve: QuoteDecision, enterprise: QuoteDecision }
 
 enum ApprovalLane
   AutoApprove
@@ -32,7 +32,7 @@ def approval_lane(total: money, margin_points: int) -> ApprovalLane
   end
 end
 
-def quote_decision(quote_id: string, total: money, margin_points: int) -> Quote_DecisionResult
+def quote_decision(quote_id: string, total: money, margin_points: int) -> QuoteDecision
   lane = approval_lane(total, margin_points)
 
   {
@@ -44,7 +44,7 @@ def quote_decision(quote_id: string, total: money, margin_points: int) -> Quote_
   }
 end
 
-def run -> RunResult
+def run -> QuoteDecisions
   {
     self_serve: quote_decision("quote_410", money("1800.00 USD"), 48),
     enterprise: quote_decision("quote_411", money("48000.00 USD"), 18)

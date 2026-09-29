@@ -8,10 +8,9 @@
 # feature_rank: 2
 # vibe: 0.1.0
 
-type RunResult = {
-  careful: array<{ at: string, attempt: int, delay: string }>,
-  fast: array<{ at: string, attempt: int, delay: string }>
-}
+type RetryAttempt = { attempt: int, delay: string, at: string }
+
+type RetrySchedules = { fast: array<RetryAttempt>, careful: array<RetryAttempt> }
 
 enum RetryProfile
   Fast
@@ -30,9 +29,9 @@ def retry_schedule(
   profile: RetryProfile,
   start: time,
   attempts: int
-) -> array<{ at: string, attempt: int, delay: string }>
+) -> array<RetryAttempt>
   delay = base_delay(profile)
-  rows: array<{ at: string, attempt: int, delay: string }> = []
+  rows: array<RetryAttempt> = []
   current = start
   multiplier = 1
   attempt = 1
@@ -52,7 +51,7 @@ def retry_schedule(
   rows
 end
 
-def run -> RunResult
+def run -> RetrySchedules
   start = Time.at(1700000000)
   {
     fast: retry_schedule(RetryProfile::Fast, start, 4),

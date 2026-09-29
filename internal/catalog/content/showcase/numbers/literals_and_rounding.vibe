@@ -6,15 +6,21 @@
 # tags: numbers, literals, math
 # vibe: 0.1.0
 
-type RunResult = {
+type PermissionBits = { read: int, write: int, execute: int, read_write: int }
+
+type NamedSizes = { kilobyte: float, megabyte: float, hex_flags: int, octal_mode: int }
+
+type Rounding = { whole: int, cents: number, down: int, up: int }
+
+type Literals = {
+  permission_bits: PermissionBits,
+  named_sizes: NamedSizes,
+  rounding: Rounding,
   is_even: bool,
-  named_sizes: { hex_flags: int, kilobyte: float, megabyte: float, octal_mode: int },
-  next_id: int,
-  permission_bits: { execute: int, read: int, read_write: int, write: int },
-  rounding: { cents: number, down: int, up: int, whole: int }
+  next_id: int
 }
 
-def permission_bits -> { execute: int, read: int, read_write: int, write: int }
+def permission_bits -> PermissionBits
   {
     read: 0b100,
     write: 0b010,
@@ -23,7 +29,7 @@ def permission_bits -> { execute: int, read: int, read_write: int, write: int }
   }
 end
 
-def named_sizes -> { hex_flags: int, kilobyte: float, megabyte: float, octal_mode: int }
+def named_sizes -> NamedSizes
   {
     kilobyte: 1e3,
     megabyte: 1e6,
@@ -32,7 +38,7 @@ def named_sizes -> { hex_flags: int, kilobyte: float, megabyte: float, octal_mod
   }
 end
 
-def rounding(value: float) -> { cents: number, down: int, up: int, whole: int }
+def rounding(value: float) -> Rounding
   {
     whole: value.round,
     cents: value.round(2),
@@ -41,7 +47,7 @@ def rounding(value: float) -> { cents: number, down: int, up: int, whole: int }
   }
 end
 
-def run -> RunResult
+def run -> Literals
   {
     permission_bits: permission_bits,
     named_sizes: named_sizes,

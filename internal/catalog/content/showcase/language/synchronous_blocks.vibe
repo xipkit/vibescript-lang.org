@@ -6,21 +6,25 @@
 # tags: language, blocks, control-flow
 # vibe: 0.1.0
 
+type Job = { id: string, state: string }
+
+type BlockOutcomes = { doubled_twice: int, ready_ids: array<string> }
+
 def transform_twice(value: int, &block: int -> int) -> int
   first = yield(value)
   yield(first)
 end
 
 def select_ready(
-  records: array<{ id: string, state: string }>,
-  &block: { id: string, state: string } -> bool
-) -> array<{ id: string, state: string }>
+  records: array<Job>,
+  &block: Job -> bool
+) -> array<Job>
   records.select { |record|
     yield(record)
   }
 end
 
-def run -> { doubled_twice: int, ready_ids: array<string> }
+def run -> BlockOutcomes
   doubled_twice = transform_twice(3) { |value|
     value * 2
   }

@@ -8,16 +8,16 @@
 # feature_rank: 0
 # vibe: 0.1.0
 
-type ReleaseReportResult = {
-  banner: string,
-  launch_at: string,
+type ReleaseReport = {
   name: string,
+  status: string,
   next_status: string,
   publishable: bool,
-  status: string
+  launch_at: string,
+  banner: string
 }
 
-type RunResult = { draft: ReleaseReportResult, scheduled: ReleaseReportResult }
+type ReleaseReports = { draft: ReleaseReport, scheduled: ReleaseReport }
 
 enum ReleaseStatus
   Draft
@@ -54,7 +54,7 @@ def release_report(
   name: string,
   status: ReleaseStatus,
   launch_at: time? = nil
-) -> ReleaseReportResult
+) -> ReleaseReport
   {
     name: name,
     status: status.name,
@@ -65,7 +65,7 @@ def release_report(
   }
 end
 
-def run -> RunResult
+def run -> ReleaseReports
   launch_at = 2.hours.after(Time.at(1700000000))
   {
     draft: release_report("billing-v2", ReleaseStatus::Draft),

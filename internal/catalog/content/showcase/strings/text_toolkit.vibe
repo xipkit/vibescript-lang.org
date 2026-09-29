@@ -6,17 +6,19 @@
 # tags: strings, text, formatting
 # vibe: 0.1.0
 
-type RunResult = {
-  banner: string,
+type Setting = { key: string, assigned: bool, value: string }
+
+type TextToolkit = {
+  setting: Setting,
+  no_assignment: Setting,
   domain: string,
-  info_flagged: bool,
+  banner: string,
   initials: string,
-  no_assignment: { assigned: bool, key: string, value: string },
-  setting: { assigned: bool, key: string, value: string },
-  warn_flagged: bool
+  warn_flagged: bool,
+  info_flagged: bool
 }
 
-def split_setting(line: string) -> { assigned: bool, key: string, value: string }
+def split_setting(line: string) -> Setting
   parts = line.partition("=")
   {
     key: parts[0],
@@ -41,7 +43,7 @@ def flagged?(line: string) -> bool
   line.start_with?("WARN", "ERROR")
 end
 
-def run -> RunResult
+def run -> TextToolkit
   {
     setting: split_setting("timeout=30"),
     no_assignment: split_setting("bare-token"),

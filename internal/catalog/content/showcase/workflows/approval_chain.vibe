@@ -6,15 +6,17 @@
 # tags: workflows, durations, enums, approvals
 # vibe: 0.1.0
 
-type ApprovalChainResult = {
+type ApprovalStep = { label: string, due_in: string, due_at: string }
+
+type ApprovalChain = {
   change_id: string,
-  checks_passed: bool,
-  next_state: string,
   state: string,
-  steps: array<{ due_at: string, due_in: string, label: string }>
+  next_state: string,
+  checks_passed: bool,
+  steps: array<ApprovalStep>
 }
 
-type RunResult = { pending: ApprovalChainResult, ready: ApprovalChainResult }
+type ApprovalChains = { pending: ApprovalChain, ready: ApprovalChain }
 
 enum ApprovalState
   Draft
@@ -39,7 +41,7 @@ def approval_step(
   label: string,
   due_in: duration,
   opened_at: time
-) -> { due_at: string, due_in: string, label: string }
+) -> ApprovalStep
   {
     label: label,
     due_in: due_in.iso8601,
@@ -52,9 +54,9 @@ def approval_chain(
   state: ApprovalState,
   checks_passed: bool,
   opened_at: time
-) -> ApprovalChainResult
+) -> ApprovalChain
   target_state = next_state(state, checks_passed)
-  steps: array<{ due_at: string, due_in: string, label: string }> = []
+  steps: array<ApprovalStep> = []
 
   if state == ApprovalState::Draft
     steps.push(approval_step("peer review", 2.hours, opened_at))
@@ -74,7 +76,7 @@ def approval_chain(
   }
 end
 
-def run -> RunResult
+def run -> ApprovalChains
   opened_at = Time.at(1701000000)
 
   {

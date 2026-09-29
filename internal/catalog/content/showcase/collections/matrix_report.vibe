@@ -6,11 +6,17 @@
 # tags: collections, arrays, matrix
 # vibe: 0.1.0
 
+type MatrixReport = {
+  by_metric: array<[string, int?]>,
+  daily_totals: array<int>,
+  grand_total: int
+}
+
 def column_totals(rows: array<array<int>>) -> array<int>
   rows.transpose.map { |column| column.sum }
 end
 
-def run -> { by_metric: array<[string, int?]>, daily_totals: array<int>, grand_total: int }
+def run -> MatrixReport
   labels = ["signups", "errors", "refunds"]
   daily = [
     [10, 3, 1],

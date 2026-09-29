@@ -6,11 +6,11 @@
 # tags: strings, symbols, literals
 # vibe: 0.1.0
 
-type RunResult = {
-  build_targets: array<string>,
-  first_state: string,
-  lifecycle_states: array<string>,
+type WordArrays = {
   static_tags: array<string>,
+  build_targets: array<string>,
+  lifecycle_states: array<string>,
+  first_state: string,
   target_count: int
 }
 
@@ -26,7 +26,7 @@ def lifecycle_states -> array<symbol>
   [:queued, :running, :done]
 end
 
-def run -> RunResult
+def run -> WordArrays
   {
     static_tags: static_tags,
     build_targets: build_targets("prod"),

@@ -6,15 +6,17 @@
 # tags: operations, strings, collections, logs
 # vibe: 0.1.0
 
-type RunResult = {
-  counts_by_level: hash<string, int>,
+type LogEntry = { level: string, message: string }
+
+type LogDigest = {
   entry_count: int,
   first_message: string,
+  counts_by_level: hash<string, int>,
   warnings: array<string>
 }
 
-def digest(text: string) -> array<{ level: string, message: string }>
-  entries: array<{ level: string, message: string }> = []
+def digest(text: string) -> array<LogEntry>
+  entries: array<LogEntry> = []
   text.each_line { |line|
     trimmed = line.strip
     if !trimmed.empty?
@@ -25,7 +27,7 @@ def digest(text: string) -> array<{ level: string, message: string }>
   entries
 end
 
-def counts_by_level(entries: array<{ level: string, message: string }>) -> hash<string, int>
+def counts_by_level(entries: array<LogEntry>) -> hash<string, int>
   counts: hash<string, int> = {}
   grouped = entries.group_by { |entry| entry["level"] }
   grouped.each { |level, items|
@@ -34,7 +36,7 @@ def counts_by_level(entries: array<{ level: string, message: string }>) -> hash<
   counts
 end
 
-def run -> RunResult
+def run -> LogDigest
   log = "INFO service started\nWARN disk at 82%\nERROR upstream timeout\nINFO healthy\nWARN memory high"
   entries = digest(log)
 
