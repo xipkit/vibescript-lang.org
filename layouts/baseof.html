@@ -48,7 +48,7 @@
         <a href="/" class="brand" aria-label="Vibescript home">
           <img src="/static/logo-dark.svg" alt="Vibescript" class="brand-logo brand-logo-dark">
           <img src="/static/logo-light.svg" alt="Vibescript" class="brand-logo brand-logo-light">
-          <span class="brand-version">{{site.Params.languageLabel}}</span>
+          <span class="brand-version">v{{hugo.Data.playground.version}}</span>
         </a>
         <nav class="site-nav" aria-label="Primary">
           <a href="/" {{if .IsHome}}class="is-active"{{end}}>Home</a>
