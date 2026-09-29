@@ -1,0 +1,44 @@
+# title: Format and round numbers
+# summary: Round, floor, and format numbers for reports, and do exact integer math.
+# vibe: 0.1.0
+
+def percent(part: int, whole: int) -> string
+  format("%.1f%%", part * 100 / whole)
+end
+
+def with_commas(value: int) -> string
+  groups = value.abs.to_s.reverse.chars.chunk(3).map { |group| group.join }
+  digits = groups.join(",").reverse
+  value < 0 ? "-#{digits}" : digits
+end
+
+type RunResult = {
+  rounding: hash<string, number>,
+  formatted: array<string>,
+  divmod: [int, int],
+  exact_power: string,
+  distance: float
+}
+
+def run -> RunResult
+  price = 19.4567
+
+  {
+    rounding: {
+      round: price.round,
+      round_2: price.round(2),
+      floor: price.floor,
+      ceil: price.ceil
+    },
+    formatted: [
+      format("%08.3f", price),
+      format("%-6s|%6s|", "left", "right"),
+      percent(37, 120),
+      with_commas(1_234_567),
+      with_commas(-9_870)
+    ],
+    divmod: 1_000.divmod(7),
+    exact_power: (2 ** 80).to_s,
+    distance: Math.hypot(6, 8)
+  }
+end

@@ -1,0 +1,33 @@
+# title: Stagger queued jobs
+# summary: Spread follow-up jobs over time so the host's queue never gets a burst.
+# uses: jobs
+# vibe: 0.1.0
+
+type Queued = {
+  status: string,
+  job: string,
+  player_id: string,
+  delay: string,
+  key: string
+}
+
+def stagger(player_ids: array<string>, *, gap: duration, per_wave: int) -> array<Queued>
+  player_ids.map_with_index { |player_id, index|
+    wave = index // per_wave
+    jobs.enqueue(
+      "send_weekly_summary",
+      { player_id: player_id },
+      delay: gap * wave,
+      key: "weekly-summary:#{player_id}"
+    )
+  }
+end
+
+def run -> { queued: array<Queued>, waves: hash<string, int> }
+  queued = stagger(["p-1", "p-2", "p-3", "p-4", "p-5"], gap: 30.seconds, per_wave: 2)
+
+  {
+    queued: queued,
+    waves: queued.map { |job| job["delay"] }.tally
+  }
+end

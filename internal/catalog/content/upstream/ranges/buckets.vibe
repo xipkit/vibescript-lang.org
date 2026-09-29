@@ -1,0 +1,49 @@
+# title: Sort values into buckets
+# summary: Use ranges in case branches to label values and count how many land in each bucket.
+# vibe: 0.1.0
+
+def shipping_tier(grams: int) -> string
+  case grams
+  when 0...500 then "letter"
+  when 500...2_000 then "small parcel"
+  when 2_000..20_000 then "parcel"
+  else "freight"
+  end
+end
+
+def grade(score: int) -> string
+  case score
+  when 90..100 then "A"
+  when 80...90 then "B"
+  when 70...80 then "C"
+  else "needs review"
+  end
+end
+
+type RunResult = {
+  tiers: hash<string, string>,
+  tier_counts: hash<string, int>,
+  grades: array<string>,
+  histogram: array<string>
+}
+
+def run -> RunResult
+  parcels: hash<string, int> = {
+    card: 40,
+    book: 900,
+    lamp: 3_500,
+    desk: 42_000,
+    mug: 480
+  }
+  scores = [97, 83, 88, 71, 64, 90]
+  counts = scores.map { |score| grade(score) }.tally
+
+  {
+    tiers: parcels.transform_values { |grams| shipping_tier(grams) },
+    tier_counts: parcels.values.map { |grams| shipping_tier(grams) }.tally,
+    grades: scores.map { |score| "#{score}: #{grade(score)}" },
+    histogram: ["A", "B", "C", "needs review"].map { |bucket|
+      "#{bucket.ljust(12)} #{"#" * counts.fetch(bucket, 0)}"
+    }
+  }
+end

@@ -1,0 +1,38 @@
+# title: Publish milestone events
+# summary: Total a player's entries and publish an event for each milestone crossed.
+# uses: db, events
+# vibe: 0.1.0
+
+type Published = {
+  status: string,
+  channel: string,
+  payload: { id: string, total: string }
+}
+
+def milestones -> array<money>
+  [money("25.00 USD"), money("50.00 USD"), money("100.00 USD")]
+end
+
+def running_totals(player_id: string) -> array<money>
+  totals: array<money> = []
+  total = money("0.00 USD")
+  db.each("ScoreEntry", where: { player_id: player_id }) { |entry|
+    total = total + entry["amount"]
+    totals << total
+    total
+  }
+  totals
+end
+
+def crossed(totals: array<money>) -> array<money>
+  milestones.select { |milestone| totals.any? { |total| total >= milestone } }
+end
+
+def run -> { totals: array<money>, published: array<Published> }
+  totals = running_totals("p-1")
+  published = crossed(totals).map { |milestone|
+    events.publish("player_milestones", { id: "p-1", total: milestone.to_s })
+  }
+
+  { totals: totals, published: published }
+end

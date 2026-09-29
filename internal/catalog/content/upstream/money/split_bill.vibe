@@ -1,0 +1,49 @@
+# title: Split a bill fairly
+# summary: Divide money into equal shares without losing a cent, then add tip and tax.
+# vibe: 0.1.0
+
+# Money division drops fractional cents, so the leftover cents go to the first
+# shares.
+def split(total: money, ways: int) -> array<money>
+  base = total / ways
+  leftover = total.cents - base.cents * ways
+  (0...ways).map { |index|
+    index < leftover ? base + money_cents(1, total.currency) : base
+  }
+end
+
+def percent_of(amount: money, percent: int) -> money
+  money_cents(amount.cents * percent // 100, amount.currency)
+end
+
+type RunResult = {
+  subtotal: money,
+  tax: money,
+  tip: money,
+  total: money,
+  shares: array<money>,
+  shares_add_up: bool
+}
+
+def run -> RunResult
+  items = [
+    money("18.50 USD"),
+    money("22.00 USD"),
+    money("9.75 USD"),
+    money("14.00 USD")
+  ]
+  subtotal = items.sum(money("0.00 USD"))
+  tax = percent_of(subtotal, 8)
+  tip = percent_of(subtotal, 18)
+  total = subtotal + tax + tip
+  shares = split(total, 3)
+
+  {
+    subtotal: subtotal,
+    tax: tax,
+    tip: tip,
+    total: total,
+    shares: shares,
+    shares_add_up: shares.sum(money("0.00 USD")) == total
+  }
+end

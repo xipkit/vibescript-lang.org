@@ -1,0 +1,43 @@
+# title: Track support SLAs
+# summary: Compare each ticket's wait against its priority's target and report time left.
+# vibe: 0.1.0
+
+type Ticket = { id: string, priority: string, waited: duration }
+type Status = { id: string, target: string, remaining: string, breached: bool }
+
+def target_for(priority: string) -> duration
+  case priority
+  when "urgent" then 1.hours
+  when "high" then 4.hours
+  else 1.days
+  end
+end
+
+def status(ticket: Ticket) -> Status
+  target = target_for(ticket["priority"])
+  remaining = target - ticket["waited"]
+  breached = remaining < 0.seconds
+  overdue = 0.seconds - remaining
+
+  {
+    id: ticket["id"],
+    target: target.iso8601,
+    remaining: breached ? "over by #{overdue.iso8601}" : remaining.iso8601,
+    breached: breached
+  }
+end
+
+def run -> { statuses: array<Status>, breached: array<string> }
+  tickets: array<Ticket> = [
+    { id: "T-101", priority: "urgent", waited: 40.minutes },
+    { id: "T-102", priority: "high", waited: 5.hours },
+    { id: "T-103", priority: "normal", waited: 9.hours + 30.minutes },
+    { id: "T-104", priority: "urgent", waited: 75.minutes }
+  ]
+  statuses = tickets.map { |ticket| status(ticket) }
+
+  {
+    statuses: statuses,
+    breached: statuses.select { |row| row["breached"] }.map { |row| row["id"] }
+  }
+end

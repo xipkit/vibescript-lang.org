@@ -1,0 +1,33 @@
+# title: Validate JSON input
+# summary: Parse webhook JSON against a shape, handle optional fields, and reject bad payloads.
+# vibe: 0.1.0
+
+type Item = { sku: string, qty: int }
+type Order = { id: string, total_cents: int, items: array<Item>, coupon?: string, ... }
+
+def summarize(raw: string) -> string
+  order = JSON.parse_as(raw, Order)
+  units = order["items"].sum { |item| item["qty"] }
+  coupon = order["coupon"]
+  note = coupon == nil ? "no coupon" : "coupon #{coupon}"
+  total = money_cents(order["total_cents"], "USD")
+  "#{order["id"]}: #{units} units, #{total}, #{note}"
+rescue TypeError
+  "rejected: schema mismatch"
+rescue RuntimeError
+  "rejected: not valid JSON"
+end
+
+def run -> { summaries: array<string>, round_trip: string }
+  payloads = [
+    '{"id":"o-1","total_cents":4250,"items":[{"sku":"tee","qty":3}],"source":"app"}',
+    '{"id":"o-2","total_cents":990,"items":[{"sku":"pin","qty":3}],"coupon":"SPRING"}',
+    '{"id":"o-3","total_cents":"12.00","items":[]}',
+    '{"id":"o-4",'
+  ]
+
+  {
+    summaries: payloads.map { |raw| summarize(raw) },
+    round_trip: JSON.stringify({ id: "o-5", items: [{ sku: "mug", qty: 1 }] })
+  }
+end

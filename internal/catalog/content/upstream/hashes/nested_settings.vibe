@@ -1,0 +1,38 @@
+# title: Layer nested settings
+# summary: Merge default, team, and user settings, resolving conflicts key by key.
+# vibe: 0.1.0
+
+type Settings = hash<string, hash<string, string>>
+
+def layer(base: Settings, override: Settings) -> Settings
+  base.merge(override) { |section, mine, theirs| mine.merge(theirs) }
+end
+
+def changed(before: Settings, after: Settings) -> array<string>
+  changes: array<string> = []
+  after.each { |section, values|
+    previous = before[section]
+    values.each { |key, value|
+      old = previous == nil ? nil : previous[key]
+      shown = old == nil ? "unset" : old
+      changes << "#{section}.#{key}: #{shown} -> #{value}" if old != value
+    }
+  }
+  changes
+end
+
+def run -> { effective: Settings, changes: array<string>, theme: string }
+  defaults: Settings = {
+    display: { theme: "light", density: "comfortable" },
+    alerts: { email: "daily", sms: "off" }
+  }
+  team: Settings = { alerts: { email: "instant" } }
+  user: Settings = { display: { theme: "dark" }, privacy: { profile: "team" } }
+  effective = layer(layer(defaults, team), user)
+
+  {
+    effective: effective,
+    changes: changed(defaults, effective),
+    theme: effective.fetch("display").fetch("theme", "light")
+  }
+end

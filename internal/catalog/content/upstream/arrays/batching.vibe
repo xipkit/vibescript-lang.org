@@ -1,0 +1,36 @@
+# title: Batch sensor readings
+# summary: Split readings into batches, smooth them with a moving window, and find the gaps.
+# vibe: 0.1.0
+
+type RunResult = {
+  batches: array<array<int>>,
+  batch_totals: array<int>,
+  moving_average: array<float>,
+  rising_runs: array<array<int>>,
+  missing: int,
+  readings: array<int>
+}
+
+def moving_average(values: array<int>, size: int) -> array<float>
+  values.window(size).map { |group| (group.sum / group.length).round(1).to_f }
+end
+
+def rising_runs(values: array<int>) -> array<array<int>>
+  runs = values.chunk_while { |previous, current| current > previous }
+  runs.select { |run| run.length > 1 }
+end
+
+def run -> RunResult
+  raw: array<int?> = [12, 14, nil, 15, 19, 18, nil, 21, 24, 26]
+  readings = raw.compact
+  batches = readings.chunk(3)
+
+  {
+    readings: readings,
+    missing: raw.count(nil),
+    batches: batches,
+    batch_totals: batches.map { |batch| batch.sum },
+    moving_average: moving_average(readings, 3),
+    rising_runs: rising_runs(readings)
+  }
+end

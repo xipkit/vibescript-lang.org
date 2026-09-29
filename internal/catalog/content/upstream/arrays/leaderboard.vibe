@@ -1,0 +1,44 @@
+# title: Rank a leaderboard
+# summary: Sort scores, break ties by name, and pick out the podium.
+# vibe: 0.1.0
+
+type Entry = { name: string, score: int }
+type Ranked = { rank: int, name: string, score: int }
+type Spread = { high: int?, low: int?, average: float }
+
+def ranked(entries: array<Entry>) -> array<Ranked>
+  ordered = entries.sort { |left, right|
+    order = right["score"] <=> left["score"]
+    order == 0 ? left["name"] <=> right["name"] : order
+  }
+  ordered.map_with_index { |entry, index|
+    { rank: index + 1, name: entry["name"], score: entry["score"] }
+  }
+end
+
+def podium(board: array<Ranked>) -> array<string>
+  board.first(3).map { |row| "#{row["rank"]}. #{row["name"]}" }
+end
+
+def spread(entries: array<Entry>) -> Spread
+  scores = entries.map { |entry| entry["score"] }
+  low, high = scores.minmax
+  { high: high, low: low, average: scores.sum / scores.length }
+end
+
+def run -> { board: array<Ranked>, podium: array<string>, spread: Spread }
+  entries = [
+    { name: "Sol", score: 88 },
+    { name: "Ada", score: 95 },
+    { name: "Lin", score: 88 },
+    { name: "Kai", score: 71 },
+    { name: "Mae", score: 90 }
+  ]
+  board = ranked(entries)
+
+  {
+    board: board,
+    podium: podium(board),
+    spread: spread(entries)
+  }
+end

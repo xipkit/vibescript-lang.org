@@ -1,0 +1,32 @@
+# title: Describe durations for people
+# summary: Break durations into days, hours, and minutes, and describe them in plain words.
+# vibe: 0.1.0
+
+def plural(count: int, unit: string) -> string
+  count == 1 ? "1 #{unit}" : "#{count} #{unit}s"
+end
+
+def describe(span: duration) -> string
+  parts = span.parts
+  words: array<string> = []
+  words << plural(parts["days"], "day") if parts["days"] > 0
+  words << plural(parts["hours"], "hour") if parts["hours"] > 0
+  words << plural(parts["minutes"], "minute") if parts["minutes"] > 0
+  words.empty? ? "less than a minute" : words.join(", ")
+end
+
+def run -> { descriptions: hash<string, string>, total: string, longest: string }
+  spans: hash<string, duration> = {
+    build: 7.minutes + 30.seconds,
+    review: Duration.parse("26h15m"),
+    deploy: 45.seconds,
+    rollout: 3.days + 1.hours
+  }
+  longest = spans.to_a.max_by { |pair| pair[1] }
+
+  {
+    descriptions: spans.transform_values { |span| describe(span) },
+    total: describe(spans.values.sum(0.seconds)),
+    longest: longest == nil ? "none" : longest[0]
+  }
+end
