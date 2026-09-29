@@ -355,6 +355,16 @@
     return result.join("\n");
   }
 
+  /* Puts each highlighted line in its own block so a long line wraps with a
+     hanging indent under its own indentation rather than at column zero. */
+  function hangLines(el, html) {
+    const lines = html.replace(/\n$/, "").split("\n");
+    el.innerHTML = lines.map((line) => `<span class="code-line">${line}\n</span>`).join("");
+    el.querySelectorAll(".code-line").forEach((line, i) => {
+      line.style.setProperty("--hang", lines[i].match(/^ */)[0].length + 2);
+    });
+  }
+
   function initThemeToggle() {
     const toggle = document.querySelector("[data-theme-toggle]");
     if (!toggle) return;
@@ -517,7 +527,9 @@
     initExpandToggle();
 
     document.querySelectorAll("code.language-vibescript, code.language-vibe").forEach((el) => {
-      el.innerHTML = highlightVibescript(el.textContent);
+      const html = highlightVibescript(el.textContent);
+      if (el.closest(".code-window")) hangLines(el, html);
+      else el.innerHTML = html;
     });
 
     document.querySelectorAll("code.language-go").forEach((el) => {

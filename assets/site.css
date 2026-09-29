@@ -688,11 +688,20 @@ h3 {
 .code-window pre {
   margin: 0;
   padding: 1.25rem;
-  overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
   color: var(--code-text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* --hang is the line's indentation plus two, set by the highlighter, so a
+   wrapped line continues just inside its own indentation. */
+.code-line {
+  display: block;
+  padding-left: calc(var(--hang, 0) * 1ch);
+  text-indent: calc(var(--hang, 0) * -1ch);
 }
 
 /* Terminal windows: transcript panels with pre-tokenized spans. They share
@@ -722,7 +731,8 @@ h3 {
 .term-body {
   margin: 0;
   padding: 1.25rem;
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
