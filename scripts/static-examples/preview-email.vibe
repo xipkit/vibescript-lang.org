@@ -1,5 +1,7 @@
 class EmailPreview
-  def send(to: string, subject: string, body: string) -> { status: string, to: string, subject: string, body: string }
+  type Receipt = { status: string, to: string, subject: string, body: string }
+
+  def send(to: string, subject: string, body: string) -> Receipt
     { body: body, status: "preview", subject: subject, to: to }
   end
 end

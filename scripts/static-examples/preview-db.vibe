@@ -1,26 +1,32 @@
 class DatabasePreview
-  def find(model: string, id: string) -> { id: string, raised: money }
+  type Player = { id: string, raised: money }
+  type RaisedOrder = { raised: symbol }
+  type RaisedChange = { raised: money }
+  type PlayerFilter = { player_id: string }
+  type ScoreEntry = { amount: money }
+
+  def find(model: string, id: string) -> Player
     assert model == "Player"
     { id: id, raised: money("75.00 USD") }
   end
 
-  def query(model: string, *, order: { raised: symbol }, limit: int) -> array<{ id: string, raised: money }>
+  def query(model: string, *, order: RaisedOrder, limit: int) -> array<Player>
     assert model == "Player" && order["raised"] == :desc
     [{ id: "p-1", raised: money("75.00 USD") }].first(limit)
   end
 
-  def update(model: string, id: string, changes: { raised: money }) -> { id: string, raised: money }
+  def update(model: string, id: string, changes: RaisedChange) -> Player
     assert model == "Player"
     { id: id, raised: changes["raised"] }
   end
 
-  def each(model: string, *, where: { player_id: string }, &block: { amount: money } -> money)
+  def each(model: string, *, where: PlayerFilter, &block: ScoreEntry -> money)
     assert model == "ScoreEntry" && where["player_id"] == "p-1"
     yield({ amount: money("25.00 USD") })
     yield({ amount: money("50.00 USD") })
   end
 
-  def sum(model: string, field: string, *, where: { player_id: string }) -> money
+  def sum(model: string, field: string, *, where: PlayerFilter) -> money
     assert model == "ScoreEntry" && field == "amount" && where["player_id"] == "p-1"
     money("75.00 USD")
   end

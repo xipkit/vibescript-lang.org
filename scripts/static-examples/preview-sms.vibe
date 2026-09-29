@@ -1,5 +1,7 @@
 class SMSPreview
-  def send(to: string, body: string) -> { status: string, to: string, body: string }
+  type Receipt = { status: string, to: string, body: string }
+
+  def send(to: string, body: string) -> Receipt
     { body: body, status: "preview", to: to }
   end
 end
