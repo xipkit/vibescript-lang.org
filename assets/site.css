@@ -878,6 +878,13 @@ h3 {
   color: var(--muted);
 }
 
+/* The pairs section's top padding supplies the space below the rule. */
+.section-rule {
+  margin: 5rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
 .pairs {
   position: relative;
   display: flex;
@@ -1929,6 +1936,10 @@ a.tag:hover {
 
   .why-signature {
     height: 5rem;
+  }
+
+  .section-rule {
+    margin-top: 4rem;
   }
 
   .limits {
