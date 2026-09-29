@@ -243,7 +243,6 @@ end</code></pre>
     <a href="/examples/{{.Params.slug}}" class="example-card">
       <div class="card-meta">
         <span class="card-category" data-accent="{{mod (hash.FNV32a .Params.topic) 6}}">{{.Params.topic}}</span>
-        {{if .Params.runnable}}<span class="card-runnable">runnable</span>{{end}}
       </div>
       <h3>{{.Title}}</h3>
       <p>{{.Params.summary}}</p>

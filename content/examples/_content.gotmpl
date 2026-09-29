@@ -45,7 +45,7 @@
   {{ end }}
   {{ with $metadata.Get "tags" }}{{ range split . "," }}{{ $tags = $tags | append (strings.TrimSpace .) }}{{ end }}{{ end }}
   {{ $body := replaceRE `\A(?:\s*# [A-Za-z_]+:[^\n]*\n|\s*\n)*` "" $source | strings.TrimSpace }}
-  {{ $params := dict "previews" ($metadata.Get "uses" | default "") "slug" $slug "category" $category "difficulty" $difficulty "summary" $summary "tags" (uniq $tags) "sourcebody" $body "sourcepath" $path "sourceurl" ($metadata.Get "source" | default "") "topic" (path.Dir $relative | replaceRE "[_/]" " " | title) "featured" $featured "featurerank" $featureRank "sortkey" (printf "%d-%s-%s" $rank $category $title) "runnable" true "function" (cond (gt (len (findRE `(?m)^def run\b` $source)) 0) "run" "") }}
+  {{ $params := dict "previews" ($metadata.Get "uses" | default "") "slug" $slug "category" $category "difficulty" $difficulty "summary" $summary "tags" (uniq $tags) "sourcebody" $body "sourcepath" $path "sourceurl" ($metadata.Get "source" | default "") "topic" (path.Dir $relative | replaceRE "[_/]" " " | title) "featured" $featured "featurerank" $featureRank "sortkey" (printf "%d-%s-%s" $rank $category $title) "function" (cond (gt (len (findRE `(?m)^def run\b` $source)) 0) "run" "") }}
   {{ $titles.Add $title 1 }}
   {{ $pages = $pages | append (dict "path" $slug "title" $title "description" $summary "type" "examples" "params" $params) }}
 {{ end }}

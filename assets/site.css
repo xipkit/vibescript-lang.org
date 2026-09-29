@@ -1079,27 +1079,6 @@ a.tag:hover {
   background: color-mix(in srgb, var(--chip) 14%, transparent);
 }
 
-.card-runnable {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--accent-text);
-  white-space: nowrap;
-}
-
-.card-runnable::before {
-  content: "";
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
 /* Cards pick up their category hue on hover instead of a uniform green */
 .example-card[data-accent]:hover {
   border-color: color-mix(in srgb, var(--chip) 55%, transparent);
