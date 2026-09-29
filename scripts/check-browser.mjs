@@ -129,10 +129,11 @@ try {
   await navigation.page.setViewportSize({ width: 390, height: 844 });
   await navigation.page.goto(base + "/examples/?tag=sms");
   assert.equal(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count(), 1);
+  const total = await navigation.page.locator("[data-catalog-grid] .example-card").count();
   await navigation.page.getByRole("button", { name: /tag: sms/ }).click();
-  assert.equal(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count(), 203);
+  assert.equal(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count(), total);
   await navigation.page.getByRole("button", { name: /Vibescript Showcase/ }).click();
-  assert(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count() < 203);
+  assert(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count() < total);
   for (const [path, name] of [["/examples/", "catalog"], ["/reference/", "reference"], ["/missing-page", "404"]]) {
     const response = await navigation.page.goto(base + path);
     assert.equal(response.status(), name === "404" ? 404 : 200);

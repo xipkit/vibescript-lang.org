@@ -19,7 +19,7 @@ const results = [];
 try {
   await page.goto(base + "/examples/");
   const links = await page.locator("[data-catalog-grid] a.example-card").evaluateAll((cards) => cards.map((card) => card.getAttribute("href")));
-  assert.equal(links.length, 203);
+  assert.equal(links.length, Object.keys(expected).length);
   for (const link of links) {
     await page.goto(base + link);
     await page.locator("[data-run-button]").click();
