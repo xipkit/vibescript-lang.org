@@ -119,16 +119,19 @@
   end
 end
 
-type Order = { status: string }
+type Order = { status: string, score: int }
 
-def approve(order: Order) -> { original: Order, updated: Order, same_key: bool, score: int }
-  original = order
+def approve(order: Order) -> Order
   order["status"] = "approved"
+  order["score"] = Scoring.with_bonus(order["score"])
+  order
+end
 
-  { original: original, updated: order,
-    same_key: order["status"] == order["status"],
-    score: Scoring.with_bonus(80) }
-end</code></pre>
+pending = { status: "pending", score: 80 }
+approved = approve(pending)
+
+pending["status"] # "pending"
+approved["score"] # 90</code></pre>
       </div>
     </div>
   </div>
