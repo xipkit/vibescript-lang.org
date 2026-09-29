@@ -1,0 +1,55 @@
+# title: Move an order through its states
+# summary: Use an enum and an exhaustive case to allow only valid state changes.
+# vibe: 0.1.0
+
+enum OrderState
+  Pending
+  Paid
+  Shipped
+  Delivered
+  Cancelled
+end
+
+def next_states(state: OrderState) -> array<OrderState>
+  case state
+  when OrderState::Pending then [OrderState::Paid, OrderState::Cancelled]
+  when OrderState::Paid then [OrderState::Shipped, OrderState::Cancelled]
+  when OrderState::Shipped then [OrderState::Delivered]
+  when OrderState::Delivered then []
+  when OrderState::Cancelled then []
+  end
+end
+
+def apply(state: OrderState, target: OrderState) -> OrderState
+  if !next_states(state).include?(target)
+    raise ArgumentError, "cannot move from #{state.name} to #{target.name}"
+  end
+  target
+end
+
+type Replay = { state: string, history: array<string>, rejected: array<string> }
+
+def replay(steps: array<OrderState>) -> Replay
+  state: OrderState = :pending
+  history = [state.name]
+  rejected: array<string> = []
+  steps.each { |target|
+    begin
+      state = apply(state, target)
+      history << state.name
+    rescue ArgumentError => error
+      rejected << error.message
+    end
+  }
+  { state: state.name, history: history, rejected: rejected }
+end
+
+def run -> { happy_path: Replay, out_of_order: Replay, finished: array<string> }
+  {
+    happy_path: replay([:paid, :shipped, :delivered]),
+    out_of_order: replay([:shipped, :paid, :cancelled, :paid]),
+    finished: [OrderState::Delivered, OrderState::Cancelled, OrderState::Paid]
+      .select { |state| next_states(state).empty? }
+      .map { |state| state.name }
+  }
+end

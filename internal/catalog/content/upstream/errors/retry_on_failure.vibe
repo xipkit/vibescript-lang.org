@@ -1,0 +1,35 @@
+# title: Retry a flaky step
+# summary: Rescue an error, retry a limited number of times, and always record how it ended.
+# vibe: 0.1.0
+
+# Stands in for a call that fails until its third attempt.
+def flaky_fetch(attempt: int, *, succeeds_on: int) -> string
+  raise RuntimeError, "timeout on attempt #{attempt}" if attempt < succeeds_on
+  "payload from attempt #{attempt}"
+end
+
+type Outcome = { result: string, attempts: int, log: array<string> }
+
+def fetch_with_retries(*, succeeds_on: int, limit: int) -> Outcome
+  attempts = 0
+  log: array<string> = []
+  result = begin
+    attempts += 1
+    flaky_fetch(attempts, succeeds_on: succeeds_on)
+  rescue RuntimeError => error
+    log << error.message
+    retry if attempts < limit
+    "gave up"
+  ensure
+    log << "finished after #{attempts} attempts"
+  end
+
+  { result: result, attempts: attempts, log: log }
+end
+
+def run -> { recovers: Outcome, gives_up: Outcome }
+  {
+    recovers: fetch_with_retries(succeeds_on: 3, limit: 5),
+    gives_up: fetch_with_retries(succeeds_on: 10, limit: 2)
+  }
+end

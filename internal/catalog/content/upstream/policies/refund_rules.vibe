@@ -1,0 +1,36 @@
+# title: Decide refund requests
+# summary: Approve, escalate, or deny refunds with small rules that each explain themselves.
+# vibe: 0.1.0
+
+type Request = { id: string, amount: money, days_since_purchase: int, used: bool }
+type Decision = { id: string, outcome: string, reason: string }
+
+# Rules run in order; the first that matches decides.
+def ruling(request: Request) -> [string, string]
+  amount = request["amount"]
+  return "deny", "outside the 30 day window" if request["days_since_purchase"] > 30
+  used = request["used"]
+  return "escalate", "used item over 50.00 USD" if used && amount > money("50.00 USD")
+  return "escalate", "amount needs a manager" if amount > money("200.00 USD")
+  return "approve", "within policy"
+end
+
+def decide(request: Request) -> Decision
+  outcome, reason = ruling(request)
+  { id: request["id"], outcome: outcome, reason: reason }
+end
+
+def run -> { decisions: array<Decision>, summary: hash<string, int> }
+  requests: array<Request> = [
+    { id: "R-1", amount: money("24.00 USD"), days_since_purchase: 3, used: false },
+    { id: "R-2", amount: money("89.00 USD"), days_since_purchase: 12, used: true },
+    { id: "R-3", amount: money("15.00 USD"), days_since_purchase: 45, used: false },
+    { id: "R-4", amount: money("240.00 USD"), days_since_purchase: 2, used: false }
+  ]
+  decisions = requests.map { |request| decide(request) }
+
+  {
+    decisions: decisions,
+    summary: decisions.map { |decision| decision["outcome"] }.tally
+  }
+end

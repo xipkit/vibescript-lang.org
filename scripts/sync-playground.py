@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,6 +18,8 @@ def main():
     args = parser.parse_args()
     revision = subprocess.check_output(['git', '-C', str(args.repo), 'rev-parse', args.revision + '^{commit}'], text=True).strip()
     protocol = subprocess.check_output(['git', '-C', str(args.repo), 'show', revision + ':docs/playground.md'])
+    cargo = subprocess.check_output(['git', '-C', str(args.repo), 'show', revision + ':Cargo.toml'], text=True)
+    version = tomllib.loads(cargo)['package']['version']
     wasm = args.wasm.read_bytes()
     if not wasm.startswith(b'\x00asm\x01\x00\x00\x00'):
         parser.error('artifact is not a WebAssembly version 1 module')
@@ -42,7 +45,7 @@ def main():
     for license_name, source in [('vibescript-MIT.txt', 'LICENSE'), ('tzdata-NOTICE.txt', 'licenses/tzdata-NOTICE.txt')]:
         text = subprocess.check_output(['git', '-C', str(args.repo), 'show', revision + ':' + source])
         (licenses / license_name).write_bytes(text)
-    (ROOT / 'data/playground.json').write_text(json.dumps({'revision': revision, 'sha256': digest, 'bytes': len(wasm), 'url': '/wasm/' + name}, indent=2) + '\n')
+    (ROOT / 'data/playground.json').write_text(json.dumps({'revision': revision, 'version': version, 'sha256': digest, 'bytes': len(wasm), 'url': '/wasm/' + name}, indent=2) + '\n')
     print(f'Vendored {name} ({len(wasm):,} bytes) from {revision}')
 
 

@@ -7,7 +7,7 @@ reuses the compiled module between operations. No filesystem directories or
 network capabilities are exposed to Vibescript.
 
 The site sends JSON using the pinned [playground protocol](playground-protocol.md).
-Every request includes 1,000,000 steps, 16 MiB tracked memory, and 128 call frames.
+Every request includes 10,000,000 steps, 16 MiB tracked memory, and 128 call frames.
 The Worker enforces these values rather than accepting arbitrary caller limits.
 Compilation and execution also have a five-second wall deadline; initial download
 and instantiation have a 20-second deadline. Stop terminates the Worker immediately.

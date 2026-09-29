@@ -1,0 +1,36 @@
+# title: Collect validation errors
+# summary: Validate each record, rescue the failures by class, and report them all at once.
+# vibe: 0.1.0
+
+type Signup = { email: string, age: int, plan: string }
+type Report = { accepted: array<string>, problems: array<string> }
+
+def validate(signup: Signup) -> Signup
+  raise ArgumentError, "email is missing an @" if !signup["email"].include?("@")
+  raise ArgumentError, "age must be 13 or older" if signup["age"] < 13
+  assert ["free", "pro"].include?(signup["plan"]), "unknown plan #{signup["plan"]}"
+  signup
+end
+
+def report(signups: array<Signup>) -> Report
+  accepted: array<string> = []
+  problems: array<string> = []
+  signups.each_with_index { |signup, index|
+    begin
+      accepted << validate(signup)["email"]
+    rescue ArgumentError | AssertionError => error
+      problems << "row #{index + 1} (#{error.class}): #{error.message}"
+    end
+  }
+  { accepted: accepted, problems: problems }
+end
+
+def run -> Report
+  report([
+    { email: "ada@example.com", age: 36, plan: "pro" },
+    { email: "lin.example.com", age: 29, plan: "free" },
+    { email: "kai@example.com", age: 11, plan: "free" },
+    { email: "mae@example.com", age: 41, plan: "enterprise" },
+    { email: "sol@example.com", age: 17, plan: "free" }
+  ])
+end

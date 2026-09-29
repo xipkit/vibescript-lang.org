@@ -1,0 +1,38 @@
+# title: Build URL slugs
+# summary: Turn titles into clean URL slugs, trim them to a length, and make them unique.
+# vibe: 0.1.0
+
+def slugify(title: string, *, limit: int = 40) -> string
+  accents = "àáâäçèéêëìíîïñòóôöùúûü"
+  plain = title.downcase.tr(accents, "aaaaceeeeiiiinoooouuuu")
+  slug = plain.gsub(/[^a-z0-9]+/, "-").delete_prefix("-").delete_suffix("-")
+  return slug if slug.length <= limit
+  cut = slug.slice(0, limit)
+  cut == nil ? slug : cut.sub(/-[^-]*$/, "")
+end
+
+def unique_slugs(titles: array<string>) -> array<string>
+  seen: hash<string, int> = {}
+  titles.map { |title|
+    slug = slugify(title)
+    count = seen.fetch(slug, 0) + 1
+    seen[slug] = count
+    count == 1 ? slug : "#{slug}-#{count}"
+  }
+end
+
+def run -> { slugs: array<string>, trimmed: string, initials: string }
+  titles = [
+    "Hello, World!",
+    "  Ten Tips for Faster Builds  ",
+    "Hello World",
+    "Café & Bar Reviews (2024)"
+  ]
+  words = "vibe script language".split
+
+  {
+    slugs: unique_slugs(titles),
+    trimmed: slugify("A very long title that runs past the limit", limit: 24),
+    initials: words.map { |word| word.chars.fetch(0).upcase }.join
+  }
+end

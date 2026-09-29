@@ -390,20 +390,6 @@ button:focus-visible {
   display: block;
 }
 
-.sound-toggle .icon-sound-on,
-.sound-toggle .icon-sound-off {
-  display: none;
-}
-
-[data-sound="on"] .sound-toggle .icon-sound-on,
-[data-sound="off"] .sound-toggle .icon-sound-off {
-  display: block;
-}
-
-[data-sound="off"] .sound-toggle {
-  color: var(--faint);
-}
-
 /* Shared text */
 
 .eyebrow {
@@ -488,7 +474,7 @@ h3 {
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--gap);
   align-items: center;
   padding: 2rem 0 5.5rem;
@@ -531,7 +517,6 @@ h3 {
 .hero-runner-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 0.75rem;
   padding: 0.8rem 1rem;
   border-top: 1px solid var(--code-header-border);
@@ -543,7 +528,17 @@ h3 {
   font-size: 1rem;
 }
 
+.hero-stop-button {
+  padding: 0.8rem 1.25rem;
+  font-size: 1rem;
+}
+
+[data-stop-button][hidden] {
+  display: none;
+}
+
 .hero-runner-link {
+  margin-left: auto;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
@@ -606,12 +601,20 @@ h3 {
 
 .hero-copy h1 {
   margin: 0 0 1.25rem;
-  font-size: clamp(2.6rem, 1.5rem + 3.4vw, 4.1rem);
+  font-size: clamp(2.6rem, 1.5rem + 3.4vw, 3.6rem);
   line-height: 1.03;
   letter-spacing: -0.035em;
   font-weight: 900;
   text-wrap: balance;
   max-width: 16ch;
+}
+
+/* Beside the code window the column is narrow, so the headline grows more
+   slowly with the viewport to stay on three lines. */
+@media (min-width: 961px) {
+  .hero-copy h1 {
+    font-size: clamp(2.6rem, 0.16rem + 5.04vw, 3.6rem);
+  }
 }
 
 .hero-lede {
@@ -679,11 +682,20 @@ h3 {
 .code-window pre {
   margin: 0;
   padding: 1.25rem;
-  overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
   color: var(--code-text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* --hang is the line's indentation plus two, set by the highlighter, so a
+   wrapped line continues just inside its own indentation. */
+.code-line {
+  display: block;
+  padding-left: calc(var(--hang, 0) * 1ch);
+  text-indent: calc(var(--hang, 0) * -1ch);
 }
 
 /* Terminal windows: transcript panels with pre-tokenized spans. They share
@@ -713,7 +725,8 @@ h3 {
 .term-body {
   margin: 0;
   padding: 1.25rem;
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   line-height: 1.7;
@@ -773,6 +786,112 @@ h3 {
 }
 
 /* Zig-zag pairs */
+
+/* Why Vibescript: a short letter from the author, heading on the left. */
+.why {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: clamp(3rem, 7vw, 6rem);
+  align-items: start;
+  padding-top: 5rem;
+}
+
+.eyebrow .eyebrow-sparkle {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: var(--accent);
+}
+
+.why-head h2 {
+  margin: 0;
+  font-size: clamp(2.2rem, 1.4rem + 2.4vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+}
+
+.why-byline {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* The top padding lines the first paragraph up with the heading, below the eyebrow. */
+.why-letter {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 40rem;
+  padding-top: 2.1rem;
+  color: color-mix(in srgb, var(--ink) 86%, transparent);
+  font-size: 1.25rem;
+  line-height: 1.65;
+}
+
+.why-letter p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.why-letter .why-emphasis {
+  color: var(--ink);
+}
+
+.why-signoff {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0.75rem;
+}
+
+.why-signature {
+  display: block;
+  width: auto;
+  height: 6.25rem;
+  color: var(--ink);
+}
+
+.why-author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-top: -0.375rem;
+}
+
+.why-author > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.why-author-mark {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: var(--accent);
+}
+
+.why-author-name {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.why-author-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* The pairs section's top padding supplies the space below the rule. */
+.section-rule {
+  margin: 5rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
 
 .pairs {
   position: relative;
@@ -843,13 +962,13 @@ h3 {
   border-radius: 0.25rem;
 }
 
-/* Philosophy + guardrails */
+/* Philosophy + sandbox limits */
 
 .philosophy {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: var(--gap);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem var(--gap);
   align-items: start;
   padding-block: 5rem;
 }
@@ -861,8 +980,8 @@ h3 {
   left: clamp(0.75rem, calc(50vw - 33rem), 6rem);
 }
 
-.philosophy-copy h2 {
-  margin: 0 0 1rem;
+.philosophy-head h2 {
+  margin: 0;
   font-size: clamp(1.9rem, 1.3rem + 1.9vw, 2.8rem);
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -871,91 +990,101 @@ h3 {
   max-width: 20ch;
 }
 
+/* Drops the copy to the heading's first line rather than the eyebrow's. */
+.philosophy-copy {
+  padding-top: 2.1rem;
+}
+
 .philosophy-copy p {
   margin: 0 0 1rem;
   color: var(--muted);
   font-size: 1.125rem;
   line-height: 1.65;
   text-wrap: pretty;
-  max-width: 54ch;
+  max-width: 58ch;
 }
 
 .philosophy-copy p:last-child {
   margin-bottom: 0;
 }
 
-.guardrails {
-  border-radius: var(--radius-md);
-  background: var(--panel);
-  padding: 1.85rem;
+.limits {
+  grid-column: 1 / -1;
+  margin-top: 2.5rem;
   border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  overflow: hidden;
 }
 
-.guardrails h3 {
-  margin: 0 0 0.35rem;
-  font-size: 1.125rem;
+.limits-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding: 1.6rem 2rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.limits-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
   font-weight: 800;
   letter-spacing: -0.01em;
 }
 
-.guardrails > p {
-  margin: 0 0 1.25rem;
+.limits-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+/* The 1px gaps show the grid's line color through, drawing the dividers
+   between cells without doubled borders at the edges. */
+.limits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--line);
+}
+
+.limit {
+  padding: 1.75rem 2rem 2rem;
+  background: var(--panel);
+}
+
+.limit dt {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.limit dd {
+  margin: 0;
   color: var(--muted);
   font-size: 0.9375rem;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
-.guardrail-list {
-  margin: 0;
-}
-
-.guardrail {
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--line);
-}
-
-.guardrail:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.guardrail:last-child {
-  padding-bottom: 0;
-}
-
-.guardrail dt {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 700;
-}
-
-.guardrail dt .vee {
-  align-self: center;
-}
-
-.guardrail dt .guardrail-default {
-  margin-left: auto;
-}
-
-.guardrail-default {
+.limit dd.limit-value {
+  margin: 0.35rem 0 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  color: var(--accent-text);
-  background: var(--accent-soft);
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-size: clamp(1.6rem, 1.2rem + 0.9vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--tok-type);
+  overflow-wrap: anywhere;
 }
 
-.guardrail dd {
-  margin: 0.35rem 0 0 1.28rem;
-  color: var(--muted);
-  font-size: 0.9375rem;
-  line-height: 1.55;
+.limit dd.limit-number {
+  color: var(--tok-number);
 }
 
 /* Featured examples + shared cards */
@@ -1077,27 +1206,6 @@ a.tag:hover {
 .card-category[data-accent] {
   color: var(--chip);
   background: color-mix(in srgb, var(--chip) 14%, transparent);
-}
-
-.card-runnable {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--accent-text);
-  white-space: nowrap;
-}
-
-.card-runnable::before {
-  content: "";
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: var(--accent);
 }
 
 /* Cards pick up their category hue on hover instead of a uniform green */
@@ -1454,13 +1562,6 @@ a.tag:hover {
   min-height: 180px;
   background: var(--code-bg);
   color: var(--code-text);
-}
-
-.hero-preview-note {
-  margin: 0;
-  padding: 0.75rem 1rem;
-  color: var(--muted);
-  font-size: 0.8rem;
 }
 
 .host-example {
@@ -1825,6 +1926,37 @@ a.tag:hover {
     position: static;
     max-height: none;
   }
+
+  .philosophy-copy {
+    padding-top: 0;
+  }
+
+  .why {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    padding-top: 3rem;
+  }
+
+  .why-letter {
+    padding-top: 0;
+    font-size: 1.125rem;
+  }
+
+  .why-signature {
+    height: 5rem;
+  }
+
+  .section-rule {
+    margin-top: 4rem;
+  }
+
+  .limits {
+    margin-top: 1.5rem;
+  }
+
+  .limits-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -1851,7 +1983,7 @@ a.tag:hover {
   }
 
   .example-card p,
-  .guardrail dd {
+  .limit dd {
     font-size: 1rem;
   }
 
@@ -1867,9 +1999,17 @@ a.tag:hover {
     padding-block: 1rem 1.75rem;
   }
 
-  .section-panel,
-  .guardrails {
+  .section-panel {
     padding: 1.25rem;
+  }
+
+  .limits-header,
+  .limit {
+    padding: 1.25rem;
+  }
+
+  .limits-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .code-window pre {
@@ -1905,7 +2045,15 @@ a.tag:hover {
 .runner-controls { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
 button:disabled { opacity: 0.5; cursor: default; }
 .editor-note { font-size: 0.85rem; margin-block: 1rem; }
-.source-editor { display: block; box-sizing: border-box; width: 100%; min-height: 28rem; resize: vertical; border: 0; border-radius: 0 0 12px 12px; padding: 1.25rem; color: var(--ink); background: transparent; font: 0.84rem/1.7 var(--font-mono); tab-size: 2; white-space: pre; overflow: auto; }
+/* The highlight layer and the textarea share a grid cell and identical text
+   metrics, so every glyph the textarea lays out lands on its painted token. */
+.source-stack { display: grid; }
+.source-highlight, .source-editor { grid-area: 1 / 1; box-sizing: border-box; min-width: 0; margin: 0; border: 0; padding: 1.25rem; font: 0.84rem/1.7 var(--font-mono); letter-spacing: normal; tab-size: 2; white-space: pre-wrap; overflow-wrap: anywhere; word-break: normal; }
+.source-highlight { visibility: hidden; color: var(--code-text); pointer-events: none; }
+.source-editor { display: block; width: 100%; min-height: 28rem; resize: none; border-radius: 0 0 12px 12px; color: var(--ink); background: transparent; overflow: hidden; }
+.source-stack.is-highlighted .source-highlight { visibility: visible; }
+.source-stack.is-highlighted .source-editor { color: transparent; caret-color: var(--ink); }
+.source-stack.is-highlighted .source-editor::selection { color: transparent; background: color-mix(in srgb, var(--accent) 30%, transparent); }
 .source-editor:focus-visible { outline: 2px solid var(--accent, #bf8bff); outline-offset: -2px; }
 .diagnostics-panel { margin-block: 1.5rem; }
 .diagnostics-panel h2 { font-size: 1rem; }
@@ -1916,7 +2064,7 @@ button:disabled { opacity: 0.5; cursor: default; }
 .reference-nav li { margin-block: 0.4rem; }
 .reference-prose pre { overflow-x: auto; }
 .code-header span { overflow-wrap: anywhere; min-width: 0; }
-@media (max-width: 640px) { .runner-controls { width: 100%; } .source-editor { font-size: 0.8rem; } .detail-header { gap: 1rem; } }
+@media (max-width: 640px) { .runner-controls { width: 100%; } .source-highlight, .source-editor { font-size: 0.8rem; } .detail-header { gap: 1rem; } }
 
 .card-difficulty { color: var(--muted); font-size: 0.72rem; }
 .align-left { text-align: left; }

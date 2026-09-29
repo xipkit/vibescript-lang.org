@@ -147,6 +147,17 @@ precision. The original example result is also interpolated before export so
 its display text is checked independently. This is necessary because the flat
 CLI's native JSON encoder rejects money and duration values.
 
+## Examples added after the migration
+
+Twenty-three examples were added under `upstream/` so that no catalog category
+has a single entry. They were written for Rust Vibescript 0.80.0, the pinned
+playground revision, and keep the same `# vibe: 0.1.0` marker as the verifier
+expects. Each output was reviewed by hand before it was recorded, and twelve
+probes pin edge cases such as leftover cents, empty slugs, and range bounds.
+Three of them use the `ctx`, `db`, `events`, and `jobs` previews. A later
+showcase example, `showcase/automation/trial_reminder.vibe`, backs the home page
+hero. The verifier now covers 227 examples and 66 probes.
+
 ## Follow-up
 
 Rust `fef329a3` settles NaN ordering: float `<=>` is a total order, so the probe

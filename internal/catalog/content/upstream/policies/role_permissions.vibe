@@ -1,0 +1,50 @@
+# title: Check permissions by role
+# summary: Combine the current user's role with record ownership to decide what they may do.
+# uses: ctx
+# vibe: 0.1.0
+
+type Note = { id: string, author: string, shared: bool }
+
+def role_grants(role: string) -> array<string>
+  case role
+  when "admin" then ["read", "edit", "delete"]
+  when "coach" then ["read", "edit"]
+  else ["read"]
+  end
+end
+
+def allowed?(action: string, note: Note) -> bool
+  user = ctx.user
+  owns = note["author"] == user["id"]
+  return true if owns
+  note["shared"] && role_grants(user["role"]).include?(action)
+end
+
+def permitted(action: string, notes: array<Note>) -> array<string>
+  notes.select { |note| allowed?(action, note) }.map { |note| note["id"] }
+end
+
+type RunResult = {
+  user: string,
+  grants: array<string>,
+  readable: array<string>,
+  editable: array<string>,
+  deletable: array<string>
+}
+
+def run -> RunResult
+  user = ctx.user
+  notes: array<Note> = [
+    { id: "n-1", author: "p-1", shared: false },
+    { id: "n-2", author: "p-7", shared: true },
+    { id: "n-3", author: "p-9", shared: false }
+  ]
+
+  {
+    user: "#{user["id"]} (#{user["role"]})",
+    grants: role_grants(user["role"]),
+    readable: permitted("read", notes),
+    editable: permitted("edit", notes),
+    deletable: permitted("delete", notes)
+  }
+end

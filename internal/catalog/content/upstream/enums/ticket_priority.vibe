@@ -1,0 +1,47 @@
+# title: Sort tickets by priority
+# summary: Give enum members a rank and a label, then sort and count tickets by them.
+# vibe: 0.1.0
+
+enum Priority
+  Low
+  Normal
+  High
+  Urgent
+end
+
+type Ticket = { title: string, priority: Priority }
+
+def rank(priority: Priority) -> int
+  case priority
+  when Priority::Urgent then 0
+  when Priority::High then 1
+  when Priority::Normal then 2
+  when Priority::Low then 3
+  end
+end
+
+def label(priority: Priority) -> string
+  case priority
+  when Priority::Urgent then "Page someone now"
+  when Priority::High then "Today"
+  when Priority::Normal then "This week"
+  when Priority::Low then "When there is time"
+  end
+end
+
+def run -> { queue: array<string>, counts: hash<string, int>, urgent_label: string }
+  tickets: array<Ticket> = [
+    { title: "Update footer links", priority: Priority::Low },
+    { title: "Checkout fails for EU cards", priority: Priority::Urgent },
+    { title: "Slow search results", priority: Priority::High },
+    { title: "Typo on pricing page", priority: Priority::Normal },
+    { title: "Export times out", priority: Priority::High }
+  ]
+  ordered = tickets.sort_by { |ticket| rank(ticket["priority"]) }
+
+  {
+    queue: ordered.map { |ticket| "[#{ticket["priority"].name}] #{ticket["title"]}" },
+    counts: tickets.map { |ticket| ticket["priority"].name }.tally,
+    urgent_label: label(Priority::Urgent)
+  }
+end

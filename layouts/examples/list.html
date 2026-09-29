@@ -19,7 +19,6 @@
       <a href="/examples/{{.Params.slug}}" class="example-card" data-accent="{{mod (hash.FNV32a .Params.category) 6}}" data-category="{{.Params.category}}" data-tags="{{range .Params.tags}}{{.}} {{end}}">
         <div class="card-meta">
           <span class="card-category" data-accent="{{mod (hash.FNV32a .Params.category) 6}}">{{.Params.category}}</span>
-          {{if .Params.runnable}}<span class="card-runnable" title="Runs in your browser">runnable</span>{{end}}
         </div>
         <h3>{{.Title}}</h3>
         <span class="card-difficulty">{{.Params.difficulty}}</span>

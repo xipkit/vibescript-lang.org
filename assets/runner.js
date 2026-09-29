@@ -22,14 +22,23 @@
     const diagnostics = root.querySelector("[data-diagnostics]");
     const original = editor ? editor.value : root.querySelector("code.language-vibescript").textContent;
     const source = () => editor ? editor.value : original;
-    let worker, active, deadline, debounce, sequence = 0, loaded = false;
+    let worker, active, deadline, debounce, revealStop, sequence = 0, loaded = false;
     if (format) format.disabled = true;
 
     function buttons(busy) {
       run.disabled = busy;
       stop.disabled = !busy;
+      // Stop appears only for a run that outlasts a blink, so quick runs and background checks never flash it.
+      clearTimeout(revealStop);
+      if (busy && active?.op === "run") revealStop = setTimeout(() => { stop.hidden = false; }, 250);
+      else stop.hidden = true;
       if (format) format.disabled = busy || !loaded;
       root.setAttribute("aria-busy", String(busy));
+    }
+
+    // site.js listens for these to animate the output.
+    function announce(type) {
+      root.dispatchEvent(new CustomEvent(type, { bubbles: true }));
     }
 
     function cancel(message) {
@@ -41,8 +50,10 @@
         if (active?.op === "check" && diagnostics) diagnostics.textContent = message;
         else output.textContent = message;
       }
+      const cancelled = active;
       active = null;
       buttons(false);
+      if (cancelled?.op === "run") announce("playground:finish");
     }
 
     function timeout(ms) {
@@ -57,7 +68,7 @@
       if (job.op === "format") {
         if (response.ok && typeof response.source === "string" && source() === job.source) {
           editor.value = response.source;
-          scheduleCheck();
+          changed();
         } else if (error) output.textContent = error;
       }
       if (job.op === "run") {
@@ -78,7 +89,10 @@
       if (!/^def run\b/m.test(job.source)) job.entry = undefined;
       active = job;
       buttons(true);
-      if (op === "run") output.textContent = loaded ? "Starting…" : "Loading the browser runtime…";
+      if (op === "run") {
+        output.textContent = loaded ? "Starting…" : "Loading the browser runtime…";
+        announce("playground:start");
+      }
       else if (diagnostics) diagnostics.textContent = op === "format" ? "Formatting…" : "Checking…";
       try {
         if (!worker) {
@@ -99,6 +113,7 @@
               const target = completed.op === "check" && diagnostics ? diagnostics : output;
               target.textContent = data.error;
             } else show(data.response, completed);
+            if (completed.op === "run") announce("playground:finish");
             if (source() !== completed.source) scheduleCheck();
           };
           worker.onerror = (event) => { event.preventDefault(); cancel("The browser runtime could not start. Try Run again."); };
@@ -106,6 +121,11 @@
         timeout(downloadTime);
         worker.postMessage(job);
       } catch (error) { cancel(error.message); }
+    }
+
+    // Setting value from script fires no input event; raise one so the highlighter and checker both see the edit.
+    function changed() {
+      editor.dispatchEvent(new Event("input"));
     }
 
     function scheduleCheck() {
@@ -124,7 +144,7 @@
       editor.value = original;
       output.textContent = "Reset to the original example.";
       if (diagnostics) diagnostics.textContent = loaded ? "Checking…" : "Run once to load the checker. Your code stays in this browser.";
-      scheduleCheck();
+      changed();
     });
     editor?.addEventListener("input", () => {
       if (active?.op === "check") cancel();
@@ -135,7 +155,7 @@
       if (event.key === "Tab" && !event.shiftKey) {
         event.preventDefault();
         editor.setRangeText("  ", editor.selectionStart, editor.selectionEnd, "end");
-        scheduleCheck();
+        changed();
       }
     });
     window.addEventListener("pagehide", () => cancel());

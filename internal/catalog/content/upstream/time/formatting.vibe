@@ -1,0 +1,52 @@
+# title: Format and compare times
+# summary: Parse timestamps, show them in other time zones and formats, and measure the gaps between them.
+# vibe: 0.1.0
+
+type Meeting = { title: string, starts: time }
+
+def gap_minutes(first: time, second: time) -> int
+  ((second - first) / 60).round
+end
+
+def describe_gap(first: Meeting, second: Meeting) -> string
+  minutes = gap_minutes(first["starts"], second["starts"])
+  "#{first["title"]} to #{second["title"]}: #{minutes} min"
+end
+
+def next_after(launch: time, upcoming: Meeting?) -> string
+  return "none" if upcoming == nil
+  describe_gap({ title: "Launch", starts: launch }, upcoming)
+end
+
+type RunResult = {
+  formats: hash<string, string>,
+  local_starts: hash<string, string>,
+  gaps: array<string>,
+  next_meeting: string
+}
+
+def run -> RunResult
+  launch = Time.parse("2024-11-05T14:30:00Z")
+  meetings: array<Meeting> = [
+    { title: "Standup", starts: Time.parse("2024-11-05T09:00:00Z") },
+    { title: "Design review", starts: Time.parse("2024-11-05T13:15:00Z") },
+    { title: "Retro", starts: Time.parse("2024-11-05T16:00:00Z") }
+  ]
+  upcoming = meetings.find { |meeting| meeting["starts"] > launch }
+
+  {
+    formats: {
+      iso8601: launch.iso8601,
+      readable: launch.strftime("%B %-d, %Y at %H:%M %Z"),
+      http: launch.httpdate,
+      day_of_year: launch.yday.to_s
+    },
+    local_starts: {
+      new_york: launch.localtime("America/New_York").format("Jan 2 3:04 PM MST"),
+      berlin: launch.localtime("Europe/Berlin").format("Jan 2 15:04 MST"),
+      tokyo: launch.localtime("Asia/Tokyo").format("Jan 2 15:04 MST")
+    },
+    gaps: meetings.window(2).map { |pair| describe_gap(pair.fetch(0), pair.fetch(1)) },
+    next_meeting: next_after(launch, upcoming)
+  }
+end

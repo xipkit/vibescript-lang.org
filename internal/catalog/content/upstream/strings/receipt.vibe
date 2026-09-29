@@ -1,0 +1,45 @@
+# title: Format a text receipt
+# summary: Line up columns with padding, center a heading, and wrap a long note.
+# vibe: 0.1.0
+
+type Line = { item: string, qty: int, price: money }
+
+def row(left: string, right: string) -> string
+  left.ljust(32 - right.length, ".") + right
+end
+
+def wrap(text: string, width: int) -> array<string>
+  lines: array<string> = []
+  current = ""
+  text.split.each { |word|
+    if current.empty?
+      current = word
+    elsif current.length + 1 + word.length <= width
+      current = "#{current} #{word}"
+    else
+      lines << current
+      current = word
+    end
+  }
+  lines << current if !current.empty?
+  lines
+end
+
+def run -> array<string>
+  lines: array<Line> = [
+    { item: "Espresso", qty: 2, price: money("3.25 USD") },
+    { item: "Almond croissant", qty: 1, price: money("4.75 USD") },
+    { item: "Sparkling water", qty: 3, price: money("2.00 USD") }
+  ]
+  total = lines.sum(money("0.00 USD")) { |line| line["price"] * line["qty"] }
+
+  receipt = ["CORNER CAFE".center(32), "-" * 32]
+  lines.each { |line|
+    cost = line["price"] * line["qty"]
+    receipt << row("#{line["qty"]} x #{line["item"]}", cost.to_s)
+  }
+  receipt << "-" * 32
+  receipt << row("TOTAL", total.to_s)
+  note = "Thanks for stopping by. Show this receipt for a free refill before noon."
+  receipt + wrap(note, 32)
+end

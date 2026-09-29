@@ -17,76 +17,15 @@
     return `${result.kind} in ${dur}\n\n${String(result.value)}`;
   }
 
-  const SOUND_KEY = "sound";
-  let cuelume = null;
-
   /* Storage access throws outright when a browser denies it (private modes,
-     blocked cookies, sandboxed embeds), so every read and write is guarded.
-     A preference we cannot reach is simply the default. */
-  function readStored(key) {
-    try {
-      return localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  }
-
+     blocked cookies, sandboxed embeds), so the write is guarded. A preference
+     we cannot store still applies for the session. */
   function writeStored(key, value) {
     try {
       localStorage.setItem(key, value);
     } catch {
       // Preference cannot be persisted; the session still honors it.
     }
-  }
-
-  /** Resolves the vendored cuelume module, loading it on first use. */
-  async function loadCuelume() {
-    if (cuelume) return cuelume;
-    try {
-      cuelume = await import("/static/vendor/cuelume/index.js");
-      cuelume.setEnabled(soundEnabled());
-    } catch {
-      cuelume = { play() {}, setEnabled() {} };
-    }
-    return cuelume;
-  }
-
-  /* Held in memory so muting still works for the session when storage is
-     unavailable; storage only seeds this and persists it across visits. */
-  let soundPreference = null;
-
-  function soundEnabled() {
-    if (soundPreference === null) {
-      soundPreference = readStored(SOUND_KEY) !== "off";
-    }
-    return soundPreference;
-  }
-
-  function setSoundEnabled(on) {
-    soundPreference = on;
-    writeStored(SOUND_KEY, on ? "on" : "off");
-  }
-
-  async function playCue(name) {
-    if (!soundEnabled()) return;
-    const audio = await loadCuelume();
-    audio.play(name);
-  }
-
-  /* Safari only lets an AudioContext start inside a user gesture, and the
-     result cue plays after an await, by which point the activation may have
-     expired. Playing a cue synchronously on click opens the context while the
-     gesture is live, so later cues are audible. Needs the module already
-     resolved, hence the preload. */
-  function unlockAudioDuringGesture() {
-    if (!cuelume || !soundEnabled()) return;
-    cuelume.play("press");
-  }
-
-  function preloadAudio() {
-    if (!document.querySelector("[data-run-button]")) return;
-    if (!soundEnabled()) return;
-    loadCuelume();
   }
 
   /** Restarts a CSS animation that may already have run on this element. */
@@ -96,29 +35,19 @@
     element.classList.add(className);
   }
 
-  function initSoundToggle() {
-    const toggle = document.querySelector("[data-sound-toggle]");
-    if (!toggle) return;
-
-    // Stable label naming the control, with aria-pressed carrying the state:
-    // an action label plus aria-pressed announces the state inverted.
-    const sync = () => {
-      const on = soundEnabled();
-      document.documentElement.setAttribute("data-sound", on ? "on" : "off");
-      toggle.setAttribute("aria-pressed", String(on));
-    };
-
-    sync();
-    toggle.addEventListener("click", async () => {
-      const next = !soundEnabled();
-      setSoundEnabled(next);
-      sync();
-      if (next) {
-        const audio = await loadCuelume();
-        audio.setEnabled(true);
-        audio.play("toggle");
-      } else if (cuelume) {
-        cuelume.setEnabled(false);
+  /* The playground runner announces each run: the output pulses while it
+     runs, then slides in with the result. */
+  function initRunFeedback() {
+    document.addEventListener("playground:start", (event) => {
+      const output = event.target.querySelector("[data-run-output]");
+      output?.classList.remove("slide-in-down");
+      output?.classList.add("is-thinking");
+    });
+    document.addEventListener("playground:finish", (event) => {
+      const output = event.target.querySelector("[data-run-output]");
+      if (output) {
+        output.classList.remove("is-thinking");
+        replay(output, "slide-in-down");
       }
     });
   }
@@ -355,6 +284,141 @@
     return result.join("\n");
   }
 
+  /* Minimal Rust tokenizer for the embedding snippets in the reference. It
+     shares the other highlighters' token classes. Lines that start with `#`
+     are rustdoc's hidden doctest setup, so they are dropped as rustdoc does. */
+  function highlightRust(source) {
+    const lines = source.split("\n").filter((line) => !/^\s*#(\s|$)/.test(line));
+    const result = [];
+
+    const keywords = new Set([
+      "as", "async", "await", "break", "const", "continue", "crate", "dyn",
+      "else", "enum", "extern", "fn", "for", "if", "impl", "in", "let", "loop",
+      "match", "mod", "move", "mut", "pub", "ref", "return", "self", "Self",
+      "static", "struct", "super", "trait", "type", "unsafe", "use", "where",
+      "while",
+    ]);
+    const constants = new Set(["true", "false"]);
+
+    for (const line of lines) {
+      const tokens = [];
+      let i = 0;
+
+      while (i < line.length) {
+        if (line[i] === "/" && line[i + 1] === "/") {
+          tokens.push(`<span class="tok-comment">${escapeHtml(line.slice(i))}</span>`);
+          i = line.length;
+          continue;
+        }
+
+        // Strings, including byte strings such as b"queued".
+        if (line[i] === '"' || (line[i] === "b" && line[i + 1] === '"' && !/[a-zA-Z0-9_]/.test(line[i - 1] || ""))) {
+          let j = line[i] === "b" ? i + 2 : i + 1;
+          while (j < line.length && line[j] !== '"') {
+            if (line[j] === "\\") j++;
+            j++;
+          }
+          j = Math.min(j + 1, line.length);
+          tokens.push(`<span class="tok-string">${escapeHtml(line.slice(i, j))}</span>`);
+          i = j;
+          continue;
+        }
+
+        // Character literals such as 'a' or '\n'; a lone quote is a lifetime.
+        if (line[i] === "'") {
+          const char = line.slice(i).match(/^'(\\.|[^'\\])'/);
+          if (char) {
+            tokens.push(`<span class="tok-string">${escapeHtml(char[0])}</span>`);
+            i += char[0].length;
+            continue;
+          }
+          const lifetime = line.slice(i).match(/^'[a-zA-Z_]\w*/);
+          if (lifetime) {
+            tokens.push(`<span class="tok-type">${escapeHtml(lifetime[0])}</span>`);
+            i += lifetime[0].length;
+            continue;
+          }
+        }
+
+        if (/\d/.test(line[i]) && (i === 0 || /[^a-zA-Z_]/.test(line[i - 1]))) {
+          const number = line.slice(i).match(/^\d[\d_]*(\.\d[\d_]*)?([iu](8|16|32|64|128|size)|f32|f64)?/);
+          tokens.push(`<span class="tok-number">${number[0]}</span>`);
+          i += number[0].length;
+          continue;
+        }
+
+        if (/[a-zA-Z_]/.test(line[i])) {
+          let j = i;
+          while (j < line.length && /[a-zA-Z0-9_]/.test(line[j])) j++;
+          const word = line.slice(i, j);
+
+          if (line[j] === "!" && line[j + 1] !== "=") {
+            tokens.push(`<span class="tok-function">${escapeHtml(word)}!</span>`);
+            i = j + 1;
+            continue;
+          }
+          if (constants.has(word)) {
+            tokens.push(`<span class="tok-constant">${word}</span>`);
+          } else if (keywords.has(word)) {
+            tokens.push(`<span class="tok-keyword">${word}</span>`);
+          } else if (/^[A-Z]/.test(word)) {
+            tokens.push(`<span class="tok-type">${escapeHtml(word)}</span>`);
+          } else if (line[j] === "(") {
+            tokens.push(`<span class="tok-function">${escapeHtml(word)}</span>`);
+          } else {
+            tokens.push(escapeHtml(word));
+          }
+          i = j;
+          continue;
+        }
+
+        const twoChar = line.slice(i, i + 2);
+        if (["->", "=>", "==", "!=", "<=", ">=", "&&", "||", "..", "+=", "-="].includes(twoChar)) {
+          tokens.push(`<span class="tok-operator">${escapeHtml(twoChar)}</span>`);
+          i += 2;
+          continue;
+        }
+        if ("=+-*/%<>!&|?".includes(line[i])) {
+          tokens.push(`<span class="tok-operator">${escapeHtml(line[i])}</span>`);
+          i++;
+          continue;
+        }
+
+        tokens.push(escapeHtml(line[i]));
+        i++;
+      }
+
+      result.push(tokens.join(""));
+    }
+
+    return result.join("\n");
+  }
+
+  /* Puts each highlighted line in its own block so a long line wraps with a
+     hanging indent under its own indentation rather than at column zero. */
+  function hangLines(el, html) {
+    const lines = html.replace(/\n$/, "").split("\n");
+    el.innerHTML = lines.map((line) => `<span class="code-line">${line}\n</span>`).join("");
+    el.querySelectorAll(".code-line").forEach((line, i) => {
+      line.style.setProperty("--hang", lines[i].match(/^ */)[0].length + 2);
+    });
+  }
+
+  /* Highlights the editor by painting tokens on a layer under the textarea,
+     whose own text turns transparent once the layer is live. Both wrap the
+     same way, and the stack grows with the layer, so neither ever scrolls. */
+  function initEditor() {
+    const stack = document.querySelector("[data-source-stack]");
+    if (!stack) return;
+    const editor = stack.querySelector("[data-source]");
+    const layer = stack.querySelector("[data-source-highlight]");
+    // The trailing newline needs a character after it to occupy a line.
+    const render = () => { layer.innerHTML = highlightVibescript(editor.value) + "\n "; };
+    render();
+    editor.addEventListener("input", render);
+    stack.classList.add("is-highlighted");
+  }
+
   function initThemeToggle() {
     const toggle = document.querySelector("[data-theme-toggle]");
     if (!toggle) return;
@@ -517,16 +581,25 @@
     initExpandToggle();
 
     document.querySelectorAll("code.language-vibescript, code.language-vibe").forEach((el) => {
-      el.innerHTML = highlightVibescript(el.textContent);
+      const html = highlightVibescript(el.textContent);
+      if (el.closest(".code-window")) hangLines(el, html);
+      else el.innerHTML = html;
     });
 
     document.querySelectorAll("code.language-go").forEach((el) => {
       el.innerHTML = highlightGo(el.textContent);
     });
 
+    // rustdoc attributes stay in the class, as in `language-rust,no_run`.
+    document.querySelectorAll('code[class^="language-rust"]').forEach((el) => {
+      el.innerHTML = highlightRust(el.textContent.replace(/\n$/, ""));
+    });
+
+    initEditor();
+
     initReferenceNav();
     initThemeToggle();
-    initSoundToggle();
+    initRunFeedback();
     initCatalog();
   });
 })();

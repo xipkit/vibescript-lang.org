@@ -1,0 +1,49 @@
+# title: Count business days
+# summary: Skip weekends and holidays to find a due date and count working days between two dates.
+# vibe: 0.1.0
+
+def holidays -> array<string>
+  ["2024-05-27", "2024-07-04"]
+end
+
+def working_day?(day: time) -> bool
+  !day.saturday? && !day.sunday? && !holidays.include?(day.format("2006-01-02"))
+end
+
+def add_business_days(start: time, count: int) -> time
+  day = start
+  added = 0
+  while added < count
+    day = day + 1.days
+    added += 1 if working_day?(day)
+  end
+  day
+end
+
+def business_days_between(first: time, last: time) -> int
+  days = ((last - first) / 86_400).floor
+  (1..days).count { |offset| working_day?(first + offset.days) }
+end
+
+type RunResult = {
+  due_dates: hash<string, string>,
+  working_days_in_may: int,
+  weekday: string
+}
+
+def run -> RunResult
+  friday = Time.parse("2024-05-24", "2006-01-02", in: "UTC")
+
+  {
+    due_dates: {
+      in_1_day: add_business_days(friday, 1).format("Mon Jan 2"),
+      in_3_days: add_business_days(friday, 3).format("Mon Jan 2"),
+      in_10_days: add_business_days(friday, 10).format("Mon Jan 2")
+    },
+    working_days_in_may: business_days_between(
+      Time.parse("2024-04-30", "2006-01-02", in: "UTC"),
+      Time.parse("2024-05-31", "2006-01-02", in: "UTC")
+    ),
+    weekday: friday.strftime("%A")
+  }
+end

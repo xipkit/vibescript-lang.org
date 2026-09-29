@@ -1,11 +1,11 @@
 {{define "main"}}
-{{ $hero := site.GetPage "/examples/showcase-notifications-sms" }}
+{{ $hero := site.GetPage "/examples/showcase-automation-trial-reminder" }}
 <section class="hero">
   <svg class="sparkle sparkle-sm sparkle-keyword hero-sparkle-1 tilt-14" aria-hidden="true"><use href="#sparkle"></use></svg>
   <svg class="sparkle sparkle-md hero-sparkle-2 tilt-neg-9" aria-hidden="true"><use href="#sparkle"></use></svg>
   <div class="hero-copy">
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Open source &middot; MIT licensed</p>
-    <h1>A Ruby-like language for <span class="underlined">your app<svg class="underline-swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C48 4 118 2 197 5C150 7.5 70 9 6 11.5Z"/></svg></span>.</h1>
+    <h1>A Ruby-like language to <span class="underlined">extend<svg class="underline-swash" viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9C48 4 118 2 197 5C150 7.5 70 9 6 11.5Z"/></svg></span> your app.</h1>
     <p class="hero-lede">
       Let users and AI agents add features with scripts. You choose which data and
       functions they can use, and how much work each script can do.
@@ -20,17 +20,16 @@
   <div class="hero-panel">
     <div class="code-window hero-runner" data-playground data-function="run">
       <div class="code-window-header">
-        <span class="code-window-title">delivery_update.vibe</span>
-        <span class="code-window-version">{{site.Params.languageLabel}}</span>
+        <span class="code-window-title">trial_reminder.vibe</span>
+        <span class="code-window-version">v{{hugo.Data.playground.version}}</span>
       </div>
       <pre><code class="language-vibescript">{{$hero.Params.sourcebody}}</code></pre>
       {{if $hero}}
       <div class="hero-runner-bar">
         <button class="button run-button hero-run-button" type="button" data-run-button >Run it</button>
+        <button class="button-secondary hero-stop-button" type="button" data-stop-button disabled hidden>Stop</button>
         <a class="hero-runner-link" href="/examples/{{$hero.Params.slug}}">Edit this example &rarr;</a>
       </div>
-      <p class="hero-preview-note">SMS and email calls return previews. No messages are sent.</p>
-      <button class="button-secondary" type="button" data-stop-button disabled>Stop</button>
       <pre class="hero-runner-output" data-run-output role="status" aria-live="polite"></pre>
       {{end}}
     </div>
@@ -45,6 +44,48 @@
   <svg class="sparkle sparkle-md sparkle-keyword sparkle-float sparkle-wave-1 tilt-neg-18" aria-hidden="true"><use href="#sparkle"></use></svg>
   <svg class="sparkle sparkle-sm sparkle-constant sparkle-float sparkle-wave-2 tilt-12" aria-hidden="true"><use href="#sparkle"></use></svg>
 </div>
+
+<section class="why" aria-labelledby="why-title">
+  <header class="why-head">
+    <p class="eyebrow"><svg class="eyebrow-sparkle" aria-hidden="true"><use href="#sparkle"></use></svg> Why Vibescript</p>
+    <h2 id="why-title">Software people can shape.</h2>
+    <p class="why-byline">A note from the author</p>
+  </header>
+
+  <article class="why-letter">
+    <p class="why-emphasis">
+      Vibecoding will have a profound impact on personal computing. But it still requires
+      expertise. Generated code needs to be maintained, or it will rot and become
+      vulnerable to attack.
+    </p>
+    <p class="why-emphasis">
+      I think the future is malleable software, where people vibecode their own
+      customizations on top of a base package.
+    </p>
+    <p>
+      I built Vibescript to help power that future. It's a small, statically typed
+      scripting language for customizing an existing app. The host app decides which
+      capabilities scripts can use and how much work they can do.
+    </p>
+    <p>
+      The syntax is inspired by Ruby, so it's easy to read. The type checker catches
+      mistakes before a script runs and suggests fixes in its diagnostics. People and AI
+      can write custom behavior, and the host app stays in control.
+    </p>
+    <footer class="why-signoff">
+      {{ (resources.Get "signature.svg").Content | safeHTML }}
+      <div class="why-author">
+        <svg class="why-author-mark" aria-hidden="true"><use href="#sparkle"></use></svg>
+        <div>
+          <span class="why-author-name">Mauricio Gomes</span>
+          <span class="why-author-role">Creator of Vibescript</span>
+        </div>
+      </div>
+    </footer>
+  </article>
+</section>
+
+<hr class="section-rule">
 
 <section class="pairs">
   <svg class="sparkle sparkle-md sparkle-type sparkle-float sparkle-pairs-1 tilt-22" aria-hidden="true"><use href="#sparkle"></use></svg>
@@ -137,7 +178,7 @@ end</span>
 
 <span class="term-prompt">$</span> <span class="term-cmd">vibes run --function run untrusted.vibe</span>
 <span class="term-err">RuntimeError: step quota exceeded</span>
-<span class="term-ok">&#10003; stopped at 1,000,000, page stays responsive</span></pre>
+<span class="term-ok">&#10003; stopped at 10,000,000, page stays responsive</span></pre>
       </div>
     </div>
   </div>
@@ -180,9 +221,11 @@ end</code></pre>
 
 <section class="philosophy band">
   <svg class="sparkle sparkle-lg sparkle-constant sparkle-float sparkle-philosophy tilt-neg-24" aria-hidden="true"><use href="#sparkle"></use></svg>
-  <div class="philosophy-copy">
+  <header class="philosophy-head">
     <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> In your app</p>
     <h2>Give scripts access to your app's services.</h2>
+  </header>
+  <div class="philosophy-copy">
     <p>
       Put pricing rules, approval steps, or notification schedules in scripts that
       users can change without rebuilding your app.
@@ -199,36 +242,44 @@ end</code></pre>
     </p>
   </div>
 
-  <aside class="guardrails" aria-labelledby="guardrails-title">
-    <h3 id="guardrails-title">Sandbox limits</h3>
-    <p>These limits apply to this site's examples. Choose the values that fit your app.</p>
-    <dl class="guardrail-list">
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Step quota <span class="guardrail-default">1,000,000</span></dt>
+  <section class="limits" aria-labelledby="limits-title">
+    <header class="limits-header">
+      <h3 id="limits-title">Sandbox limits</h3>
+      <p>These limits apply to this site's examples. Choose the values that fit your app.</p>
+    </header>
+    <dl class="limits-grid">
+      <div class="limit">
+        <dt>Step quota</dt>
+        <dd class="limit-value limit-number">10,000,000</dd>
         <dd>Stops execution when the script uses its step budget.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Recursion limit <span class="guardrail-default">128</span></dt>
+      <div class="limit">
+        <dt>Recursion limit</dt>
+        <dd class="limit-value limit-number">128</dd>
         <dd>Limits how deeply function calls can nest.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Memory quota <span class="guardrail-default">16 MiB</span></dt>
+      <div class="limit">
+        <dt>Memory quota</dt>
+        <dd class="limit-value limit-number">16 MiB</dd>
         <dd>Limits the memory a script can use.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Effects control <span class="guardrail-default">strict</span></dt>
+      <div class="limit">
+        <dt>Effects control</dt>
+        <dd class="limit-value">strict</dd>
         <dd>Operations such as database writes need permission from your app.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> Module paths <span class="guardrail-default">allowlist</span></dt>
+      <div class="limit">
+        <dt>Module paths</dt>
+        <dd class="limit-value">allowlist</dd>
         <dd>Loads modules from directories you approve.</dd>
       </div>
-      <div class="guardrail">
-        <dt><svg class="vee"><use href="#vee"></use></svg> App access <span class="guardrail-default">host adapters</span></dt>
+      <div class="limit">
+        <dt>App access</dt>
+        <dd class="limit-value">host adapters</dd>
         <dd>You choose which services scripts can call.</dd>
       </div>
     </dl>
-  </aside>
+  </section>
 </section>
 
 <section class="featured">
@@ -243,7 +294,6 @@ end</code></pre>
     <a href="/examples/{{.Params.slug}}" class="example-card">
       <div class="card-meta">
         <span class="card-category" data-accent="{{mod (hash.FNV32a .Params.topic) 6}}">{{.Params.topic}}</span>
-        {{if .Params.runnable}}<span class="card-runnable">runnable</span>{{end}}
       </div>
       <h3>{{.Title}}</h3>
       <p>{{.Params.summary}}</p>

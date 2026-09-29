@@ -28,7 +28,7 @@ async function run(page) {
   return page.locator("[data-run-output]").innerText();
 }
 
-async function measured(path, name) {
+async function measured(path, name, expected) {
   const { context, page } = await setup();
   const responses = [];
   const pending = [];
@@ -46,7 +46,7 @@ async function measured(path, name) {
   const before = responses.reduce((sum, r) => sum + r.bytes, 0);
   const output = await run(page);
   assert.match(output, /Result/, output);
-  assert.match(output, /preview/, output);
+  assert.match(output, expected, output);
   await page.waitForLoadState("networkidle");
   await Promise.all(pending);
   const after = responses.reduce((sum, r) => sum + r.bytes, 0);
@@ -64,8 +64,8 @@ async function measured(path, name) {
 }
 
 try {
-  await measured("/", "home");
-  await measured("/examples/showcase-notifications-sms/", "example");
+  await measured("/", "home", /Your trial ends in 2 days/);
+  await measured("/examples/showcase-notifications-sms/", "example", /preview/);
   report.checks.push("home and example execution; no WASM before Run; hashed WASM MIME/cache headers; phone layouts");
   const { context, page } = await setup();
   await page.goto(base + "/examples/showcase-notifications-email/");
@@ -129,10 +129,11 @@ try {
   await navigation.page.setViewportSize({ width: 390, height: 844 });
   await navigation.page.goto(base + "/examples/?tag=sms");
   assert.equal(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count(), 1);
+  const total = await navigation.page.locator("[data-catalog-grid] .example-card").count();
   await navigation.page.getByRole("button", { name: /tag: sms/ }).click();
-  assert.equal(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count(), 203);
+  assert.equal(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count(), total);
   await navigation.page.getByRole("button", { name: /Vibescript Showcase/ }).click();
-  assert(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count() < 203);
+  assert(await navigation.page.locator("[data-catalog-grid] .example-card:visible").count() < total);
   for (const [path, name] of [["/examples/", "catalog"], ["/reference/", "reference"], ["/missing-page", "404"]]) {
     const response = await navigation.page.goto(base + path);
     assert.equal(response.status(), name === "404" ? 404 : 200);

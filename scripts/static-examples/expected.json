@@ -3432,6 +3432,24 @@
       },
       "display": "{fast: [{attempt: 1, delay: PT30S, at: 2023-11-14T22:13:50Z}, {attempt: 2, delay: PT1M, at: 2023-11-14T22:14:50Z}, {attempt: 3, delay: PT2M, at: 2023-11-14T22:16:50Z}, {attempt: 4, delay: PT4M, at: 2023-11-14T22:20:50Z}], careful: [{attempt: 1, delay: PT5M, at: 2023-11-14T22:18:20Z}, {attempt: 2, delay: PT10M, at: 2023-11-14T22:28:20Z}, {attempt: 3, delay: PT20M, at: 2023-11-14T22:48:20Z}]}"
     },
+    "showcase/automation/trial_reminder.vibe": {
+      "value": "Your trial ends in 2 days.",
+      "probes": [
+        {
+          "expression": "reminder(:pro, 1.days)",
+          "value": null
+        },
+        {
+          "expression": "reminder(:free, 5.days)",
+          "value": null
+        },
+        {
+          "expression": "reminder(:free, 3.days)",
+          "value": "Your trial ends in 3 days."
+        }
+      ],
+      "display": "Your trial ends in 2 days."
+    },
     "showcase/collections/hash_projection.vibe": {
       "value": {
         "contacts": [
@@ -4094,6 +4112,65 @@
       },
       "display": "{draft: {name: billing-v2, status: Draft, next_status: Approved, publishable: false, launch_at: unscheduled, banner: billing-v2 is Draft}, scheduled: {name: billing-v2, status: Scheduled, next_status: Live, publishable: true, launch_at: 2023-11-15T00:13:20Z, banner: billing-v2 is Scheduled}}"
     },
+    "upstream/arrays/batching.vibe": {
+      "value": {
+        "readings": [
+          12,
+          14,
+          15,
+          19,
+          18,
+          21,
+          24,
+          26
+        ],
+        "missing": 2,
+        "batches": [
+          [
+            12,
+            14,
+            15
+          ],
+          [
+            19,
+            18,
+            21
+          ],
+          [
+            24,
+            26
+          ]
+        ],
+        "batch_totals": [
+          41,
+          58,
+          50
+        ],
+        "moving_average": [
+          13.7,
+          16,
+          17.3,
+          19.3,
+          21,
+          23.7
+        ],
+        "rising_runs": [
+          [
+            12,
+            14,
+            15,
+            19
+          ],
+          [
+            18,
+            21,
+            24,
+            26
+          ]
+        ]
+      },
+      "display": "{readings: [12, 14, 15, 19, 18, 21, 24, 26], missing: 2, batches: [[12, 14, 15], [19, 18, 21], [24, 26]], batch_totals: [41, 58, 50], moving_average: [13.7, 16, 17.3, 19.3, 21, 23.7], rising_runs: [[12, 14, 15, 19], [18, 21, 24, 26]]}"
+    },
     "upstream/arrays/extras.vibe": {
       "value": {
         "accumulate_with_shovel": [
@@ -4278,6 +4355,48 @@
       },
       "display": "{first_two: [2, 4], last_three: [7, 12, 15], numeric_sum: 44, double_sum: 88, push_and_pop: {array: [2, 4, 4, 7, 12, 15], popped: 20}, uniq_values: [2, 4, 7, 12, 15], concat_values: [1, 2, 3, 4], subtract_values: [2, 7, 12], shovel_value: [1, 2, 3], accumulate_with_shovel: [2, 4, 4, 7, 12, 15], intersect_values: [2, 4], include_value: true, first_match: 12, first_match_index: 4, count_value: 2, count_large: 3, predicate_snapshot: {any_large: true, all_positive: true, none_negative: true}, sort_values: [1, 2, 5, 9], sort_desc: [9, 5, 2, 1], sort_words_by_length: [fig, pear, kiwi, banana], partition_even: [[2, 4, 4, 12], [7, 15]], group_by_status: {active: [{name: Ada, status: active}, {name: Sol, status: active}], inactive: [{name: Lin, status: inactive}]}, tally_statuses: {active: 2, inactive: 1}, chunk_values: [[2, 4], [4, 7], [12, 15]], window_values: [[2, 4, 4], [4, 4, 7], [4, 7, 12], [7, 12, 15]], group_by_stable_status: [[active, [{name: Ada, status: active}, {name: Sol, status: active}]], [inactive, [{name: Lin, status: inactive}]]]}"
     },
+    "upstream/arrays/leaderboard.vibe": {
+      "value": {
+        "board": [
+          {
+            "rank": 1,
+            "name": "Ada",
+            "score": 95
+          },
+          {
+            "rank": 2,
+            "name": "Mae",
+            "score": 90
+          },
+          {
+            "rank": 3,
+            "name": "Lin",
+            "score": 88
+          },
+          {
+            "rank": 4,
+            "name": "Sol",
+            "score": 88
+          },
+          {
+            "rank": 5,
+            "name": "Kai",
+            "score": 71
+          }
+        ],
+        "podium": [
+          "1. Ada",
+          "2. Mae",
+          "3. Lin"
+        ],
+        "spread": {
+          "high": 95,
+          "low": 71,
+          "average": 86.4
+        }
+      },
+      "display": "{board: [{rank: 1, name: Ada, score: 95}, {rank: 2, name: Mae, score: 90}, {rank: 3, name: Lin, score: 88}, {rank: 4, name: Sol, score: 88}, {rank: 5, name: Kai, score: 71}], podium: [1. Ada, 2. Mae, 3. Lin], spread: {high: 95, low: 71, average: 86.4}}"
+    },
     "upstream/background/jobs_and_events.vibe": {
       "value": {
         "functions": [
@@ -4322,6 +4441,80 @@
         }
       ],
       "display": "{note: This example requires jobs, events, and db capabilities which are injected by the host application., functions: [queue_recalc, publish_update, job_recalc_player_total]}"
+    },
+    "upstream/background/milestone_events.vibe": {
+      "value": {
+        "totals": [
+          "25.00 USD",
+          "75.00 USD"
+        ],
+        "published": [
+          {
+            "status": "preview",
+            "channel": "player_milestones",
+            "payload": {
+              "id": "p-1",
+              "total": "25.00 USD"
+            }
+          },
+          {
+            "status": "preview",
+            "channel": "player_milestones",
+            "payload": {
+              "id": "p-1",
+              "total": "50.00 USD"
+            }
+          }
+        ]
+      },
+      "display": "{totals: [25.00 USD, 75.00 USD], published: [{status: preview, channel: player_milestones, payload: {id: p-1, total: 25.00 USD}}, {status: preview, channel: player_milestones, payload: {id: p-1, total: 50.00 USD}}]}"
+    },
+    "upstream/background/staggered_jobs.vibe": {
+      "value": {
+        "queued": [
+          {
+            "status": "preview",
+            "job": "send_weekly_summary",
+            "player_id": "p-1",
+            "delay": "0s",
+            "key": "weekly-summary:p-1"
+          },
+          {
+            "status": "preview",
+            "job": "send_weekly_summary",
+            "player_id": "p-2",
+            "delay": "0s",
+            "key": "weekly-summary:p-2"
+          },
+          {
+            "status": "preview",
+            "job": "send_weekly_summary",
+            "player_id": "p-3",
+            "delay": "30s",
+            "key": "weekly-summary:p-3"
+          },
+          {
+            "status": "preview",
+            "job": "send_weekly_summary",
+            "player_id": "p-4",
+            "delay": "30s",
+            "key": "weekly-summary:p-4"
+          },
+          {
+            "status": "preview",
+            "job": "send_weekly_summary",
+            "player_id": "p-5",
+            "delay": "60s",
+            "key": "weekly-summary:p-5"
+          }
+        ],
+        "waves": {
+          "0s": 2,
+          "30s": 2,
+          "60s": 1
+        }
+      },
+      "display": "{queued: [{status: preview, job: send_weekly_summary, player_id: p-1, delay: 0s, key: weekly-summary:p-1}, {status: preview, job: send_weekly_summary, player_id: p-2, delay: 0s, key: weekly-summary:p-2}, {status: preview, job: send_weekly_summary, player_id: p-3, delay: 30s, key: weekly-summary:p-3}, {status: preview, job: send_weekly_summary, player_id: p-4, delay: 30s, key: weekly-summary:p-4}, {status: preview, job: send_weekly_summary, player_id: p-5, delay: 60s, key: weekly-summary:p-5}], waves: {0s: 2, 30s: 2, 60s: 1}}"
     },
     "upstream/basics/functions_and_calls.vibe": {
       "value": {
@@ -4660,6 +4853,64 @@
       },
       "display": "{reminder_delay: 300, event_window: 7200s, combined: 900}"
     },
+    "upstream/durations/humanize.vibe": {
+      "value": {
+        "descriptions": {
+          "build": "7 minutes",
+          "review": "1 day, 2 hours, 15 minutes",
+          "deploy": "less than a minute",
+          "rollout": "3 days, 1 hour"
+        },
+        "total": "4 days, 3 hours, 23 minutes",
+        "longest": "rollout"
+      },
+      "probes": [
+        {
+          "expression": "describe(0.seconds)",
+          "value": "less than a minute"
+        },
+        {
+          "expression": "describe(1.days + 1.minutes)",
+          "value": "1 day, 1 minute"
+        }
+      ],
+      "display": "{descriptions: {build: 7 minutes, review: 1 day, 2 hours, 15 minutes, deploy: less than a minute, rollout: 3 days, 1 hour}, total: 4 days, 3 hours, 23 minutes, longest: rollout}"
+    },
+    "upstream/durations/sla_timers.vibe": {
+      "value": {
+        "statuses": [
+          {
+            "id": "T-101",
+            "target": "PT1H",
+            "remaining": "PT20M",
+            "breached": false
+          },
+          {
+            "id": "T-102",
+            "target": "PT4H",
+            "remaining": "over by PT1H",
+            "breached": true
+          },
+          {
+            "id": "T-103",
+            "target": "P1D",
+            "remaining": "PT14H30M",
+            "breached": false
+          },
+          {
+            "id": "T-104",
+            "target": "PT1H",
+            "remaining": "over by PT15M",
+            "breached": true
+          }
+        ],
+        "breached": [
+          "T-102",
+          "T-104"
+        ]
+      },
+      "display": "{statuses: [{id: T-101, target: PT1H, remaining: PT20M, breached: false}, {id: T-102, target: PT4H, remaining: over by PT1H, breached: true}, {id: T-103, target: P1D, remaining: PT14H30M, breached: false}, {id: T-104, target: PT1H, remaining: over by PT15M, breached: true}], breached: [T-102, T-104]}"
+    },
     "upstream/enums/operations.vibe": {
       "value": {
         "facts": {
@@ -4680,6 +4931,68 @@
       },
       "display": "{member_name: Draft, published_name: Published, names: [Draft, Published], facts: {same: true, symbol_same: false, cross_enum_same: false, name: Draft, symbol: draft, render: status=draft, payload: {\"status\":\"draft\"}}}"
     },
+    "upstream/enums/order_lifecycle.vibe": {
+      "value": {
+        "happy_path": {
+          "state": "Delivered",
+          "history": [
+            "Pending",
+            "Paid",
+            "Shipped",
+            "Delivered"
+          ],
+          "rejected": []
+        },
+        "out_of_order": {
+          "state": "Cancelled",
+          "history": [
+            "Pending",
+            "Paid",
+            "Cancelled"
+          ],
+          "rejected": [
+            "cannot move from Pending to Shipped",
+            "cannot move from Cancelled to Paid"
+          ]
+        },
+        "finished": [
+          "Delivered",
+          "Cancelled"
+        ]
+      },
+      "probes": [
+        {
+          "expression": "replay([])",
+          "value": {
+            "state": "Pending",
+            "history": [
+              "Pending"
+            ],
+            "rejected": []
+          }
+        }
+      ],
+      "display": "{happy_path: {state: Delivered, history: [Pending, Paid, Shipped, Delivered], rejected: []}, out_of_order: {state: Cancelled, history: [Pending, Paid, Cancelled], rejected: [cannot move from Pending to Shipped, cannot move from Cancelled to Paid]}, finished: [Delivered, Cancelled]}"
+    },
+    "upstream/enums/ticket_priority.vibe": {
+      "value": {
+        "queue": [
+          "[Urgent] Checkout fails for EU cards",
+          "[High] Slow search results",
+          "[High] Export times out",
+          "[Normal] Typo on pricing page",
+          "[Low] Update footer links"
+        ],
+        "counts": {
+          "Low": 1,
+          "Urgent": 1,
+          "High": 2,
+          "Normal": 1
+        },
+        "urgent_label": "Page someone now"
+      },
+      "display": "{queue: [[Urgent] Checkout fails for EU cards, [High] Slow search results, [High] Export times out, [Normal] Typo on pricing page, [Low] Update footer links], counts: {Low: 1, Urgent: 1, High: 2, Normal: 1}, urgent_label: Page someone now}"
+    },
     "upstream/errors/assertions.vibe": {
       "value": {
         "currency": "25.00 USD",
@@ -4693,6 +5006,79 @@
         }
       ],
       "display": "{positive: 42, currency: 25.00 USD, present: hello}"
+    },
+    "upstream/errors/retry_on_failure.vibe": {
+      "value": {
+        "recovers": {
+          "result": "payload from attempt 3",
+          "attempts": 3,
+          "log": [
+            "timeout on attempt 1",
+            "timeout on attempt 2",
+            "finished after 3 attempts"
+          ]
+        },
+        "gives_up": {
+          "result": "gave up",
+          "attempts": 2,
+          "log": [
+            "timeout on attempt 1",
+            "timeout on attempt 2",
+            "finished after 2 attempts"
+          ]
+        }
+      },
+      "probes": [
+        {
+          "expression": "fetch_with_retries(succeeds_on: 1, limit: 3)",
+          "value": {
+            "result": "payload from attempt 1",
+            "attempts": 1,
+            "log": [
+              "finished after 1 attempts"
+            ]
+          }
+        }
+      ],
+      "display": "{recovers: {result: payload from attempt 3, attempts: 3, log: [timeout on attempt 1, timeout on attempt 2, finished after 3 attempts]}, gives_up: {result: gave up, attempts: 2, log: [timeout on attempt 1, timeout on attempt 2, finished after 2 attempts]}}"
+    },
+    "upstream/errors/validation_report.vibe": {
+      "value": {
+        "accepted": [
+          "ada@example.com",
+          "sol@example.com"
+        ],
+        "problems": [
+          "row 2 (ArgumentError): email is missing an @",
+          "row 3 (ArgumentError): age must be 13 or older",
+          "row 4 (AssertionError): unknown plan enterprise"
+        ]
+      },
+      "display": "{accepted: [ada@example.com, sol@example.com], problems: [row 2 (ArgumentError): email is missing an @, row 3 (ArgumentError): age must be 13 or older, row 4 (AssertionError): unknown plan enterprise]}"
+    },
+    "upstream/hashes/nested_settings.vibe": {
+      "value": {
+        "effective": {
+          "display": {
+            "theme": "dark",
+            "density": "comfortable"
+          },
+          "alerts": {
+            "email": "instant",
+            "sms": "off"
+          },
+          "privacy": {
+            "profile": "team"
+          }
+        },
+        "changes": [
+          "display.theme: light -> dark",
+          "alerts.email: daily -> instant",
+          "privacy.profile: unset -> team"
+        ],
+        "theme": "dark"
+      },
+      "display": "{effective: {display: {theme: dark, density: comfortable}, alerts: {email: instant, sms: off}, privacy: {profile: team}}, changes: [display.theme: light -> dark, alerts.email: daily -> instant, privacy.profile: unset -> team], theme: dark}"
     },
     "upstream/hashes/operations.vibe": {
       "value": {
@@ -4868,6 +5254,19 @@
       },
       "display": "{sum_range: 55, product_range: 720, countdown: 15, total_each: 55, doubled: [6, 14, 22], above_5: [6, 7, 8, 9, 10], reduce: 55}"
     },
+    "upstream/money/currency_totals.vibe": {
+      "value": {
+        "totals": {
+          "USD": "200.25 USD",
+          "EUR": "65.49 EUR",
+          "GBP": "64.00 GBP"
+        },
+        "largest_usd": "Ada (120.00 USD)",
+        "largest_eur": "Lin (45.50 EUR)",
+        "refundable": true
+      },
+      "display": "{totals: {USD: 200.25 USD, EUR: 65.49 EUR, GBP: 64.00 GBP}, largest_usd: Ada (120.00 USD), largest_eur: Lin (45.50 EUR), refundable: true}"
+    },
     "upstream/money/operations.vibe": {
       "value": {
         "added": "62.50 USD",
@@ -4875,6 +5274,40 @@
         "net": "48.25 USD"
       },
       "display": "{added: 62.50 USD, net: 48.25 USD, exceeds: true}"
+    },
+    "upstream/money/split_bill.vibe": {
+      "value": {
+        "subtotal": "64.25 USD",
+        "tax": "5.14 USD",
+        "tip": "11.56 USD",
+        "total": "80.95 USD",
+        "shares": [
+          "26.99 USD",
+          "26.98 USD",
+          "26.98 USD"
+        ],
+        "shares_add_up": true
+      },
+      "probes": [
+        {
+          "expression": "split(money(\"0.02 USD\"), 3)",
+          "value": [
+            "0.01 USD",
+            "0.01 USD",
+            "0.00 USD"
+          ]
+        },
+        {
+          "expression": "split(money(\"10.00 USD\"), 4)",
+          "value": [
+            "2.50 USD",
+            "2.50 USD",
+            "2.50 USD",
+            "2.50 USD"
+          ]
+        }
+      ],
+      "display": "{subtotal: 64.25 USD, tax: 5.14 USD, tip: 11.56 USD, total: 80.95 USD, shares: [26.99 USD, 26.98 USD, 26.98 USD], shares_add_up: true}"
     },
     "upstream/policies/access_control.vibe": {
       "value": {
@@ -4893,6 +5326,147 @@
         }
       ],
       "display": "{note: This example requires the ctx capability which is injected by the host application., functions: [can_edit_player?, can_view_player?], can_view_active: true, can_view_archived: false}"
+    },
+    "upstream/policies/refund_rules.vibe": {
+      "value": {
+        "decisions": [
+          {
+            "id": "R-1",
+            "outcome": "approve",
+            "reason": "within policy"
+          },
+          {
+            "id": "R-2",
+            "outcome": "escalate",
+            "reason": "used item over 50.00 USD"
+          },
+          {
+            "id": "R-3",
+            "outcome": "deny",
+            "reason": "outside the 30 day window"
+          },
+          {
+            "id": "R-4",
+            "outcome": "escalate",
+            "reason": "amount needs a manager"
+          }
+        ],
+        "summary": {
+          "approve": 1,
+          "escalate": 2,
+          "deny": 1
+        }
+      },
+      "display": "{decisions: [{id: R-1, outcome: approve, reason: within policy}, {id: R-2, outcome: escalate, reason: used item over 50.00 USD}, {id: R-3, outcome: deny, reason: outside the 30 day window}, {id: R-4, outcome: escalate, reason: amount needs a manager}], summary: {approve: 1, escalate: 2, deny: 1}}"
+    },
+    "upstream/policies/role_permissions.vibe": {
+      "value": {
+        "user": "p-1 (coach)",
+        "grants": [
+          "read",
+          "edit"
+        ],
+        "readable": [
+          "n-1",
+          "n-2"
+        ],
+        "editable": [
+          "n-1",
+          "n-2"
+        ],
+        "deletable": [
+          "n-1"
+        ]
+      },
+      "display": "{user: p-1 (coach), grants: [read, edit], readable: [n-1, n-2], editable: [n-1, n-2], deletable: [n-1]}"
+    },
+    "upstream/ranges/buckets.vibe": {
+      "value": {
+        "tiers": {
+          "card": "letter",
+          "book": "small parcel",
+          "lamp": "parcel",
+          "desk": "freight",
+          "mug": "letter"
+        },
+        "tier_counts": {
+          "letter": 2,
+          "small parcel": 1,
+          "parcel": 1,
+          "freight": 1
+        },
+        "grades": [
+          "97: A",
+          "83: B",
+          "88: B",
+          "71: C",
+          "64: needs review",
+          "90: A"
+        ],
+        "histogram": [
+          "A            ##",
+          "B            ##",
+          "C            #",
+          "needs review #"
+        ]
+      },
+      "probes": [
+        {
+          "expression": "[shipping_tier(499), shipping_tier(500), shipping_tier(20_000), shipping_tier(20_001)]",
+          "value": [
+            "letter",
+            "small parcel",
+            "parcel",
+            "freight"
+          ]
+        },
+        {
+          "expression": "[grade(100), grade(90), grade(89), grade(69)]",
+          "value": [
+            "A",
+            "A",
+            "B",
+            "needs review"
+          ]
+        }
+      ],
+      "display": "{tiers: {card: letter, book: small parcel, lamp: parcel, desk: freight, mug: letter}, tier_counts: {letter: 2, small parcel: 1, parcel: 1, freight: 1}, grades: [97: A, 83: B, 88: B, 71: C, 64: needs review, 90: A], histogram: [A            ##, B            ##, C            #, needs review #]}"
+    },
+    "upstream/ranges/stepping.vibe": {
+      "value": {
+        "every_fifth": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          25,
+          30
+        ],
+        "countdown": [
+          10,
+          7,
+          4,
+          1
+        ],
+        "business_hours": [
+          false,
+          true,
+          true,
+          false
+        ],
+        "clamped": [
+          0,
+          42,
+          100
+        ],
+        "lengths": {
+          "inclusive": 5,
+          "exclusive": 4
+        },
+        "sum_of_squares": 385
+      },
+      "display": "{every_fifth: [0, 5, 10, 15, 20, 25, 30], countdown: [10, 7, 4, 1], business_hours: [false, true, true, false], clamped: [0, 42, 100], lengths: {inclusive: 5, exclusive: 4}, sum_of_squares: 385}"
     },
     "upstream/ranges/usage.vibe": {
       "value": {
@@ -4930,6 +5504,52 @@
         "uuid_length": 36
       },
       "display": "{json_id: p-1, json_score: 10, json_encoded: {\"id\":\"p-1\",\"score\":10}, regex_match: ID-12, regex_replace: X ID-34, regex_replace_all: X X, uuid_length: 36, uuid_has_dash: true, random_length: 8, to_int: 42, to_float: 1.25, math_sqrt: 12, math_hypot: 5, math_log_base: 3, math_pi_rounded: 3.142, parsed_time: 2024-05-01T10:30:00Z, inspect_string: \"a\\tb\", inspect_array: [1, \"x\", nil]}"
+    },
+    "upstream/stdlib/json_validation.vibe": {
+      "value": {
+        "summaries": [
+          "o-1: 3 units, 42.50 USD, no coupon",
+          "o-2: 3 units, 9.90 USD, coupon SPRING",
+          "rejected: schema mismatch",
+          "rejected: not valid JSON"
+        ],
+        "round_trip": "{\"id\":\"o-5\",\"items\":[{\"sku\":\"mug\",\"qty\":1}]}"
+      },
+      "display": "{summaries: [o-1: 3 units, 42.50 USD, no coupon, o-2: 3 units, 9.90 USD, coupon SPRING, rejected: schema mismatch, rejected: not valid JSON], round_trip: {\"id\":\"o-5\",\"items\":[{\"sku\":\"mug\",\"qty\":1}]}}"
+    },
+    "upstream/stdlib/number_formatting.vibe": {
+      "value": {
+        "rounding": {
+          "round": 19,
+          "round_2": 19.46,
+          "floor": 19,
+          "ceil": 20
+        },
+        "formatted": [
+          "0019.457",
+          "left  | right|",
+          "30.8%",
+          "1,234,567",
+          "-9,870"
+        ],
+        "divmod": [
+          142,
+          6
+        ],
+        "exact_power": "1208925819614629174706176",
+        "distance": 10
+      },
+      "probes": [
+        {
+          "expression": "[with_commas(0), with_commas(999), with_commas(1_000)]",
+          "value": [
+            "0",
+            "999",
+            "1,000"
+          ]
+        }
+      ],
+      "display": "{rounding: {round: 19, round_2: 19.46, floor: 19, ceil: 20}, formatted: [0019.457, left  | right|, 30.8%, 1,234,567, -9,870], divmod: [142, 6], exact_power: 1208925819614629174706176, distance: 10}"
     },
     "upstream/strings/operations.vibe": {
       "value": {
@@ -5001,6 +5621,66 @@
       },
       "display": "{normalized: vibescript example, bytesize: 3, ord: 104, chr: h, upper: VIBESCRIPT EXAMPLE, lower: vibescript example, capitalize: Héllo world, swapcase: hELLO vibe, reverse: olléh, sub: baNAnas, gsub: baNANAs, sub_regex: X ID-34, gsub_regex: X X, match: [ID-12, 12], scan: [ID-12, ID-34], strip_bang: hello, strip_bang_nochange: , squish: hello world, squish_bang: hello world, template: Player Alex scored 42, template_missing: Hello {{missing}}, immutable_after:   hello  , clear: , concat: hello!, concat_noop: hello, replace: new, sub_bang: baNAnas, gsub_bang: baNANAs, lstrip: hello\t, rstrip: \thello, chomp_default: line, chomp_custom: path//, delete_prefix: happy, delete_suffix: report, split_default: [one, two, three], split_custom: [a, b, c], tags: [ruby, go, vibescript], empty_true: true, empty_false: false, starts: true, ends: true, include: true, index: 2, rindex: 8, slice_char: é, slice_range: éllo, length: 5}"
     },
+    "upstream/strings/receipt.vibe": {
+      "value": [
+        "          CORNER CAFE           ",
+        "--------------------------------",
+        "2 x Espresso............6.50 USD",
+        "1 x Almond croissant....4.75 USD",
+        "3 x Sparkling water.....6.00 USD",
+        "--------------------------------",
+        "TOTAL..................17.25 USD",
+        "Thanks for stopping by. Show",
+        "this receipt for a free refill",
+        "before noon."
+      ],
+      "display": "[          CORNER CAFE           , --------------------------------, 2 x Espresso............6.50 USD, 1 x Almond croissant....4.75 USD, 3 x Sparkling water.....6.00 USD, --------------------------------, TOTAL..................17.25 USD, Thanks for stopping by. Show, this receipt for a free refill, before noon.]"
+    },
+    "upstream/strings/slugs.vibe": {
+      "value": {
+        "slugs": [
+          "hello-world",
+          "ten-tips-for-faster-builds",
+          "hello-world-2",
+          "cafe-bar-reviews-2024"
+        ],
+        "trimmed": "a-very-long-title-that",
+        "initials": "VSL"
+      },
+      "probes": [
+        {
+          "expression": "slugify(\"!!!\")",
+          "value": ""
+        },
+        {
+          "expression": "unique_slugs([\"A\", \"a\", \"A!\"])",
+          "value": [
+            "a",
+            "a-2",
+            "a-3"
+          ]
+        }
+      ],
+      "display": "{slugs: [hello-world, ten-tips-for-faster-builds, hello-world-2, cafe-bar-reviews-2024], trimmed: a-very-long-title-that, initials: VSL}"
+    },
+    "upstream/time/business_days.vibe": {
+      "value": {
+        "due_dates": {
+          "in_1_day": "Tue May 28",
+          "in_3_days": "Thu May 30",
+          "in_10_days": "Mon Jun 10"
+        },
+        "working_days_in_may": 22,
+        "weekday": "Friday"
+      },
+      "probes": [
+        {
+          "expression": "add_business_days(Time.parse(\"2024-07-03\", \"2006-01-02\", in: \"UTC\"), 1).format(\"Mon Jan 2\")",
+          "value": "Fri Jul 5"
+        }
+      ],
+      "display": "{due_dates: {in_1_day: Tue May 28, in_3_days: Thu May 30, in_10_days: Mon Jun 10}, working_days_in_may: 22, weekday: Friday}"
+    },
     "upstream/time/duration.vibe": {
       "value": {
         "math": {
@@ -5041,6 +5721,27 @@
         }
       ],
       "display": "{parts: {iso: P1DT1H1M1S, parts: {days: 1, hours: 1, minutes: 1, seconds: 1}}, parse_build: PT1M30S, to_i: 88200, math: {add: PT2H4S, subtract: PT1H59M56S, multiply: PT30S, multiply_left: PT30S, divide: PT5S, divide_duration: 2.5, modulo: PT2S, compare: {lt: true, eq: true, gt: true}}, to_i_math: 8}"
+    },
+    "upstream/time/formatting.vibe": {
+      "value": {
+        "formats": {
+          "iso8601": "2024-11-05T14:30:00Z",
+          "readable": "November 5, 2024 at 14:30 UTC",
+          "http": "Tue, 05 Nov 2024 14:30:00 GMT",
+          "day_of_year": "310"
+        },
+        "local_starts": {
+          "new_york": "Nov 5 9:30 AM EST",
+          "berlin": "Nov 5 15:30 CET",
+          "tokyo": "Nov 5 23:30 JST"
+        },
+        "gaps": [
+          "Standup to Design review: 255 min",
+          "Design review to Retro: 165 min"
+        ],
+        "next_meeting": "Launch to Retro: 90 min"
+      },
+      "display": "{formats: {iso8601: 2024-11-05T14:30:00Z, readable: November 5, 2024 at 14:30 UTC, http: Tue, 05 Nov 2024 14:30:00 GMT, day_of_year: 310}, local_starts: {new_york: Nov 5 9:30 AM EST, berlin: Nov 5 15:30 CET, tokyo: Nov 5 23:30 JST}, gaps: [Standup to Design review: 255 min, Design review to Retro: 165 min], next_meeting: Launch to Retro: 90 min}"
     }
   }
 }

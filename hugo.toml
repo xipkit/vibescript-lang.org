@@ -5,7 +5,6 @@ disableKinds = ['taxonomy', 'term', 'RSS']
 enableRobotsTXT = true
 
 [params]
-  languageLabel = 'Rust edition'
   upstreamRepo = 'https://github.com/xipkit/vibescript'
 
 [markup.highlight]
