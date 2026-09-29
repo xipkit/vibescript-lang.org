@@ -16,7 +16,8 @@ async function setup() {
   const page = await context.newPage();
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => {
-    if (message.type() === "error" && !message.text().includes("404 (Not Found)")) errors.push(message.text());
+    // The deliberate /missing-page visit logs a 404; HTTP/2 hosts omit the "Not Found" reason.
+    if (message.type() === "error" && !message.location().url.endsWith("/missing-page")) errors.push(message.text());
   });
   return { context, page };
 }
