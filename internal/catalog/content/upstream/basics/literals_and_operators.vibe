@@ -1,11 +1,13 @@
 # vibe: 0.1.0
 
-type RunResult = {
+type Literals = { answer: int, ratio: float, quote: string, flags: array<bool | nil> }
+
+type Operations = {
   add: int,
   combine: string,
-  literals: { answer: int, flags: array<bool | nil>, quote: string, ratio: float },
   negate: int,
-  truth: bool
+  truth: bool,
+  literals: Literals
 }
 
 def add_numbers(a: int, b: int) -> int
@@ -28,7 +30,7 @@ def truth_table(flag: bool) -> bool
   end
 end
 
-def mix_literals -> { answer: int, flags: array<bool | nil>, quote: string, ratio: float }
+def mix_literals -> Literals
   {
     answer: 42,
     ratio: 3.75,
@@ -37,7 +39,7 @@ def mix_literals -> { answer: int, flags: array<bool | nil>, quote: string, rati
   }
 end
 
-def run -> RunResult
+def run -> Operations
   {
     add: add_numbers(10, 25),
     combine: combine_strings("hello", "world"),

@@ -1,6 +1,11 @@
 # vibe: 0.1.0
 
-def count_active(players: array<{ active: bool }>) -> int
+type Player = { active: bool }
+type Donation = { id: string, amount: money }
+type NormalizedDonation = { id: string, cents: int, formatted: string }
+type Stats = { active_count: int, max_score: int, any_large: bool }
+
+def count_active(players: array<Player>) -> int
   players.reduce(0) { |count, player|
     if player["active"]
       count + 1
@@ -10,9 +15,7 @@ def count_active(players: array<{ active: bool }>) -> int
   }
 end
 
-def normalize_donations(
-  donations: array<{ id: string, amount: money }>
-) -> array<{ id: string, cents: int, formatted: string }>
+def normalize_donations(donations: array<Donation>) -> array<NormalizedDonation>
   donations.map { |donation|
     {
       id: donation["id"],
@@ -42,7 +45,7 @@ def any_large?(values: array<int>, threshold: int) -> bool
   found
 end
 
-def run -> { active_count: int, any_large: bool, max_score: int }
+def run -> Stats
   players = [
     { active: true },
     { active: false },

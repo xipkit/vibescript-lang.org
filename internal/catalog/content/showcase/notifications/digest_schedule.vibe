@@ -6,15 +6,15 @@
 # tags: notifications, durations, enums, templates
 # vibe: 0.1.0
 
-type Digest_JobResult = {
-  cadence: string,
+type DigestJob = {
   channel_id: string,
+  cadence: string,
+  window: string,
   next_run: string,
-  subject: string,
-  window: string
+  subject: string
 }
 
-type RunResult = { hourly: Digest_JobResult, weekly: Digest_JobResult }
+type DigestJobs = { hourly: DigestJob, weekly: DigestJob }
 
 enum DigestCadence
   Hourly
@@ -32,7 +32,7 @@ def cadence_window(cadence: DigestCadence) -> duration
   end
 end
 
-def digest_job(channel_id: string, cadence: DigestCadence, anchor: time) -> Digest_JobResult
+def digest_job(channel_id: string, cadence: DigestCadence, anchor: time) -> DigestJob
   window = cadence_window(cadence)
 
   {
@@ -44,7 +44,7 @@ def digest_job(channel_id: string, cadence: DigestCadence, anchor: time) -> Dige
   }
 end
 
-def run -> RunResult
+def run -> DigestJobs
   anchor = Time.at(1700900000)
 
   {

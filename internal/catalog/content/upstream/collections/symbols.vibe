@@ -1,10 +1,7 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  fetched: string,
-  keys: array<symbol>,
-  normalized: { keys: array<string>, same_entry: bool }
-}
+type KeyView = { same_entry: bool, keys: array<string> }
+type SymbolKeys = { keys: array<symbol>, fetched: string, normalized: KeyView }
 
 def permission_keys -> array<symbol>
   [:read, :write, :delete]
@@ -14,9 +11,7 @@ def fetch_hash_key(record: hash<string, string>, key: symbol) -> string
   record.fetch(key.to_s)
 end
 
-def normalized_hash_view(
-  record: hash<string, string>
-) -> { keys: array<string>, same_entry: bool }
+def normalized_hash_view(record: hash<string, string>) -> KeyView
   name_key = :name
   {
     same_entry: record.fetch(name_key.to_s) == record.fetch("name"),
@@ -24,7 +19,7 @@ def normalized_hash_view(
   }
 end
 
-def run -> RunResult
+def run -> SymbolKeys
   record = { name: "Alice", role: "coach" }
   {
     keys: permission_keys,

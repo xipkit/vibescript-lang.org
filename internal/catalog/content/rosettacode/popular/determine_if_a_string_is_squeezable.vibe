@@ -24,7 +24,7 @@ def squeezable?(text: string, target: string) -> bool
   squeeze(text) == target
 end
 
-def run -> { balloon: bool, mismatch: bool, mississippi: bool, no_change: bool }
+def run -> hash<string, bool>
   {
     balloon: squeezable?("baalllloooon", "balon"),
     mississippi: squeezable?("mississippi", "misisipi"),

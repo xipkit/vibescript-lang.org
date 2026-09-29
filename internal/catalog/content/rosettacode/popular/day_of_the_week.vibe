@@ -6,6 +6,8 @@
 # tags: popular, dates, math, calendars
 # vibe: 0.1.0
 
+type DatedWeekday = { date: string, weekday: string }
+
 def weekday(year: int, month: int, day: int) -> string
   adjusted_year = year
   adjusted_month = month
@@ -33,7 +35,7 @@ def weekday_names -> array<string>
   ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 end
 
-def run -> array<{ date: string, weekday: string }>
+def run -> array<DatedWeekday>
   [
     { date: "2026-03-08", weekday: weekday(2026, 3, 8) },
     { date: "2024-02-29", weekday: weekday(2024, 2, 29) },

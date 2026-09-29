@@ -6,11 +6,13 @@
 # tags: popular, math, search, cubes
 # vibe: 0.1.0
 
+type TaxicabNumber = { value: string, decompositions: array<array<int>> }
+
 def sum_key(left: int, right: int) -> string
   "#{left ** 3 + right ** 3}"
 end
 
-def taxicab_numbers(limit: int) -> array<{ decompositions: array<array<int>>, value: string }>
+def taxicab_numbers(limit: int) -> array<TaxicabNumber>
   groups: hash<string, array<array<int>>> = {}
   order: array<string> = []
   left = 1
@@ -29,7 +31,7 @@ def taxicab_numbers(limit: int) -> array<{ decompositions: array<array<int>>, va
     left = left + 1
   end
 
-  rows: array<{ decompositions: array<array<int>>, value: string }> = []
+  rows: array<TaxicabNumber> = []
   order.each { |key|
     if groups.fetch(key).length > 1
       rows << { value: key, decompositions: groups.fetch(key) }
@@ -39,6 +41,6 @@ def taxicab_numbers(limit: int) -> array<{ decompositions: array<array<int>>, va
   rows
 end
 
-def run -> array<{ decompositions: array<array<int>>, value: string }>
+def run -> array<TaxicabNumber>
   taxicab_numbers(12).first(2)
 end

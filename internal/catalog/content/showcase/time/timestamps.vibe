@@ -6,13 +6,11 @@
 # tags: time, timestamps, serialization
 # vibe: 0.1.0
 
-type RunResult = {
-  epoch: string,
-  stamps: { iso: string, millis: string, one_minute_later: string, xml: string },
-  year_start: string
-}
+type Stamps = { iso: string, xml: string, millis: string, one_minute_later: string }
 
-def stamps(base: time) -> { iso: string, millis: string, one_minute_later: string, xml: string }
+type Timestamps = { stamps: Stamps, epoch: string, year_start: string }
+
+def stamps(base: time) -> Stamps
   {
     iso: base.iso8601,
     xml: base.iso8601,
@@ -21,7 +19,7 @@ def stamps(base: time) -> { iso: string, millis: string, one_minute_later: strin
   }
 end
 
-def run -> RunResult
+def run -> Timestamps
   base = Time.utc(2024, 1, 1, 9, 30, 0)
 
   {

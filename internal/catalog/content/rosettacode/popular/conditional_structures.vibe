@@ -28,7 +28,7 @@ def classify_sign(value: int) -> string
   end
 end
 
-def run -> { signs: array<string>, temperatures: array<string> }
+def run -> hash<string, array<string>>
   {
     temperatures: [
       classify_temperature(-4),

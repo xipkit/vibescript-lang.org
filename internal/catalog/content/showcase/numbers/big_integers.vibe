@@ -6,13 +6,13 @@
 # tags: numbers, bignum, math
 # vibe: 0.1.0
 
-type RunResult = {
+type BigIntegers = {
   factorial_50: int,
   factorial_50_digits: int,
+  two_to_the_256: int,
   fibonacci_300: int,
   json_stays_exact: bool,
-  still_an_int: bool,
-  two_to_the_256: int
+  still_an_int: bool
 }
 
 def factorial(n: int) -> int
@@ -32,7 +32,7 @@ def exact_json_round_trip?(value: int) -> bool
   JSON.parse(JSON.stringify(value)) == value
 end
 
-def run -> RunResult
+def run -> BigIntegers
   huge = factorial(50)
 
   {

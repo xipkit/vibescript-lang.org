@@ -6,7 +6,9 @@
 # tags: popular, arrays, ranking, hashes
 # vibe: 0.1.0
 
-def rows -> array<{ group: string, name: string, score: int }>
+type Contestant = { group: string, name: string, score: int }
+
+def rows -> array<Contestant>
   [
     { group: "blue", name: "Ava", score: 92 },
     { group: "blue", name: "Ben", score: 88 },
@@ -17,10 +19,7 @@ def rows -> array<{ group: string, name: string, score: int }>
   ]
 end
 
-def better_rank?(
-  candidate: { group: string, name: string, score: int },
-  current: nil | { group: string, name: string, score: int }
-) -> bool
+def better_rank?(candidate: Contestant, current: Contestant?) -> bool
   if current == nil
     true
   elsif candidate["score"] > current["score"]
@@ -32,10 +31,8 @@ def better_rank?(
   end
 end
 
-def top_rank_per_group(
-  rows: array<{ group: string, name: string, score: int }>
-) -> array<{ group: string, name: string, score: int }>
-  best: hash<string, { group: string, name: string, score: int }> = {}
+def top_rank_per_group(rows: array<Contestant>) -> array<Contestant>
+  best: hash<string, Contestant> = {}
   index = 0
 
   while index < rows.length
@@ -48,7 +45,7 @@ def top_rank_per_group(
   end
 
   groups = ["blue", "green", "red"]
-  output: array<{ group: string, name: string, score: int }> = []
+  output: array<Contestant> = []
   index = 0
   while index < groups.length
     output.push(best.fetch(groups.fetch(index)))
@@ -58,6 +55,6 @@ def top_rank_per_group(
   output
 end
 
-def run -> array<{ group: string, name: string, score: int }>
+def run -> array<Contestant>
   top_rank_per_group(rows)
 end

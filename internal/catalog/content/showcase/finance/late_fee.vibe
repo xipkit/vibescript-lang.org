@@ -15,7 +15,7 @@ def late_fee(overdue: duration) -> money
   end
 end
 
-def run -> { grace: money, on_time: money, overdue: money }
+def run -> hash<string, money>
   {
     on_time: late_fee(2.days),
     grace: late_fee(10.days),

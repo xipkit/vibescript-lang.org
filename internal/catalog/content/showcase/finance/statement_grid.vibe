@@ -6,17 +6,17 @@
 # tags: finance, money, collections
 # vibe: 0.1.0
 
-type RunResult = {
+type Statement = {
   by_category: array<[string, money?]>,
-  grand_total: money,
-  weekly_totals: array<money>
+  weekly_totals: array<money>,
+  grand_total: money
 }
 
 def column_totals(rows: array<array<money>>) -> array<money>
   rows.transpose.map { |column| column.sum(money("0.00 USD")) }
 end
 
-def run -> RunResult
+def run -> Statement
   categories = ["subscriptions", "usage", "support"]
   weeks = [
     [money("1200.00 USD"), money("340.00 USD"), money("90.00 USD")],

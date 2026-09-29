@@ -25,7 +25,7 @@ def factors_of(number: int) -> array<int>
   lower + upper
 end
 
-def run -> { fifty_three: array<int>, forty_five: array<int>, sixty_four: array<int> }
+def run -> hash<string, array<int>>
   {
     forty_five: factors_of(45),
     fifty_three: factors_of(53),

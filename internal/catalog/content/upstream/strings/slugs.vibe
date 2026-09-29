@@ -2,6 +2,8 @@
 # summary: Turn titles into clean URL slugs, trim them to a length, and make them unique.
 # vibe: 0.1.0
 
+type Slugs = { slugs: array<string>, trimmed: string, initials: string }
+
 def slugify(title: string, *, limit: int = 40) -> string
   accents = "àáâäçèéêëìíîïñòóôöùúûü"
   plain = title.downcase.tr(accents, "aaaaceeeeiiiinoooouuuu")
@@ -21,7 +23,7 @@ def unique_slugs(titles: array<string>) -> array<string>
   }
 end
 
-def run -> { slugs: array<string>, trimmed: string, initials: string }
+def run -> Slugs
   titles = [
     "Hello, World!",
     "  Ten Tips for Faster Builds  ",

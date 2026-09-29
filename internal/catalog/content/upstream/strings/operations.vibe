@@ -1,53 +1,53 @@
 # vibe: 0.1.0
 
-type RunResult = {
+type StringMethods = {
+  normalized: string,
   bytesize: int,
-  capitalize: string,
-  chomp_custom: string,
-  chomp_default: string,
+  ord: int,
   chr: string,
+  upper: string,
+  lower: string,
+  capitalize: string,
+  swapcase: string,
+  reverse: string,
+  sub: string,
+  gsub: string,
+  sub_regex: string,
+  gsub_regex: string,
+  match: array<string>,
+  scan: array<array<string?> | string>,
+  strip_bang: string?,
+  strip_bang_nochange: string?,
+  squish: string,
+  squish_bang: string?,
+  template: string,
+  template_missing: string,
+  immutable_after: string,
   clear: string,
   concat: string,
   concat_noop: string,
+  replace: string,
+  sub_bang: string?,
+  gsub_bang: string?,
+  lstrip: string,
+  rstrip: string,
+  chomp_default: string,
+  chomp_custom: string,
   delete_prefix: string,
   delete_suffix: string,
-  empty_false: bool,
+  split_default: array<string>,
+  split_custom: array<string>,
+  tags: array<string>,
   empty_true: bool,
+  empty_false: bool,
+  starts: bool,
   ends: bool,
-  gsub: string,
-  gsub_bang: string?,
-  gsub_regex: string,
-  immutable_after: string,
   include: bool,
   index: int?,
-  length: int,
-  lower: string,
-  lstrip: string,
-  match: array<string>,
-  normalized: string,
-  ord: int,
-  replace: string,
-  reverse: string,
   rindex: int?,
-  rstrip: string,
-  scan: array<array<string?> | string>,
   slice_char: string?,
   slice_range: string?,
-  split_custom: array<string>,
-  split_default: array<string>,
-  squish: string,
-  squish_bang: string?,
-  starts: bool,
-  strip_bang: string?,
-  strip_bang_nochange: string?,
-  sub: string,
-  sub_bang: string?,
-  sub_regex: string,
-  swapcase: string,
-  tags: array<string>,
-  template: string,
-  template_missing: string,
-  upper: string
+  length: int
 }
 
 def normalize(text: string) -> string
@@ -64,7 +64,7 @@ def split_tags(input: string) -> array<string>
   }
 end
 
-def run -> RunResult
+def run -> StringMethods
   sample = "  Vibescript Example  "
   indexed = "héllo hello"
   immutable = "  hello  "

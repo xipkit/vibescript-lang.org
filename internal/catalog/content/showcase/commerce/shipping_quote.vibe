@@ -8,16 +8,16 @@
 # feature_rank: 3
 # vibe: 0.1.0
 
-type Shipping_QuoteResult = {
-  eta: string,
-  fee: money,
+type ShippingQuote = {
   speed: string,
   subtotal: money,
+  fee: money,
   total: money,
-  transit: string
+  transit: string,
+  eta: string
 }
 
-type RunResult = { economy: Shipping_QuoteResult, same_day: Shipping_QuoteResult }
+type ShippingQuotes = { economy: ShippingQuote, same_day: ShippingQuote }
 
 enum ShippingSpeed
   Economy
@@ -51,7 +51,7 @@ def shipping_quote(
   speed: ShippingSpeed,
   subtotal: money,
   purchased_at: time
-) -> Shipping_QuoteResult
+) -> ShippingQuote
   fee = shipping_fee(speed, subtotal)
   transit = transit_time(speed)
   eta = transit.after(purchased_at)
@@ -66,7 +66,7 @@ def shipping_quote(
   }
 end
 
-def run -> RunResult
+def run -> ShippingQuotes
   purchased_at = Time.at(1700000000)
   {
     economy: shipping_quote(ShippingSpeed::Economy, money("125.00 USD"), purchased_at),

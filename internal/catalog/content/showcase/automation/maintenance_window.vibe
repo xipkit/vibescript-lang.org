@@ -6,15 +6,15 @@
 # tags: automation, durations, enums, operations
 # vibe: 0.1.0
 
-type Maintenance_PlanResult = {
-  duration: string,
-  ends_at: string,
+type MaintenancePlan = {
   environment: string,
+  starts_at: string,
+  ends_at: string,
   freeze_at: string,
-  starts_at: string
+  duration: string
 }
 
-type RunResult = { production: Maintenance_PlanResult, sandbox: Maintenance_PlanResult }
+type MaintenancePlans = { sandbox: MaintenancePlan, production: MaintenancePlan }
 
 enum Environment
   Sandbox
@@ -37,7 +37,7 @@ def freeze_notice(environment: Environment) -> duration
   end
 end
 
-def maintenance_plan(environment: Environment, starts_at: time) -> Maintenance_PlanResult
+def maintenance_plan(environment: Environment, starts_at: time) -> MaintenancePlan
   length = window_length(environment)
   notice = freeze_notice(environment)
 
@@ -50,7 +50,7 @@ def maintenance_plan(environment: Environment, starts_at: time) -> Maintenance_P
   }
 end
 
-def run -> RunResult
+def run -> MaintenancePlans
   starts_at = Time.at(1700600000, in: "UTC")
 
   {

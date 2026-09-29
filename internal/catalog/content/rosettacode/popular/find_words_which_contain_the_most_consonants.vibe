@@ -6,6 +6,8 @@
 # tags: popular, strings, search, metrics
 # vibe: 0.1.0
 
+type StrongestWords = { consonants: int, words: array<string> }
+
 def letter?(char: string) -> bool
   char >= "a" && char <= "z"
 end
@@ -30,7 +32,7 @@ def consonant_count(word: string) -> int
   count
 end
 
-def strongest_words(words: array<string>) -> { consonants: int, words: array<string> }
+def strongest_words(words: array<string>) -> StrongestWords
   best = 0
   output: array<string> = []
   index = 0
@@ -53,6 +55,6 @@ def strongest_words(words: array<string>) -> { consonants: int, words: array<str
   }
 end
 
-def run -> { consonants: int, words: array<string> }
+def run -> StrongestWords
   strongest_words(["strengths", "rhythms", "vibescript", "algorithms", "crypts"])
 end

@@ -1,14 +1,16 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  active_only: hash<string, string>,
+type Profile = { player_id: int, total_raised: int, meta: { amount_cents: int } }
+
+type HashTransforms = {
   compact: hash<string, int>,
-  deep_transform: hash<string, hash<string, int> | int>,
-  non_zero: hash<string, int>,
-  normalize: hash<string, int>,
-  public: hash<string, int | string>,
   select_keys: hash<string, int | string>,
-  without_private: hash<string, int | string>
+  public: hash<string, int | string>,
+  without_private: hash<string, int | string>,
+  normalize: hash<string, int>,
+  active_only: hash<string, string>,
+  non_zero: hash<string, int>,
+  deep_transform: hash<string, hash<string, int> | int>
 }
 
 def rename_keys(
@@ -74,9 +76,7 @@ def remap_profile(record: hash<string, int | string>) -> hash<string, int | stri
   record.remap_keys({ "first_name": "name", "total_raised": "raised" })
 end
 
-def deep_transform_profile(
-  record: { meta: { amount_cents: int }, player_id: int, total_raised: int }
-) -> hash<string, hash<string, int> | int>
+def deep_transform_profile(record: Profile) -> hash<string, hash<string, int> | int>
   record.deep_transform_keys { |key|
     if key == "player_id"
       "playerId"
@@ -90,7 +90,7 @@ def deep_transform_profile(
   }
 end
 
-def run -> RunResult
+def run -> HashTransforms
   record = { name: "Alice", internal: "secret", token: "abc", status: "active", score: 0, goal: 100 }
   {
     compact: compact_hash({ a: 1, b: nil, c: 3 }),

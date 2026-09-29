@@ -2,6 +2,8 @@
 # summary: Skip weekends and holidays to find a due date and count working days between two dates.
 # vibe: 0.1.0
 
+type BusinessCalendar = { due_dates: hash<string, string>, working_days_in_may: int, weekday: string }
+
 def holidays -> array<string>
   ["2024-05-27", "2024-07-04"]
 end
@@ -25,13 +27,7 @@ def business_days_between(first: time, last: time) -> int
   (1..days).count { |offset| working_day?(first + offset.days) }
 end
 
-type RunResult = {
-  due_dates: hash<string, string>,
-  working_days_in_may: int,
-  weekday: string
-}
-
-def run -> RunResult
+def run -> BusinessCalendar
   friday = Time.parse("2024-05-24", "2006-01-02", in: "UTC")
 
   {

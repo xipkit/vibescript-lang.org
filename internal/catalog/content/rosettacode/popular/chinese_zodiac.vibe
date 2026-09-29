@@ -6,6 +6,8 @@
 # tags: popular, dates, lookup, basics
 # vibe: 0.1.0
 
+type Zodiac = { year: int, animal: string, element: string }
+
 def positive_mod(value: int, divisor: int) -> int
   result = value % divisor
   if result < 0
@@ -15,7 +17,7 @@ def positive_mod(value: int, divisor: int) -> int
   end
 end
 
-def zodiac(year: int) -> { animal: string, element: string, year: int }
+def zodiac(year: int) -> Zodiac
   animals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"]
   elements = ["Metal", "Metal", "Water", "Water", "Wood", "Wood", "Fire", "Fire", "Earth", "Earth"]
   offset = year - 2020
@@ -27,7 +29,7 @@ def zodiac(year: int) -> { animal: string, element: string, year: int }
   }
 end
 
-def run -> array<{ animal: string, element: string, year: int }>
+def run -> array<Zodiac>
   [
     zodiac(2020),
     zodiac(2024),

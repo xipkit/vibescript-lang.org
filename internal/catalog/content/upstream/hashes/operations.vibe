@@ -1,21 +1,26 @@
 # vibe: 0.1.0
 
-type Hash_FlagsResult = {
-  empty: bool,
-  has_goal: bool,
-  has_name: bool,
-  includes_raised: bool,
+type Player = { name: string, raised: money, meta?: { display_name?: string } }
+type PlayerRow = { id: string, name: string, raised: money }
+type Standing = { name: string, raised: money }
+type StatusRow = { status: string }
+type Profile = { name: string, goal: int }
+
+type HashFlags = {
+  size: int,
   length: int,
-  size: int
-}
-type RunResult = {
-  flags: Hash_FlagsResult,
-  merged: hash<string, money | string>,
-  overridden: hash<string, int>,
-  tally: hash<string, int>
+  empty: bool,
+  has_name: bool,
+  has_goal: bool,
+  includes_raised: bool
 }
 
-type Player = { name: string, raised: money, meta?: { display_name?: string } }
+type HashTour = {
+  merged: hash<string, money | string>,
+  overridden: hash<string, int>,
+  tally: hash<string, int>,
+  flags: HashFlags
+}
 
 def merge_defaults(
   player: hash<string, money | string>,
@@ -52,10 +57,8 @@ def to_pairs(record: hash<string, int>) -> array<int | string>
   pairs
 end
 
-def index_report_by_id(
-  records: array<{ id: string, name: string, raised: money }>
-) -> hash<string, { name: string, raised: money }>
-  report: hash<string, { name: string, raised: money }> = {}
+def index_report_by_id(records: array<PlayerRow>) -> hash<string, Standing>
+  report: hash<string, Standing> = {}
   records.each { |record|
     report[record["id"]] = {
       name: record["name"],
@@ -65,10 +68,7 @@ def index_report_by_id(
   report
 end
 
-def deep_fetch_or(
-  records: hash<string, Player>,
-  player_id: string
-) -> { name: string, raised: money }
+def deep_fetch_or(records: hash<string, Player>, player_id: string) -> Standing
   record = records[player_id]
   if record == nil
     return {
@@ -88,7 +88,7 @@ def deep_fetch_or(
   }
 end
 
-def tally_statuses(players: array<{ status: string }>) -> hash<string, int>
+def tally_statuses(players: array<StatusRow>) -> hash<string, int>
   counts: hash<string, int> = {}
   players.each { |player|
     status = player["status"]
@@ -97,7 +97,7 @@ def tally_statuses(players: array<{ status: string }>) -> hash<string, int>
   counts
 end
 
-def hash_flags(record: { goal: int, name: string }) -> Hash_FlagsResult
+def hash_flags(record: Profile) -> HashFlags
   {
     size: record.length,
     length: record.length,
@@ -108,7 +108,7 @@ def hash_flags(record: { goal: int, name: string }) -> Hash_FlagsResult
   }
 end
 
-def run -> RunResult
+def run -> HashTour
   defaults = { status: "active", raised: money("0.00 USD"), goal: money("100.00 USD") }
   player = { name: "Alice", raised: money("75.00 USD") }
   players = [

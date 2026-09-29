@@ -6,6 +6,8 @@
 # tags: popular, math, sequences, divisors
 # vibe: 0.1.0
 
+type Aliquot = { start: int, classification: string, sequence: array<int> }
+
 def proper_divisor_sum(number: int) -> int
   if number == 1
     return 0
@@ -53,7 +55,7 @@ def classification(sequence: array<int>) -> string
   end
 end
 
-def run -> array<{ classification: string, sequence: array<int>, start: int }>
+def run -> array<Aliquot>
   [6, 10, 12].map { |start|
     sequence = aliquot_sequence(start, 8)
     {

@@ -1,22 +1,25 @@
 # vibe: 0.1.0
 # uses: ctx
 
-type RunResult = {
-  can_view_active: bool,
-  can_view_archived: bool,
+type PlayerOwner = { created_by: string }
+type PlayerStatus = { status: string }
+
+type AccessNote = {
+  note: string,
   functions: array<string>,
-  note: string
+  can_view_active: bool,
+  can_view_archived: bool
 }
 
-def can_edit_player?(player: { created_by: string }) -> bool
+def can_edit_player?(player: PlayerOwner) -> bool
   ctx.user["role"] == "coach" || ctx.user["id"] == player["created_by"]
 end
 
-def can_view_player?(player: { status: string }) -> bool
+def can_view_player?(player: PlayerStatus) -> bool
   player["status"] != "archived"
 end
 
-def run -> RunResult
+def run -> AccessNote
   {
     note: "This example requires the ctx capability which is injected by the host application.",
     functions: ["can_edit_player?", "can_view_player?"],

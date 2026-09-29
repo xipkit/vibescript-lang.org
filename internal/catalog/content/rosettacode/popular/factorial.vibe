@@ -24,7 +24,7 @@ def iterative_factorial(n: int) -> int
   result
 end
 
-def run -> { iterative_50: int, recursive_10: int, recursive_25: int }
+def run -> hash<string, int>
   {
     recursive_10: recursive_factorial(10),
     recursive_25: recursive_factorial(25),

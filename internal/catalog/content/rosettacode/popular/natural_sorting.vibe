@@ -6,6 +6,8 @@
 # tags: popular, strings, sorting, parsing
 # vibe: 0.1.0
 
+type ParsedNumber = { value: int, next_index: int }
+
 def digit?(char: string) -> bool
   char >= "0" && char <= "9"
 end
@@ -16,7 +18,7 @@ def digit_value(char: string) -> int
   digit
 end
 
-def read_number(text: string, start_index: int) -> { next_index: int, value: int }
+def read_number(text: string, start_index: int) -> ParsedNumber
   text_chars = text.chars
   value = 0
   index = start_index

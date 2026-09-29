@@ -14,7 +14,7 @@ def emphasize(text: string) -> string
   text.upcase + "!"
 end
 
-def run -> { combined: string, excited: string, greeting: string }
+def run -> hash<string, string>
   greeting = greet("vibescript")
   {
     greeting: greeting,

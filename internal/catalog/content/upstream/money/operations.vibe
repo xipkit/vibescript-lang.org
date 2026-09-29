@@ -1,5 +1,7 @@
 # vibe: 0.1.0
 
+type PledgeMath = { added: money, net: money, exceeds: bool }
+
 def add_pledges -> money
   money("50.00 USD") + money("12.50 USD")
 end
@@ -14,7 +16,7 @@ def exceeds_goal?(raised: money, goal: money) -> bool
   raised > goal
 end
 
-def run -> { added: money, exceeds: bool, net: money }
+def run -> PledgeMath
   {
     added: add_pledges,
     net: net_after_fee(5000),

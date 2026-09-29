@@ -30,7 +30,7 @@ def selection_sort(arr: array<int>) -> array<int>
   arr
 end
 
-def run -> { already: array<int>, reversed: array<int>, sorted: array<int> }
+def run -> hash<string, array<int>>
   {
     sorted: selection_sort([64, 25, 12, 22, 11]),
     already: selection_sort([1, 2, 3, 4, 5]),

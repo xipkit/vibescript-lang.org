@@ -6,12 +6,12 @@
 # tags: collections, hashes, projection
 # vibe: 0.1.0
 
-type RunResult = {
-  contacts: array<int | string | nil>,
+type Projections = {
   public_view: hash<string, int | string>,
-  required_fields: array<int | string>,
   summary: hash<string, int | string>,
-  with_defaults: hash<string, int | string>
+  with_defaults: hash<string, int | string>,
+  required_fields: array<int | string>,
+  contacts: array<int | string | nil>
 }
 
 def public_view(record: hash<string, int | string>) -> hash<string, int | string>
@@ -31,7 +31,7 @@ def required_fields(record: hash<string, int | string>) -> array<int | string>
   record.fetch_values("id", "email")
 end
 
-def run -> RunResult
+def run -> Projections
   record = {
     id: 42,
     name: "Ada",

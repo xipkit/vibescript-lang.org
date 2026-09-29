@@ -6,12 +6,11 @@
 # tags: popular, bits, arithmetic, arrays
 # vibe: 0.1.0
 
-type RunResult = {
-  fifteen_plus_one: { bits: array<int>, carry: int },
-  five_plus_six: { bits: array<int>, carry: int }
-}
+type Sum = { carry: int, bits: array<int> }
 
-def add_four_bits(left: array<int>, right: array<int>) -> { bits: array<int>, carry: int }
+type Sums = { five_plus_six: Sum, fifteen_plus_one: Sum }
+
+def add_four_bits(left: array<int>, right: array<int>) -> Sum
   carry = 0
   result: array<int> = []
   index = 3
@@ -35,7 +34,7 @@ def add_four_bits(left: array<int>, right: array<int>) -> { bits: array<int>, ca
   }
 end
 
-def run -> RunResult
+def run -> Sums
   {
     five_plus_six: add_four_bits([0, 1, 0, 1], [0, 1, 1, 0]),
     fifteen_plus_one: add_four_bits([1, 1, 1, 1], [0, 0, 0, 1])

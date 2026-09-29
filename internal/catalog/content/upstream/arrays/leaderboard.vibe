@@ -5,6 +5,7 @@
 type Entry = { name: string, score: int }
 type Ranked = { rank: int, name: string, score: int }
 type Spread = { high: int?, low: int?, average: float }
+type Leaderboard = { board: array<Ranked>, podium: array<string>, spread: Spread }
 
 def ranked(entries: array<Entry>) -> array<Ranked>
   ordered = entries.sort { |left, right|
@@ -26,7 +27,7 @@ def spread(entries: array<Entry>) -> Spread
   { high: high, low: low, average: scores.sum / scores.length }
 end
 
-def run -> { board: array<Ranked>, podium: array<string>, spread: Spread }
+def run -> Leaderboard
   entries = [
     { name: "Sol", score: 88 },
     { name: "Ada", score: 95 },

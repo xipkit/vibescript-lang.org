@@ -6,6 +6,8 @@
 # tags: popular, math, sequences, dynamic-programming
 # vibe: 0.1.0
 
+type HumbleNumbers = { first_twenty_five: array<int>, twenty_fifth: int }
+
 def humble_numbers(count: int) -> array<int>
   values = [1]
   by_two = 0
@@ -51,7 +53,7 @@ def humble_numbers(count: int) -> array<int>
   values
 end
 
-def run -> { first_twenty_five: array<int>, twenty_fifth: int }
+def run -> HumbleNumbers
   values = humble_numbers(25)
   {
     first_twenty_five: values,

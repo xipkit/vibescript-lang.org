@@ -6,6 +6,8 @@
 # tags: popular, math, loops, sequences
 # vibe: 0.1.0
 
+type Hailstone = { length: int, first_ten: array<int>, last_ten: array<int> }
+
 def hailstone(value: int) -> array<int>
   sequence: array<int> = []
   current = value
@@ -22,7 +24,7 @@ def hailstone(value: int) -> array<int>
   end
 end
 
-def run -> { first_ten: array<int>, last_ten: array<int>, length: int }
+def run -> Hailstone
   sequence = hailstone(27)
   {
     length: sequence.length,

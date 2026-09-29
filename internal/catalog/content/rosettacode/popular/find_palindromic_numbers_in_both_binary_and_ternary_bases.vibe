@@ -6,6 +6,8 @@
 # tags: popular, numbers, bases, palindromes
 # vibe: 0.1.0
 
+type Palindrome = { value: int, binary: string, ternary: string }
+
 def digits_in_base(number: int, base: int) -> string
   if number == 0
     return "0"
@@ -40,7 +42,7 @@ def first_shared_palindromes(count: int) -> array<int>
   values
 end
 
-def run -> array<{ binary: string, ternary: string, value: int }>
+def run -> array<Palindrome>
   [1, 6643].map { |value|
     {
       value:,

@@ -6,15 +6,15 @@
 # tags: finance, money, durations, enums, payouts
 # vibe: 0.1.0
 
-type Payout_JobResult = {
+type PayoutJob = {
   batch_id: string,
   cadence: string,
-  payout_at: string,
+  total: money,
   settlement_delay: string,
-  total: money
+  payout_at: string
 }
 
-type RunResult = { daily: Payout_JobResult, monthly: Payout_JobResult }
+type PayoutJobs = { daily: PayoutJob, monthly: PayoutJob }
 
 enum PayoutCadence
   Daily
@@ -37,7 +37,7 @@ def payout_job(
   cadence: PayoutCadence,
   total: money,
   closed_at: time
-) -> Payout_JobResult
+) -> PayoutJob
   delay = settlement_delay(cadence)
 
   {
@@ -49,7 +49,7 @@ def payout_job(
   }
 end
 
-def run -> RunResult
+def run -> PayoutJobs
   closed_at = Time.at(1700400000)
 
   {

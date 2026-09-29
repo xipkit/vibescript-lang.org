@@ -6,14 +6,15 @@
 # tags: popular, strings, compression, loops
 # vibe: 0.1.0
 
-type RunResult = { decoded: string, encoded: array<{ char: string, count: int }>, sample: string }
+type CharRun = { char: string, count: int }
+type RoundTrip = { sample: string, encoded: array<CharRun>, decoded: string }
 
-def encode(text: string) -> array<{ char: string, count: int }>
+def encode(text: string) -> array<CharRun>
   if text == ""
     return []
   end
 
-  output: array<{ char: string, count: int }> = []
+  output: array<CharRun> = []
   current = text.chars.fetch(0)
   count = 1
   index = 1
@@ -41,7 +42,7 @@ def encode(text: string) -> array<{ char: string, count: int }>
   })
 end
 
-def decode(runs: array<{ char: string, count: int }>) -> string
+def decode(runs: array<CharRun>) -> string
   output = ""
   index = 0
 
@@ -57,7 +58,7 @@ def decode(runs: array<{ char: string, count: int }>) -> string
   output
 end
 
-def run -> RunResult
+def run -> RoundTrip
   sample = "AAABBCCCC"
   encoded = encode(sample)
   {

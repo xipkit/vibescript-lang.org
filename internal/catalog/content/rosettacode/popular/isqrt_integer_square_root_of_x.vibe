@@ -6,6 +6,8 @@
 # tags: popular, math, search, integers
 # vibe: 0.1.0
 
+type SquareRoot = { value: int, isqrt: int }
+
 def isqrt(value: int) -> int
   if value < 2
     return value
@@ -32,9 +34,9 @@ def isqrt(value: int) -> int
   answer
 end
 
-def run -> array<{ isqrt: int, value: int }>
+def run -> array<SquareRoot>
   values = [0, 1, 2, 3, 4, 10, 27, 81, 12345]
-  rows: array<{ isqrt: int, value: int }> = []
+  rows: array<SquareRoot> = []
   index = 0
 
   while index < values.length

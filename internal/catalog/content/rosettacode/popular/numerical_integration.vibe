@@ -40,7 +40,7 @@ def trapezoidal_line(start_value: float, finish_value: float, steps: int) -> flo
   total * width
 end
 
-def run -> { integral_of_three_x_plus_two: float, integral_of_x_squared: float }
+def run -> hash<string, float>
   {
     integral_of_x_squared: trapezoidal_square(0.0, 1.0, 50),
     integral_of_three_x_plus_two: trapezoidal_line(0.0, 5.0, 50)

@@ -1,6 +1,8 @@
 # vibe: 0.1.0
 # uses: ctx
 
+type HostNote = { note: string, functions: array<string> }
+
 def current_user_id -> string
   ctx.user["id"]
 end
@@ -9,7 +11,7 @@ def coach? -> bool
   ctx.user["role"] == "coach"
 end
 
-def run -> { functions: array<string>, note: string }
+def run -> HostNote
   {
     note: "This example requires the ctx capability which is injected by the host application.",
     functions: ["current_user_id", "coach?"]

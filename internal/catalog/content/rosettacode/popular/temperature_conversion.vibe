@@ -6,10 +6,12 @@
 # tags: popular, math, conversion, basics
 # vibe: 0.1.0
 
-type RunResult = {
-  boiling_point: { celsius: int, fahrenheit: float, kelvin: float },
-  freezing_point: { celsius: int, fahrenheit: float, kelvin: float },
-  room_temperature_fahrenheit: { celsius: float, fahrenheit: int }
+type CelsiusConversion = { celsius: int, fahrenheit: float, kelvin: float }
+type FahrenheitConversion = { fahrenheit: int, celsius: float }
+type Conversions = {
+  freezing_point: CelsiusConversion,
+  boiling_point: CelsiusConversion,
+  room_temperature_fahrenheit: FahrenheitConversion
 }
 
 def celsius_to_fahrenheit(value: int) -> float
@@ -24,7 +26,7 @@ def celsius_to_kelvin(value: int) -> float
   value + 273.15
 end
 
-def run -> RunResult
+def run -> Conversions
   {
     freezing_point: {
       celsius: 0,

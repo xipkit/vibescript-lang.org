@@ -6,23 +6,25 @@
 # tags: popular, math, bits, arrays
 # vibe: 0.1.0
 
-type RunResult = {
-  and: int,
+type Division = { quotient: int, remainder: int }
+
+type Operations = {
   model: string,
-  not: int,
+  x: int,
+  x_signed: int,
+  y: int,
+  and: int,
   or: int,
-  rotate_left: int,
-  rotate_right: int,
+  xor: int,
+  not: int,
   shift_left: int,
   shift_right: int,
   shift_right_arithmetic: int,
-  x: int,
-  x_signed: int,
-  xor: int,
-  y: int
+  rotate_left: int,
+  rotate_right: int
 }
 
-def divmod2(value: int) -> { quotient: int, remainder: int }
+def divmod2(value: int) -> Division
   quotient = 0
   remainder = value
 
@@ -247,7 +249,7 @@ def to_signed(value: int, width: int) -> int
   end
 end
 
-def run -> RunResult
+def run -> Operations
   width = 8
   x = 177
   y = 3

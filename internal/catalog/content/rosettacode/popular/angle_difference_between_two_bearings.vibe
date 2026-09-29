@@ -6,14 +6,6 @@
 # tags: popular, math, geometry, normalization
 # vibe: 0.1.0
 
-type RunResult = {
-  east_to_north: float,
-  north_to_east: float,
-  same_heading: float,
-  wrap_clockwise: float,
-  wrap_counterclockwise: float
-}
-
 def normalize(angle: float) -> float
   while angle < 0.0
     angle = angle + 360.0
@@ -40,7 +32,7 @@ def angle_difference(from_bearing: float, to_bearing: float) -> float
   difference
 end
 
-def run -> RunResult
+def run -> hash<string, float>
   {
     north_to_east: angle_difference(0.0, 90.0),
     east_to_north: angle_difference(90.0, 0.0),

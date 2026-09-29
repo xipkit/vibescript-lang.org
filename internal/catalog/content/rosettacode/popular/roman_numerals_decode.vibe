@@ -50,7 +50,7 @@ def from_roman(roman: string) -> int
   total
 end
 
-def run -> { i: int, iv: int, mmxxiv: int, xcix: int, xlii: int }
+def run -> hash<string, int>
   {
     i: from_roman("I"),
     iv: from_roman("IV"),

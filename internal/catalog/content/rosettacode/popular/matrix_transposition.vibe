@@ -6,7 +6,9 @@
 # tags: popular, math, arrays
 # vibe: 0.1.0
 
-def run -> { rectangular: array<array<int>>, square: array<array<int>> }
+type Matrix = array<array<int>>
+
+def run -> hash<string, Matrix>
   {
     square: [[1, 2, 3], [4, 5, 6], [7, 8, 9]].transpose,
     rectangular: [[1, 2], [3, 4], [5, 6]].transpose

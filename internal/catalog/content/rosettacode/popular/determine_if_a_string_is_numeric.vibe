@@ -6,6 +6,8 @@
 # tags: popular, strings, validation, parsing
 # vibe: 0.1.0
 
+type NumericCheck = { text: string, numeric: bool }
+
 def digit?(char: string) -> bool
   char >= "0" && char <= "9"
 end
@@ -42,7 +44,7 @@ def numeric?(text: string) -> bool
   seen_digit
 end
 
-def run -> array<{ numeric: bool, text: string }>
+def run -> array<NumericCheck>
   [
     { text: "42", numeric: numeric?("42") },
     { text: "-17.5", numeric: numeric?("-17.5") },

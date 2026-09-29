@@ -6,16 +6,16 @@
 # tags: operations, durations, enums, on-call
 # vibe: 0.1.0
 
-type HandoffPacketResult = {
-  ends_at: string,
-  level: string,
-  reminder_at: string,
+type HandoffPacket = {
   service: string,
+  level: string,
   starts_at: string,
+  ends_at: string,
+  reminder_at: string,
   summary: string
 }
 
-type RunResult = { commander: HandoffPacketResult, primary: HandoffPacketResult }
+type HandoffPackets = { primary: HandoffPacket, commander: HandoffPacket }
 
 enum CoverageLevel
   Primary
@@ -33,7 +33,7 @@ def shift_length(level: CoverageLevel) -> duration
   end
 end
 
-def handoff_packet(service: string, level: CoverageLevel, started_at: time) -> HandoffPacketResult
+def handoff_packet(service: string, level: CoverageLevel, started_at: time) -> HandoffPacket
   length = shift_length(level)
   ends_at = length.after(started_at)
 
@@ -47,7 +47,7 @@ def handoff_packet(service: string, level: CoverageLevel, started_at: time) -> H
   }
 end
 
-def run -> RunResult
+def run -> HandoffPackets
   started_at = Time.at(1701100000, in: "UTC")
 
   {

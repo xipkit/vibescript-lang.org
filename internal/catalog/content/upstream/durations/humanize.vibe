@@ -2,6 +2,8 @@
 # summary: Break durations into days, hours, and minutes, and describe them in plain words.
 # vibe: 0.1.0
 
+type Humanized = { descriptions: hash<string, string>, total: string, longest: string }
+
 def plural(count: int, unit: string) -> string
   count == 1 ? "1 #{unit}" : "#{count} #{unit}s"
 end
@@ -15,7 +17,7 @@ def describe(span: duration) -> string
   words.empty? ? "less than a minute" : words.join(", ")
 end
 
-def run -> { descriptions: hash<string, string>, total: string, longest: string }
+def run -> Humanized
   spans: hash<string, duration> = {
     build: 7.minutes + 30.seconds,
     review: Duration.parse("26h15m"),

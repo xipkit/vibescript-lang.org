@@ -1,5 +1,7 @@
 class ContextPreview
-  def user -> { id: string, role: string }
+  type User = { id: string, role: string }
+
+  def user -> User
     { id: "p-1", role: "coach" }
   end
 end

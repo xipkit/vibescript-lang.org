@@ -50,7 +50,7 @@ def rot13(text: string) -> string
   output
 end
 
-def run -> { decoded: string, encoded: string, plain: string }
+def run -> hash<string, string>
   plain = "Vibescript keeps Rosetta examples runnable."
   encoded = rot13(plain)
   {

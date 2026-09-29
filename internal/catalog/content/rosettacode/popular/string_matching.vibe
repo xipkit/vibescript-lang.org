@@ -35,7 +35,7 @@ def string_matching(text: string, pattern: string) -> array<int>
   matches
 end
 
-def run -> { aba_in_ababa: array<int>, ana_in_bananas: array<int> }
+def run -> hash<string, array<int>>
   {
     aba_in_ababa: string_matching("ababa", "aba"),
     ana_in_bananas: string_matching("bananas", "ana")

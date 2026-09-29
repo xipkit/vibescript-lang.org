@@ -6,6 +6,8 @@
 # tags: popular, arrays, recursion, combinatorics
 # vibe: 0.1.0
 
+type Permutations = { count: int, permutations: array<array<string>> }
+
 def remove_at(values: array<string>, skip_index: int) -> array<string>
   output: array<string> = []
   index = 0
@@ -42,7 +44,7 @@ def permutations(values: array<string>) -> array<array<string>>
   output
 end
 
-def run -> { count: int, permutations: array<array<string>> }
+def run -> Permutations
   values = permutations(["A", "B", "C"])
   {
     count: values.length,

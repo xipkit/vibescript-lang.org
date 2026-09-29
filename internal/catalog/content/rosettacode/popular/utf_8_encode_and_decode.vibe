@@ -6,6 +6,8 @@
 # tags: popular, strings, encoding, unicode
 # vibe: 0.1.0
 
+type RoundTrip = { code_point: int, bytes: array<int>, decoded: int }
+
 def utf8_encode(code_point: int) -> array<int>
   if code_point < 128
     [code_point]
@@ -39,9 +41,9 @@ def utf8_decode(bytes: array<int>) -> int
   end
 end
 
-def run -> array<{ bytes: array<int>, code_point: int, decoded: int }>
+def run -> array<RoundTrip>
   code_points = [36, 162, 8364, 128578]
-  rows: array<{ bytes: array<int>, code_point: int, decoded: int }> = []
+  rows: array<RoundTrip> = []
   index = 0
 
   while index < code_points.length

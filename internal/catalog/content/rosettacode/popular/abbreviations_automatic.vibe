@@ -6,11 +6,13 @@
 # tags: popular, strings, search, prefixes
 # vibe: 0.1.0
 
-type RunResult = {
-  abbreviations: array<{ abbreviation: string, command: string }>,
+type Abbreviation = { command: string, abbreviation: string }
+
+type CommandLookup = {
+  abbreviations: array<Abbreviation>,
   resolve_app: string,
-  resolve_c: string,
-  resolve_pr: string
+  resolve_pr: string,
+  resolve_c: string
 }
 
 def commands -> array<string>
@@ -57,8 +59,8 @@ end
 
 def automatic_abbreviations(
   commands: array<string>
-) -> array<{ abbreviation: string, command: string }>
-  rows: array<{ abbreviation: string, command: string }> = []
+) -> array<Abbreviation>
+  rows: array<Abbreviation> = []
   index = 0
 
   while index < commands.length
@@ -94,7 +96,7 @@ def resolve(token: string, commands: array<string>) -> string
   end
 end
 
-def run -> RunResult
+def run -> CommandLookup
   available = commands
   {
     abbreviations: automatic_abbreviations(available),

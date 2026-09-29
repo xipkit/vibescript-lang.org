@@ -6,12 +6,6 @@
 # tags: popular, math, fractions, greedy, bignum
 # vibe: 0.1.0
 
-type RunResult = {
-  eight_elevenths: array<string>,
-  five_one_hundred_twenty_firsts: array<string>,
-  three_sevenths: array<string>
-}
-
 def gcd(a: int, b: int) -> int
   left = a.abs
   right = b.abs
@@ -46,7 +40,7 @@ def egyptian_fraction(numerator: int, denominator: int) -> array<string>
   terms
 end
 
-def run -> RunResult
+def run -> hash<string, array<string>>
   {
     three_sevenths: egyptian_fraction(3, 7),
     eight_elevenths: egyptian_fraction(8, 11),

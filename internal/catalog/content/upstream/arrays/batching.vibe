@@ -2,13 +2,13 @@
 # summary: Split readings into batches, smooth them with a moving window, and find the gaps.
 # vibe: 0.1.0
 
-type RunResult = {
+type SensorReport = {
+  readings: array<int>,
+  missing: int,
   batches: array<array<int>>,
   batch_totals: array<int>,
   moving_average: array<float>,
-  rising_runs: array<array<int>>,
-  missing: int,
-  readings: array<int>
+  rising_runs: array<array<int>>
 }
 
 def moving_average(values: array<int>, size: int) -> array<float>
@@ -20,7 +20,7 @@ def rising_runs(values: array<int>) -> array<array<int>>
   runs.select { |run| run.length > 1 }
 end
 
-def run -> RunResult
+def run -> SensorReport
   raw: array<int?> = [12, 14, nil, 15, 19, 18, nil, 21, 24, 26]
   readings = raw.compact
   batches = readings.chunk(3)

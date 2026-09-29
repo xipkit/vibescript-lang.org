@@ -3,6 +3,7 @@
 # vibe: 0.1.0
 
 type Settings = hash<string, hash<string, string>>
+type Resolved = { effective: Settings, changes: array<string>, theme: string }
 
 def layer(base: Settings, override: Settings) -> Settings
   base.merge(override) { |section, mine, theirs| mine.merge(theirs) }
@@ -21,7 +22,7 @@ def changed(before: Settings, after: Settings) -> array<string>
   changes
 end
 
-def run -> { effective: Settings, changes: array<string>, theme: string }
+def run -> Resolved
   defaults: Settings = {
     display: { theme: "light", density: "comfortable" },
     alerts: { email: "daily", sms: "off" }

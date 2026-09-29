@@ -6,16 +6,16 @@
 # tags: finance, money, durations, enums
 # vibe: 0.1.0
 
-type AccountSnapshotResult = {
-  balance: money,
+type AccountSnapshot = {
   invoice_id: string,
-  late_fee: money,
-  overdue: string,
   standing: string,
+  overdue: string,
+  balance: money,
+  late_fee: money,
   total_due: money
 }
 
-type RunResult = { delinquent: AccountSnapshotResult, grace: AccountSnapshotResult }
+type AccountSnapshots = { grace: AccountSnapshot, delinquent: AccountSnapshot }
 
 enum AccountStanding
   Current
@@ -43,7 +43,7 @@ def late_fee(standing: AccountStanding) -> money
   end
 end
 
-def account_snapshot(invoice_id: string, balance: money, overdue: duration) -> AccountSnapshotResult
+def account_snapshot(invoice_id: string, balance: money, overdue: duration) -> AccountSnapshot
   standing = standing_for(overdue)
   fee = late_fee(standing)
 
@@ -57,7 +57,7 @@ def account_snapshot(invoice_id: string, balance: money, overdue: duration) -> A
   }
 end
 
-def run -> RunResult
+def run -> AccountSnapshots
   {
     grace: account_snapshot("inv_310", money("240.00 USD"), 7.days),
     delinquent: account_snapshot("inv_311", money("240.00 USD"), 28.days)

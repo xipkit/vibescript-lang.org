@@ -8,15 +8,15 @@
 # feature_rank: 5
 # vibe: 0.1.0
 
-type Reminder_JobResult = {
-  channel: string,
+type ReminderJob = {
   invoice_id: string,
+  channel: string,
   lead_time: string,
   send_at: string,
   subject: string
 }
 
-type RunResult = { email: Reminder_JobResult, push: Reminder_JobResult, sms: Reminder_JobResult }
+type ReminderJobs = { email: ReminderJob, sms: ReminderJob, push: ReminderJob }
 
 enum ReminderChannel
   Email
@@ -34,7 +34,7 @@ def lead_time(channel: ReminderChannel) -> duration
   end
 end
 
-def reminder_job(invoice_id: string, due_at: time, channel: ReminderChannel) -> Reminder_JobResult
+def reminder_job(invoice_id: string, due_at: time, channel: ReminderChannel) -> ReminderJob
   delta = lead_time(channel)
   send_at = delta.before(due_at)
 
@@ -47,7 +47,7 @@ def reminder_job(invoice_id: string, due_at: time, channel: ReminderChannel) -> 
   }
 end
 
-def run -> RunResult
+def run -> ReminderJobs
   due_at = Time.at(1700600000)
   {
     email: reminder_job("inv_2026_0042", due_at, ReminderChannel::Email),

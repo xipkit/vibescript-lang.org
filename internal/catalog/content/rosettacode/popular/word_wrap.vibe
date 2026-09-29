@@ -38,7 +38,7 @@ def sample_text -> string
     "sun itself, which has seen so much, was astonished whenever it shone in her face."
 end
 
-def run -> { width_32: array<string>, width_48: array<string> }
+def run -> hash<string, array<string>>
   text = sample_text
   {
     width_32: word_wrap(text, 32),

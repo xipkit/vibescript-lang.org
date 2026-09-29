@@ -6,6 +6,8 @@
 # tags: popular, math, primes, factorization
 # vibe: 0.1.0
 
+type SmithCheck = { value: int, smith: bool }
+
 def digit_sum(value: int) -> int
   total = 0
   current = value.abs
@@ -62,7 +64,7 @@ def smith?(number: int) -> bool
   digit_sum(number) == factor_digit_sum(number)
 end
 
-def run -> array<{ smith: bool, value: int }>
+def run -> array<SmithCheck>
   [
     { value: 4, smith: smith?(4) },
     { value: 22, smith: smith?(22) },

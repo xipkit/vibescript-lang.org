@@ -6,12 +6,11 @@
 # tags: popular, math, simulation
 # vibe: 0.1.0
 
-type RunResult = {
-  classic: { elimination_order: array<int>, survivor: int },
-  small: { elimination_order: array<int>, survivor: int }
-}
+type Game = { survivor: int, elimination_order: array<int> }
 
-def josephus(n: int, k: int) -> { elimination_order: array<int>, survivor: int }
+type Games = { classic: Game, small: Game }
+
+def josephus(n: int, k: int) -> Game
   circle: array<int> = []
   i = 0
   while i < n
@@ -45,7 +44,7 @@ def josephus(n: int, k: int) -> { elimination_order: array<int>, survivor: int }
   { survivor: order.fetch(order.length - 1), elimination_order: order }
 end
 
-def run -> RunResult
+def run -> Games
   {
     classic: josephus(41, 3),
     small: josephus(5, 2)

@@ -6,7 +6,9 @@
 # tags: popular, basics, variables, arithmetic
 # vibe: 0.1.0
 
-def run -> { count: int, label: string, sentence: string, total: int }
+type Variables = { count: int, label: string, total: int, sentence: string }
+
+def run -> Variables
   count = 3
   label = "examples"
   total = count * 7

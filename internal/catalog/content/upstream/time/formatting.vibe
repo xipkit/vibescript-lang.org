@@ -4,6 +4,13 @@
 
 type Meeting = { title: string, starts: time }
 
+type TimeReport = {
+  formats: hash<string, string>,
+  local_starts: hash<string, string>,
+  gaps: array<string>,
+  next_meeting: string
+}
+
 def gap_minutes(first: time, second: time) -> int
   ((second - first) / 60).round
 end
@@ -18,14 +25,7 @@ def next_after(launch: time, upcoming: Meeting?) -> string
   describe_gap({ title: "Launch", starts: launch }, upcoming)
 end
 
-type RunResult = {
-  formats: hash<string, string>,
-  local_starts: hash<string, string>,
-  gaps: array<string>,
-  next_meeting: string
-}
-
-def run -> RunResult
+def run -> TimeReport
   launch = Time.parse("2024-11-05T14:30:00Z")
   meetings: array<Meeting> = [
     { title: "Standup", starts: Time.parse("2024-11-05T09:00:00Z") },

@@ -2,22 +2,24 @@
 # summary: Walk ranges in steps, test membership, and clamp values into bounds.
 # vibe: 0.1.0
 
+type Lengths = { inclusive: int, exclusive: int }
+
+type Steps = {
+  every_fifth: array<int>,
+  countdown: array<int>,
+  business_hours: array<bool>,
+  clamped: array<int>,
+  lengths: Lengths,
+  sum_of_squares: int
+}
+
 def every(range: range, by: int) -> array<int>
   values: array<int> = []
   range.step(by) { |value| values << value }
   values
 end
 
-type RunResult = {
-  every_fifth: array<int>,
-  countdown: array<int>,
-  business_hours: array<bool>,
-  clamped: array<int>,
-  lengths: { inclusive: int, exclusive: int },
-  sum_of_squares: int
-}
-
-def run -> RunResult
+def run -> Steps
   hours = 9...17
 
   {

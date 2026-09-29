@@ -6,13 +6,6 @@
 # tags: popular, strings, parsing, networking
 # vibe: 0.1.0
 
-type RunResult = {
-  docs: array<int>?,
-  invalid_range: array<int>?,
-  invalid_shape: array<int>?,
-  localhost: array<int>?
-}
-
 def digit_value(char: string) -> int?
   digits = "0123456789"
   digits.index(char)
@@ -62,7 +55,7 @@ def parse_ipv4(text: string) -> array<int>?
   octets
 end
 
-def run -> RunResult
+def run -> hash<string, array<int>?>
   {
     localhost: parse_ipv4("127.0.0.1"),
     docs: parse_ipv4("192.168.10.42"),

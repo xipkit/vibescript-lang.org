@@ -151,7 +151,9 @@ approved["score"] # 90</code></pre>
           <span class="code-window-title">notifications.vibe</span>
           <span class="code-window-version">host side</span>
         </div>
-        <pre><code class="language-vibescript">def run -> { to: string, body: string, status: string }
+        <pre><code class="language-vibescript">type SmsReceipt = { to: string, body: string, status: string }
+
+def run -> SmsReceipt
   sms.send("+15555550123", "Your order is ready.")
 end</code></pre>
       </div>

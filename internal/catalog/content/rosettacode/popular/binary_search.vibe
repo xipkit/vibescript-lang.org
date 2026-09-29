@@ -40,7 +40,7 @@ def binary_search(values: array<int>, target: int, low: int, high: int) -> int |
   nil
 end
 
-def run -> { found_first: int?, found_last: int?, found_middle: int?, missing: int? }
+def run -> hash<string, int?>
   values = [-31, -4, 0, 1, 5, 9, 12, 17, 23, 42, 77]
   {
     found_middle: binary_search(values, 23, 0, 10),

@@ -6,13 +6,6 @@
 # tags: popular, parsing, stack, strings
 # vibe: 0.1.0
 
-type RunResult = {
-  crossed_false: bool,
-  incomplete_false: bool,
-  mixed_true: bool,
-  nested_true: bool
-}
-
 def opener_for(char: string) -> string?
   if char == ")"
     "("
@@ -60,7 +53,7 @@ def balanced_brackets?(text: string) -> bool
   depth == 0
 end
 
-def run -> RunResult
+def run -> hash<string, bool>
   {
     nested_true: balanced_brackets?("{[()()]}"),
     mixed_true: balanced_brackets?("function(x) { return [x, x + 1] }"),

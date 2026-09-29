@@ -6,13 +6,6 @@
 # tags: popular, trees, recursion, data-structures
 # vibe: 0.1.0
 
-type RunResult = {
-  preorder: array<string>,
-  inorder: array<string>,
-  postorder: array<string>,
-  level_order: array<string>
-}
-
 class Node
   getter value: string
   getter left: Node?
@@ -60,7 +53,7 @@ def level_order(root: Node?) -> array<string>
   output
 end
 
-def run -> RunResult
+def run -> hash<string, array<string>>
   tree = sample_tree
   {
     preorder: preorder(tree),

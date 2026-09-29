@@ -1,32 +1,36 @@
 # vibe: 0.1.0
 
-type RunResult = {
-  accumulate_with_shovel: array<int>,
-  chunk_values: array<array<int>>,
-  concat_values: array<int>,
-  count_large: int,
-  count_value: int,
-  double_sum: int,
-  first_match: int?,
-  first_match_index: int?,
+type Player = { name: string, status: string }
+type PushAndPop = { array: array<int>, popped: int? }
+type Predicates = { any_large: bool, all_positive: bool, none_negative: bool }
+
+type ArrayTour = {
   first_two: array<int>,
-  group_by_stable_status: array<array<string | array<{ name: string, status: string }>>>,
-  group_by_status: hash<string, array<{ name: string, status: string }>>,
-  include_value: bool,
-  intersect_values: array<int>,
   last_three: array<int>,
   numeric_sum: int,
-  partition_even: array<array<int>>,
-  predicate_snapshot: { all_positive: bool, any_large: bool, none_negative: bool },
-  push_and_pop: { array: array<int>, popped: int? },
-  shovel_value: array<int>,
-  sort_desc: array<int>,
-  sort_values: array<int>,
-  sort_words_by_length: array<string>,
-  subtract_values: array<int>,
-  tally_statuses: hash<string, int>,
+  double_sum: int,
+  push_and_pop: PushAndPop,
   uniq_values: array<int>,
-  window_values: array<array<int>>
+  concat_values: array<int>,
+  subtract_values: array<int>,
+  shovel_value: array<int>,
+  accumulate_with_shovel: array<int>,
+  intersect_values: array<int>,
+  include_value: bool,
+  first_match: int?,
+  first_match_index: int?,
+  count_value: int,
+  count_large: int,
+  predicate_snapshot: Predicates,
+  sort_values: array<int>,
+  sort_desc: array<int>,
+  sort_words_by_length: array<string>,
+  partition_even: array<array<int>>,
+  group_by_status: hash<string, array<Player>>,
+  tally_statuses: hash<string, int>,
+  chunk_values: array<array<int>>,
+  window_values: array<array<int>>,
+  group_by_stable_status: array<array<string | array<Player>>>
 }
 
 def first_two(values: array<int>) -> array<int>
@@ -47,7 +51,7 @@ def double_sum(values: array<int>) -> int
   }
 end
 
-def push_and_pop(values: array<int>, extra: int) -> { array: array<int>, popped: int? }
+def push_and_pop(values: array<int>, extra: int) -> PushAndPop
   values.push(extra)
   popped = values.pop
   {
@@ -110,9 +114,7 @@ def count_large(values: array<int>, threshold: int) -> int
   }
 end
 
-def predicate_snapshot(
-  values: array<int>
-) -> { all_positive: bool, any_large: bool, none_negative: bool }
+def predicate_snapshot(values: array<int>) -> Predicates
   any_large = values.any? { |value|
     value > 10
   }
@@ -152,9 +154,7 @@ def partition_even(values: array<int>) -> array<array<int>>
   }
 end
 
-def group_by_status(
-  players: array<{ name: string, status: string }>
-) -> hash<string, array<{ name: string, status: string }>>
+def group_by_status(players: array<Player>) -> hash<string, array<Player>>
   players.group_by { |player|
     player["status"]
   }
@@ -172,15 +172,13 @@ def window_values(values: array<int>, size: int) -> array<array<int>>
   values.window(size)
 end
 
-def group_by_stable_status(
-  players: array<{ name: string, status: string }>
-) -> array<array<string | array<{ name: string, status: string }>>>
+def group_by_stable_status(players: array<Player>) -> array<array<string | array<Player>>>
   players.group_by_stable { |player|
     player["status"]
   }
 end
 
-def run -> RunResult
+def run -> ArrayTour
   values = [2, 4, 4, 7, 12, 15]
   words = ["pear", "kiwi", "banana", "fig"]
   players = [

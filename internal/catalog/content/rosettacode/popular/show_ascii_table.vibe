@@ -6,12 +6,14 @@
 # tags: popular, strings, tables, ascii
 # vibe: 0.1.0
 
+type AsciiRow = { code: int, character: string, printable: bool }
+
 def sample_characters -> array<string>
   [" ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+"]
 end
 
-def build_rows -> array<{ character: string, code: int, printable: bool }>
-  rows: array<{ character: string, code: int, printable: bool }> = []
+def build_rows -> array<AsciiRow>
+  rows: array<AsciiRow> = []
   characters = sample_characters
   index = 0
 
@@ -28,6 +30,6 @@ def build_rows -> array<{ character: string, code: int, printable: bool }>
   rows
 end
 
-def run -> array<{ character: string, code: int, printable: bool }>
+def run -> array<AsciiRow>
   build_rows
 end

@@ -7,15 +7,16 @@
 # source: https://github.com/mgomes/chudnovsky
 # vibe: 0.1.0
 
+type PiEstimate = {
+  pi_100_digits: string,
+  matching_reference_digits: int,
+  terms_used: int,
+  digits_per_term: float
+}
+
 # Binary splitting: each leaf holds one series term's P, Q, T; merges combine
 # ranges with T(a,b) = Q(m,b)T(a,m) + P(a,m)T(m,b), exactly as the Go
 # implementation does across CPU cores. 10939058860032000 is 640320^3 // 24.
-type RunResult = {
-  digits_per_term: float,
-  matching_reference_digits: int,
-  pi_100_digits: string,
-  terms_used: int
-}
 
 def split_series(a: int, b: int) -> [int, int, int]
   if b - a == 1
@@ -65,7 +66,7 @@ def matching_digits(computed: string, reference: string) -> int
   end
 end
 
-def run -> RunResult
+def run -> PiEstimate
   digits = 100
   scale = digits + 5
   terms = scale // 14 + 2
