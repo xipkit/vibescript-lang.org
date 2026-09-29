@@ -96,6 +96,23 @@
     element.classList.add(className);
   }
 
+  /* The playground runner announces each run: the output pulses while it
+     runs, then slides in with the result. */
+  function initRunFeedback() {
+    document.addEventListener("playground:start", (event) => {
+      const output = event.target.querySelector("[data-run-output]");
+      output?.classList.remove("slide-in-down");
+      output?.classList.add("is-thinking");
+    });
+    document.addEventListener("playground:finish", (event) => {
+      const output = event.target.querySelector("[data-run-output]");
+      if (output) {
+        output.classList.remove("is-thinking");
+        replay(output, "slide-in-down");
+      }
+    });
+  }
+
   function initSoundToggle() {
     const toggle = document.querySelector("[data-sound-toggle]");
     if (!toggle) return;
@@ -556,6 +573,7 @@
     initReferenceNav();
     initThemeToggle();
     initSoundToggle();
+    initRunFeedback();
     initCatalog();
   });
 })();

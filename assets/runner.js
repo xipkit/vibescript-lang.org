@@ -36,6 +36,11 @@
       root.setAttribute("aria-busy", String(busy));
     }
 
+    // site.js listens for these to animate the output.
+    function announce(type) {
+      root.dispatchEvent(new CustomEvent(type, { bubbles: true }));
+    }
+
     function cancel(message) {
       clearTimeout(deadline);
       clearTimeout(debounce);
@@ -45,8 +50,10 @@
         if (active?.op === "check" && diagnostics) diagnostics.textContent = message;
         else output.textContent = message;
       }
+      const cancelled = active;
       active = null;
       buttons(false);
+      if (cancelled?.op === "run") announce("playground:finish");
     }
 
     function timeout(ms) {
@@ -82,7 +89,10 @@
       if (!/^def run\b/m.test(job.source)) job.entry = undefined;
       active = job;
       buttons(true);
-      if (op === "run") output.textContent = loaded ? "Starting…" : "Loading the browser runtime…";
+      if (op === "run") {
+        output.textContent = loaded ? "Starting…" : "Loading the browser runtime…";
+        announce("playground:start");
+      }
       else if (diagnostics) diagnostics.textContent = op === "format" ? "Formatting…" : "Checking…";
       try {
         if (!worker) {
@@ -103,6 +113,7 @@
               const target = completed.op === "check" && diagnostics ? diagnostics : output;
               target.textContent = data.error;
             } else show(data.response, completed);
+            if (completed.op === "run") announce("playground:finish");
             if (source() !== completed.source) scheduleCheck();
           };
           worker.onerror = (event) => { event.preventDefault(); cancel("The browser runtime could not start. Try Run again."); };
