@@ -6,6 +6,8 @@
 # tags: popular, numbers, iteration, palindromes, bignum
 # vibe: 0.1.0
 
+type LychrelCheck = { value: int, lychrel_candidate: bool }
+
 def palindrome?(number: int) -> bool
   text = number.to_s
   text == text.reverse
@@ -36,7 +38,7 @@ def lychrel_candidate?(number: int, limit: int) -> bool
   true
 end
 
-def run -> array<{ lychrel_candidate: bool, value: int }>
+def run -> array<LychrelCheck>
   [
     { value: 56, lychrel_candidate: lychrel_candidate?(56, 200) },
     { value: 57, lychrel_candidate: lychrel_candidate?(57, 200) },

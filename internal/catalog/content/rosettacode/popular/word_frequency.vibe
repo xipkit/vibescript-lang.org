@@ -6,6 +6,8 @@
 # tags: popular, strings, hashes, parsing
 # vibe: 0.1.0
 
+type WordCount = { word: string, count: int }
+
 def letter?(char: string) -> bool
   (char >= "a" && char <= "z") || (char >= "A" && char <= "Z")
 end
@@ -34,9 +36,9 @@ def word_counts(text: string) -> hash<string, int>
   counts
 end
 
-def run -> array<{ count: int, word: string }>
+def run -> array<WordCount>
   counts = word_counts("To be, or not to be: that is the question. To be or not?")
-  rows: array<{ count: int, word: string }> = []
+  rows: array<WordCount> = []
   rows.push({ word: "to", count: counts.fetch("to", 0) })
   rows.push({ word: "be", count: counts.fetch("be", 0) })
   rows.push({ word: "not", count: counts.fetch("not", 0) })

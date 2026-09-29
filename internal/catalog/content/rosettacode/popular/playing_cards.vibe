@@ -6,11 +6,8 @@
 # tags: popular, arrays, modeling, basics
 # vibe: 0.1.0
 
-type RunResult = {
-  count: int,
-  first_three: array<{ rank: string, suit: string }>,
-  last_three: array<{ rank: string, suit: string }>
-}
+type Card = { rank: string, suit: string }
+type DeckSample = { count: int, first_three: array<Card>, last_three: array<Card> }
 
 def ranks -> array<string>
   ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -20,8 +17,8 @@ def suits -> array<string>
   ["spades", "hearts", "diamonds", "clubs"]
 end
 
-def build_deck -> array<{ rank: string, suit: string }>
-  deck: array<{ rank: string, suit: string }> = []
+def build_deck -> array<Card>
+  deck: array<Card> = []
   suit_index = 0
 
   while suit_index < suits.length
@@ -39,7 +36,7 @@ def build_deck -> array<{ rank: string, suit: string }>
   deck
 end
 
-def run -> RunResult
+def run -> DeckSample
   deck = build_deck
   {
     count: deck.length,

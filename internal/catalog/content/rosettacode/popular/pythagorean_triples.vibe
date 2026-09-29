@@ -6,6 +6,8 @@
 # tags: popular, math, geometry, search
 # vibe: 0.1.0
 
+type Triples = { count: int, triples: array<array<int>> }
+
 def gcd(a: int, b: int) -> int
   left = a.abs
   right = b.abs
@@ -47,7 +49,7 @@ def pythagorean_triples(limit: int) -> array<array<int>>
   triples
 end
 
-def run -> { count: int, triples: array<array<int>> }
+def run -> Triples
   triples = pythagorean_triples(50)
   {
     count: triples.length,

@@ -6,12 +6,6 @@
 # tags: popular, math, primes, factors
 # vibe: 0.1.0
 
-type RunResult = {
-  sample_composite: array<int>,
-  thousand_twenty_three_times_thousand_twenty_four: array<int>,
-  twelve: array<int>
-}
-
 def prime_decomposition(number: int) -> array<int>
   factors: array<int> = []
   remaining = number
@@ -37,7 +31,7 @@ def prime_decomposition(number: int) -> array<int>
   factors
 end
 
-def run -> RunResult
+def run -> hash<string, array<int>>
   {
     twelve: prime_decomposition(12),
     thousand_twenty_three_times_thousand_twenty_four: prime_decomposition(1023 * 1024),

@@ -6,6 +6,10 @@
 # tags: popular, math, fractions, gcd
 # vibe: 0.1.0
 
+type Fraction = { numerator: int, denominator: int }
+
+type Reduction = { original: array<int>, reduced: Fraction }
+
 def gcd(a: int, b: int) -> int
   left = a.abs
   right = b.abs
@@ -19,7 +23,7 @@ def gcd(a: int, b: int) -> int
   left
 end
 
-def reduce_fraction(numerator: int, denominator: int) -> { denominator: int, numerator: int }
+def reduce_fraction(numerator: int, denominator: int) -> Fraction
   divisor = gcd(numerator, denominator)
   reduced_numerator = numerator // divisor
   reduced_denominator = denominator // divisor
@@ -35,7 +39,7 @@ def reduce_fraction(numerator: int, denominator: int) -> { denominator: int, num
   }
 end
 
-def run -> array<{ original: array<int>, reduced: { denominator: int, numerator: int } }>
+def run -> array<Reduction>
   [
     { original: [42, 56], reduced: reduce_fraction(42, 56) },
     { original: [13, 39], reduced: reduce_fraction(13, 39) },

@@ -6,26 +6,28 @@
 # tags: popular, stack, arrays, data-structures
 # vibe: 0.1.0
 
-type RunResult = {
-  contents: array<string>,
-  peek_after_pop: string?,
+type Stack = { items: array<string> }
+type Popped = { stack: Stack, value: string? }
+type StackReport = {
   peek_before_pop: string?,
   popped: string?,
-  size_after_pop: int
+  peek_after_pop: string?,
+  size_after_pop: int,
+  contents: array<string>
 }
 
-def new_stack -> { items: array<string> }
+def new_stack -> Stack
   {
     items: []
   }
 end
 
-def push(stack: { items: array<string> }, value: string) -> { items: array<string> }
+def push(stack: Stack, value: string) -> Stack
   stack["items"].push(value)
   stack
 end
 
-def peek(stack: { items: array<string> }) -> string?
+def peek(stack: Stack) -> string?
   items = stack["items"]
 
   if items.empty?
@@ -35,7 +37,7 @@ def peek(stack: { items: array<string> }) -> string?
   end
 end
 
-def pop(stack: { items: array<string> }) -> { stack: { items: array<string> }, value: string? }
+def pop(stack: Stack) -> Popped
   value = stack["items"].pop
   {
     stack: stack,
@@ -43,7 +45,7 @@ def pop(stack: { items: array<string> }) -> { stack: { items: array<string> }, v
   }
 end
 
-def run -> RunResult
+def run -> StackReport
   stack = new_stack
   stack = push(stack, "red")
   stack = push(stack, "green")

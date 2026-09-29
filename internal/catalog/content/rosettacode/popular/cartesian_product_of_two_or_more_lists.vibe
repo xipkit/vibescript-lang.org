@@ -6,8 +6,6 @@
 # tags: popular, arrays, combinatorics, iteration
 # vibe: 0.1.0
 
-type RunResult = { three_lists: array<array<int | string>>, two_lists: array<array<int | string>> }
-
 def cartesian_product(lists: array<array<int | string>>) -> array<array<int | string>>
   combinations: array<array<int | string>> = [[]]
   list_index = 0
@@ -34,7 +32,7 @@ def cartesian_product(lists: array<array<int | string>>) -> array<array<int | st
   combinations
 end
 
-def run -> RunResult
+def run -> hash<string, array<array<int | string>>>
   {
     two_lists: cartesian_product([["red", "blue"], [1, 2, 3]]),
     three_lists: cartesian_product([["small", "large"], ["circle", "square"], ["solid", "outline"]])

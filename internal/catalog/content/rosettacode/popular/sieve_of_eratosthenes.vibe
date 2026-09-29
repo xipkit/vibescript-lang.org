@@ -6,6 +6,8 @@
 # tags: popular, math, primes, arrays
 # vibe: 0.1.0
 
+type Sieve = { limit: int, count: int, primes: array<int> }
+
 def sieve(limit: int) -> array<int>
   flags: array<bool> = []
   value = 0
@@ -43,7 +45,7 @@ def sieve(limit: int) -> array<int>
   primes
 end
 
-def run -> { count: int, limit: int, primes: array<int> }
+def run -> Sieve
   primes = sieve(50)
   {
     limit: 50,

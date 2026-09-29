@@ -6,6 +6,8 @@
 # tags: popular, math, number-theory, classification
 # vibe: 0.1.0
 
+type Classified = { value: int, classification: string }
+
 def proper_divisor_sum(number: int) -> int
   if number == 1
     return 0
@@ -39,7 +41,7 @@ def classification(number: int) -> string
   end
 end
 
-def run -> array<{ classification: string, value: int }>
+def run -> array<Classified>
   [
     { value: 12, classification: classification(12) },
     { value: 15, classification: classification(15) },

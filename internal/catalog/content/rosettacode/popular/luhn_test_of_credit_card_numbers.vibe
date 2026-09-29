@@ -36,7 +36,7 @@ def luhn_valid?(number: string) -> bool
   sum % 10 == 0
 end
 
-def run -> { sample_false: bool, sample_true: bool, visa_false: bool, visa_true: bool }
+def run -> hash<string, bool>
   {
     sample_true: luhn_valid?("49927398716"),
     sample_false: luhn_valid?("49927398717"),

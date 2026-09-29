@@ -6,6 +6,8 @@
 # tags: popular, strings, math, conversion
 # vibe: 0.1.0
 
+type RomanNumeral = { number: int, roman: string }
+
 def to_roman(number: int) -> string
   values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
   symbols = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
@@ -25,9 +27,9 @@ def to_roman(number: int) -> string
   result
 end
 
-def run -> array<{ number: int, roman: string }>
+def run -> array<RomanNumeral>
   numbers = [1, 4, 9, 14, 42, 99, 2024, 1776, 3999]
-  results: array<{ number: int, roman: string }> = []
+  results: array<RomanNumeral> = []
   i = 0
   while i < numbers.length
     results.push({ number: numbers.fetch(i), roman: to_roman(numbers.fetch(i)) })

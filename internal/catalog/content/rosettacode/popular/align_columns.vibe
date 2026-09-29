@@ -6,6 +6,8 @@
 # tags: popular, text-processing, formatting, columns
 # vibe: 0.1.0
 
+type Alignments = { widths: array<int>, left: string, right: string, center: string }
+
 def trim_trailing_dollars(line: string) -> string
   while line.end_with?("$")
     line = line.delete_suffix("$")
@@ -121,7 +123,7 @@ def sample_lines -> array<string>
   ]
 end
 
-def run -> { center: string, left: string, right: string, widths: array<int> }
+def run -> Alignments
   lines = sample_lines
   rows: array<array<string>> = []
   lines.each { |line|

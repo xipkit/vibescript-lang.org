@@ -6,6 +6,8 @@
 # tags: popular, strings, dynamic-programming, metrics
 # vibe: 0.1.0
 
+type Distances = { kitten_sitting: int, rosettacode_raisethysword: int, reverse_invariant: bool }
+
 def index_row(length: int) -> array<int>
   row: array<int> = []
   index = 0
@@ -58,7 +60,7 @@ def levenshtein(left: string, right: string) -> int
   previous.fetch(previous.length - 1)
 end
 
-def run -> { kitten_sitting: int, reverse_invariant: bool, rosettacode_raisethysword: int }
+def run -> Distances
   {
     kitten_sitting: levenshtein("kitten", "sitting"),
     rosettacode_raisethysword: levenshtein("rosettacode", "raisethysword"),

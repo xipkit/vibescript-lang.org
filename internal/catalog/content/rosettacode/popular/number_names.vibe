@@ -6,14 +6,6 @@
 # tags: popular, strings, formatting, math
 # vibe: 0.1.0
 
-type RunResult = {
-  forty_two: string,
-  nine_hundred_ninety_nine: string,
-  three_hundred_five: string,
-  twelve_thousand_three_hundred_four: string,
-  zero: string
-}
-
 def ones -> array<string>
   [
     "zero",
@@ -106,7 +98,7 @@ def number_name(number: int) -> string
   end
 end
 
-def run -> RunResult
+def run -> hash<string, string>
   {
     zero: number_name(0),
     forty_two: number_name(42),

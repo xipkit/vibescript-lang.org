@@ -25,7 +25,7 @@ def obeys_rule?(word: string) -> bool
   false
 end
 
-def run -> { ancient: bool, believe: bool, ceiling: bool, science: bool, weird: bool }
+def run -> hash<string, bool>
   {
     believe: obeys_rule?("believe"),
     ceiling: obeys_rule?("ceiling"),

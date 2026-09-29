@@ -6,12 +6,14 @@
 # tags: popular, numbers, math, search
 # vibe: 0.1.0
 
+type NarcissisticCheck = { value: int, narcissistic: bool }
+
 def narcissistic?(value: int) -> bool
   digits = value.to_s.chars
   digits.sum { |digit| digit.to_i ** digits.length } == value
 end
 
-def run -> array<{ narcissistic: bool, value: int }>
+def run -> array<NarcissisticCheck>
   [153, 370, 407, 408].map { |value|
     { value:, narcissistic: narcissistic?(value) }
   }

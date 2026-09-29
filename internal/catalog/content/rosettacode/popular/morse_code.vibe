@@ -105,7 +105,7 @@ def encode_morse(text: string) -> string
   codes.join(" ")
 end
 
-def run -> { sos: string, vibe: string }
+def run -> hash<string, string>
   {
     sos: encode_morse("SOS"),
     vibe: encode_morse("VIBE 2026")

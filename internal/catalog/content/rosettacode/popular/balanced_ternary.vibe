@@ -6,13 +6,6 @@
 # tags: popular, math, numerals, conversion
 # vibe: 0.1.0
 
-type RunResult = {
-  negative_ten: string,
-  positive_forty_two: string,
-  positive_ten: string,
-  zero: string
-}
-
 def flip_digits(text: string) -> string
   text_chars = text.chars
   output = ""
@@ -66,7 +59,7 @@ def balanced_ternary(value: int) -> string
   positive_balanced_ternary(value)
 end
 
-def run -> RunResult
+def run -> hash<string, string>
   {
     zero: balanced_ternary(0),
     positive_ten: balanced_ternary(10),

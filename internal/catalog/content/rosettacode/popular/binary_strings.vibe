@@ -6,6 +6,8 @@
 # tags: popular, strings, recursion, combinatorics
 # vibe: 0.1.0
 
+type BinaryStrings = { length_three: array<string>, length_four_count: int }
+
 def binary_strings(length: int) -> array<string>
   if length == 0
     [""]
@@ -22,7 +24,7 @@ def binary_strings(length: int) -> array<string>
   end
 end
 
-def run -> { length_four_count: int, length_three: array<string> }
+def run -> BinaryStrings
   {
     length_three: binary_strings(3),
     length_four_count: binary_strings(4).length

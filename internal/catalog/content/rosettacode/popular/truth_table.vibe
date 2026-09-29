@@ -6,7 +6,9 @@
 # tags: popular, booleans, basics, operators
 # vibe: 0.1.0
 
-def truth_row(a: bool, b: bool) -> { a: bool, and: bool, b: bool, not_a: bool, or: bool, xor: bool }
+type TruthRow = { a: bool, b: bool, and: bool, or: bool, xor: bool, not_a: bool }
+
+def truth_row(a: bool, b: bool) -> TruthRow
   {
     a: a,
     b: b,
@@ -17,7 +19,7 @@ def truth_row(a: bool, b: bool) -> { a: bool, and: bool, b: bool, not_a: bool, o
   }
 end
 
-def run -> array<{ a: bool, and: bool, b: bool, not_a: bool, or: bool, xor: bool }>
+def run -> array<TruthRow>
   [
     truth_row(true, true),
     truth_row(true, false),

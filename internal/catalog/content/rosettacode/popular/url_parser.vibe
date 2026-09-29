@@ -6,20 +6,16 @@
 # tags: popular, strings, parsing, hashes
 # vibe: 0.1.0
 
-type Parse_UrlResult = {
-  host: string,
-  path: string,
-  query: array<{ key: string, value: string }>,
-  scheme: string
-}
+type QueryParam = { key: string, value: string }
+type Url = { scheme: string, host: string, path: string, query: array<QueryParam> }
 
-def parse_query(text: string) -> array<{ key: string, value: string }>
+def parse_query(text: string) -> array<QueryParam>
   if text == ""
     return []
   end
 
   parts = text.split("&")
-  output: array<{ key: string, value: string }> = []
+  output: array<QueryParam> = []
   index = 0
 
   while index < parts.length
@@ -34,7 +30,7 @@ def parse_query(text: string) -> array<{ key: string, value: string }>
   output
 end
 
-def parse_url(url: string) -> Parse_UrlResult
+def parse_url(url: string) -> Url
   scheme, separator, remainder = url.partition("://")
   raise ArgumentError, "expected a URL scheme" if separator == ""
   host, slash, path_and_query = remainder.partition("/")
@@ -47,6 +43,6 @@ def parse_url(url: string) -> Parse_UrlResult
   }
 end
 
-def run -> Parse_UrlResult
+def run -> Url
   parse_url("https://example.com/docs/guide?page=2&lang=en")
 end

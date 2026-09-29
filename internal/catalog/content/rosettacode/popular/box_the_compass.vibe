@@ -6,6 +6,8 @@
 # tags: popular, navigation, lookup, geometry
 # vibe: 0.1.0
 
+type CompassPoint = { index: int, point: string, degrees: float }
+
 def compass_points -> array<string>
   [
     "North",
@@ -142,8 +144,8 @@ def sample_headings -> array<float>
   ]
 end
 
-def build_rows -> array<{ degrees: float, index: int, point: string }>
-  rows: array<{ degrees: float, index: int, point: string }> = []
+def build_rows -> array<CompassPoint>
+  rows: array<CompassPoint> = []
   headings = sample_headings
   index = 0
   while index < headings.length
@@ -157,6 +159,6 @@ def build_rows -> array<{ degrees: float, index: int, point: string }>
   rows
 end
 
-def run -> array<{ degrees: float, index: int, point: string }>
+def run -> array<CompassPoint>
   build_rows
 end

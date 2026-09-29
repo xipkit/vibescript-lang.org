@@ -6,6 +6,8 @@
 # tags: popular, strings, sequences, recursion
 # vibe: 0.1.0
 
+type FibonacciWords = { words: array<string>, final_length: int }
+
 def fibonacci_words(count: int) -> array<string>
   words: array<string> = []
   previous = "1"
@@ -23,7 +25,7 @@ def fibonacci_words(count: int) -> array<string>
   words
 end
 
-def run -> { final_length: int, words: array<string> }
+def run -> FibonacciWords
   words = fibonacci_words(8)
   {
     words: words,

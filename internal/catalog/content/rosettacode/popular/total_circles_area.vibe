@@ -6,6 +6,8 @@
 # tags: popular, math, geometry, floats
 # vibe: 0.1.0
 
+type Circles = { radii: array<float>, total_area: float }
+
 def area(radius: float) -> float
   3.141592653589793 * radius * radius
 end
@@ -22,7 +24,7 @@ def total_area(radii: array<float>) -> float
   total
 end
 
-def run -> { radii: array<float>, total_area: float }
+def run -> Circles
   radii = [1.0, 2.5, 4.0]
   {
     radii: radii,

@@ -6,6 +6,8 @@
 # tags: popular, numbers, strings, conversion
 # vibe: 0.1.0
 
+type Conversion = { value: int, binary: string }
+
 def binary_digits(value: int) -> string
   if value == 0
     return "0"
@@ -22,7 +24,7 @@ def binary_digits(value: int) -> string
   digits
 end
 
-def run -> array<{ binary: string, value: int }>
+def run -> array<Conversion>
   [
     { value: 0, binary: binary_digits(0) },
     { value: 5, binary: binary_digits(5) },

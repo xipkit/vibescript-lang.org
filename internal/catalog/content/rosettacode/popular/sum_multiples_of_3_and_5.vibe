@@ -15,7 +15,7 @@ def sum_multiples(limit: int) -> int
   sum_divisible_by(3, limit) + sum_divisible_by(5, limit) - sum_divisible_by(15, limit)
 end
 
-def run -> { below_one_hundred: int, below_one_thousand: int, below_ten: int }
+def run -> hash<string, int>
   {
     below_ten: sum_multiples(10),
     below_one_hundred: sum_multiples(100),

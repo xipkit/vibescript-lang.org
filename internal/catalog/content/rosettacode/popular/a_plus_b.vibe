@@ -10,7 +10,7 @@ def add_pair(left: int, right: int) -> int
   left + right
 end
 
-def run -> { first: int, second: int, third: int }
+def run -> hash<string, int>
   {
     first: add_pair(3, 4),
     second: add_pair(-8, 13),

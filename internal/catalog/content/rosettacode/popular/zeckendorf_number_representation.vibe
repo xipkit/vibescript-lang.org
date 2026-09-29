@@ -6,6 +6,8 @@
 # tags: popular, math, fibonacci, decomposition
 # vibe: 0.1.0
 
+type Representation = { n: int, zeckendorf: string }
+
 def fibonacci_up_to(limit: int) -> array<int>
   fibs = [1, 2]
   while fibs.fetch(fibs.length - 1) < limit
@@ -36,8 +38,8 @@ def zeckendorf(n: int) -> array<int>
   parts
 end
 
-def run -> array<{ n: int, zeckendorf: string }>
-  results: array<{ n: int, zeckendorf: string }> = []
+def run -> array<Representation>
+  results: array<Representation> = []
   n = 1
   while n <= 20
     parts = zeckendorf(n)

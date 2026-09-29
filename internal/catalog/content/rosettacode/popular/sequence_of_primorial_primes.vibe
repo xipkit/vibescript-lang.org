@@ -6,13 +6,13 @@
 # tags: popular, math, primes, sequences
 # vibe: 0.1.0
 
-type RunResult = array<{
-  minus_one_prime: bool,
-  plus_one_prime: bool,
+type Primorial = {
   prime: int,
   primorial_minus_one: int,
-  primorial_plus_one: int
-}>
+  minus_one_prime: bool,
+  primorial_plus_one: int,
+  plus_one_prime: bool
+}
 
 def prime?(number: int) -> bool
   if number < 2
@@ -30,10 +30,10 @@ def prime?(number: int) -> bool
   true
 end
 
-def run -> RunResult
+def run -> array<Primorial>
   primes = [2, 3, 5, 7, 11]
   primorial = 1
-  rows: RunResult = []
+  rows: array<Primorial> = []
   index = 0
 
   while index < primes.length

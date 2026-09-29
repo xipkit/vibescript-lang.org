@@ -6,6 +6,8 @@
 # tags: popular, strings, analysis
 # vibe: 0.1.0
 
+type PangramChecks = { fox_pangram: bool, almost_pangram: bool, almost_missing: array<string> }
+
 def is_pangram(sentence: string) -> bool
   alphabet = "abcdefghijklmnopqrstuvwxyz"
   lower = sentence.downcase
@@ -39,7 +41,7 @@ def missing_letters(sentence: string) -> array<string>
   missing
 end
 
-def run -> { almost_missing: array<string>, almost_pangram: bool, fox_pangram: bool }
+def run -> PangramChecks
   fox = "The quick brown fox jumps over the lazy dog"
   almost = "The quick brown fox jumped over the lazy dog"
   {

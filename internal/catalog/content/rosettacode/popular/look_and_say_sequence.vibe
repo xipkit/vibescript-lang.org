@@ -6,8 +6,6 @@
 # tags: popular, strings, math, sequences
 # vibe: 0.1.0
 
-type RunResult = { term_1: string, term_2: string, term_3: string, term_4: string, term_5: string }
-
 def look_and_say(term: string) -> string
   term_chars = term.chars
   result = ""
@@ -36,7 +34,7 @@ def sequence(n: int) -> array<string>
   terms
 end
 
-def run -> RunResult
+def run -> hash<string, string>
   {
     term_1: look_and_say("1"),
     term_2: look_and_say("11"),

@@ -6,6 +6,8 @@
 # tags: popular, math, formatting, digits
 # vibe: 0.1.0
 
+type Multiplication = { multiplicand: int, multiplier: int, partials: array<int>, product: int }
+
 def digit_value(char: string) -> int
   digit = "0123456789".index(char)
   raise ArgumentError, "expected a decimal digit" if digit == nil
@@ -39,7 +41,7 @@ def partial_products(multiplicand: int, multiplier: int) -> array<int>
   products
 end
 
-def run -> { multiplicand: int, multiplier: int, partials: array<int>, product: int }
+def run -> Multiplication
   multiplicand = 123
   multiplier = 45
   {

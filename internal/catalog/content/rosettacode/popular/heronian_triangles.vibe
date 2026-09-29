@@ -6,6 +6,8 @@
 # tags: popular, geometry, search, triangles
 # vibe: 0.1.0
 
+type Triangle = { sides: array<int>, area: int }
+
 def isqrt(value: int) -> int
   if value < 2
     return value
@@ -32,8 +34,8 @@ def isqrt(value: int) -> int
   answer
 end
 
-def heronian_triangles(limit: int, count: int) -> array<{ sides: array<int>, area: int }>
-  values: array<{ sides: array<int>, area: int }> = []
+def heronian_triangles(limit: int, count: int) -> array<Triangle>
+  values: array<Triangle> = []
   a = 1
 
   while a <= limit && values.length < count
@@ -66,7 +68,7 @@ def heronian_area(a: int, b: int, c: int) -> int
   root // 4
 end
 
-def run -> array<{ area: int, sides: array<int> }>
+def run -> array<Triangle>
   [[3, 4, 5], [5, 5, 6], [5, 12, 13], [8, 15, 17]].map { |sides|
     { sides:, area: heronian_area(sides.fetch(0), sides.fetch(1), sides.fetch(2)) }
   }

@@ -6,13 +6,13 @@
 # tags: popular, math, geometry, conversion
 # vibe: 0.1.0
 
-type RunResult = {
-  degrees_from_half_pi: float,
+type Conversions = {
   normalized_725: int,
   normalized_negative_45: int,
-  radians_from_225: float,
+  signed_725: int,
   signed_225: int,
-  signed_725: int
+  radians_from_225: float,
+  degrees_from_half_pi: float
 }
 
 def pi -> float
@@ -51,7 +51,7 @@ def radians_to_degrees(angle: float) -> float
   angle * 180 / pi
 end
 
-def run -> RunResult
+def run -> Conversions
   {
     normalized_725: normalize_360(725),
     normalized_negative_45: normalize_360(-45),

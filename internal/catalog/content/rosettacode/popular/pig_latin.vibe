@@ -6,8 +6,6 @@
 # tags: popular, strings, transformation
 # vibe: 0.1.0
 
-type RunResult = { apple: string, hello: string, sentence: string, string: string, world: string }
-
 def is_vowel(char: string) -> bool
   vowels = "aeiouAEIOU"
   vowels.index(char) != nil
@@ -57,7 +55,7 @@ def pig_latin(sentence: string) -> string
   translated.join(" ")
 end
 
-def run -> RunResult
+def run -> hash<string, string>
   {
     hello: pig_word("hello"),
     world: pig_word("world"),

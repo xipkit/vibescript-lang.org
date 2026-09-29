@@ -6,8 +6,6 @@
 # tags: popular, math, multiplication, loops
 # vibe: 0.1.0
 
-type RunResult = { seventeen_thirty_four: int, three_digit_pair: int, twenty_seven_eighty_two: int }
-
 def ethiopian_multiply(left: int, right: int) -> int
   total = 0
   a = left
@@ -24,7 +22,7 @@ def ethiopian_multiply(left: int, right: int) -> int
   total
 end
 
-def run -> RunResult
+def run -> hash<string, int>
   {
     seventeen_thirty_four: ethiopian_multiply(17, 34),
     twenty_seven_eighty_two: ethiopian_multiply(27, 82),

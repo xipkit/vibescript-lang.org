@@ -6,16 +6,6 @@
 # tags: popular, search, strings, recursion
 # vibe: 0.1.0
 
-type RunResult = {
-  a: bool,
-  bark: bool,
-  book: bool,
-  common: bool,
-  confuse: bool,
-  squad: bool,
-  treat: bool
-}
-
 def blocks -> array<string>
   [
     "BO", "XK", "DQ", "CP", "NA",
@@ -59,7 +49,7 @@ def can_make?(word: string) -> bool
   can_make_from?(word.upcase.chars, 0, blocks)
 end
 
-def run -> RunResult
+def run -> hash<string, bool>
   {
     a: can_make?("A"),
     bark: can_make?("BARK"),

@@ -6,6 +6,8 @@
 # tags: popular, strings, validation, checksum
 # vibe: 0.1.0
 
+type UpcCheck = { code: string, valid: bool }
+
 def digit_value(char: string) -> int
   digit = "0123456789".index(char)
   raise ArgumentError, "expected a decimal digit" if digit == nil
@@ -30,7 +32,7 @@ def valid_upc?(code: string) -> bool
   sum % 10 == 0
 end
 
-def run -> array<{ code: string, valid: bool }>
+def run -> array<UpcCheck>
   [
     { code: "036000291452", valid: valid_upc?("036000291452") },
     { code: "042100005264", valid: valid_upc?("042100005264") },

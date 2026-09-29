@@ -6,6 +6,8 @@
 # tags: popular, math, conditionals, basics
 # vibe: 0.1.0
 
+type YearCheck = { year: int, leap: bool }
+
 def leap_year?(year: int) -> bool
   if year % 400 == 0
     return true
@@ -17,9 +19,9 @@ def leap_year?(year: int) -> bool
   false
 end
 
-def run -> array<{ leap: bool, year: int }>
+def run -> array<YearCheck>
   years = [1900, 2000, 1996, 1997, 2024, 2025, 2100, 2400]
-  results: array<{ leap: bool, year: int }> = []
+  results: array<YearCheck> = []
   i = 0
   while i < years.length
     results.push({ year: years.fetch(i), leap: leap_year?(years.fetch(i)) })

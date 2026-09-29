@@ -6,6 +6,8 @@
 # tags: popular, math, search, digits
 # vibe: 0.1.0
 
+type MinimumMultiple = { m: int, value: int }
+
 def digit_sum(value: int) -> int
   total = 0
   current = value
@@ -28,7 +30,7 @@ def minimum_multiple(m: int) -> int
   value
 end
 
-def run -> array<{ m: int, value: int }>
+def run -> array<MinimumMultiple>
   [
     { m: 10, value: minimum_multiple(10) },
     { m: 12, value: minimum_multiple(12) },

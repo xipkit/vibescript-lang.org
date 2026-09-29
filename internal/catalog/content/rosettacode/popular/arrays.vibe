@@ -6,16 +6,16 @@
 # tags: popular, arrays, basics, collections
 # vibe: 0.1.0
 
-type RunResult = {
-  count: int,
+type ArrayFacts = {
+  original: array<int>,
   expanded: array<int>,
   first: int,
   last: int,
-  original: array<int>,
+  count: int,
   total: int
 }
 
-def run -> RunResult
+def run -> ArrayFacts
   values = [3, 1, 4]
   expanded = values.dup.push(1, 5, 9)
 

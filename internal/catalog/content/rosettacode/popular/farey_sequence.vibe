@@ -6,6 +6,8 @@
 # tags: popular, math, fractions, sequences
 # vibe: 0.1.0
 
+type FareyOrders = { order_five: array<string>, order_seven_count: int }
+
 def fraction_text(numerator: int, denominator: int) -> string
   "#{numerator}/#{denominator}"
 end
@@ -35,7 +37,7 @@ def farey_sequence(order: int) -> array<string>
   values
 end
 
-def run -> { order_five: array<string>, order_seven_count: int }
+def run -> FareyOrders
   {
     order_five: farey_sequence(5),
     order_seven_count: farey_sequence(7).length

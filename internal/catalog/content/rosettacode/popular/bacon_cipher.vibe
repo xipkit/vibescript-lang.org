@@ -77,7 +77,7 @@ def decode(text: string) -> string
   output
 end
 
-def run -> { decoded: string, encoded: string }
+def run -> hash<string, string>
   encoded = encode("VIBE CODE")
   {
     encoded: encoded,

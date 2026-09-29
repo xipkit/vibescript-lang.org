@@ -6,13 +6,6 @@
 # tags: popular, sorting, arrays, loops
 # vibe: 0.1.0
 
-type RunResult = {
-  already: array<int>,
-  reversed: array<int>,
-  single: array<int>,
-  sorted: array<int>
-}
-
 def bubble_sort(arr: array<int>) -> array<int>
   n = arr.length
   swapped = true
@@ -35,7 +28,7 @@ def bubble_sort(arr: array<int>) -> array<int>
   arr
 end
 
-def run -> RunResult
+def run -> hash<string, array<int>>
   {
     sorted: bubble_sort([64, 34, 25, 12, 22, 11, 90]),
     already: bubble_sort([1, 2, 3, 4, 5]),

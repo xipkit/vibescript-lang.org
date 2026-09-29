@@ -6,6 +6,8 @@
 # tags: popular, math, sequences
 # vibe: 0.1.0
 
+type HarshadNumbers = { first_20: array<int>, first_above_1000: int }
+
 def digit_sum(n: int) -> int
   total = 0
   remaining = n
@@ -42,7 +44,7 @@ def first_harshad_above(threshold: int) -> int
   end
 end
 
-def run -> { first_20: array<int>, first_above_1000: int }
+def run -> HarshadNumbers
   {
     first_20: first_harshad(20),
     first_above_1000: first_harshad_above(1000)
