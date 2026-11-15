@@ -43,7 +43,7 @@ Compiling the text of earlier declarations ahead of new source carries them into
 
 `Script::run_bindings(options)` runs the top-level statements like `Script::run` and also returns the root bindings they leave: every entry of `CallOptions::globals` with the value the run left in it, the classes, modules and enums the script declares at the top level, and every top-level local the statements assigned. A local takes precedence over a global of the same name, and a supplied global shadows a declaration of the same name, as it does during the run. A local that only an unexecuted branch assigns is bound to `nil`, as a later read in the same script would see it.
 
-A later script declares the variables it continues with the types the checker gave them: `Engine::type_check(source).locals` lists each top-level local a script assigns on every path, with its type as an annotation writes it.
+A later script declares the variables it continues with the types the checker gave them: `Engine::type_check(source).locals` lists each top-level local a script assigns on every path, with its type as an annotation writes it, or `any` where no annotation can name it or the type takes more than 16 KiB to spell out.
 
 ```rust
 use std::collections::BTreeMap;
@@ -75,3 +75,6 @@ fn main() -> vibescript::Result<()> {
 A declared global's type names builtin types only. A variable that holds an instance of a carried class is bound instead by a checked cast from a global declared as `any`, as `vibes repl` binds every variable: `origin = session.fetch("origin").as(Point)`, where the global `session` holds the earlier values. The class value passed as `Point` shadows the recompiled declaration, so the cast accepts the earlier instance.
 
 The values follow the result's contracts. They are isolated snapshots: the host's original globals are unchanged, and a later call cannot change a returned value. Passing them back as globals continues the session. Instances keep their fields and compiled code, and still belong to the class values passed with them, so `is_type?`, type annotations and enum comparisons behave as in one script. Each call starts class and module state afresh, as for any separately compiled namespace. A module object returned by `require` keeps its private file state, but the export names that `require` published into the root are not bindings; keep the returned object to use them later. Functions are not values, so they are not bindings; carry them as source with `Script::declarations`. Capturing the bindings charges the run's work budget, and a failed run returns only its error.
+
+
+For the terminal-independent REPL API and opt-in session limits, see [Bounded embedded REPLs](/reference/repl/).

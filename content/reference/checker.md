@@ -24,9 +24,9 @@ At runtime the remaining checks are those at the edges: arguments a host passes 
 
 The checker reads the parsed program once, after the parser. It first collects every declaration, so the order of declarations does not matter: functions, classes with their properties and instance variables, enums, modules, type aliases, host functions with their published signatures, and the globals and capabilities the host declares. It resolves every signature and alias, then checks each function body once, from its own signature and the signatures of what it calls; it never reads a callee's body. Required files named by literal `require` calls are checked the same way, and their exports' declarations type the calls into them.
 
-Types are interned, so comparing two types compares identifiers. A local's type and its narrowing live on one flow state with a trail of changes, so branches and loops join in time proportional to what they changed rather than to the number of locals. Builtin members come from the signature table, [`src/signatures/builtins.vibe`](/reference-source/de1b6c9eb37e5ac38299ecb63bcac4520d81b88c/src/signatures/builtins.vibe), whose generic members are instantiated at each call: `array<T>#map` binds `T` to the receiver's element type and infers `U` from the block. An overloaded name selects its signature by the number of positional arguments, the keyword names and the presence and arity of a block, never by argument types.
+Types are interned, so comparing two types compares identifiers. A local's type and its narrowing live on one flow state with a trail of changes, so branches and loops join in time proportional to what they changed rather than to the number of locals. Builtin members come from the signature table, [`src/signatures/builtins.vibe`](/reference-source/1b406855bfb83cf4c26e45dda3d7604757d0e7f5/src/signatures/builtins.vibe), whose generic members are instantiated at each call: `array<T>#map` binds `T` to the receiver's element type and infers `U` from the block. An overloaded name selects its signature by the number of positional arguments, the keyword names and the presence and arity of a block, never by argument types.
 
-The work is linear in the program. The checker counts it deterministically, and compilation charges that count to the step quota when it runs under limits, as a cold `require` inside a call does. Except on WASI, sources longer than 1 KiB are checked on a thread with a 64 MiB stack, because the checker recurses once per level of syntax, which the parser bounds to 1,024. WASI has no threads, so there the checker refuses syntax more than 128 levels tall with `V0001` instead of exhausting the stack (see [platform support](/reference/platforms/#stack-use)).
+The work is linear in the program, except that a join or a widening at the end of a branch, loop, block or `begin` visits the locals changed inside it, so nesting that the parser bounds at 1,024 levels multiplies them. The checker counts its work deterministically, and compilation charges that count to the step quota when it runs under limits, as a cold `require` inside a call does. Under limits the checker also stops on its own as soon as its work passes the steps left, its tables outgrow the memory left, the deadline passes or the host cancels, and compilation fails with that error. All of its work counts toward one total of steps, which every check compares with the steps left, and its memory account covers every table it keeps, with what their entries own, the large types an operation builds and the syntax a walk visits while they run, and the pass over the canonical surface that follows it. That pass is accounted by a checked estimate rather than table by table: a bound for each token, each byte of an identifier and each payload it copies, measured over the corpora, whose real peak the footprint suite checks against the estimate for every program it measures, and the text it copies and renders is admitted as it is written. Compilation under limits charges the peak of that account to the call's memory, so it shows in the call's peak and a quota bounds it. Except on WASI, sources longer than 1 KiB are checked on a thread with a 64 MiB stack, because the checker recurses once per level of syntax, which the parser bounds to 1,024. WASI has no threads, so there the checker refuses syntax more than 128 levels tall with `V0001` instead of exhausting the stack (see [platform support](/reference/platforms/#stack-use)).
 
 The same pass also records the static type of every member call's receiver. The removed-spelling rules use it, so that `size` on an array is reported and rewritten to `length` while a class's own `size` method is left alone.
 
@@ -49,6 +49,7 @@ Two diagnostics are warnings, which do not stop compilation: `V0121`, a nil test
 | --- | --- | --- |
 | `V0001` | `syntax` | The source does not parse. |
 | `V0002` | `hash-argument` | A hash literal is passed to a call without parentheses, where `{` after the call starts a block; the call's arguments need parentheses. |
+| `V0003` | `name-suffix` | Only method names may end in `?` or `!`; bindings never have a suffix. |
 | `V0101` | `type-mismatch` | A value's type is not assignable to the type its position expects. |
 | `V0102` | `local-type-changed` | A local is assigned a value of a type other than the one its first assignment fixed. |
 | `V0103` | `needs-type` | `nil`, `[]` or `{}` appears where no declared type gives it one. |
@@ -72,6 +73,7 @@ Two diagnostics are warnings, which do not stop compilation: `V0121`, a nil test
 | `V0121` | `unreachable-narrowing` | A nil test or type test on a value whose type already decides it. |
 | `V0122` | `tuple-mutation` | A mutation could change a tuple's length or positional element types. |
 | `V0123` | `shape-mutation` | A mutation could remove a shape's fields or replace them. |
+| `V0124` | `type-too-large` | A union has more than 1,024 alternatives, or a shape more than 16,384 fields. |
 | `V0201` | `undefined-name` | A name does not refer to a local, function, constant or type in scope. |
 | `V0202` | `unassigned-local` | A local is read where it is not assigned on every path. |
 | `V0203` | `unknown-member` | A type has no member with this name. |
@@ -80,7 +82,7 @@ Two diagnostics are warnings, which do not stop compilation: `V0121`, a nil test
 | `V0206` | `unknown-enum-member` | A symbol or constant does not name a member of the enum. |
 | `V0207` | `block-not-value` | A block parameter is used as a value. |
 | `V0208` | `visibility` | A private method is called with a receiver, or a protected one from outside its class's own methods. |
-| `V0209` | `duplicate-name` | A function, method or alias takes a name its scope already defines. |
+| `V0209` | `duplicate-name` | A function, method or alias takes a name its scope already defines, or a parameter repeats one of its list. |
 | `V0210` | `reserved-name` | A function or alias takes a reserved name: `require`, which the compiler resolves statically, or `__main__`. |
 | `V0301` | `no-overload` | No signature accepts the call's positional arguments, keywords and block. |
 | `V0302` | `unknown-keyword` | A call passes a keyword the signature does not declare. |

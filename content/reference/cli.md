@@ -12,6 +12,7 @@
 | `vibes help [command]`, `--help`, `-h` | Print the command list or one command's help. |
 | `vibes repl [options]` | Start the interactive REPL. |
 | `vibes lsp` | Serve the language server over stdin and stdout for editors. |
+| `vibes guide` | Print the bundled language guide as Markdown. |
 | `vibes prelude` | Print every builtin signature as Vibescript declarations. |
 | `vibes fix [--dry-run] <file or directory>...` | Apply the machine-applicable fixes of the static language's diagnostics. |
 
@@ -31,7 +32,7 @@ The formatter, analyzer, fixer, test runner, REPL session and language server ar
 The first argument alone decides what runs, in this order:
 
 1. `-h` or `--help` prints the root help. A first argument such as `--`, one with leading or trailing whitespace, `-help`, `--h` or a help flag with a value such as `--help=false`, prints the root help and `unknown command "..."` on stderr.
-2. A command name (`run`, `check`, `fmt`, `analyze`, `test`, `lsp`, `repl`, `prelude`, `fix`, `help` or `h`) runs that command. A file named after a command therefore needs `vibes run check`, or a flat-form option before it.
+2. A command name (`run`, `check`, `fmt`, `analyze`, `test`, `lsp`, `repl`, `guide`, `prelude`, `fix`, `help` or `h`) runs that command. A file named after a command therefore needs `vibes run check`, or a flat-form option before it.
 3. `--version` prints `vibescript VERSION`.
 4. A flat-form option (`-e`, `--eval`, `--function`, `--module-path`, `--arg`, `--kwarg`, `--steps`, `--memory`, `--recursion`, `--timeout-ms` or `--stats`), or a script path, runs the flat form. A script path is an existing file, or a spelling that contains a path separator or ends in `.vibe`.
 5. Anything else fails: `vibes` alone reports `command required` after the root help, a flag such as `-x` or `--bogus` reports `flag provided but not defined: -x`, and any other word reports `unknown command "word"` after the root help.
@@ -54,6 +55,12 @@ invalid boolean value "yes" for -check: parse error
 invalid value "nope" for flag -step-quota: parse error
 help flag does not accept a value
 ```
+
+## `vibes guide`
+
+`vibes guide` prints the [language guide](/reference/) as Markdown on stdout. It is bundled with the interpreter, works offline from any directory and needs no installed documentation files. It accepts no positional arguments; `vibes guide --help` and `vibes help guide` print command help.
+
+Give an AI author this guide alongside `vibes prelude`, which prints exact builtin signatures. Embedding hosts can retrieve the same guide with `vibescript::guide()` and use `Engine::prelude(&options)` to include their registered functions, capabilities and globals. Add the app's own conventions and examples to that context.
 
 ## `vibes run`
 
@@ -97,7 +104,7 @@ Changes are found by polling: every 300 ms the size and modification time of eve
 vibes check [options] <script>
 ```
 
-`check` compiles the script with static types without running anything and prints every diagnostic with its code, source line and fixes, then fails with `check failed with N error(s)`; a script without errors prints its warnings, if any, or `No issues found`. The [type checker](/reference/checker/) lists the codes. Unused declarations are checked like the rest of the script, and required files are resolved and checked too.
+`check` compiles the script with static types without running anything and prints every diagnostic with its code, source line and fixes, then fails with `check failed with N error(s)`; a script without errors prints its warnings, if any, or `No issues found`. The [type checker](/reference/checker/) lists the codes. Unused declarations are checked like the rest of the script, and required files are resolved and checked too. Control characters in the source line, messages and filenames print as escapes such as `\u{1b}`, so a script cannot send terminal sequences through its diagnostics; carets stay under the escaped text.
 
 `-module-path DIR` adds module search roots, as for `run`. Additional flags:
 
@@ -114,7 +121,7 @@ vibes fmt [-w] [-check] <path>...
 
 The canonical form normalizes `\r\n` and lone `\r` to `\n`, strips trailing spaces and tabs, drops trailing blank lines and ends with one newline; everything else, including invalid UTF-8, is kept. Without flags, the formatted files are printed on stdout. `-w` rewrites files that change, and `-check` fails with `vibes fmt: N file(s) need formatting` when any would; with both, changed files are rewritten and the command still fails.
 
-Directory operands are walked recursively without following links: only regular `.vibe` files are formatted, and linked files, linked directories and other entries are skipped. An explicit file operand ending in `.vibe` is formatted where it points, so a linked operand formats its target and keeps the link; other explicit files are ignored, and a non-regular `.vibe` operand is an error. Files are processed once each, in byte order of their absolute paths. Directory operands are opened as root handles that refuse paths escaping them, with at most eight open at once; a root reopened after eviction must still be the same directory. Every read and write checks that the file is still the regular file found during discovery, and a rewrite happens in place, keeping the file's identity, permissions and hard links.
+Directory operands are walked recursively without following links: only regular `.vibe` files are formatted, and linked files, linked directories and other entries are skipped. An explicit file operand ending in `.vibe` is formatted where it points, so a linked operand formats its target and keeps the link; other explicit files are ignored, and a non-regular `.vibe` operand is an error. Files are processed once each, in byte order of their absolute paths. Directory operands are opened as root handles that refuse paths escaping them, with at most eight open at once; a root reopened after eviction must still be the same directory. Every read and write checks that the file is still the regular file found during discovery, and a rewrite happens in place, keeping the file's identity, permissions and hard links. On Unix, opens don't block, so a FIFO or device swapped in for a file is refused instead of waited on. A file over 1 MiB fails with `source exceeds maximum size (SIZE > 1048576 bytes)`, the limit `vibes run` applies, and a file that grows while it is read fails too.
 
 ## `vibes analyze`
 
@@ -161,6 +168,8 @@ vibes fix [--dry-run] <file or directory>...
 `vibes fix` checks each `.vibe` file in the static language of ADR-007 and ADR-008 and applies every fix whose applicability is machine-applicable, then checks again, until no such fix remains. Each round applies the innermost fixes first and only those whose edits neither overlap nor touch another's, so nested rewrites such as `unless x.nil?` land in turn; a suggestion, which a person should confirm, is never applied. Running it again changes nothing.
 
 Each applied fix prints on stdout as `path:line:column: fixed V0401: message`, at its position in the text of the round that fixed it, and each diagnostic left afterwards as `path:line:column: error[V0405]: message`. A summary goes to stderr, and the command fails with `vibes fix: N error(s) remain` when errors remain, including a file that does not parse. `--dry-run` writes nothing and prints the changes as a unified diff before the report.
+
+Directory operands select regular `.vibe` files recursively, skipping symbolic links to files and directories. Explicit file operands accept any extension and authorize their target, including a linked target; an explicitly selected linked directory is walked as a root. Reports preserve operand order, explicit path spelling and directory-relative names. The fixer shares the formatter's file access and in-place writes, preserving file identity, permissions and hard links. Native Unix builds confine recursive opens through directory handles and check each file's identity before reading or writing. Dry runs use the same reads, so the formatter's non-blocking opens and 1 MiB limit apply to both.
 
 ## `vibes repl`
 

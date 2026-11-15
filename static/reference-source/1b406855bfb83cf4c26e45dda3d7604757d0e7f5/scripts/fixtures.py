@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate identical inputs and independently computed expected results."""
 import json
+import gzip
 import hashlib
 import random
 import sys
@@ -12,6 +13,31 @@ from signature_fixtures import cases as signature_cases
 
 UPSTREAM=Path(__file__).resolve().parent.parent/"tests/upstream"
 SITE=UPSTREAM.parent/"site"
+
+
+def parse_benchmark_cases():
+    """Large syntax-clean corpus programs and a bounded recovery workload."""
+    root = UPSTREAM.parent.parent
+    out = []
+    for path in ("tests/upstream/tests/complex/massive.vibe",
+                 "tests/site/rosettacode/popular/bitwise_operations.vibe"):
+        out.append({"name": "parse/" + Path(path).stem, "source": (root / path).read_text()})
+    selected = {"e018901b17434038": "large_enum", "01ca33781c4690e5": "wide_call",
+                "d93a23c7b52df4df": "wide_shape"}
+    with gzip.open(root / "tests/golden/replay/programs.jsonl.gz", "rt") as lines:
+        for line in lines:
+            case = json.loads(line)
+            if case["id"] in selected:
+                out.append({"name": "parse/" + selected[case["id"]], "source": case["source"]})
+    language = json.loads((root / "tests/language.json").read_text())
+    largest = max(language, key=lambda case: len(case.get("source", "")))
+    out.append({"name": "parse/large_literal", "source": largest["source"]})
+    out.append({"name": "parse/pathological", "source": "value = )\n" * 10000, "syntax_error": True})
+    out.append({"name": "parse/method_names", "source": "\n".join(
+        f"def ready_{i}? -> bool; true; end\ndef save_{i}! -> bool; true; end\n"
+        f"ready_{i}?==save_{i}!; {{ ready?: ready_{i}?, save!: save_{i}! }}"
+        for i in range(500))})
+    return [{**case, "parse": True, "expected": True} for case in out]
 
 
 def upstream_cases():
@@ -99,6 +125,12 @@ def benchmark_cases():
     obj=dict(zip(keys,range(512)))
     add("hash_build_512",'h: hash<string, int> = {}\ni=0\nwhile i<input.length\n h[input.fetch(i)]=i\n i+=1\nend\nh["k00511"]',keys,511,returns="int?",param="array<string>")
     add("hash_replace_512",'h=input\ni=0\nwhile i<128\n h["k00511"]=i\n i+=1\nend\nh["k00511"]',obj,127,returns="int?",param="hash<string, int>")
+    bulk=dict(zip((f"key-{i:04}" for i in range(1024)),range(1024)))
+    add("array_depth_overwrite",'a: array<any> = []\ni=0\nwhile i<input\n a << [[ [i] ]]\n i+=1\nend\ni=0\nwhile i<a.length\n a[i]=i\n i+=1\nend\na.length',600,600,returns="int",param="int")
+    add("hash_depth_overwrite",'h: hash<string, any> = {}\ni=0\nwhile i<input\n h["k" + i.to_s] = { v: [i] }\n i+=1\nend\ni=0\nwhile i<input\n h["k" + i.to_s] = i\n i+=1\nend\nh.length',600,600,returns="int",param="int")
+    add("hash_delete_if_half",'input.delete_if { |k, v| v % 2 == 0 }\ninput.length',bulk,512,returns="int",param="hash<string, int>")
+    add("hash_delete_if_all",'input.delete_if { |k, v| true }\ninput.length',bulk,0,returns="int",param="hash<string, int>")
+    add("hash_keep_if_thirds",'input.keep_if { |k, v| v % 3 == 0 }\ninput.length',bulk,342,returns="int",param="hash<string, int>")
     add("hash_equal_512","input[0]==input[1]",[obj,dict(reversed(list(obj.items())))],True,returns="bool",param="array<hash<string, int>>")
     duplicates="{"+",".join(json.dumps(k)+":"+str(v) for k,v in [*obj.items(),*((k,1024+i) for i,k in enumerate(reversed(keys)))])+"}"
     expected={k:1024+511-i for i,k in enumerate(keys)}
@@ -117,6 +149,10 @@ def benchmark_cases():
         raw=json.dumps(obj,ensure_ascii=False,separators=(",",":"),sort_keys=True)
         add("json_parse_"+name,"JSON.parse(input)",raw,obj,returns="any",param="string")
         add("json_stringify_"+name,"JSON.stringify(input)",obj,raw,returns="string",param="{ id: int, payload: string }")
+    for name,text in [("lone_escapes_4k", "ab\n"*1366), ("lines_4k", ("a"*59+"\n")*69)]:
+        obj={"id":7,"payload":text}
+        raw=json.dumps(obj,ensure_ascii=False,separators=(",",":"),sort_keys=True)
+        add("json_stringify_"+name,"JSON.stringify(input)",obj,raw,returns="string",param="{ id: int, payload: string }")
     rows=[{"id":i,"name":f"record-{i}","score":i*3,"active":i%2==0} for i in range(64)]
     raw=json.dumps(rows,ensure_ascii=False,separators=(",",":"),sort_keys=True)
     expected=json.dumps({"total":sum(row["score"] for row in rows),"count":len(rows)},separators=(",",":"))
@@ -128,6 +164,23 @@ def benchmark_cases():
     add("loop_float_order","x=0.0\nnan=0.0/0.0\ntotal=0\ni=0\nwhile i<input\n x+=0.25\n x=0.0 if x>=1.0\n total+=(x<=>nan)+(nan<=>x)+(nan<=>nan)+(x<=>-0.0)\n i+=1\nend\ntotal",1000,sum((i+1)%4 != 0 for i in range(1000)),returns="int",param="int")
     add("integer_power", "total=0\ninput.each { |n| total+=n ** 5 }\ntotal", list(range(32)), sum(n**5 for n in range(32)), returns="int", param="array<int>")
     add("big_integer_power", "input.map { |n| (n ** 80).to_s }", [2, 3, 5, 7], [str(n**80) for n in [2, 3, 5, 7]], returns="array<string>", param="array<int>")
+    bases=[3,5,7]
+    # Dispatch uses the shorter u32 operand during repeated squaring, not the
+    # final power's size. 3400 reaches 67/99/119 words: Karatsuba, below transform.
+    # 6000 mixes Karatsuba and transform; 16000 reaches transform for every base.
+    for name,exponent in [("schoolbook",1200),("karatsuba",3400),("power_6000",6000),("transform",16000)]:
+        add("big_integer_"+name,f"input.map {{ |n| (n ** {exponent}) % 1000003 }}",bases,
+            [pow(n,exponent,1000003) for n in bases],returns="array<int>",param="array<int>")
+    # Both divisor/quotient sizes stay below reciprocal division's 1024-word cutoff.
+    for exponent,divisor in [(1200,500),(6000,2500)]:
+        add(f"big_integer_long_division_{exponent}",f"input.map {{ |n| (n ** {exponent}) % (n ** {divisor} + 1) }}",bases,
+            [n**exponent % (n**divisor+1) for n in bases],returns="array<int>",param="array<int>")
+    add("big_integer_decimal","input.map { |n| (n ** 1200).to_s.length }",bases,
+        [len(str(n**1200)) for n in bases],returns="array<int>",param="array<int>")
+    # Each one-word multiplication scans at least 282 words, crossing a charge chunk.
+    # Repeat it so constructing the operand and reducing the result do not dominate.
+    add("big_integer_long_short","input.map { |n| value=2 ** 9000 - 1; 128.times { value*=n }; value % 1000003 }",bases,
+        [((2**9000-1)*n**128) % 1000003 for n in bases],returns="array<int>",param="array<int>")
     add("float_power", "input.map { |n| n ** -1 }", [float(2**n) for n in range(32)], [1]+[2.0**(-n) for n in range(1, 32)], returns="array<float>", param="array<float>")
     floats=[float((i*73)%257)-128.5 for i in range(256)]
     add("float_sort", "input.sort", floats, sorted(floats), returns="array<float>", param="array<float>")
@@ -315,7 +368,8 @@ def host_global_cases():
     add("block_parameter", "[1].map{|helper|helper+1}", {"helper":99}, [2], "array<int>")
     add("block_write", 'begin;[1].each{count+=1};count;rescue;"host-global-binding-error";end', {"count":9}, 10, "int | string",
         difference="A block assignment retains an existing host binding instead of creating an uninitialized local.")
-    add("overwrite", "settings=7;settings", {"settings":{"items":[1]}}, 7, "int")
+    # A write to a global keeps the type the host declares for it.
+    add("overwrite", 'settings={items: [7]};settings["items"].fetch(0)', {"settings":{"items":[1]}}, 7, "int")
     add("nested_address", "rows[-1]&.push(2);rows", {"rows":[[1]]}, [[1,2]], "array<array<int>>")
     add("rescued_call", "begin;helper(1);rescue;7;end", {"helper":None}, 7,
         source="def helper(x: int) -> int;99;end;"+function("begin;helper(1);rescue;7;end", "int"),
