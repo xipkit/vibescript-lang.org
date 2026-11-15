@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "rust_commit": "bbf78297d93640fe0577ae8900dd1414cc09e2ff",
+  "rust_commit": "1b406855bfb83cf4c26e45dda3d7604757d0e7f5",
   "dirty": false,
   "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
   "target": "wasm32-wasip1",
   "file": "playground.wasm",
-  "sha256": "1f9f3350335b48a6a12b0d579ed93b7f0d13581634d33bdfba4276a6123a245c",
-  "bytes": 3829951,
+  "sha256": "77032d45d616e95303ac9c3e161eb23f14417fa6fe708b2100f853a648e524a3",
+  "bytes": 4646082,
   "profile": {
     "opt_level": "z",
     "panic": "abort",
@@ -15,5 +15,5 @@
     "lto": "thin",
     "codegen_units": 1
   },
-  "brotli_bytes": 907049
+  "brotli_bytes": 1076176
 }
