@@ -2,6 +2,8 @@
 
 Vibescript is a small, statically typed scripting language for workflows that a host program embeds and runs under step, memory and time limits. This guide is written for authors, human or AI, who need the whole language on one page. Put it in a model's context next to the output of `vibes prelude`, which lists every builtin function and member with its exact signature; hosts extend that listing with their own functions, capabilities and globals through `Engine::prelude`.
 
+Run `vibes guide` to print this bundled Markdown reference, or retrieve it from an embedding application with `vibescript::guide()`. It is included in the interpreter at build time, so it works offline and matches the interpreter version. Before writing Vibescript, read the guide and the configured host's prelude, then check and test the generated scripts.
+
 Every example here compiles with static types. The design is recorded in [ADR-007](/reference/adr/007-static-types/) (static types) and [ADR-008](/reference/adr/008-canonical-surface-for-ai-authors/) (one spelling for everything).
 
 ## The rules in brief
@@ -58,6 +60,108 @@ pattern = /id-([0-9]+)/i      # regex
 
 Strings are immutable byte strings, usually UTF-8, and character positions count Unicode code points. Integers never overflow; they grow as needed. Floats that are whole numbers print without a fractional part, so `p 3.0` prints `3`.
 
+## Names
+
+Names begin with a Unicode letter or `_` and continue with letters, digits or
+underscores. Only method names may end in one `?` or `!`: definitions such as
+`def ok?` and `def save!`, calls such as `ok?`, `user.valid?` and
+`list&.empty?`, and symbols such as `:ok?`. Calls with arguments may omit
+parentheses: `valid? user`. Locals, parameters, constants, instance variables,
+class variables and host data globals have no suffix. `READY? = 1`, `x! = 3`,
+`@done? = true` and `def f(ok?: bool)` report V0003 with a fix removing the
+suffix, the whole run of `?` and `!` in `x?! = 1`, while a method such as
+`def bad??` keeps one. Where removal would leave a keyword, as in `nil? = 1`,
+the fix writes `nil_` instead, and where no name would be left, as in
+`@? = 1`, there is no fix. A `?` or `!` inside a name, as in `x?1`, is not a
+suffix: V0003 reports it without a fix, since removing it could name something
+else. A name after `::` is spelled as one after `.` is, so `M::bad??` reports
+V0003 as `M.bad??` does, while a scoped call such as `M::ok?` keeps its V0416
+fix, `M.ok?`. The fix for a binding renames it wherever it is used: every
+place that binds it and every
+read of it in scope, and for a class's, module's or enum's constant also its
+scoped reads in the file, such as `C::LIMIT!` or `C.LIMIT!`, so one fix, or one
+`vibes fix` run, migrates it whole. A class, module, enum or type alias name is such a
+binding too: its fix renames every declaration of it, including reopenings, and
+every read of it, bare, scoped as in `A::Ready?`, as a parent after `<` or in a
+type, where a final `?` stays the nullable marker. Where some use cannot be told from another
+name, as the symbol `:Ready?`, the call `Ready?(1)`, a type `Ready!?` that
+reads as a nullable `Ready!`, a read through a scope that is no path of
+namespaces, such as `c::LIMIT!` with `c` a local or `M.X?` with a parameter `M`
+shadowing the module, or code past a syntax error, there is no fix rather than
+one that renames only part of it. Nor is there one
+that would leave a name the file already spells anywhere, as a binding, method,
+namespace, member, label, symbol or nullable type, or that an earlier fix of
+another spelling leaves, since applying it would make two names one:
+`x = 1; x? = 2; [x, x?]` reports V0003 without a fix, where renaming would read
+`x` twice. A method's name, or a variable's with a sigil, is fixed where it is
+spelled, each spelling on its own, so the fixes of `def ok??` and each call
+`ok??` all leave `ok?`, and `vibes fix` applies them together. Whatever a fix
+renames, it is offered only while the fixes of its spelling reach every place a
+name token spells it, whether a name, a type, a member after `.` or `::` or a
+method's name; labels, symbols, strings and comments do not count. So
+`property done?` has no fix while a call `a.done?`, valid and so without a fix,
+would keep calling the old name, and neither has `x? = 1` beside a call
+`obj.x?`. A keyword parameter keeps its name, which
+calls, and a host, pass as a label. Nor is there
+one leaving a name its declaration cannot take: a builtin or prelude type's for
+a type alias or enum, a prelude namespace's, function's or global's for a
+constant, or one an enum member would share, once normalized to a symbol, with
+another name. A required file's public functions bind in the requiring script
+only where their names are free, so a rename there cannot capture one. A
+suffixed name that no suffixed binding owns, such as a call of a host's
+`ready?`, is never renamed.
+
+Member assignment targets also have no suffix: `h.ready? = 1`, compound
+updates such as `h.ready! += 1`, and destructuring targets report V0003.
+Such targets would create the invalid setter name `ready?=` or `ready!=`.
+An earlier receiver may still call a suffixed method, as in
+`box.ready?.value = 1`; indexed string keys such as `h["ready?"] = 1` remain
+ordinary data keys.
+
+A suffix immediately followed by a single `=` is never part of a name: `a!=b`
+always compares `a` and `b`, and `x?=y` reports V0003, as do the setter
+definitions `def ok?=(value: T)` and `def ok!=(value: T)`; the fix for `x?=y`
+is offered only where the assignment it leaves can stand. Likewise a `!`
+immediately followed by `~` is never a suffix, so `a!~b` is `a !~ b`, and
+`ok?!~/x/` calls `ok?`. Before `==` or `=~`, the suffix remains part of the
+method name: `ok?==true` calls `ok?` and compares its result with `true`.
+
+Hash and keyword labels are string keys, so `{ ready?: true }` has the key
+`"ready?"`, and `f(ready?: true)` passes that key to `**options`. The shorthand
+`{ ready?: }` calls the method `ready?`; use `{ ready?: ready }` to read a
+local. In type syntax, `T?`, the optional shape field `ready?: bool`, and
+`&block?:` use `?` as an optional marker; it is not part of the type, field or
+block parameter name. The marker keeps that meaning before `=`, so
+`def f(x: int?=nil)` declares an `int?` parameter whose default is `nil`.
+
+Host functions and callable capability members obey the same method spelling
+rule, including functions supplied through globals. Their published names are
+checked independently of host diagnostic labels such as `SMS.send`.
+Registration keeps its infallible API: an invalid registered name fails
+compilation or type checking and is omitted from the prelude. Capability
+templates are checked when declared, and factory results and newly published
+methods are checked before scripts can access them. A factory root ending in
+`?` or `!` is declared as a callable with unknown argument and result types;
+binding rejects it if the factory returns data. Internal or repeated suffixes
+are rejected at declaration. A callable field of any hash or object a host
+supplies, as a global, a factory's value or a callback's result, must spell a
+method; ordinary string data keys may contain punctuation. A capability
+template cannot hold a function a script exports, at its root or any depth,
+nor can a global's root be one: a script calls such a function only through
+its module, so either is a host error. A required file's exported functions
+may include a setter such as `value=`, as a script's `def value=` is. A host
+method may not: no script can call a host setter, so a capability template, a
+factory's value, a global or a callback that publishes
+`value=` fails with a host error, as does a registered host function of that
+name. A global's or data capability's name is one a script can read: a letter
+or `_`, then letters, digits and `_`, and no keyword. A template's data keys
+that no script can read as a member, such as `"with space"` or one not UTF-8,
+are left out of the capability's declaration and the prelude, so the prelude
+always parses, and out of the members a call's grant must match. An
+invalid host name is a host error (`ErrorKind::Argument`) that names the
+registration, such as `invalid global name "ready?"`; it has no script
+position and no fix, since the script is not what needs changing.
+
 ## Types
 
 | Type | Meaning |
@@ -93,7 +197,7 @@ amount: int | float = 1            # a union must be declared
 amount = 2.5
 ```
 
-Assignment never converts: an `int` local cannot hold a `float`. A local must be assigned on every path before it is read (V0202):
+Assignment never converts: an `int` local cannot hold a `float`. A union has at most 1,024 alternatives and a shape at most 16,384 fields, whether written or inferred, such as the union of an array literal's many differently shaped elements; a larger one is an error (V0124), so declare a dictionary or a smaller union instead. An enum has no such bound: its members are all written out rather than built by the checker, which finds each one by name. A local must be assigned on every path before it is read (V0202):
 
 ```vibe error=V0202
 if Time.now.hour < 12
@@ -123,6 +227,7 @@ log "sent"
 ```
 
 - Every parameter declares its type. Optional parameters have defaults, `times: int = 1`.
+- Each parameter, including a rest, keyword rest or `&block` parameter, needs a name of its own: repeating one in a list is an error (V0209). The same holds for a block's parameters, down to the names they destructure, as in `|(a, b), a|`, though a block parameter may share an enclosing local's name.
 - Parameters after a bare `*`, or after a rest parameter `*items: array<int>`, are keywords, passed by name. `**options: hash<string, int>` collects extra keywords.
 - `-> T` declares the result, which is the last expression or an explicit `return`. A function without `->` returns `nil`: its last expression runs for its effect only, and `return value` in it is an error (V0117).
 - A call without arguments has no parentheses: `items.length`, `uuid`, `Time.now`, `log_all`.
@@ -276,7 +381,7 @@ label = scores.first&.to_s             # &. calls through nil; label is string?
 fallback = label == nil ? "none" : label
 ```
 
-Narrowing applies to locals and parameters. A member read or index expression is not narrowed, because it could change between the test and the use; bind it to a local first:
+Narrowing applies to locals and parameters. A `rescue` or `ensure` may run after any part of its `begin` body, so it keeps none of the narrowing that the body's assignments could end or its guards establish, and a local the body first assigns may be unassigned there; an `ensure` may also follow any part of the `else` or a rescue. A guard or exit in the `ensure` itself narrows what follows the `begin`, and a `retry` runs the body again from what the rescue left. A `retry` reruns the innermost `begin` that is rescuing, so one in the body, `else` or ensure of a `begin` nested in a rescue reruns the enclosing one; a `retry` in a block fails, since it cannot leave the block's call. A member read or index expression is not narrowed, because it could change between the test and the use; bind it to a local first:
 
 ```vibe
 user = JSON.parse_as("{\"nick\": null}", { nick: string? })
@@ -429,13 +534,15 @@ label = case post.status
 
 - Every instance variable is declared: in the class body (`@views: int = 0`, or `@name: string` assigned by `initialize`), or by `getter`, `setter` or `property`. Reading an undeclared one is an error (V0204), and one without a default must be assigned on every path through `initialize` (V0205). Until then it reads as `nil`, so `initialize` must not read it, call a method that reads it, or pass `self` on before assigning it (V0205). A `getter`, `setter` or `property` of a declared instance variable has its type (V0101). `@title: string` in a parameter list assigns an already declared field; it does not declare the field.
 - Class variables are declared with a value, `@@count: int = 0`. Class methods are `def self.name`. Uppercase assignments in the body, such as `LIMIT = 3`, are constants, read as `Post::LIMIT` outside. A constant may declare its type, `TAGS: array<string> = []`, which its value and every later assignment keep.
-- Classes have no inheritance, and instances have identity: two names for the same instance see the same changes. Classes can define operators, `==`, `to_s`, `[]` and `[]=`; an instance has `to_s` and `inspect` only when its class defines them, and interpolation, `p` and `puts` render any instance. `a.count += 1` reads with the getter and writes with the setter, so it needs both. See [classes](/reference/classes/).
+- Classes have no inheritance, and instances have identity: two names for the same instance see the same changes. Classes can define operators, `==`, `to_s`, `[]` and `[]=`. A class's own `==` also runs, with `nil`, for a nil test of an optional instance, such as `x != nil` for an `x` of type `Node?`, so its parameter must accept `nil` if the class is nil-tested (V0101). An instance has `to_s` and `inspect` only when its class defines them, and interpolation, `p` and `puts` render any instance. `a.count += 1` reads with the getter and writes with the setter, so it needs both. See [classes](/reference/classes/).
 - An enum is a type. A symbol literal naming a member, such as `:draft`, is accepted where the runtime checks the enum and so turns the symbol into the member: a typed local, a parameter of a function or method, a result, a field, a default, a constant, a `yield` argument or a block's result. Elsewhere, such as an argument of a builtin, an element written through an index or `<<`, a class variable, or a later assignment to a parameter or to a local without a declared type, it would stay a symbol, so write `Status::Draft` (V0101). Members have `name`, `symbol` and `to_s`.
 - `case` over an enum or a `bool` must handle every member or have an `else` (V0114), so adding a member shows every `case` that needs it. Its `when` values name members as `Status::Draft`.
 
 ## Modules and required files
 
-A module is a namespace of functions, constants and nested modules or classes:
+A module is a namespace of functions, constants and nested modules. Classes and enums are declared at the top level, and functions at the top level or in a class or module body; a declaration anywhere else, such as a class in a class or a function in a function, block or `if`, is an error (V0001).
+
+A module's functions are called through it:
 
 ```vibe
 module Pricing
@@ -503,7 +610,9 @@ greeting = "Hello, #{customer["name"]}"
 discount = customer["tier"] == "gold" ? 10 : 0
 ```
 
-A capability's methods are typed by the signatures the host publishes; a host function or capability method without a signature takes and returns `any`. See [host globals](/reference/globals/) and [host capabilities](/reference/capabilities/).
+Assigning a global's name, in the script, a function or a block, writes the global, which every function reads with the type the host declares; the value must have that type (V0101), and declaring the name with another type is an error (V0102). A parameter or block parameter of the name is its own local.
+
+A capability's methods are typed by the signatures the host publishes; a host function or capability method without a signature takes and returns `any`. A `break` out of a host method's block becomes its result, so its value must have the declared result type (V0101). See [host globals](/reference/globals/) and [host capabilities](/reference/capabilities/).
 
 ## Errors
 

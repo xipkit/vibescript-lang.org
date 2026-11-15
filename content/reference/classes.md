@@ -81,7 +81,7 @@ def run -> int
 end
 ```
 
-This returns `2` on every call. Uppercase assignments in a class body define class constants, read as `LIMIT` inside the class and `Counter::LIMIT` outside it. `LIMIT: int = 3` declares a constant's type, which every assignment to it keeps. Nested classes are named through their scope, `Outer::Inner`, in types as in values.
+This returns `2` on every call. Uppercase assignments in a class body define class constants, read as `LIMIT` inside the class and `Counter::LIMIT` outside it. `LIMIT: int = 3` declares a constant's type, which every assignment to it keeps. Classes do not nest: a class is declared at the top level, and one in a class, module, function or other body is an error (V0001).
 
 Methods and accessors support public, private and protected sections, inline modifiers such as `private def helper`, and symbol directives. Ordinary private calls require an implicit receiver. Protected instance methods allow callers from the same class's instances; protected class methods allow callers from that class's class methods. Aliases preserve the target definition and its visibility at the alias declaration. With static types, a call its visibility forbids is a compile error (V0208).
 
@@ -89,7 +89,7 @@ An instance's class is tested with `value.is_type?(:Counter)` and asserted with 
 
 ## Operators and indexed access
 
-Instances can define `+`, `-`, `*`, `/`, `%`, `**`, `<<`, `&`, `==`, `!=`, `<`, `<=`, `>`, `>=` and `<=>`, each with typed parameters and a declared result. Operator syntax calls the left instance's method, and an operator the class does not define is a compile error (V0108); `<` is not derived from `<=>`. Compound assignments use the corresponding operator and store its result. An explicit `!=` takes precedence; otherwise `!=` negates the result of `==`.
+Instances can define `+`, `-`, `*`, `/`, `%`, `**`, `<<`, `&`, `==`, `!=`, `<`, `<=`, `>`, `>=` and `<=>`, each with typed parameters and a declared result. Operator syntax calls the left instance's method, and an operator the class does not define is a compile error (V0108); `<` is not derived from `<=>`. Compound assignments use the corresponding operator and store its result. An explicit `!=` takes precedence; otherwise `!=` negates the result of `==`. An instance also answers `//`, `===`, `=~` and `!~` with a method of that name, which only `alias` or `alias_method` can define, as in `alias_method :"=~", :matches`. `!`, `&&`, `||` and `|` never call a method, so an alias cannot name them.
 
 ```vibe
 class Counter

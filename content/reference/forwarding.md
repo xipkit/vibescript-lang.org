@@ -47,4 +47,4 @@ account.balance # 15
 
 Each is reported as V0405; `vibes fix` rewrites a `send` or `public_send` whose name is a symbol literal into the direct call. Capability methods that happen to be named `send`, such as `sms.send(...)`, are ordinary calls and are unaffected.
 
-The [reference differences](/reference-source/de1b6c9eb37e5ac38299ecb63bcac4520d81b88c/docs/forwarding-differences.json) recorded while porting them remain part of the `compatibility` golden corpus.
+The [reference differences](/reference-source/1b406855bfb83cf4c26e45dda3d7604757d0e7f5/docs/forwarding-differences.json) recorded while porting them remain part of the `compatibility` golden corpus.
