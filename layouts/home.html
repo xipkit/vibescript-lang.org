@@ -99,39 +99,25 @@
 
   <div class="pair">
     <div class="pair-copy">
-      <h3>Small on purpose.</h3>
+      <h3>Work with collections.</h3>
       <p>
-        Functions have names, and blocks run during the call that receives them.
-        Changing an array or hash leaves other copies alone. Hash keys are strings,
-        and records declare the keys they contain.
+        Use familiar methods like <code>select</code>, <code>map</code>, and <code>reduce</code>
+        to filter and transform data. Blocks run within the same limits as the rest of your script.
       </p>
     </div>
     <div class="pair-panel">
       <div class="code-window">
         <div class="code-window-header">
-          <span class="code-window-title">small_surface.vibe</span>
+          <span class="code-window-title">iterators.vibe</span>
         </div>
-        <pre><code class="language-vibescript">module Scoring
-  BONUS = 10
+        <pre><code class="language-vibescript">type Order = { total: money, paid: bool }
 
-  def self.with_bonus(score: int) -> int
-    score + BONUS
-  end
-end
-
-type Order = { status: string, score: int }
-
-def approve(order: Order) -> Order
-  order["status"] = "approved"
-  order["score"] = Scoring.with_bonus(order["score"])
-  order
-end
-
-pending = { status: "pending", score: 80 }
-approved = approve(pending)
-
-pending["status"] # "pending"
-approved["score"] # 90</code></pre>
+def paid_total(orders: array&lt;Order&gt;) -> money
+  orders
+    .select { |o| o["paid"] }
+    .map { |o| o["total"] }
+    .reduce(money("0.00 USD")) { |sum, t| sum + t }
+end</code></pre>
       </div>
     </div>
   </div>
@@ -140,9 +126,9 @@ approved["score"] # 90</code></pre>
     <div class="pair-copy">
       <h3>Add your own services.</h3>
       <p>
-        Give a script an SMS service, an email client, or your own API through a
-        host capability. You write the adapter. The script calls it like any other method.
-        <a href="/reference#app-services">Here's how to connect one.</a>
+        Give scripts access to an SMS service, an email client, or your own API. Connect them
+        through a host adapter, then call them from Vibescript.
+        <a href="/reference#app-services">See the host adapter reference.</a>
       </p>
     </div>
     <div class="pair-panel">
@@ -162,7 +148,7 @@ end</code></pre>
 
   <div class="pair">
     <div class="pair-copy">
-      <h3>Set hard limits for each script.</h3>
+      <h3>Set limits for each script.</h3>
       <p>
         Set a budget for execution steps, memory, and call depth. If a script reaches
         a limit, the engine stops it and returns an error.
@@ -192,8 +178,9 @@ end</span>
     <div class="pair-copy">
       <h3>Built-in money, duration, and enum types.</h3>
       <p>
-        Write <code>3.days</code> for a duration. Use money values for exact decimal
-        arithmetic. Define enums for choices such as shipping speeds or order states.
+        Write <code>3.days</code> for a duration. Use money values for exact decimal arithmetic
+        without floating-point rounding errors. Define enums for a fixed set of choices,
+        like shipping speeds or order states.
       </p>
     </div>
     <div class="pair-panel">
@@ -305,25 +292,8 @@ end</code></pre>
     </a>
     {{end}}
   </div>
-</section>
-
-<div class="divider divider-band" aria-hidden="true">
-  <svg viewBox="0 0 1200 48" preserveAspectRatio="none" focusable="false"><path d="M0 20 L552 20 L600 48 L648 20 L1200 20 L1200 48 L0 48 Z"/></svg>
-</div>
-
-<section class="closing">
-  <svg class="sparkle sparkle-bleed tilt-18" aria-hidden="true"><use href="#sparkle"></use></svg>
-  <svg class="sparkle sparkle-md sparkle-keyword sparkle-float sparkle-closing tilt-neg-13" aria-hidden="true"><use href="#sparkle"></use></svg>
-  <div class="closing-copy">
-    <p class="eyebrow"><svg class="vee" aria-hidden="true"><use href="#vee"></use></svg> Try it</p>
-    <h2>Run a few examples.</h2>
-    <p class="section-sub">
-      Pick an example, read the code, and run it. You don't need to install anything.
-    </p>
-    <div class="hero-actions">
-      <a class="button" href="/examples">Browse examples</a>
-      <a class="button-secondary" href="{{site.Params.upstreamRepo}}">View on GitHub</a>
-    </div>
+  <div class="featured-actions">
+    <a class="button" href="/examples">Browse all examples</a>
   </div>
 </section>
 {{end}}
