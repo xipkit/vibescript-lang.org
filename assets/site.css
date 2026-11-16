@@ -162,11 +162,6 @@ button:focus-visible {
   margin-bottom: -1px;
 }
 
-.divider-band {
-  color: var(--band);
-  margin-bottom: -1px;
-}
-
 /* Wave: the signature-color moment, carrying no content. Two ribbons of the
    same sine at opposite phase, so they read as depth rather than one shape. */
 
@@ -764,8 +759,7 @@ h3 {
 }
 
 .section-intro h2,
-.section-header h2,
-.closing-copy h2 {
+.section-header h2 {
   margin: 0 0 0.875rem;
   font-size: clamp(1.9rem, 1.3rem + 1.9vw, 2.8rem);
   font-weight: 800;
@@ -1103,6 +1097,10 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.featured-actions {
+  margin-top: 2rem;
+}
+
 .card-meta {
   display: flex;
   align-items: center;
@@ -1219,34 +1217,6 @@ a.tag:hover {
 
 .link-subtle {
   color: var(--muted);
-}
-
-/* Closing */
-
-.closing {
-  position: relative;
-  margin-inline: calc(50% - 50vw);
-  padding: 4.5rem calc(50vw - 50%) 5.5rem;
-  background: var(--band);
-  overflow: hidden;
-}
-
-.closing-copy .section-sub {
-  margin-bottom: 0.5rem;
-}
-
-.sparkle-bleed {
-  position: absolute;
-  top: 14%;
-  right: -60px;
-  width: 230px;
-  height: 230px;
-  opacity: 0.9;
-}
-
-.sparkle-closing {
-  bottom: 3.5rem;
-  left: clamp(0.75rem, calc(50vw - 33rem), 6rem);
 }
 
 /* Section panel (404) */
@@ -1902,12 +1872,6 @@ a.tag:hover {
   .pair:nth-of-type(even) {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .sparkle-bleed {
-    width: 150px;
-    height: 150px;
-    right: -45px;
   }
 
   .detail-header {
